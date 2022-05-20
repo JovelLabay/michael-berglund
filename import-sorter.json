@@ -1,0 +1,23 @@
+{
+  "importSorter.generalConfiguration.sortOnBeforeSave": true,
+  "importSorter.importStringConfiguration.hasSemicolon": false,
+  "importStringConfiguration.quoteMark": "double",
+  "importSorter.sortConfiguration.customOrderingRules.rules": [
+    {
+      "regex": "^(?:react|next|tiny-invariant|@urql)",
+      "orderLevel": 10
+    },
+    {
+      "regex": "^@(?:clients|components|config|hooks|icons|logos|models|store|utils|/)",
+      "orderLevel": 30
+    },
+    {
+      "regex": "^public",
+      "orderLevel": 30
+    },
+    {
+      "regex": "^[.]",
+      "orderLevel": 40
+    }
+  ]
+}
