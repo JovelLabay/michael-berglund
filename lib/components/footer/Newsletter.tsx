@@ -26,7 +26,7 @@ export const NewsLetter = () => {
               className="input-link-text w-full px-4 py-[17px] outline-none"
               placeholder={emailPlaceholder}
             />
-            <button className="flex h-[52px] w-[64px] items-center justify-center bg-orange">
+            <button className="flex h-[52px] w-[64px] items-center justify-center bg-orange duration-300 ease-in-out hover:opacity-75">
               <SendEmail />
             </button>
           </div>

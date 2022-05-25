@@ -39,6 +39,7 @@ export interface ACFGlobalFields {
       association: {
         title: string
         partners: {
+          link: string
           logo: WPMedia
         }[]
       }

@@ -4,6 +4,7 @@ import Link from "next/link"
 import { useContext } from "react"
 
 import mapImage from "@/public/Map.png"
+import { AppLink } from "@components/shared/AppLink"
 import { FooterLogo } from "@logos/FooterLogo"
 
 import { ContactItem } from "./ContactItem"
@@ -40,14 +41,20 @@ export const Footer = () => {
               {links &&
                 links.map(({ linkType, text, externalLink, internalLink }) =>
                   linkType === "internal" ? (
-                    <Link key={text} href={internalLink.uri}>
-                      <a>
-                        <span>{text}</span>
-                      </a>
-                    </Link>
+                    <AppLink
+                      key={text}
+                      href={internalLink.uri}
+                      className="duration-300 ease-in-out hover:text-medium-beige"
+                    >
+                      <span>{text}</span>
+                    </AppLink>
                   ) : (
-                    <Link key={text} href={externalLink} target="_blank" rel="noreferrer">
-                      <a>
+                    <Link key={text} href={externalLink}>
+                      <a
+                        className="duration-300 ease-in-out hover:text-medium-beige"
+                        target="_blank"
+                        rel="noreferrer"
+                      >
                         <span>{text}</span>
                       </a>
                     </Link>
@@ -63,10 +70,16 @@ export const Footer = () => {
               </span>
               <div className="mt-6 flex space-x-10">
                 {association.partners &&
-                  association.partners.map(({ logo }) => (
-                    <div key={logo.mediaItemUrl}>
+                  association.partners.map(({ logo, link }) => (
+                    <a
+                      key={logo.mediaItemUrl}
+                      href={link}
+                      className="duration-300 ease-in-out hover:opacity-75"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
                       <Image src={logo.mediaItemUrl} alt={logo.altText} width={110} height={40} />
-                    </div>
+                    </a>
                   ))}
               </div>
             </div>

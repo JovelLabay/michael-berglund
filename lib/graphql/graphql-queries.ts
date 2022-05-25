@@ -73,6 +73,7 @@ export const GET_GLOBAL_FIELDS = gql`
           association {
             title
             partners {
+              link
               logo {
                 altText
                 mediaItemUrl

@@ -18,9 +18,12 @@ export const ContactItem = ({ icon, text, link }: ContactItemProps) => {
   )
 
   return link ? (
-    <Link href={`mailto:info@michaelberglund.se`}>
-      <a className="icon-text">{info}</a>
-    </Link>
+    <a
+      href={`mailto:info@michaelberglund.se`}
+      className="icon-text duration-300 ease-in-out hover:text-medium-beige"
+    >
+      {info}
+    </a>
   ) : (
     <div className="icon-text">{info}</div>
   )
