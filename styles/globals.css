@@ -1,3 +1,57 @@
+@import "./font-definitions.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  html {
+    height: stretch;
+    height: -webkit-stretch;
+  }
+
+  body {
+    @apply overflow-x-hidden bg-dark-blue font-gotham text-body-m font-[325] text-dark-blue;
+  }
+}
+
+@layer components {
+  .app-h2 {
+    @apply font-lora text-app-h2;
+  }
+
+  .app-h3 {
+    @apply font-lora text-app-h3;
+  }
+
+  .pre-title {
+    @apply text-pre-title;
+  }
+
+  .body-s {
+    @apply text-body-s;
+  }
+
+  .link-s {
+    @apply text-link-s;
+  }
+
+  .footer-contact-text {
+    @apply text-link-footer;
+  }
+
+  .footer-link-text {
+    @apply text-body-s;
+  }
+
+  .input-link-text {
+    @apply text-input font-[325];
+  }
+
+  .icon-text {
+    @apply flex items-center space-x-[14px];
+  }
+}
+
+@layer utilities {
+}
