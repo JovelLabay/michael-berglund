@@ -15,7 +15,11 @@ export const MenuItem = ({ text, link, image }: MenuItemProps) => {
   const [isShowImage, setIsShowImage] = useState(false)
   return (
     <div className="flex">
-      <div onMouseEnter={() => setIsShowImage(true)} onMouseLeave={() => setIsShowImage(false)}>
+      <div
+        onMouseEnter={() => setIsShowImage(true)}
+        onMouseLeave={() => setIsShowImage(false)}
+        className="w-2/4"
+      >
         <AppLink
           href={link}
           className="transition-colors duration-500 ease-in-out hover:text-light-green"
@@ -25,11 +29,11 @@ export const MenuItem = ({ text, link, image }: MenuItemProps) => {
       </div>
       <div
         className={classNames(
-          "absolute right-0 top-0 h-0 opacity-0 transition-opacity duration-500 ease-in-out",
+          "absolute right-0 top-0 w-2/4 opacity-0 transition-opacity duration-500 ease-in-out",
           { "opacity-100": isShowImage }
         )}
       >
-        <div className="relative h-[512px] w-[656px]">
+        <div className="relative aspect-[656/512] w-full ">
           <Image src={image.mediaItemUrl} alt={image.altText} objectFit="cover" layout="fill" />
         </div>
       </div>
