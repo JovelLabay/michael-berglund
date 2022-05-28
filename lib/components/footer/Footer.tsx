@@ -28,7 +28,9 @@ export const Footer = () => {
         <div className="flex w-2/4 flex-col justify-between p-12 pt-[60px]">
           {/* Top */}
           <div className="flex flex-wrap justify-between">
-            <FooterLogo className="shrink-0" />
+            <AppLink href="/">
+              <FooterLogo className="shrink-0" />
+            </AppLink>
 
             {/* Contact Link */}
             <div className="footer-contact-text flex flex-col space-y-3">

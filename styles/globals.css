@@ -54,4 +54,8 @@
 }
 
 @layer utilities {
+  /* TODO: Update later */
+  .wysiwyg a {
+    @apply duration-300 ease-in-out hover:text-medium-beige;
+  }
 }
