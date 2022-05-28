@@ -12,7 +12,9 @@ export const Header = ({ isMenuOpen, toggleMenu }: HeaderProps) => {
   return (
     <div className="absolute top-0 z-20 flex w-full items-center justify-between px-12 py-6 text-white">
       <Hamburger toggled={isMenuOpen} toggle={toggleMenu} />
-      <MainLogo />
+      <AppLink href="/">
+        <MainLogo />
+      </AppLink>
       <AppLink
         href="#"
         className="text-link-m font-normal duration-300 ease-in-out hover:text-medium-beige"

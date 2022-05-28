@@ -29,7 +29,7 @@ export const MenuItem = ({ text, link, image }: MenuItemProps) => {
       </div>
       <div
         className={classNames(
-          "absolute right-0 top-0 w-2/4 opacity-0 transition-opacity duration-500 ease-in-out",
+          "absolute right-0 top-2/4 w-2/4 -translate-y-2/4 opacity-0 transition-opacity duration-500 ease-in-out",
           { "opacity-100": isShowImage }
         )}
       >

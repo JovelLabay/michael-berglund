@@ -6,5 +6,10 @@ interface WysiwygProps {
 }
 
 export const Wysiwyg = ({ content, className }: WysiwygProps) => {
-  return <div className={classNames(className)} dangerouslySetInnerHTML={{ __html: content }}></div>
+  return (
+    <div
+      className={classNames("wysiwyg", className)}
+      dangerouslySetInnerHTML={{ __html: content }}
+    ></div>
+  )
 }
