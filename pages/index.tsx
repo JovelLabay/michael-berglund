@@ -4,11 +4,16 @@ import { GetServerSideProps } from "next"
 import React from "react"
 import invariant from "tiny-invariant"
 
+import { parse } from "@/lib/utils/BlockParser"
+import { getImages } from "@/lib/utils/ImageGetter"
+import { Block } from "@components/blocks"
 import Layout from "@components/Layout/Layout"
+import { BlocksUnion } from "@models/blocks"
 import { GQLGlobalFields } from "@models/common"
 
 interface IndexProps {
   globalFields: GQLGlobalFields
+  blocks: BlocksUnion[]
 }
 
 export const getServerSideProps: GetServerSideProps<IndexProps> = async () => {
@@ -19,15 +24,19 @@ export const getServerSideProps: GetServerSideProps<IndexProps> = async () => {
 
   // ensure necessary data exist
   invariant(globalFields, "global fields is undefined")
+  invariant(pageBlocks, "Page blocks are undefined")
 
-  return { props: { globalFields } }
+  const { blocks, imagesIds } = parse(pageBlocks.page.blocks)
+  const images = await getImages(imagesIds)
+
+  return { props: { globalFields, blocks } }
 }
 
-export default function Index({ globalFields }: IndexProps) {
+export default function Index({ globalFields, blocks }: IndexProps) {
   const { acfGlobalFields, generalSettings } = globalFields
   return (
     <Layout acfGlobalFields={acfGlobalFields} generalSettings={generalSettings}>
-      <div></div>
+      {blocks ? blocks.map(block => <Block key={block.name} block={block} />) : null}
     </Layout>
   )
 }
