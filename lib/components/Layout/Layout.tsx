@@ -5,15 +5,21 @@ import { ReactNode, useCallback, useState } from "react"
 
 import { Footer } from "@components/footer"
 import { Header, MenuContent } from "@components/menu"
-import { ACFGeneralSettings, ACFGlobalFields } from "@models/common"
+import { ACFGeneralSettings, ACFGlobalFields, PageMap } from "@models/common"
 
 export interface LayoutProps {
   children: ReactNode
   acfGlobalFields: ACFGlobalFields
   generalSettings: ACFGeneralSettings
+  pageMap?: PageMap
 }
 
-export default function Layout({ children, acfGlobalFields, generalSettings }: LayoutProps) {
+export default function Layout({
+  children,
+  acfGlobalFields,
+  generalSettings,
+  pageMap,
+}: LayoutProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   const toggleMenu = useCallback(() => {
@@ -21,7 +27,7 @@ export default function Layout({ children, acfGlobalFields, generalSettings }: L
   }, [])
 
   return (
-    <GlobalContext.Provider value={acfGlobalFields}>
+    <GlobalContext.Provider value={{ acf: acfGlobalFields, pageMap: pageMap }}>
       <div
         className={classNames("relative h-screen w-screen bg-dark-blue", {
           "overflow-hidden": isMenuOpen,
@@ -29,7 +35,7 @@ export default function Layout({ children, acfGlobalFields, generalSettings }: L
       >
         <Header isMenuOpen={isMenuOpen} toggleMenu={toggleMenu}></Header>
         <AnimatePresence>{isMenuOpen && <MenuContent />}</AnimatePresence>
-        <div className="pt-[400px]">{children}</div>
+        <div>{children}</div>
         <Footer />
       </div>
     </GlobalContext.Provider>

@@ -1,7 +1,13 @@
+import { AnimatedPage, HeroType } from "./common"
+
 export interface BaseBlock {
   name: BlockName
 }
 
+export interface HeroData extends BaseBlock {
+  type: HeroType
+  pages: AnimatedPage[] | null
+}
 export interface StatsData extends BaseBlock {
   heading: string
   description: string
@@ -21,9 +27,13 @@ export interface DescWithImageData extends BaseBlock {
 
 // export type BlocksUnion = StatsData | DescWithImageData
 
-export type BlockName = "acf/hero-block" | "acf/stats" | "acf/desc-image"
+export type BlockName = "acf/hero" | "acf/stats" | "acf/desc-image"
 
 /** Type-narrowing functions */
+export function isHeroData(object: any): object is HeroData {
+  return object && typeof object.name === "string" && object.name === "acf/hero"
+}
+
 export function isStatsData(object: any): object is StatsData {
   return object && typeof object.name === "string" && object.name === "acf/stats"
 }
