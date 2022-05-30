@@ -91,3 +91,22 @@ export const GET_GLOBAL_FIELDS = gql`
     }
   }
 `
+
+export const WP_BLOCKS = gql`
+  fragment WPBlocks on Block {
+    ... on AcfHeroBlock {
+      attributesJSON
+    }
+  }
+`
+
+export const GET_PAGE_BLOCKS_BY_ID = gql`
+  ${WP_BLOCKS}
+  query GetPageBlocksById($id: ID!) {
+    page(id: $id, idType: DATABASE_ID) {
+      blocks {
+        ...WPBlocks
+      }
+    }
+  }
+`
