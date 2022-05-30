@@ -1,4 +1,4 @@
-import { GET_GLOBAL_FIELDS } from "@graphql/graphql-queries"
+import { GET_GLOBAL_FIELDS, GET_PAGE_BLOCKS_BY_ID } from "@graphql/graphql-queries"
 import client from "@graphql/urql-client"
 import { GetServerSideProps } from "next"
 import React from "react"
@@ -12,7 +12,10 @@ interface IndexProps {
 }
 
 export const getServerSideProps: GetServerSideProps<IndexProps> = async () => {
-  const [{ data: globalFields }] = await Promise.all([client.query(GET_GLOBAL_FIELDS).toPromise()])
+  const [{ data: globalFields }, { data: pageBlocks }] = await Promise.all([
+    client.query(GET_GLOBAL_FIELDS).toPromise(),
+    client.query(GET_PAGE_BLOCKS_BY_ID, { id: process.env.WP_PAGEID_HOME }).toPromise(),
+  ])
 
   // ensure necessary data exist
   invariant(globalFields, "global fields is undefined")
