@@ -24,6 +24,10 @@
     @apply font-lora text-app-h3;
   }
 
+  .app-h4 {
+    @apply font-lora text-app-h4
+  }
+
   .pre-title {
     @apply text-pre-title;
   }
@@ -34,6 +38,10 @@
 
   .link-s {
     @apply text-link-s;
+  }
+
+  .link-m {
+    @apply text-link-m font-normal text-dark-green;
   }
 
   .footer-contact-text {

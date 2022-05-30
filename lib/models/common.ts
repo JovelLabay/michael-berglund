@@ -1,4 +1,8 @@
+import type { ImageProps } from "next/image"
+
 export type LinkType = "internal" | "external"
+
+export type ImageMap = Record<number, Pick<ImageProps, "src"| "alt">>
 
 export interface GQLGlobalFields {
   generalSettings: ACFGeneralSettings
