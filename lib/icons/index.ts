@@ -3,3 +3,5 @@ export interface IconProps {
 }
 
 export * from "./SendEmail"
+export * from "./ArrowRight"
+
