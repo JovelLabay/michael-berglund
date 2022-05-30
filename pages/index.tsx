@@ -4,7 +4,9 @@ import { GetServerSideProps } from "next"
 import React from "react"
 import invariant from "tiny-invariant"
 
+import { DescWithImgBlock } from "@components/descWithImgBlock"
 import Layout from "@components/Layout/Layout"
+import { StatsBlock } from "@components/statsBlock"
 import { GQLGlobalFields } from "@models/common"
 
 interface IndexProps {
@@ -24,7 +26,10 @@ export default function Index({ globalFields }: IndexProps) {
   const { acfGlobalFields, generalSettings } = globalFields
   return (
     <Layout acfGlobalFields={acfGlobalFields} generalSettings={generalSettings}>
-      <div></div>
+      <div>
+        <StatsBlock />
+        <DescWithImgBlock />
+      </div>
     </Layout>
   )
 }
