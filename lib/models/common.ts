@@ -64,6 +64,7 @@ export interface Page {
   slug: string
   uri: string
   title: string
+  pageId?: string
   featuredImage: {
     node: WPMedia
   }
