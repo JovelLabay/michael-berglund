@@ -1,10 +1,10 @@
 import {
-    BlocksUnion, DescWithImageData, isDescWithImageData, isStatsData, StatsData
+    BaseBlock, DescWithImageData, isDescWithImageData, isStatsData, StatsData
 } from "@models/blocks"
 
 type Blocks = { attributesJSON: string }[]
 
-export const parse = (rawBlocks: Blocks): { blocks: BlocksUnion[]; imagesIds: number[] } => {
+export const parse = (rawBlocks: Blocks): { blocks: BaseBlock[] } => {
   // parse attributes from string to javascript objects
   const blockAttributes = rawBlocks.map(({ attributesJSON }) => JSON.parse(attributesJSON))
 
@@ -22,19 +22,22 @@ export const parse = (rawBlocks: Blocks): { blocks: BlocksUnion[]; imagesIds: nu
     }
   })
 
-  //collect all unique image ids used by different blocks
+  return { blocks }
+}
 
-  const mapper = (block: BlocksUnion) => {
+//collect all unique image ids used by different blocks
+export const getImageIds = (blocks: BaseBlock[]): number[] => {
+  const mapper = (block: BaseBlock) => {
     if (isStatsData(block)) return block.gallery.map(({ imageId }: any) => imageId)
-    if (isDescWithImageData(block)) return [block.imageId]
+    else if (isDescWithImageData(block)) return [block.imageId]
 
     return []
   }
 
-  const imagesIds = Array.from(new Set(blocks.map(mapper).flatMap(ids => ids)))
-
-  return { blocks, imagesIds }
+  return Array.from(new Set(blocks.map(mapper).flatMap(ids => ids)))
 }
+
+// TODO: add getPageIds method
 
 const statsIconPattern = /^icons_(\d+)_image$/
 

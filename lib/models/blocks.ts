@@ -19,7 +19,7 @@ export interface DescWithImageData extends BaseBlock {
   imageId: number
 }
 
-export type BlocksUnion = StatsData | DescWithImageData
+// export type BlocksUnion = StatsData | DescWithImageData
 
 export type BlockName = "acf/hero-block" | "acf/stats" | "acf/desc-image"
 

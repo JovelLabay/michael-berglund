@@ -4,16 +4,15 @@ import { GetServerSideProps } from "next"
 import React from "react"
 import invariant from "tiny-invariant"
 
-import { parse } from "@/lib/utils/BlockParser"
+import { getImageIds, parse } from "@/lib/utils/BlockParser"
 import { getImages } from "@/lib/utils/ImageGetter"
 import { Block } from "@components/blocks"
 import Layout from "@components/Layout/Layout"
-import { BlocksUnion } from "@models/blocks"
 import { GQLGlobalFields } from "@models/common"
 
 interface IndexProps {
   globalFields: GQLGlobalFields
-  blocks: BlocksUnion[]
+  blocks: BaseBlock[]
 }
 
 export const getServerSideProps: GetServerSideProps<IndexProps> = async () => {
@@ -26,8 +25,10 @@ export const getServerSideProps: GetServerSideProps<IndexProps> = async () => {
   invariant(globalFields, "global fields is undefined")
   invariant(pageBlocks, "Page blocks are undefined")
 
-  const { blocks, imagesIds } = parse(pageBlocks.page.blocks)
-  const images = await getImages(imagesIds)
+  const { blocks } = parse(pageBlocks.page.blocks)
+  const imageIds = getImageIds(blocks)
+
+  const images = await getImages(imageIds)
 
   return { props: { globalFields, blocks } }
 }
