@@ -1,15 +1,16 @@
-import { GlobalContext } from "@context/global"
+import { useGlobalContext } from "@context/global"
 import { motion } from "framer-motion"
-import { useContext } from "react"
 
 import { MenuItem } from "./MenuItem"
 
 export const MenuContent = () => {
   const {
-    acfGlobal: {
-      menu: { menuLinks },
+    acf: {
+      acfGlobal: {
+        menu: { menuLinks },
+      },
     },
-  } = useContext(GlobalContext)
+  } = useGlobalContext()
 
   return (
     <motion.div

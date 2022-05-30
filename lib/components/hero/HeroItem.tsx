@@ -1,13 +1,17 @@
 import classNames from "classnames"
 import { motion } from "framer-motion"
 
+import { Page } from "@models/common"
+
 import { HeroItemProgressBar } from "./HeroItemProgressBar"
 
 export interface HeroItemProps {
   isActive: boolean
+  mainTitle: string
   preTitle: string
   expandHeight: number
   className?: string
+  pageData: Page
   timeoutCallback: () => void
 }
 

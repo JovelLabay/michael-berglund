@@ -1,5 +1,5 @@
 import {
-    BaseBlock, DescWithImageData, isDescWithImageData, isStatsData, StatsData
+    BaseBlock, DescWithImageData, HeroData, isDescWithImageData, isHeroData, isStatsData, StatsData
 } from "@models/blocks"
 
 type Blocks = { attributesJSON: string }[]
@@ -9,10 +9,10 @@ export const parse = (rawBlocks: Blocks): { blocks: BaseBlock[] } => {
   const blockAttributes = rawBlocks.map(({ attributesJSON }) => JSON.parse(attributesJSON))
 
   // parse blocks according to their types
-  const blocks = blockAttributes.map(({ data, name }) => {
+  const blocks: BaseBlock[] = blockAttributes.map(({ data, name }) => {
     switch (name) {
       case "acf/hero":
-        return data //TODO: add parse for hero.
+        return parseHeroBlock(data)
       case "acf/stats":
         return parseStatsBlock(data)
       case "acf/desc-image":
@@ -29,7 +29,7 @@ export const parse = (rawBlocks: Blocks): { blocks: BaseBlock[] } => {
 export const getImageIds = (blocks: BaseBlock[]): number[] => {
   const mapper = (block: BaseBlock) => {
     if (isStatsData(block)) return block.gallery.map(({ imageId }: any) => imageId)
-    else if (isDescWithImageData(block)) return [block.imageId]
+    if (isDescWithImageData(block)) return [block.imageId]
 
     return []
   }
@@ -37,7 +37,37 @@ export const getImageIds = (blocks: BaseBlock[]): number[] => {
   return Array.from(new Set(blocks.map(mapper).flatMap(ids => ids)))
 }
 
-// TODO: add getPageIds method
+export const getPageLinkIds = (blocks: BaseBlock[]) => {
+  const mapper = (block: BaseBlock) => {
+    if (isHeroData(block)) return block.pages!.map(page => page.pageId)
+
+    return []
+  }
+
+  return Array.from(new Set(blocks.map(mapper).flatMap(ids => ids)))
+}
+
+const animatedPagesPattern = /^animated_pages_(\d+)_page$/
+
+const parseHeroBlock = (data: any): HeroData => {
+  const blockType = data.hero_type
+  let animatedPages = null
+
+  if (blockType === "animated") {
+    animatedPages = Object.keys(data)
+      .filter(key => animatedPagesPattern.test(key))
+      .map(key => key.match(animatedPagesPattern)![1])
+      .map(index => ({
+        pageId: +data[`animated_pages_${index}_page`],
+        mainTitle: data[`animated_pages_${index}_main_title`],
+        preTitle: data[`animated_pages_${index}_pre-title`],
+        linkText: data[`animated_pages_${index}_link_text`],
+        linkUrl: data[`animated_pages_${index}_link_url`],
+      }))
+  }
+
+  return { name: "acf/hero", type: data.hero_type, pages: animatedPages }
+}
 
 const statsIconPattern = /^icons_(\d+)_image$/
 

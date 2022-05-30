@@ -1,75 +1,49 @@
+import { useGlobalContext } from "@context/global"
 import { AnimatePresence } from "framer-motion"
-import { useRef, useState } from "react"
+import { useCallback, useRef, useState } from "react"
+
+import { HeroData } from "@models/blocks"
+import { AnimatedPage } from "@models/common"
 
 import { HeroItem } from "./HeroItem"
 
-const heroItemsTemp: heroItemTempProps[] = [
-  {
-    preTitle: "Executive Search",
-    bgClass: "bg-[#1A2241]",
-  },
-  {
-    preTitle: "Interim Management",
-    bgClass: "bg-[#3E5C58]",
-  },
-  {
-    preTitle: "Leadership Acceleration",
-    bgClass: "bg-[#D4743B]",
-  },
-  {
-    preTitle: "Board Value",
-    bgClass: "bg-[#B0BCB2]",
-  },
-]
-
-interface heroItemTempProps {
-  preTitle: string
-  bgClass: string
-}
-
-export default function Hero() {
-  const [heroItems, setHeroItems] = useState<heroItemTempProps[]>(heroItemsTemp)
+export default function Hero({ pages }: HeroData) {
+  console.log("hero component")
+  const { pageMap } = useGlobalContext()
+  const [heroItems, setHeroItems] = useState<AnimatedPage[]>(pages!)
   const heroContainer = useRef<HTMLDivElement>(null!)
 
-  const animateHandler = () => {
-    const items2 = [...heroItems]
+  const animateHandler = useCallback(() => {
+    const tempHeroList = [...heroItems]
+    const firstElem = tempHeroList.shift()
 
-    const firstElem = items2.shift()
-    firstElem!.preTitle += ` ${Math.random()}`
-    setHeroItems([...items2, firstElem!])
-  }
+    firstElem!.pageId += Math.random()
+    setHeroItems([...tempHeroList, firstElem!])
+  }, [heroItems])
 
   return (
     <div
       ref={heroContainer}
-      className="relative flex h-screen flex-col justify-end overflow-hidden bg-rose-200 text-white"
+      className="relative flex h-screen flex-col justify-end overflow-hidden bg-dark-blue text-white"
     >
-      <div className="absolute bottom-0 right-0 z-20">
-        <span className="m-5 rounded-lg border border-white p-4 transition hover:opacity-50">
-          {heroItems.length}
-        </span>
-        <button
-          className=" m-5 rounded-lg border border-white p-4 transition hover:opacity-50"
-          onClick={animateHandler}
-        >
-          Animate
-        </button>
-      </div>
-
       {/* HERO ITEMS */}
-
       <AnimatePresence initial={false}>
         {heroItems &&
-          heroItems.map(({ preTitle, bgClass }, index) => (
-            <HeroItem
-              key={preTitle}
-              isActive={preTitle === heroItems[0].preTitle}
-              preTitle={preTitle}
-              className={bgClass}
-              expandHeight={heroContainer.current?.clientHeight - heroItems.length * 100 + 100}
-              timeoutCallback={animateHandler}
-            />
-          ))}
+          heroItems.map(({ pageId, preTitle, mainTitle }) => {
+            const pageData = pageMap![pageId]
+
+            return (
+              <HeroItem
+                key={pageId}
+                pageData={pageData}
+                isActive={preTitle === heroItems[0].preTitle}
+                mainTitle={mainTitle}
+                preTitle={preTitle}
+                expandHeight={heroContainer.current?.clientHeight - heroItems.length * 100 + 100}
+                timeoutCallback={animateHandler}
+              />
+            )
+          })}
       </AnimatePresence>
     </div>
   )

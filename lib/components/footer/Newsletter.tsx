@@ -1,13 +1,14 @@
-import { GlobalContext } from "@context/global"
-import { useContext } from "react"
+import { useGlobalContext } from "@context/global"
 
 import { Wysiwyg } from "@components/shared/Wysiwyg"
 import { SendEmail } from "@icons/SendEmail"
 
 export const NewsLetter = () => {
   const {
-    acfGlobal: { newsletter },
-  } = useContext(GlobalContext)
+    acf: {
+      acfGlobal: { newsletter },
+    },
+  } = useGlobalContext()
 
   const { title, description, emailPlaceholder, privacyPolicy } = newsletter
 

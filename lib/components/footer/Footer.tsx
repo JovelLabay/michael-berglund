@@ -1,7 +1,6 @@
-import { GlobalContext } from "@context/global"
+import { useGlobalContext } from "@context/global"
 import Image from "next/image"
 import Link from "next/link"
-import { useContext } from "react"
 
 import mapImage from "@/public/Map.png"
 import { AppLink } from "@components/shared/AppLink"
@@ -12,8 +11,10 @@ import { NewsLetter } from "./Newsletter"
 
 export const Footer = () => {
   const {
-    acfGlobal: { footer },
-  } = useContext(GlobalContext)
+    acf: {
+      acfGlobal: { footer },
+    },
+  } = useGlobalContext()
 
   const { contactInfo, links, association, copyRightLabel } = footer
 
