@@ -1,11 +1,13 @@
+import classNames from "classnames"
 import { useEffect, useState } from "react"
 import { usePageVisibility } from "react-page-visibility"
 
 export interface HeroItemProgressBarProps {
   timeoutCallback: () => void
+  className?: string
 }
 
-export const HeroItemProgressBar = ({ timeoutCallback }: HeroItemProgressBarProps) => {
+export const HeroItemProgressBar = ({ timeoutCallback, className }: HeroItemProgressBarProps) => {
   const timeout = 5000
   const isVisible = usePageVisibility()
 
@@ -32,7 +34,10 @@ export const HeroItemProgressBar = ({ timeoutCallback }: HeroItemProgressBarProp
   }, [isAnimate, isVisible, timeoutCallback])
 
   return (
-    <div className="h-0.5 w-full bg-dark-beige transition-opacity" style={{ opacity: opacity }}>
+    <div
+      className={classNames("h-0.5 w-full bg-dark-beige transition-opacity", className)}
+      style={{ opacity: opacity }}
+    >
       <div
         className="h-full w-full bg-white"
         style={{

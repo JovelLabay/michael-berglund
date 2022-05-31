@@ -25,7 +25,7 @@
   }
 
   .app-h4 {
-    @apply font-lora text-app-h4
+    @apply font-lora text-app-h4;
   }
 
   .pre-title {
@@ -41,7 +41,7 @@
   }
 
   .link-m {
-    @apply text-link-m font-normal text-dark-green;
+    @apply text-link-m;
   }
 
   .footer-contact-text {

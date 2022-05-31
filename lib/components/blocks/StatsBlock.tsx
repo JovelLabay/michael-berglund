@@ -42,7 +42,7 @@ export const StatsBlock = ({ heading, description, linkTitle, gallery }: StatsDa
 
       <div className="mb-20 flex w-full justify-between space-x-8">{_stats}</div>
       <div className="flex items-center space-x-[10px]">
-        <AppLink className="link-m">{linkTitle}</AppLink>
+        <AppLink className="link-m font-normal text-dark-green">{linkTitle}</AppLink>
         <ArrowRight />
       </div>
     </section>

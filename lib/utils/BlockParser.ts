@@ -6,7 +6,9 @@ type Blocks = { attributesJSON: string }[]
 
 export const parse = (rawBlocks: Blocks): { blocks: BaseBlock[] } => {
   // parse attributes from string to javascript objects
-  const blockAttributes = rawBlocks.map(({ attributesJSON }) => JSON.parse(attributesJSON))
+  const blockAttributes = rawBlocks
+    .filter(blocks => Object.keys(blocks).length > 0)
+    .map(({ attributesJSON }) => JSON.parse(attributesJSON))
 
   // parse blocks according to their types
   const blocks: BaseBlock[] = blockAttributes.map(({ data, name }) => {
@@ -58,11 +60,13 @@ const parseHeroBlock = (data: any): HeroData => {
       .filter(key => animatedPagesPattern.test(key))
       .map(key => key.match(animatedPagesPattern)![1])
       .map(index => ({
+        id: +data[`animated_pages_${index}_page`],
         pageId: +data[`animated_pages_${index}_page`],
         mainTitle: data[`animated_pages_${index}_main_title`],
         preTitle: data[`animated_pages_${index}_pre-title`],
         linkText: data[`animated_pages_${index}_link_text`],
         linkUrl: data[`animated_pages_${index}_link_url`],
+        colorOverlay: data[`animated_pages_${index}_color_overlay`],
       }))
   }
 
