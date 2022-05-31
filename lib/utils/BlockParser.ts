@@ -1,5 +1,6 @@
 import {
-    BaseBlock, DescWithImageData, HeroData, isDescWithImageData, isHeroData, isStatsData, StatsData
+    BaseBlock, DescWithImageData, HeroData, isDescWithImageData, isHeroData, isLogowallData,
+    isStatsData, LogowallData, StatsData
 } from "@models/blocks"
 
 type Blocks = { attributesJSON: string }[]
@@ -17,6 +18,8 @@ export const parse = (rawBlocks: Blocks): { blocks: BaseBlock[] } => {
         return parseStatsBlock(data)
       case "acf/desc-image":
         return parseDescWithImageBlock(data)
+      case "acf/logo-wall":
+        return parseLogowallBlock(data)
       default:
         throw new Error(`Unknown block type: ${name}`)
     }
@@ -28,7 +31,8 @@ export const parse = (rawBlocks: Blocks): { blocks: BaseBlock[] } => {
 //collect all unique image ids used by different blocks
 export const getImageIds = (blocks: BaseBlock[]): number[] => {
   const mapper = (block: BaseBlock) => {
-    if (isStatsData(block)) return block.gallery.map(({ imageId }: any) => imageId)
+    if (isStatsData(block) || isLogowallData(block))
+      return block.gallery.map(({ imageId }: any) => imageId)
     if (isDescWithImageData(block)) return [block.imageId]
 
     return []
@@ -98,4 +102,18 @@ const parseDescWithImageBlock = (data: any): DescWithImageData => {
     imageId: data.image,
     name: "acf/desc-image",
   }
+}
+
+const logoWallPattern = /^logo_gallery_(\d+)_logo_image$/
+
+const parseLogowallBlock = (data: any): LogowallData => {
+  const indexes = Object.keys(data)
+    .filter(key => logoWallPattern.test(key))
+    .map(key => key.match(logoWallPattern)![1])
+
+  const gallery = indexes.map(index => ({
+    imageId: parseInt(data[`logo_gallery_${index}_logo_image`]),
+  }))
+
+  return { heading: data.heading, gallery: gallery, name: "acf/logo-wall" }
 }
