@@ -1,6 +1,6 @@
 import {
     BaseBlock, DescWithImageData, HeroData, isDescWithImageData, isHeroData, isLogowallData,
-    isStatsData, LogowallData, StatsData
+    isStatsData, LogowallData, ReviewSliderData, StatsData
 } from "@models/blocks"
 
 type Blocks = { attributesJSON: string }[]
@@ -20,6 +20,8 @@ export const parse = (rawBlocks: Blocks): { blocks: BaseBlock[] } => {
         return parseDescWithImageBlock(data)
       case "acf/logo-wall":
         return parseLogowallBlock(data)
+      case "acf/reviews-slider":
+        return parseReviewSilderBlock(data)
       default:
         throw new Error(`Unknown block type: ${name}`)
     }
@@ -122,4 +124,20 @@ const parseLogowallBlock = (data: any): LogowallData => {
     gallery: gallery,
     name: "acf/logo-wall",
   }
+}
+
+const reviewSliderPattern = /^reviews_(\d+)_review_text$/
+
+const parseReviewSilderBlock = (data: any): ReviewSliderData => {
+  const indexes = Object.keys(data)
+    .filter(key => reviewSliderPattern.test(key))
+    .map(key => key.match(reviewSliderPattern)![1])
+
+  const reviews = indexes.map(index => ({
+    reviewText: data[`reviews_${index}_review_text`],
+    reviewClient: data[`reviews_${index}_review_client`],
+    reviewCompany: data[`reviews_${index}_review_company`],
+  }))
+
+  return { reviews, name: "acf/reviews-slider" }
 }

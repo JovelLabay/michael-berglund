@@ -33,9 +33,22 @@ export interface LogowallData extends BaseBlock {
   }[]
 }
 
+export interface ReviewSliderData extends BaseBlock {
+  reviews: {
+    reviewText: string
+    reviewClient: string
+    reviewCompany: string
+  }[]
+}
+
 // export type BlocksUnion = StatsData | DescWithImageData
 
-export type BlockName = "acf/hero" | "acf/stats" | "acf/desc-image" | "acf/logo-wall"
+export type BlockName =
+  | "acf/hero"
+  | "acf/stats"
+  | "acf/desc-image"
+  | "acf/logo-wall"
+  | "acf/reviews-slider"
 
 /** Type-narrowing functions */
 export function isHeroData(object: any): object is HeroData {
@@ -52,4 +65,8 @@ export function isDescWithImageData(object: any): object is DescWithImageData {
 
 export function isLogowallData(object: any): object is LogowallData {
   return object && typeof object.name === "string" && object.name === "acf/logo-wall"
+}
+
+export function isReviewSilderData(object: any): object is ReviewSliderData {
+  return object && typeof object.name === "string" && object.name === "acf/reviews-slider"
 }
