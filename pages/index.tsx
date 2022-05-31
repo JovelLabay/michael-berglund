@@ -10,12 +10,13 @@ import { getPages } from "@/lib/utils/PageHellper"
 import { Block } from "@components/blocks"
 import Layout from "@components/Layout/Layout"
 import { BaseBlock } from "@models/blocks"
-import { GQLGlobalFields, PageMap } from "@models/common"
+import { GQLGlobalFields, ImageMap, PageMap } from "@models/common"
 
 interface IndexProps {
   globalFields: GQLGlobalFields
   blocks: BaseBlock[]
   pageMap?: PageMap
+  images?: ImageMap
 }
 
 export const getServerSideProps: GetServerSideProps<IndexProps> = async () => {
@@ -35,12 +36,12 @@ export const getServerSideProps: GetServerSideProps<IndexProps> = async () => {
   const images = await getImages(imageIds)
   const pageMap = await getPages(pageLinkIds)
 
-  return { props: { globalFields, blocks, pageMap } }
+  return { props: { globalFields, blocks, pageMap, images } }
 }
 
-export default function Index({ globalFields, blocks, pageMap }: IndexProps) {
+export default function Index({ globalFields, blocks, pageMap, images }: IndexProps) {
   return (
-    <Layout {...globalFields} pageMap={pageMap}>
+    <Layout {...globalFields} pageMap={pageMap} images={images}>
       {blocks ? blocks.map(block => <Block key={block.name} block={block} />) : null}
     </Layout>
   )

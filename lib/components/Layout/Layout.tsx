@@ -5,13 +5,14 @@ import { ReactNode, useCallback, useState } from "react"
 
 import { Footer } from "@components/footer"
 import { Header, MenuContent } from "@components/menu"
-import { ACFGeneralSettings, ACFGlobalFields, PageMap } from "@models/common"
+import { ACFGeneralSettings, ACFGlobalFields, ImageMap, PageMap } from "@models/common"
 
 export interface LayoutProps {
   children: ReactNode
   acfGlobalFields: ACFGlobalFields
   generalSettings: ACFGeneralSettings
   pageMap?: PageMap
+  images?: ImageMap
 }
 
 export default function Layout({
@@ -19,6 +20,7 @@ export default function Layout({
   acfGlobalFields,
   generalSettings,
   pageMap,
+  images,
 }: LayoutProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
@@ -27,7 +29,7 @@ export default function Layout({
   }, [])
 
   return (
-    <GlobalContext.Provider value={{ acf: acfGlobalFields, pageMap: pageMap }}>
+    <GlobalContext.Provider value={{ acf: acfGlobalFields, pageMap: pageMap, images: images }}>
       <div
         className={classNames("relative h-screen w-screen bg-dark-blue", {
           "overflow-hidden": isMenuOpen,
