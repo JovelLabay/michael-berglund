@@ -1,6 +1,6 @@
 import { useGlobalContext } from "@context/global"
 import { AnimatePresence } from "framer-motion"
-import { useCallback, useRef, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 
 import { HeroData } from "@models/blocks"
 import { AnimatedPage } from "@models/common"
@@ -17,7 +17,7 @@ export default function Hero({ pages }: HeroData) {
     const tempHeroList = [...heroItems]
     const firstElem = tempHeroList.shift()
 
-    firstElem!.pageId += Math.random()
+    firstElem!.id += Math.random()
     setHeroItems([...tempHeroList, firstElem!])
   }, [heroItems])
 
@@ -29,16 +29,17 @@ export default function Hero({ pages }: HeroData) {
       {/* HERO ITEMS */}
       <AnimatePresence initial={false}>
         {heroItems &&
-          heroItems.map(({ pageId, preTitle, mainTitle }) => {
+          heroItems.map(({ id, pageId, preTitle, mainTitle, colorOverlay }) => {
             const pageData = pageMap![pageId]
 
             return (
               <HeroItem
-                key={pageId}
+                key={id}
                 pageData={pageData}
                 isActive={preTitle === heroItems[0].preTitle}
                 mainTitle={mainTitle}
                 preTitle={preTitle}
+                colorOverlay={colorOverlay}
                 expandHeight={heroContainer.current?.clientHeight - heroItems.length * 100 + 100}
                 timeoutCallback={animateHandler}
               />

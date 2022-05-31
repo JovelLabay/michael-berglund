@@ -79,9 +79,11 @@ export interface Page {
 }
 
 export interface AnimatedPage {
+  id: number
   pageId: number
   mainTitle: string
   preTitle: string
   linkText: string
   linkUrl: string
+  colorOverlay: string
 }
