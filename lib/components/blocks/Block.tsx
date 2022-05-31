@@ -5,6 +5,7 @@ import {
 
 import { DescWithImgBlock } from "./"
 import { LogowallBlock } from "./LogowallBlock"
+import { ReviewSlider } from "./ReviewSlider"
 import { StatsBlock } from "./StatsBlock"
 
 export const Block = ({ block }: { block: BaseBlock }) => {
@@ -12,9 +13,7 @@ export const Block = ({ block }: { block: BaseBlock }) => {
   if (isStatsData(block)) return <StatsBlock {...block} />
   if (isDescWithImageData(block)) return <DescWithImgBlock {...block} />
   if (isLogowallData(block)) return <LogowallBlock {...block} />
-  if (isReviewSilderData(block)) {
-    console.log(block)
-  }
+  if (isReviewSilderData(block)) return <ReviewSlider {...block} />
 
   return null
 }
