@@ -1,17 +1,30 @@
 import { useGlobalContext } from "@context/global"
+import classNames from "classnames"
+import Image from "next/image"
 
 import { LogowallData } from "@models/blocks"
 
-//TODO: Add images from global.
-export const LogowallBlock = ({ heading, gallery }: LogowallData) => {
-  const mocklogos = [1, 2, 3, 4, 5, 6, 7, 8]
+export const LogowallBlock = ({ heading, border, gallery }: LogowallData) => {
+  const { images } = useGlobalContext()
 
-  const _logos = mocklogos.map(logo => <div className="h-10 w-[160px] bg-black"></div>)
+  const _logos = gallery.map(({ imageId }) => (
+    <div key={imageId} className="relative h-14 w-[158px] ">
+      <Image {...images![imageId]} layout="fill" objectFit="contain" />
+    </div>
+  ))
 
   return (
-    <div className="flex h-[300px] flex-col items-center bg-light-beige pt-[100px]">
-      <h3 className="app-h3 mb-[70px] text-dark-blue">{heading}</h3>
-      <div className="flex flex-wrap justify-center gap-y-10 gap-x-20 px-[296px]">{_logos}</div>
+    <div className="bg-light-beige">
+      <div
+        className={classNames("mx-12 flex flex-col items-center  pt-[100px]", {
+          "border-b border-normal-beige ": border === "border",
+        })}
+      >
+        <h3 className="app-h3 mb-[70px] text-dark-blue">{heading}</h3>
+        <div className="mb-[65px] flex flex-wrap justify-center gap-y-10 gap-x-20 px-[248px]">
+          {_logos}
+        </div>
+      </div>
     </div>
   )
 }
