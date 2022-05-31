@@ -25,9 +25,16 @@ export interface DescWithImageData extends BaseBlock {
   imageId: number
 }
 
+export interface LogowallData extends BaseBlock {
+  heading: string
+  gallery: {
+    imageId: number
+  }[]
+}
+
 // export type BlocksUnion = StatsData | DescWithImageData
 
-export type BlockName = "acf/hero" | "acf/stats" | "acf/desc-image"
+export type BlockName = "acf/hero" | "acf/stats" | "acf/desc-image" | "acf/logo-wall"
 
 /** Type-narrowing functions */
 export function isHeroData(object: any): object is HeroData {
@@ -40,4 +47,8 @@ export function isStatsData(object: any): object is StatsData {
 
 export function isDescWithImageData(object: any): object is DescWithImageData {
   return object && typeof object.name === "string" && object.name === "acf/desc-image"
+}
+
+export function isLogowallData(object: any): object is LogowallData {
+  return object && typeof object.name === "string" && object.name === "acf/logo-wall"
 }
