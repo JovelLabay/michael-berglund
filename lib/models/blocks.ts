@@ -27,6 +27,7 @@ export interface DescWithImageData extends BaseBlock {
 
 export interface LogowallData extends BaseBlock {
   heading: string
+  border: "border" | "no-border"
   gallery: {
     imageId: number
   }[]

@@ -116,5 +116,10 @@ const parseLogowallBlock = (data: any): LogowallData => {
     imageId: parseInt(data[`logo_gallery_${index}_logo_image`]),
   }))
 
-  return { heading: data.heading, gallery: gallery, name: "acf/logo-wall" }
+  return {
+    heading: data.heading,
+    border: data.border_bottom,
+    gallery: gallery,
+    name: "acf/logo-wall",
+  }
 }
