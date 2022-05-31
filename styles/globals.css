@@ -44,6 +44,10 @@
     @apply text-link-m;
   }
 
+  .quote-l {
+    @apply font-lora text-quote-l italic text-dark-blue;
+  }
+
   .footer-contact-text {
     @apply text-link-footer;
   }
@@ -59,6 +63,10 @@
   .icon-text {
     @apply flex items-center space-x-[14px];
   }
+
+  .quote-icon {
+    @apply font-lora text-app-h1;
+  }
 }
 
 @layer utilities {
@@ -66,4 +74,5 @@
   .wysiwyg a {
     @apply duration-300 ease-in-out hover:text-medium-beige;
   }
+
 }
