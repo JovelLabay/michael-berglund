@@ -40,6 +40,7 @@ export const getImageIds = (blocks: BaseBlock[]): number[] => {
 export const getPageLinkIds = (blocks: BaseBlock[]) => {
   const mapper = (block: BaseBlock) => {
     if (isHeroData(block)) return block.pages!.map(page => page.pageId)
+    if (isStatsData(block)) return [block.linkUri]
 
     return []
   }
