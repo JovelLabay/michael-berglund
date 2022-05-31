@@ -1,8 +1,10 @@
 import { withPasswordProtect } from "@storyofams/next-password-protect"
-
-import type { AppProps } from "next/app"
+import "swiper/css"
+import "swiper/css/bundle"
 
 import "../styles/globals.css"
+
+import type { AppProps } from "next/app"
 
 function MyApp({ Component, pageProps }: AppProps) {
   return <Component {...pageProps} />
