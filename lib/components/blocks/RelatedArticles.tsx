@@ -1,4 +1,5 @@
 import { useGlobalContext } from "@context/global"
+import classNames from "classnames"
 import React, { useCallback, useMemo, useRef, useState } from "react"
 import { Pagination } from "swiper"
 // Import Swiper styles
@@ -10,12 +11,17 @@ import { Swiper as SwiperClass } from "swiper/types"
 
 import { Card } from "@components/cards"
 import { Wysiwyg } from "@components/shared/Wysiwyg"
+import { SwiperArrowLeft } from "@icons/SwiperArrowLeft"
+import { SwiperArrowRight } from "@icons/SwiperArrowRight"
 import { RelatedArticleData } from "@models/blocks"
 
 export const RelatedArticles = ({ title, postIds }: RelatedArticleData) => {
   const { postMap } = useGlobalContext()
   const [index, setIndex] = useState(0)
   const swiperRef = useRef<SwiperClass>(null!)
+
+  const slidesPerView = 2.5
+  const totalPages = Math.ceil(postIds.length / Math.floor(slidesPerView))
 
   // handlers
   const handleNext = useCallback(() => swiperRef.current.slideTo(index + 1), [index])
@@ -55,7 +61,7 @@ export const RelatedArticles = ({ title, postIds }: RelatedArticleData) => {
   )
 
   return (
-    <div className="bg-white px-12 pt-[100px] pb-[120px]">
+    <div className="bg-white pl-12 pt-[100px] pb-[120px]">
       <h3 className="app-h3 mb-[60px]">{title}</h3>
       <div className="relative">
         <Swiper
@@ -63,22 +69,33 @@ export const RelatedArticles = ({ title, postIds }: RelatedArticleData) => {
             type: "progressbar",
           }}
           spaceBetween={35}
-          slidesPerView={2.5}
+          slidesPerView={slidesPerView}
           navigation={true}
           modules={[Pagination]}
-          className="mySwiper !pb-14"
+          initialSlide={0}
+          className="progress-bar-swiper !pb-14"
           onSwiper={handleSwiperInit}
         >
           {slides}
         </Swiper>
 
-        <div className="absolute bottom-0 right-0 inline-flex translate-y-1/2 space-x-5">
-          <span className="cursor-pointer border border-red-500" onClick={handlePrev}>
-            prev
-          </span>
-          <span className="cursor-pointer border border-red-500" onClick={handleNext}>
-            next
-          </span>
+        <div className="absolute bottom-0 right-[4%] inline-flex translate-y-1/2 space-x-[15px]">
+          <button
+            onClick={handlePrev}
+            className={classNames("p-1", {
+              "pointer-events-none opacity-25": index === 0,
+            })}
+          >
+            <SwiperArrowLeft />
+          </button>
+          <button
+            onClick={handleNext}
+            className={classNames("p-1", {
+              "pointer-events-none opacity-25": index === totalPages - 1,
+            })}
+          >
+            <SwiperArrowRight />
+          </button>
         </div>
       </div>
     </div>

@@ -75,26 +75,27 @@
     @apply duration-300 ease-in-out hover:text-medium-beige;
   }
 
-  .swiper .swiper-pagination-progressbar.swiper-pagination-horizontal {
+  .progress-bar-swiper.swiper .swiper-pagination-progressbar.swiper-pagination-horizontal {
     @apply top-auto bottom-0 h-0.5 w-[85%] bg-darker-beige;
   }
 
-  .swiper .swiper-pagination-progressbar .swiper-pagination-progressbar-fill {
+  .progress-bar-swiper.swiper .swiper-pagination-progressbar .swiper-pagination-progressbar-fill {
     @apply bg-dark-green;
   }
-  .swiper-nav-btn {
+
+  .review-slider.swiper .swiper-nav-btn {
     @apply absolute top-1/3 z-10;
   }
 
-  .swiper {
+  .review-slider.swiper {
     @apply h-[260px];
   }
 
-  .swiper span.swiper-pagination-bullet {
+  .review-slider.swiper span.swiper-pagination-bullet {
     @apply h-3 w-3;
   }
 
-  .swiper span.swiper-pagination-bullet.swiper-pagination-bullet-active {
+  .review-slider.swiper span.swiper-pagination-bullet.swiper-pagination-bullet-active {
     @apply h-3 w-3 bg-dark-green;
   }
 }
