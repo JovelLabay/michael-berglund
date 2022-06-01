@@ -1,4 +1,5 @@
 import type { ImageProps } from "next/image"
+import { BaseBlock } from "./blocks"
 
 export type LinkType = "internal" | "external"
 
@@ -8,6 +9,15 @@ export type ImageMap = Record<number, Pick<ImageProps, "src" | "alt">>
 
 export type PageMap = Record<number, Page>
 export type PostMap = Record<number, Post>
+
+export interface PageProps {
+  globalFields: GQLGlobalFields
+  blocks: BaseBlock[]
+  pageMap?: PageMap
+  postMap?: PostMap
+  images?: ImageMap
+  pageData?: Page
+}
 
 export interface GQLGlobalFields {
   generalSettings: ACFGeneralSettings
