@@ -14,6 +14,7 @@ export interface LayoutProps {
   pageMap?: PageMap
   postMap?: PostMap
   images?: ImageMap
+  isHomePage?: boolean
 }
 
 export default function Layout({
@@ -23,6 +24,7 @@ export default function Layout({
   pageMap,
   postMap,
   images,
+  isHomePage,
 }: LayoutProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
@@ -39,7 +41,7 @@ export default function Layout({
           "overflow-hidden": isMenuOpen,
         })}
       >
-        <Header isMenuOpen={isMenuOpen} toggleMenu={toggleMenu}></Header>
+        <Header isHomePage={isHomePage} isMenuOpen={isMenuOpen} toggleMenu={toggleMenu}></Header>
         <AnimatePresence>{isMenuOpen && <MenuContent />}</AnimatePresence>
         <div>{children}</div>
         <Footer />

@@ -45,7 +45,7 @@ export const getServerSideProps: GetServerSideProps<IndexProps> = async () => {
 
 export default function Index({ globalFields, blocks, pageMap, postMap, images }: IndexProps) {
   return (
-    <Layout {...globalFields} pageMap={pageMap} postMap={postMap} images={images}>
+    <Layout {...globalFields} pageMap={pageMap} postMap={postMap} images={images} isHomePage>
       {blocks ? blocks.map(block => <Block key={block.name} block={block} />) : null}
     </Layout>
   )
