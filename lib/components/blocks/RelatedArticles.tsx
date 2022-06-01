@@ -79,7 +79,7 @@ export const RelatedArticles = ({ title, postIds }: RelatedArticleData) => {
           {slides}
         </Swiper>
 
-        <div className="absolute bottom-0 right-[4%] inline-flex translate-y-1/2 space-x-[15px]">
+        <div className="absolute bottom-0 right-[4%] z-10 inline-flex translate-y-1/2 space-x-[15px]">
           <button
             onClick={handlePrev}
             className={classNames("p-1", {
