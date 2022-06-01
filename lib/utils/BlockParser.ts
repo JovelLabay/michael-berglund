@@ -1,6 +1,7 @@
 import {
-    BaseBlock, DescWithImageData, HeroData, isDescWithImageData, isHeroData, isRelatedArticlesData,
-    isStatsData, RelatedArticleData, StatsData
+    BaseBlock, DescWithImageData, HeroData, isDescWithImageData, isHeroData, isLogowallData,
+    isRelatedArticlesData, isStatsData, LogowallData, RelatedArticleData, ReviewSliderData,
+    StatsData
 } from "@models/blocks"
 
 type Blocks = { attributesJSON: string }[]
@@ -20,8 +21,13 @@ export const parse = (rawBlocks: Blocks): { blocks: BaseBlock[] } => {
         return parseStatsBlock(data)
       case "acf/desc-image":
         return parseDescWithImageBlock(data)
+      case "acf/logo-wall":
+        return parseLogowallBlock(data)
+      case "acf/reviews-slider":
+        return parseReviewSilderBlock(data)
       case "acf/related-articles":
         return parseRelatedArticles(data)
+
       default:
         throw new Error(`Unknown block type: ${name}`)
     }
@@ -33,7 +39,8 @@ export const parse = (rawBlocks: Blocks): { blocks: BaseBlock[] } => {
 //collect all unique image ids used by different blocks
 export const getImageIds = (blocks: BaseBlock[]): number[] => {
   const mapper = (block: BaseBlock) => {
-    if (isStatsData(block)) return block.gallery.map(({ imageId }: any) => imageId)
+    if (isStatsData(block) || isLogowallData(block))
+      return block.gallery.map(({ imageId }: any) => imageId)
     if (isDescWithImageData(block)) return [block.imageId]
 
     return []
@@ -116,6 +123,41 @@ const parseDescWithImageBlock = (data: any): DescWithImageData => {
     imageId: data.image,
     name: "acf/desc-image",
   }
+}
+
+const logoWallPattern = /^logo_gallery_(\d+)_logo_image$/
+
+const parseLogowallBlock = (data: any): LogowallData => {
+  const indexes = Object.keys(data)
+    .filter(key => logoWallPattern.test(key))
+    .map(key => key.match(logoWallPattern)![1])
+
+  const gallery = indexes.map(index => ({
+    imageId: parseInt(data[`logo_gallery_${index}_logo_image`]),
+  }))
+
+  return {
+    heading: data.heading,
+    border: data.border_bottom,
+    gallery: gallery,
+    name: "acf/logo-wall",
+  }
+}
+
+const reviewSliderPattern = /^reviews_(\d+)_review_text$/
+
+const parseReviewSilderBlock = (data: any): ReviewSliderData => {
+  const indexes = Object.keys(data)
+    .filter(key => reviewSliderPattern.test(key))
+    .map(key => key.match(reviewSliderPattern)![1])
+
+  const reviews = indexes.map(index => ({
+    reviewText: data[`reviews_${index}_review_text`],
+    reviewClient: data[`reviews_${index}_review_client`],
+    reviewCompany: data[`reviews_${index}_review_company`],
+  }))
+
+  return { heading: data.heading, reviews, name: "acf/reviews-slider" }
 }
 
 const relatedArticlePattern = /^articles_(\d+)_article$/

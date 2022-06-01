@@ -103,6 +103,12 @@ export const WP_BLOCKS = gql`
     ... on AcfDescImageBlock {
       attributesJSON
     }
+    ... on AcfLogoWallBlock {
+      attributesJSON
+    }
+    ... on AcfReviewsSliderBlock {
+      attributesJSON
+    }  
     ... on AcfRelatedArticlesBlock {
       attributesJSON
     }
