@@ -26,7 +26,7 @@ export const Footer = () => {
     <>
       <NewsLetter />
       <footer className="flex justify-between bg-dark-blue text-white">
-        <div className="flex w-2/4 flex-col justify-between p-12 pt-[60px]">
+        <div className="flex w-1/2 flex-col justify-between p-12 pt-[60px]">
           {/* Top */}
           <div className="flex flex-wrap justify-between">
             <AppLink href="/">
@@ -89,7 +89,7 @@ export const Footer = () => {
             <span className="body-s text-dark-beige">{parsedCopyright}</span>
           </div>
         </div>
-        <div className="w-2/4 shrink-0">
+        <div className="w-1/2 shrink-0">
           {/* <Map /> */}
           <div className="relative h-[455px]">
             <Image

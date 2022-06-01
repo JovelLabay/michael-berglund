@@ -9,7 +9,12 @@ export const LogowallBlock = ({ heading, border, gallery }: LogowallData) => {
 
   const _logos = gallery.map(({ imageId }) => (
     <div key={imageId} className="relative h-14 w-[158px] ">
-      <Image {...images![imageId]} layout="fill" objectFit="contain" />
+      <Image
+        src={images![imageId].src}
+        alt={images![imageId].alt}
+        layout="fill"
+        objectFit="contain"
+      />
     </div>
   ))
 
