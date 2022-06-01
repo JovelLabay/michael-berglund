@@ -44,6 +44,10 @@
     @apply text-link-m;
   }
 
+  .quote-l {
+    @apply font-lora text-quote-l italic text-dark-blue;
+  }
+
   .footer-contact-text {
     @apply text-link-footer;
   }
@@ -59,6 +63,10 @@
   .icon-text {
     @apply flex items-center space-x-[14px];
   }
+
+  .quote-icon {
+    @apply font-lora text-app-h1;
+  }
 }
 
 @layer utilities {
@@ -73,5 +81,20 @@
 
   .swiper .swiper-pagination-progressbar .swiper-pagination-progressbar-fill {
     @apply bg-dark-green;
+  }
+  .swiper-nav-btn {
+    @apply absolute top-1/3 z-10;
+  }
+
+  .swiper {
+    @apply h-[260px];
+  }
+
+  .swiper span.swiper-pagination-bullet {
+    @apply h-3 w-3;
+  }
+
+  .swiper span.swiper-pagination-bullet.swiper-pagination-bullet-active {
+    @apply h-3 w-3 bg-dark-green;
   }
 }

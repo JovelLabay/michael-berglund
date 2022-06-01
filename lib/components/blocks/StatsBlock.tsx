@@ -25,11 +25,11 @@ export const StatsBlock = ({ heading, description, linkTitle, linkUri, gallery }
       <Wysiwyg className="mb-[88px] max-w-[771px] text-center text-body-l" content={description} />
 
       <div className="mb-20 flex w-full justify-between space-x-8">{_stats}</div>
-      <div className="flex items-center space-x-[10px]">
+      <div className="flex items-center space-x-[10px] transition-all hover:opacity-70">
         <AppLink href={pageMap![linkUri]!.uri} className="link-m font-normal text-dark-green">
           {linkTitle}
         </AppLink>
-        <ArrowRight />
+        <ArrowRight className="fill-[#3E5C58]" />
       </div>
     </section>
   )

@@ -9,12 +9,12 @@ export const DescWithImgBlock = ({ heading, description, imageId }: DescWithImag
   const { images } = useGlobalContext()
 
   return (
-    <section className="flex w-full items-center justify-between space-x-[147px] bg-white px-12 pt-[100px] pb-[120px]">
-      <div>
+    <section className="flex w-full items-center justify-between bg-white px-12 pt-[100px] pb-[120px]">
+      <div className="w-1/2 pr-[147px]">
         <h3 className="app-h3 mb-[60px] text-dark-blue">{heading}</h3>
         <Wysiwyg className="text-body-l" content={description} />
       </div>
-      <div className="relative aspect-square h-[656px] w-[656px]">
+      <div className="relative aspect-square w-1/2">
         <Image {...images![imageId]} alt="" layout="fill" objectFit="cover" />
       </div>
     </section>
