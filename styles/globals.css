@@ -66,4 +66,12 @@
   .wysiwyg a {
     @apply duration-300 ease-in-out hover:text-medium-beige;
   }
+
+  .swiper .swiper-pagination-progressbar.swiper-pagination-horizontal {
+    @apply top-auto bottom-0 h-0.5 w-[85%] bg-darker-beige;
+  }
+
+  .swiper .swiper-pagination-progressbar .swiper-pagination-progressbar-fill {
+    @apply bg-dark-green;
+  }
 }
