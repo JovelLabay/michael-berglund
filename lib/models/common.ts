@@ -7,6 +7,7 @@ export type HeroType = "basic" | "animated"
 export type ImageMap = Record<number, Pick<ImageProps, "src" | "alt">>
 
 export type PageMap = Record<number, Page>
+export type PostMap = Record<number, Post>
 
 export interface GQLGlobalFields {
   generalSettings: ACFGeneralSettings
@@ -73,6 +74,18 @@ export interface Page {
   uri: string
   title: string
   pageId?: string
+  featuredImage: {
+    node: WPMedia
+  }
+}
+
+export interface Post {
+  id: string
+  postId: string
+  title: string
+  slug: string
+  uri: string
+  excerpt: string
   featuredImage: {
     node: WPMedia
   }

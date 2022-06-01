@@ -8,7 +8,6 @@ import { AnimatedPage } from "@models/common"
 import { HeroItem } from "./HeroItem"
 
 export default function Hero({ pages }: HeroData) {
-  console.log("hero component")
   const { pageMap } = useGlobalContext()
   const [heroItems, setHeroItems] = useState<AnimatedPage[]>(pages!)
   const heroContainer = useRef<HTMLDivElement>(null!)
