@@ -1,10 +1,11 @@
 import { createContext, useContext } from "react"
 
-import { ACFGlobalFields, ImageMap, PageMap } from "@models/common"
+import { ACFGlobalFields, ImageMap, PageMap, PostMap } from "@models/common"
 
 export interface GlobalContextShape {
   acf: ACFGlobalFields
   pageMap?: PageMap
+  postMap?: PostMap
   images?: ImageMap
 }
 
