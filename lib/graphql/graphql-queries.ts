@@ -115,6 +115,9 @@ export const WP_BLOCKS = gql`
     ... on AcfShortDescBlock {
       attributesJSON
     }
+    ... on AcfDataPointsBlock {
+      attributesJSON
+    }
   }
 `
 

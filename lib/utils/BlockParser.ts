@@ -1,7 +1,7 @@
 import {
-    BaseBlock, DescWithImageData, HeroData, isDescWithImageData, isHeroData, isLogowallData,
-    isRelatedArticlesData, isStatsData, LogowallData, RelatedArticleData, ReviewSliderData,
-    ShortDescData, StatsData
+    BaseBlock, DataPointsData, DescWithImageData, HeroData, isDescWithImageData, isHeroData,
+    isLogowallData, isRelatedArticlesData, isStatsData, LogowallData, RelatedArticleData,
+    ReviewSliderData, ShortDescData, StatsData
 } from "@models/blocks"
 
 type Blocks = { attributesJSON: string }[]
@@ -29,6 +29,8 @@ export const parse = (rawBlocks: Blocks): { blocks: BaseBlock[] } => {
         return parseRelatedArticles(data)
       case "acf/short-desc":
         return parseShortDescblock(data)
+      case "acf/data-points":
+        return parseDataPointsblock(data)
 
       default:
         throw new Error(`Unknown block type: ${name}`)
@@ -176,4 +178,20 @@ const parseRelatedArticles = (data: any): RelatedArticleData => {
 
 const parseShortDescblock = (data: any): ShortDescData => {
   return { description: data.description, quote: data.quote, name: "acf/short-desc" }
+}
+
+const dataPointsPattern = /^data_points_(\d+)_data_number$/
+
+const parseDataPointsblock = (data: any): DataPointsData => {
+  const indexes = Object.keys(data)
+    .filter(key => dataPointsPattern.test(key))
+    .map(key => key.match(dataPointsPattern)![1])
+
+  const points = indexes.map(index => ({
+    pointNumber: data[`data_points_${index}_data_number`],
+    pointSymbol: data[`data_points_${index}_data_symbol`],
+    pointTitle: data[`data_points_${index}_data_title`],
+  }))
+
+  return { points: points, name: "acf/data-points" }
 }
