@@ -1,7 +1,7 @@
 import {
     BaseBlock, DescWithImageData, HeroData, isDescWithImageData, isHeroData, isLogowallData,
     isRelatedArticlesData, isStatsData, LogowallData, RelatedArticleData, ReviewSliderData,
-    StatsData
+    ShortDescData, StatsData
 } from "@models/blocks"
 
 type Blocks = { attributesJSON: string }[]
@@ -27,6 +27,8 @@ export const parse = (rawBlocks: Blocks): { blocks: BaseBlock[] } => {
         return parseReviewSilderBlock(data)
       case "acf/related-articles":
         return parseRelatedArticles(data)
+      case "acf/short-desc":
+        return parseShortDescblock(data)
 
       default:
         throw new Error(`Unknown block type: ${name}`)
@@ -170,4 +172,8 @@ const parseRelatedArticles = (data: any): RelatedArticleData => {
     .map(key => data[key])
 
   return { title, postIds, name: "acf/related-articles" }
+}
+
+const parseShortDescblock = (data: any): ShortDescData => {
+  return { description: data.description, quote: data.quote, name: "acf/short-desc" }
 }

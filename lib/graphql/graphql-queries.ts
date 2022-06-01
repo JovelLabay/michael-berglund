@@ -108,8 +108,11 @@ export const WP_BLOCKS = gql`
     }
     ... on AcfReviewsSliderBlock {
       attributesJSON
-    }  
+    }
     ... on AcfRelatedArticlesBlock {
+      attributesJSON
+    }
+    ... on AcfShortDescBlock {
       attributesJSON
     }
   }
