@@ -1,6 +1,7 @@
 import {
     BaseBlock, DescWithImageData, HeroData, isDescWithImageData, isHeroData, isLogowallData,
-    isStatsData, LogowallData, ReviewSliderData, StatsData
+    isRelatedArticlesData, isStatsData, LogowallData, RelatedArticleData, ReviewSliderData,
+    StatsData
 } from "@models/blocks"
 
 type Blocks = { attributesJSON: string }[]
@@ -24,6 +25,9 @@ export const parse = (rawBlocks: Blocks): { blocks: BaseBlock[] } => {
         return parseLogowallBlock(data)
       case "acf/reviews-slider":
         return parseReviewSilderBlock(data)
+      case "acf/related-articles":
+        return parseRelatedArticles(data)
+
       default:
         throw new Error(`Unknown block type: ${name}`)
     }
@@ -49,6 +53,16 @@ export const getPageLinkIds = (blocks: BaseBlock[]) => {
   const mapper = (block: BaseBlock) => {
     if (isHeroData(block)) return block.pages!.map(page => page.pageId)
     if (isStatsData(block)) return [block.linkUri]
+
+    return []
+  }
+
+  return Array.from(new Set(blocks.map(mapper).flatMap(ids => ids)))
+}
+
+export const getPostLinkIds = (blocks: BaseBlock[]) => {
+  const mapper = (block: BaseBlock) => {
+    if (isRelatedArticlesData(block)) return block.postIds
 
     return []
   }
@@ -144,4 +158,16 @@ const parseReviewSilderBlock = (data: any): ReviewSliderData => {
   }))
 
   return { heading: data.heading, reviews, name: "acf/reviews-slider" }
+}
+
+const relatedArticlePattern = /^articles_(\d+)_article$/
+
+const parseRelatedArticles = (data: any): RelatedArticleData => {
+  const { title } = data
+
+  const postIds = Object.keys(data)
+    .filter(key => relatedArticlePattern.test(key))
+    .map(key => data[key])
+
+  return { title, postIds, name: "acf/related-articles" }
 }

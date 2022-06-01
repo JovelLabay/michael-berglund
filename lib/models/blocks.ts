@@ -41,6 +41,10 @@ export interface ReviewSliderData extends BaseBlock {
     reviewCompany: string
   }[]
 }
+export interface RelatedArticleData extends BaseBlock {
+  title: string
+  postIds: number[]
+}
 
 // export type BlocksUnion = StatsData | DescWithImageData
 
@@ -48,6 +52,7 @@ export type BlockName =
   | "acf/hero"
   | "acf/stats"
   | "acf/desc-image"
+  | "acf/related-articles"
   | "acf/logo-wall"
   | "acf/reviews-slider"
 
@@ -70,4 +75,8 @@ export function isLogowallData(object: any): object is LogowallData {
 
 export function isReviewSilderData(object: any): object is ReviewSliderData {
   return object && typeof object.name === "string" && object.name === "acf/reviews-slider"
+}
+
+export function isRelatedArticlesData(object: any): object is RelatedArticleData {
+  return object && typeof object.name === "string" && object.name === "acf/related-articles"
 }

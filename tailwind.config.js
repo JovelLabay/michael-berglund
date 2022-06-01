@@ -31,7 +31,8 @@ module.exports = {
         "light-beige": "#F9F6F5",
         "medium-beige": "#D4CECB",
         "dark-beige": "#A5A09E",
-        "normal-beige": "#ECE5E2"
+        "normal-beige": "#ECE5E2",
+        "darker-beige": "#ECE5E2",
       },
     },
   },

@@ -108,6 +108,9 @@ export const WP_BLOCKS = gql`
     }
     ... on AcfReviewsSliderBlock {
       attributesJSON
+    }  
+    ... on AcfRelatedArticlesBlock {
+      attributesJSON
     }
   }
 `
@@ -125,12 +128,30 @@ export const GET_PAGE_BLOCKS_BY_ID = gql`
 
 export const GET_PAGE_DATA_BY_ID = gql`
   ${WP_MEDIA_FIELDS}
-  query GetPageBlocksById($id: ID!) {
+  query GetPageDataById($id: ID!) {
     page(id: $id, idType: DATABASE_ID) {
       id
       pageId
       uri
       slug
+      featuredImage {
+        node {
+          ...WPMediaFields
+        }
+      }
+    }
+  }
+`
+export const GET_POST_DATA_BY_ID = gql`
+  ${WP_MEDIA_FIELDS}
+  query GetPostDataById($id: ID!) {
+    post(id: $id, idType: DATABASE_ID) {
+      id
+      postId
+      title
+      uri
+      slug
+      excerpt
       featuredImage {
         node {
           ...WPMediaFields
