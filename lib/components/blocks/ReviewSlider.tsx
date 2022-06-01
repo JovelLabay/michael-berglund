@@ -40,7 +40,7 @@ export const ReviewSlider = ({ heading, reviews }: ReviewSliderData) => {
   )
 
   return (
-    <div className="relative flex flex-col bg-light-beige pt-[60px]">
+    <div className="relative flex flex-col bg-light-beige pt-[60px] pb-[120px]">
       {heading && <h3 className="app-h3 mb-[60px] text-center">{heading}</h3>}
       <Swiper
         slidesPerView={1}
@@ -48,7 +48,7 @@ export const ReviewSlider = ({ heading, reviews }: ReviewSliderData) => {
         modules={[Pagination]}
         initialSlide={0}
         onSwiper={handleSwiperInit}
-        className="mx-[164px]"
+        className="review-slider mx-[164px]"
       >
         {_slides}
 
@@ -62,7 +62,7 @@ export const ReviewSlider = ({ heading, reviews }: ReviewSliderData) => {
         </button>
         <button
           className={classNames("swiper-nav-btn right-0", {
-            "pointer-events-none opacity-25": index === reviews.length - 1,
+            "pointer-events-none opacity-25": index === _slides.length - 1,
           })}
           onClick={handleNext}
         >
