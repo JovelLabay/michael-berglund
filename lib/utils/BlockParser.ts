@@ -53,7 +53,7 @@ export const getImageIds = (blocks: BaseBlock[]): number[] => {
 
 export const getPageLinkIds = (blocks: BaseBlock[]) => {
   const mapper = (block: BaseBlock) => {
-    if (isHeroData(block)) return block.pages!.map(page => page.pageId)
+    if (isHeroData(block) && block.type === "animated") return block.pages!.map(page => page.pageId)
     if (isStatsData(block)) return [block.linkUri]
 
     return []
@@ -77,6 +77,7 @@ const animatedPagesPattern = /^animated_pages_(\d+)_page$/
 const parseHeroBlock = (data: any): HeroData => {
   const blockType = data.hero_type
   let animatedPages = null
+  let pageData = null
 
   if (blockType === "animated") {
     animatedPages = Object.keys(data)
@@ -91,6 +92,13 @@ const parseHeroBlock = (data: any): HeroData => {
         linkUrl: data[`animated_pages_${index}_link_url`],
         colorOverlay: data[`animated_pages_${index}_color_overlay`],
       }))
+  } else {
+    pageData = {
+      title: data.basic_hero_title,
+      linkText: data.basic_hero_link_text,
+      linkUrl: data.basic_hero_link_url,
+      colorOverlay: data.basic_hero_color_overlay
+    }
   }
 
   return { name: "acf/hero", type: data.hero_type, pages: animatedPages }
