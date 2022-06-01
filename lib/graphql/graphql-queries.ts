@@ -91,3 +91,72 @@ export const GET_GLOBAL_FIELDS = gql`
     }
   }
 `
+
+export const WP_BLOCKS = gql`
+  fragment WPBlocks on Block {
+    ... on AcfHeroBlock {
+      attributesJSON
+    }
+    ... on AcfStatsBlock {
+      attributesJSON
+    }
+    ... on AcfDescImageBlock {
+      attributesJSON
+    }
+    ... on AcfLogoWallBlock {
+      attributesJSON
+    }
+    ... on AcfReviewsSliderBlock {
+      attributesJSON
+    }  
+    ... on AcfRelatedArticlesBlock {
+      attributesJSON
+    }
+  }
+`
+
+export const GET_PAGE_BLOCKS_BY_ID = gql`
+  ${WP_BLOCKS}
+  query GetPageBlocksById($id: ID!) {
+    page(id: $id, idType: DATABASE_ID) {
+      blocks {
+        ...WPBlocks
+      }
+    }
+  }
+`
+
+export const GET_PAGE_DATA_BY_ID = gql`
+  ${WP_MEDIA_FIELDS}
+  query GetPageDataById($id: ID!) {
+    page(id: $id, idType: DATABASE_ID) {
+      id
+      pageId
+      uri
+      slug
+      featuredImage {
+        node {
+          ...WPMediaFields
+        }
+      }
+    }
+  }
+`
+export const GET_POST_DATA_BY_ID = gql`
+  ${WP_MEDIA_FIELDS}
+  query GetPostDataById($id: ID!) {
+    post(id: $id, idType: DATABASE_ID) {
+      id
+      postId
+      title
+      uri
+      slug
+      excerpt
+      featuredImage {
+        node {
+          ...WPMediaFields
+        }
+      }
+    }
+  }
+`

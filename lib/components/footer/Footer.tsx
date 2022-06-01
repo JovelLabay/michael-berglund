@@ -1,7 +1,6 @@
-import { GlobalContext } from "@context/global"
+import { useGlobalContext } from "@context/global"
 import Image from "next/image"
 import Link from "next/link"
-import { useContext } from "react"
 
 import mapImage from "@/public/Map.png"
 import { AppLink } from "@components/shared/AppLink"
@@ -12,8 +11,10 @@ import { NewsLetter } from "./Newsletter"
 
 export const Footer = () => {
   const {
-    acfGlobal: { footer },
-  } = useContext(GlobalContext)
+    acf: {
+      acfGlobal: { footer },
+    },
+  } = useGlobalContext()
 
   const { contactInfo, links, association, copyRightLabel } = footer
 
@@ -25,7 +26,7 @@ export const Footer = () => {
     <>
       <NewsLetter />
       <footer className="flex justify-between bg-dark-blue text-white">
-        <div className="flex w-2/4 flex-col justify-between p-12 pt-[60px]">
+        <div className="flex w-1/2 flex-col justify-between p-12 pt-[60px]">
           {/* Top */}
           <div className="flex flex-wrap justify-between">
             <AppLink href="/">
@@ -88,7 +89,7 @@ export const Footer = () => {
             <span className="body-s text-dark-beige">{parsedCopyright}</span>
           </div>
         </div>
-        <div className="w-2/4 shrink-0">
+        <div className="w-1/2 shrink-0">
           {/* <Map /> */}
           <div className="relative h-[455px]">
             <Image

@@ -18,7 +18,7 @@ export const MenuItem = ({ text, link, image }: MenuItemProps) => {
       <div
         onMouseEnter={() => setIsShowImage(true)}
         onMouseLeave={() => setIsShowImage(false)}
-        className="w-2/4"
+        className="w-1/2"
       >
         <AppLink
           href={link}
@@ -29,7 +29,7 @@ export const MenuItem = ({ text, link, image }: MenuItemProps) => {
       </div>
       <div
         className={classNames(
-          "absolute right-0 top-2/4 w-2/4 -translate-y-2/4 opacity-0 transition-opacity duration-500 ease-in-out",
+          "absolute right-0 top-1/2 w-1/2 -translate-y-1/2 opacity-0 transition-opacity duration-500 ease-in-out",
           { "opacity-100": isShowImage }
         )}
       >

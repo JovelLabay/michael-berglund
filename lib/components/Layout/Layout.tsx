@@ -5,15 +5,27 @@ import { ReactNode, useCallback, useState } from "react"
 
 import { Footer } from "@components/footer"
 import { Header, MenuContent } from "@components/menu"
-import { ACFGeneralSettings, ACFGlobalFields } from "@models/common"
+import { ACFGeneralSettings, ACFGlobalFields, ImageMap, PageMap, PostMap } from "@models/common"
 
 export interface LayoutProps {
   children: ReactNode
   acfGlobalFields: ACFGlobalFields
   generalSettings: ACFGeneralSettings
+  pageMap?: PageMap
+  postMap?: PostMap
+  images?: ImageMap
+  isHomePage?: boolean
 }
 
-export default function Layout({ children, acfGlobalFields, generalSettings }: LayoutProps) {
+export default function Layout({
+  children,
+  acfGlobalFields,
+  generalSettings,
+  pageMap,
+  postMap,
+  images,
+  isHomePage,
+}: LayoutProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   const toggleMenu = useCallback(() => {
@@ -21,15 +33,17 @@ export default function Layout({ children, acfGlobalFields, generalSettings }: L
   }, [])
 
   return (
-    <GlobalContext.Provider value={acfGlobalFields}>
+    <GlobalContext.Provider
+      value={{ acf: acfGlobalFields, pageMap: pageMap, postMap: postMap, images: images }}
+    >
       <div
         className={classNames("relative h-screen w-screen bg-dark-blue", {
           "overflow-hidden": isMenuOpen,
         })}
       >
-        <Header isMenuOpen={isMenuOpen} toggleMenu={toggleMenu}></Header>
+        <Header isHomePage={isHomePage} isMenuOpen={isMenuOpen} toggleMenu={toggleMenu}></Header>
         <AnimatePresence>{isMenuOpen && <MenuContent />}</AnimatePresence>
-        <div className="pt-[400px]">{children}</div>
+        <div>{children}</div>
         <Footer />
       </div>
     </GlobalContext.Provider>
