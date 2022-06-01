@@ -34,6 +34,7 @@ export interface LogowallData extends BaseBlock {
 }
 
 export interface ReviewSliderData extends BaseBlock {
+  heading?: string
   reviews: {
     reviewText: string
     reviewClient: string

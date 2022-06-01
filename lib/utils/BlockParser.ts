@@ -143,5 +143,5 @@ const parseReviewSilderBlock = (data: any): ReviewSliderData => {
     reviewCompany: data[`reviews_${index}_review_company`],
   }))
 
-  return { reviews, name: "acf/reviews-slider" }
+  return { heading: data.heading, reviews, name: "acf/reviews-slider" }
 }
