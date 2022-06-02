@@ -1,6 +1,6 @@
 import {
     BaseBlock, isDataPointsData, isDescWithImageData, isHeroData, isLogowallData,
-    isRelatedArticlesData, isReviewSilderData, isShortDescData, isStatsData
+    isRelatedArticlesData, isReviewSilderData, isShortDescData, isStatsData, isTabsData
 } from "@models/blocks"
 
 import { DescWithImgBlock } from "./"
@@ -11,6 +11,7 @@ import { RelatedArticles } from "./RelatedArticles"
 import { ReviewSlider } from "./ReviewSlider"
 import { ShortDescBlock } from "./ShortDescBlock"
 import { StatsBlock } from "./StatsBlock"
+import { TabsBlock } from "./TabsBlock"
 
 export const Block = ({ block }: { block: BaseBlock }) => {
   if (isHeroData(block)) return <Hero {...block} />
@@ -21,6 +22,6 @@ export const Block = ({ block }: { block: BaseBlock }) => {
   if (isRelatedArticlesData(block)) return <RelatedArticles {...block} />
   if (isShortDescData(block)) return <ShortDescBlock {...block} />
   if (isDataPointsData(block)) return <DataPointsBlock {...block} />
-
+  if(isTabsData(block)) return <TabsBlock {...block}/>
   return null
 }
