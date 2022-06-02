@@ -17,7 +17,7 @@
 
 @layer components {
   .app-h1 {
-    @apply font-lora text-app-h1;
+    @apply font-lora text-app-h1
   }
 
   .app-h2 {

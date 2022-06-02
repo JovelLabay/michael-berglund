@@ -1,4 +1,4 @@
-import { AnimatedPage, HeroType } from "./common"
+import { AnimatedPage, HeroType, Page } from "./common"
 
 export interface BaseBlock {
   name: BlockName
@@ -7,6 +7,12 @@ export interface BaseBlock {
 export interface HeroData extends BaseBlock {
   type: HeroType
   pages: AnimatedPage[] | null
+  page: {
+    title: string
+    linkText: string
+    linkUrl: string
+    colorOverlay: string
+  } | null
 }
 export interface StatsData extends BaseBlock {
   heading: string
