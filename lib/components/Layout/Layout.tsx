@@ -18,7 +18,7 @@ export interface LayoutProps {
   pageMap?: PageMap
   postMap?: PostMap
   images?: ImageMap
-  isHomePage: boolean
+  isHomePage?: boolean
 }
 
 export default function Layout({
