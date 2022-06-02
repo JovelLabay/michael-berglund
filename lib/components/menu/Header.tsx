@@ -5,7 +5,7 @@ import { MainLogo } from "@logos/MainLogo"
 
 export interface HeaderProps {
   isMenuOpen: boolean
-  isHomePage: boolean
+  isHomePage?: boolean
   toggleMenu: () => void
 }
 
