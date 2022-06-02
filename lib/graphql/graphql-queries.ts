@@ -118,6 +118,9 @@ export const WP_BLOCKS = gql`
     ... on AcfContactBlock {
       attributesJSON
     }
+    ... on AcfDataPointsBlock {
+      attributesJSON
+    }
   }
 `
 

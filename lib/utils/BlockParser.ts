@@ -1,7 +1,7 @@
 import {
-    BaseBlock, ContactData, DescWithImageData, HeroData, isContactData, isDescWithImageData,
-    isHeroData, isLogowallData, isRelatedArticlesData, isStatsData, LogowallData,
-    RelatedArticleData, ReviewSliderData, ShortDescData, StatsData
+    BaseBlock, ContactData, DataPointsData, DescWithImageData, HeroData, isContactData,
+    isDescWithImageData, isHeroData, isLogowallData, isRelatedArticlesData, isStatsData,
+    LogowallData, RelatedArticleData, ReviewSliderData, ShortDescData, StatsData
 } from "@models/blocks"
 
 type Blocks = { attributesJSON: string }[]
@@ -31,6 +31,8 @@ export const parse = (rawBlocks: Blocks): { blocks: BaseBlock[] } => {
         return parseShortDescblock(data)
       case "acf/contact":
         return parseContactBlocks(data)
+      case "acf/data-points":
+        return parseDataPointsblock(data)
 
       default:
         throw new Error(`Unknown block type: ${name}`)
@@ -76,7 +78,7 @@ export const getPostLinkIds = (blocks: BaseBlock[]) => {
 
 export const getMedarbetareLinkIds = (blocks: BaseBlock[]) => {
   const mapper = (block: BaseBlock) => {
-    if(isContactData(block)) return block.medarbetareIds
+    if (isContactData(block)) return block.medarbetareIds
 
     return []
   }
@@ -109,7 +111,7 @@ const parseHeroBlock = (data: any): HeroData => {
       title: data.basic_hero_title,
       linkText: data.basic_hero_link_text,
       linkUrl: data.basic_hero_link_url,
-      colorOverlay: data.basic_hero_color_overlay
+      colorOverlay: data.basic_hero_color_overlay,
     }
   }
 
@@ -206,5 +208,21 @@ const parseContactBlocks = (data: any): ContactData => {
     .map(key => key.match(contactItemPattern)![1])
     .map(index => data[`medarbetare_list_${index}_medarbetare`])
 
-  return {name: "acf/contact", title: data.title, medarbetareIds}
+  return { name: "acf/contact", title: data.title, medarbetareIds }
+}
+
+const dataPointsPattern = /^data_points_(\d+)_data_number$/
+
+const parseDataPointsblock = (data: any): DataPointsData => {
+  const indexes = Object.keys(data)
+    .filter(key => dataPointsPattern.test(key))
+    .map(key => key.match(dataPointsPattern)![1])
+
+  const points = indexes.map(index => ({
+    pointNumber: data[`data_points_${index}_data_number`],
+    pointSymbol: data[`data_points_${index}_data_symbol`],
+    pointTitle: data[`data_points_${index}_data_title`],
+  }))
+
+  return { points: points, name: "acf/data-points" }
 }
