@@ -57,6 +57,11 @@ export interface ShortDescData extends BaseBlock {
   quote: string
 }
 
+export interface ContactData extends BaseBlock {
+  title: string
+  medarbetareIds: number[]
+}
+
 export type BlockName =
   | "acf/hero"
   | "acf/stats"
@@ -65,6 +70,7 @@ export type BlockName =
   | "acf/logo-wall"
   | "acf/reviews-slider"
   | "acf/short-desc"
+  | "acf/contact"
 
 /** Type-narrowing functions */
 export function isHeroData(object: any): object is HeroData {
@@ -93,4 +99,8 @@ export function isRelatedArticlesData(object: any): object is RelatedArticleData
 
 export function isShortDescData(object: any): object is ShortDescData {
   return object && typeof object.name === "string" && object.name === "acf/short-desc"
+}
+
+export function isContactData(object: any): object is ContactData {
+  return object && typeof object.name === "string" && object.name === "acf/contact"
 }

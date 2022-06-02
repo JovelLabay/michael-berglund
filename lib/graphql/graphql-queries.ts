@@ -115,6 +115,9 @@ export const WP_BLOCKS = gql`
     ... on AcfShortDescBlock {
       attributesJSON
     }
+    ... on AcfContactBlock {
+      attributesJSON
+    }
   }
 `
 
@@ -167,6 +170,7 @@ export const GET_PAGE_DATA_BY_ID = gql`
     }
   }
 `
+
 export const GET_POST_DATA_BY_ID = gql`
   ${WP_MEDIA_FIELDS}
   query GetPostDataById($id: ID!) {
@@ -181,6 +185,31 @@ export const GET_POST_DATA_BY_ID = gql`
         node {
           ...WPMediaFields
         }
+      }
+    }
+  }
+`
+
+export const GET_MEDARBETARE_DATA_BY_ID = gql`
+  ${WP_MEDIA_FIELDS}
+  query GetMedarbetarePostById($id: ID!) {
+    medarbetare(id: $id, idType: DATABASE_ID) {
+      id
+      medarbetareId
+      title
+      uri
+      slug
+      featuredImage {
+        node {
+          ...WPMediaFields
+        }
+      }
+      acfMedarbetare {
+        position
+        email
+        phone
+        linkedin
+        bio
       }
     }
   }
