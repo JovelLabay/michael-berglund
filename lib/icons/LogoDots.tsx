@@ -1,6 +1,6 @@
 import { IconProps } from "./"
 
-export const LogoDots = ({ className }: IconProps) => {
+export const LogoDots = ({ className, fill = "white" }: IconProps) => {
   return (
     // <svg
     //   className={className}
@@ -20,8 +20,8 @@ export const LogoDots = ({ className }: IconProps) => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <circle cx="3" cy="3" r="3" fill="white" />
-      <circle cx="15" cy="3" r="3" fill="white" />
+      <circle cx="3" cy="3" r="3" fill={fill} />
+      <circle cx="15" cy="3" r="3" fill={fill} />
     </svg>
   )
 }
