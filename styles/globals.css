@@ -16,6 +16,10 @@
 }
 
 @layer components {
+  .app-h1 {
+    @apply font-lora text-app-h1
+  }
+
   .app-h2 {
     @apply font-lora text-app-h2;
   }
@@ -34,6 +38,10 @@
 
   .body-s {
     @apply text-body-s;
+  }
+
+  .body-l {
+    @apply text-body-l;
   }
 
   .link-s {
@@ -67,14 +75,14 @@
   .quote-icon {
     @apply font-lora text-app-h1;
   }
+
+  /* TODO: Update later */
+  .wysiwyg {
+    @apply prose-p:body-l prose prose-a:duration-300 prose-a:ease-in-out hover:prose-a:text-medium-beige;
+  }
 }
 
-@layer utilities {
-  /* TODO: Update later */
-  .wysiwyg a {
-    @apply duration-300 ease-in-out hover:text-medium-beige;
-  }
-
+@layer components {
   .progress-bar-swiper.swiper .swiper-pagination-progressbar.swiper-pagination-horizontal {
     @apply top-auto bottom-0 h-0.5 w-[85%] bg-darker-beige;
   }

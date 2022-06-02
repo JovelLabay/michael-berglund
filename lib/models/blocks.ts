@@ -1,4 +1,4 @@
-import { AnimatedPage, HeroType } from "./common"
+import { AnimatedPage, HeroType, Page } from "./common"
 
 export interface BaseBlock {
   name: BlockName
@@ -7,6 +7,12 @@ export interface BaseBlock {
 export interface HeroData extends BaseBlock {
   type: HeroType
   pages: AnimatedPage[] | null
+  page: {
+    title: string
+    linkText: string
+    linkUrl: string
+    colorOverlay: string
+  } | null
 }
 export interface StatsData extends BaseBlock {
   heading: string
@@ -46,7 +52,10 @@ export interface RelatedArticleData extends BaseBlock {
   postIds: number[]
 }
 
-// export type BlocksUnion = StatsData | DescWithImageData
+export interface ShortDescData extends BaseBlock {
+  description: string
+  quote: string
+}
 
 export type BlockName =
   | "acf/hero"
@@ -55,6 +64,7 @@ export type BlockName =
   | "acf/related-articles"
   | "acf/logo-wall"
   | "acf/reviews-slider"
+  | "acf/short-desc"
 
 /** Type-narrowing functions */
 export function isHeroData(object: any): object is HeroData {
@@ -79,4 +89,8 @@ export function isReviewSilderData(object: any): object is ReviewSliderData {
 
 export function isRelatedArticlesData(object: any): object is RelatedArticleData {
   return object && typeof object.name === "string" && object.name === "acf/related-articles"
+}
+
+export function isShortDescData(object: any): object is ShortDescData {
+  return object && typeof object.name === "string" && object.name === "acf/short-desc"
 }

@@ -1,16 +1,20 @@
 import { GlobalContext } from "@context/global"
 import classNames from "classnames"
 import { AnimatePresence } from "framer-motion"
-import { ReactNode, useCallback, useState } from "react"
+import { useRouter } from "next/router"
+import { ReactNode, useCallback, useEffect, useState } from "react"
 
 import { Footer } from "@components/footer"
 import { Header, MenuContent } from "@components/menu"
-import { ACFGeneralSettings, ACFGlobalFields, ImageMap, PageMap, PostMap } from "@models/common"
+import {
+    ACFGeneralSettings, ACFGlobalFields, ImageMap, Page, PageMap, PostMap
+} from "@models/common"
 
 export interface LayoutProps {
   children: ReactNode
   acfGlobalFields: ACFGlobalFields
   generalSettings: ACFGeneralSettings
+  pageData?: Page
   pageMap?: PageMap
   postMap?: PostMap
   images?: ImageMap
@@ -21,20 +25,38 @@ export default function Layout({
   children,
   acfGlobalFields,
   generalSettings,
+  pageData,
   pageMap,
   postMap,
   images,
   isHomePage,
 }: LayoutProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const router = useRouter()
 
   const toggleMenu = useCallback(() => {
     setIsMenuOpen(open => !open)
   }, [])
 
+  useEffect(() => {
+    const handleStop = () => {
+      if(isMenuOpen) {
+        setIsMenuOpen(false)
+      }
+    }
+
+    router.events.on("routeChangeComplete", handleStop)
+    router.events.on("routeChangeError", handleStop)
+
+    return () => {
+      // router.events.off("routeChangeStart", handleStart)
+      router.events.off("routeChangeError", handleStop)
+    }
+  }, [router, isMenuOpen])
+
   return (
     <GlobalContext.Provider
-      value={{ acf: acfGlobalFields, pageMap: pageMap, postMap: postMap, images: images }}
+      value={{ acf: acfGlobalFields, pageData: pageData, pageMap: pageMap, postMap: postMap, images: images }}
     >
       <div
         className={classNames("relative h-screen w-screen bg-dark-blue", {
