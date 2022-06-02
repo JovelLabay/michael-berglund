@@ -27,7 +27,7 @@ export const MenuContent = () => {
             <MenuItem
               key={link.text}
               text={link.text}
-              link="#"
+              link={link.pagelink.uri}
               image={link.pagelink.featuredImage.node}
             />
           ))}

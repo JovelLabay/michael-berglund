@@ -101,7 +101,7 @@ const parseHeroBlock = (data: any): HeroData => {
     }
   }
 
-  return { name: "acf/hero", type: data.hero_type, pages: animatedPages }
+  return { name: "acf/hero", type: data.hero_type, pages: animatedPages, page: pageData }
 }
 
 const statsIconPattern = /^icons_(\d+)_image$/
