@@ -9,8 +9,6 @@ import { HeroData } from "@models/blocks"
 export const BasicHero = ({ page }: HeroData) => {
     const { pageData } = useGlobalContext()
 
-    console.log(pageData)
-
     const { title, linkText, linkUrl, colorOverlay } = page!
     const image = pageData!.featuredImage.node
 
