@@ -86,7 +86,7 @@
 
   /* TODO: Update later */
   .wysiwyg {
-    @apply prose-p:body-l prose prose-a:duration-300 prose-a:ease-in-out hover:prose-a:text-medium-beige;
+    @apply prose-p:body-l prose-h4:app-h4 prose prose-h4:mt-3 prose-h4:font-lora prose-a:duration-300 prose-a:ease-in-out hover:prose-a:text-medium-beige;
   }
 
   .app-hover {
