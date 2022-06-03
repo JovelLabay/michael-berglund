@@ -74,7 +74,7 @@ export const RelatedArticles = ({ title, postIds }: RelatedArticleData) => {
           navigation={true}
           modules={[Pagination]}
           initialSlide={0}
-          className="progress-bar-swiper !pb-14"
+          className="progress-bar-swiper !pb-14 pr-12"
           onSwiper={handleSwiperInit}
         >
           {slides}
