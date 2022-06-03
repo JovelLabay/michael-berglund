@@ -1,7 +1,8 @@
 import {
-    BaseBlock, ContactData, DataPointsData, DescWithImageData, HeroData, isContactData,
-    isDescWithImageData, isHeroData, isLogowallData, isRelatedArticlesData, isStatsData,
-    LogowallData, RelatedArticleData, ReviewSliderData, ShortDescData, StatsData, TabsData
+    AssignmentsData, BaseBlock, ContactData, DataPointsData, DescWithImageData, HeroData,
+    isContactData, isDescWithImageData, isHeroData, isLogowallData, isRelatedArticlesData,
+    isStatsData, LogowallData, RelatedArticleData, ReviewSliderData, ShortDescData, StatsData,
+    TabsData
 } from "@models/blocks"
 
 type Blocks = { attributesJSON: string }[]
@@ -35,6 +36,8 @@ export const parse = (rawBlocks: Blocks): { blocks: BaseBlock[] } => {
         return parseDataPointsblock(data)
       case "acf/tabs":
         return parseTabsBlock(data)
+      case "acf/assignments":
+        return parseAssignmentsBlock(data)
 
       default:
         throw new Error(`Unknown block type: ${name}`)
@@ -241,4 +244,17 @@ const parseTabsBlock = (data: any): TabsData => {
   }))
 
   return { heading: data.heading, tabList: tabsList, name: "acf/tabs" }
+}
+
+const completedAssignmentsPattern = /^completed_assignments_(\d+)_title$/
+const parseAssignmentsBlock = (data: any): AssignmentsData => {
+  const completedAssignments = Object.keys(data)
+    .filter(key => completedAssignmentsPattern.test(key))
+    .map(key => key.match(completedAssignmentsPattern)![1])
+    .map(index => ({
+      title: data[`completed_assignments_${index}_title`],
+      description: data[`completed_assignments_${index}_description`],
+    }))
+
+  return { name: "acf/assignments", title: data.title, assignments: completedAssignments }
 }
