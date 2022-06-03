@@ -49,7 +49,7 @@ export const Footer = () => {
                     </AppLink>
                   ) : (
                     <Link key={text} href={externalLink}>
-                      <a className="hover-text-white" target="_blank" rel="noreferrer">
+                      <a className="hover-text-white outline-none" target="_blank" rel="noreferrer">
                         <span>{text}</span>
                       </a>
                     </Link>
@@ -69,7 +69,7 @@ export const Footer = () => {
                     <a
                       key={logo.mediaItemUrl}
                       href={link}
-                      className="app-hover hover:opacity-75"
+                      className="app-hover outline-none hover:opacity-75"
                       target="_blank"
                       rel="noreferrer"
                     >

@@ -18,7 +18,7 @@ export const FooterContactItem = ({ icon, text, link }: FooterContactItemProps) 
   )
 
   return link ? (
-    <a href={`mailto:info@michaelberglund.se`} className="icon-text hover-text-white">
+    <a href={`mailto:info@michaelberglund.se`} className="icon-text hover-text-white outline-none">
       {info}
     </a>
   ) : (

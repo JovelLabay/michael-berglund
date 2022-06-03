@@ -105,7 +105,6 @@ const parseHeroBlock = (data: any): HeroData => {
         mainTitle: data[`animated_pages_${index}_main_title`],
         preTitle: data[`animated_pages_${index}_pre-title`],
         linkText: data[`animated_pages_${index}_link_text`],
-        linkUrl: data[`animated_pages_${index}_link_url`],
         colorOverlay: data[`animated_pages_${index}_color_overlay`],
       }))
   } else {

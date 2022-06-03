@@ -83,7 +83,7 @@ export const RelatedArticles = ({ title, postIds }: RelatedArticleData) => {
         <div className="absolute bottom-0 right-[4%] z-10 inline-flex translate-y-1/2 space-x-[15px]">
           <button
             onClick={handlePrev}
-            className={classNames("p-1", {
+            className={classNames("p-1 outline-none", {
               "pointer-events-none opacity-25": index === 0,
             })}
           >
@@ -91,7 +91,7 @@ export const RelatedArticles = ({ title, postIds }: RelatedArticleData) => {
           </button>
           <button
             onClick={handleNext}
-            className={classNames("p-1", {
+            className={classNames("p-1 outline-none", {
               "pointer-events-none opacity-25": index === totalPages - 1,
             })}
           >

@@ -13,6 +13,7 @@ export interface HeroItemProps {
   isActive: boolean
   mainTitle: string
   preTitle: string
+  linkText: string
   expandHeight: number
   pageData: Page
   colorOverlay: string
@@ -24,6 +25,7 @@ export function HeroItem({
   isActive,
   mainTitle,
   preTitle,
+  linkText,
   expandHeight,
   pageData,
   colorOverlay,
@@ -108,7 +110,7 @@ export function HeroItem({
               href={pageLink}
               className="hover-text-white group flex items-center space-x-[10px]"
             >
-              <span className="link-m">Learn more</span>
+              <span className="link-m">{linkText}</span>
               <ArrowRight className="fill-white group-hover:fill-medium-beige" />
             </AppLink>
           </motion.div>

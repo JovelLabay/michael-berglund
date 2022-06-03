@@ -28,7 +28,7 @@ export const AnimatedHero = ({ pages }: HeroData) => {
       {/* HERO ITEMS */}
       <AnimatePresence initial={false}>
         {heroItems &&
-          heroItems.map(({ id, pageId, preTitle, mainTitle, colorOverlay }) => {
+          heroItems.map(({ id, pageId, preTitle, mainTitle, linkText, colorOverlay }) => {
             const pageData = pageMap![pageId]
 
             return (
@@ -38,6 +38,7 @@ export const AnimatedHero = ({ pages }: HeroData) => {
                 isActive={preTitle === heroItems[0].preTitle}
                 mainTitle={mainTitle}
                 preTitle={preTitle}
+                linkText={linkText}
                 colorOverlay={colorOverlay}
                 expandHeight={heroContainer.current?.clientHeight - heroItems.length * 100 + 100}
                 timeoutCallback={animateHandler}

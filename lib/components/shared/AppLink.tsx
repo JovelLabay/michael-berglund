@@ -39,7 +39,7 @@ export const AppLink = ({ href, children, className }: AppLinkProps) => {
 
   const container = (
     <a
-      className={classNames("cursor-pointer", className)}
+      className={classNames("cursor-pointer outline-none", className)}
       href={needsNextLink ? href : undefined}
       onClick={needsNextLink ? undefined : onCLick}
     >

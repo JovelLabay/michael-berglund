@@ -53,7 +53,7 @@ export const ReviewSlider = ({ heading, reviews }: ReviewSliderData) => {
         {_slides}
 
         <button
-          className={classNames("swiper-nav-btn left-0", {
+          className={classNames("swiper-nav-btn left-0 outline-none", {
             "pointer-events-none opacity-25": index === 0,
           })}
           onClick={handlePrev}
@@ -61,7 +61,7 @@ export const ReviewSlider = ({ heading, reviews }: ReviewSliderData) => {
           <SwiperArrowLeft />
         </button>
         <button
-          className={classNames("swiper-nav-btn right-0", {
+          className={classNames("swiper-nav-btn right-0 outline-none", {
             "pointer-events-none opacity-25": index === _slides.length - 1,
           })}
           onClick={handleNext}

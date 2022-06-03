@@ -1,7 +1,6 @@
 import { useGlobalContext } from "@context/global"
 import Image from "next/image"
 
-import mockImage from "@/public/images/mock_image_1.png"
 import { Wysiwyg } from "@components/shared/Wysiwyg"
 import { DescWithImageData } from "@models/blocks"
 
