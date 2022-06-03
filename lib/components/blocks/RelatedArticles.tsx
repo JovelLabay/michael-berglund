@@ -62,7 +62,7 @@ export const RelatedArticles = ({ title, postIds }: RelatedArticleData) => {
   )
 
   return (
-    <div className="bg-white pl-12 pt-[100px] pb-[120px]">
+    <section className="bg-white pl-12 pt-[100px] pb-[120px]">
       <h3 className="app-h3 mb-[60px]">{title}</h3>
       <div className="relative">
         <Swiper
@@ -74,7 +74,7 @@ export const RelatedArticles = ({ title, postIds }: RelatedArticleData) => {
           navigation={true}
           modules={[Pagination]}
           initialSlide={0}
-          className="progress-bar-swiper !pb-14"
+          className="progress-bar-swiper !pb-14 pr-12"
           onSwiper={handleSwiperInit}
         >
           {slides}
@@ -83,7 +83,7 @@ export const RelatedArticles = ({ title, postIds }: RelatedArticleData) => {
         <div className="absolute bottom-0 right-[4%] z-10 inline-flex translate-y-1/2 space-x-[15px]">
           <button
             onClick={handlePrev}
-            className={classNames("p-1", {
+            className={classNames("p-1 outline-none", {
               "pointer-events-none opacity-25": index === 0,
             })}
           >
@@ -91,7 +91,7 @@ export const RelatedArticles = ({ title, postIds }: RelatedArticleData) => {
           </button>
           <button
             onClick={handleNext}
-            className={classNames("p-1", {
+            className={classNames("p-1 outline-none", {
               "pointer-events-none opacity-25": index === totalPages - 1,
             })}
           >
@@ -99,6 +99,6 @@ export const RelatedArticles = ({ title, postIds }: RelatedArticleData) => {
           </button>
         </div>
       </div>
-    </div>
+    </section>
   )
 }

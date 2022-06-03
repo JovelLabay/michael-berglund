@@ -23,10 +23,7 @@ export const Header = ({ isMenuOpen, isHomePage, toggleMenu }: HeaderProps) => {
           <MainLogo />
         </AppLink>
       )}
-      <AppLink
-        href="#"
-        className="link-m font-normal duration-300 ease-in-out hover:text-medium-beige"
-      >
+      <AppLink href="#" className="link-m hover-text-white font-normal">
         Contact
       </AppLink>
     </div>

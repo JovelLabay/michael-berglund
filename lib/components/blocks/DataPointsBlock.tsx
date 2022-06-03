@@ -41,11 +41,11 @@ export const DataPointsBlock = ({ points }: DataPointsData) => {
   )
 
   return (
-    <div
+    <section
       ref={containerRef}
       className="flex items-center justify-between bg-light-beige px-12 pt-[100px] pb-[120px]"
     >
       {isVisible && _points}
-    </div>
+    </section>
   )
 }
