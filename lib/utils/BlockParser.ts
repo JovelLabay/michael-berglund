@@ -1,7 +1,8 @@
 import {
     BaseBlock, ContactData, DataPointsData, DescWithImageData, HeroData, isContactData,
-    isDescWithImageData, isHeroData, isLogowallData, isRelatedArticlesData, isStatsData,
-    LogowallData, RelatedArticleData, ReviewSliderData, ShortDescData, StatsData, TabsData
+    isDescWithImageData, isHeroData, isLogowallData, isRegisterCvData, isRelatedArticlesData,
+    isStatsData, LogowallData, RegisterCvData, RelatedArticleData, ReviewSliderData, ShortDescData,
+    StatsData, TabsData
 } from "@models/blocks"
 
 type Blocks = { attributesJSON: string }[]
@@ -35,6 +36,9 @@ export const parse = (rawBlocks: Blocks): { blocks: BaseBlock[] } => {
         return parseDataPointsblock(data)
       case "acf/tabs":
         return parseTabsBlock(data)
+      case "acf/register-cv":
+        // console.log(data)
+        return parseRegisterCVBlock(data)
 
       default:
         throw new Error(`Unknown block type: ${name}`)
@@ -85,6 +89,15 @@ export const getMedarbetareLinkIds = (blocks: BaseBlock[]) => {
     return []
   }
 
+  return Array.from(new Set(blocks.map(mapper).flatMap(ids => ids)))
+}
+
+export const getFileLinks = (blocks: BaseBlock[]) => {
+  const mapper = (block: BaseBlock) => {
+    if (isRegisterCvData(block)) return block.downloadFile
+
+    return []
+  }
   return Array.from(new Set(blocks.map(mapper).flatMap(ids => ids)))
 }
 
@@ -242,4 +255,36 @@ const parseTabsBlock = (data: any): TabsData => {
   }))
 
   return { heading: data.heading, tabList: tabsList, name: "acf/tabs" }
+}
+
+const registerPattern = /^professional_info_info_dropdown_(\d+)_title$/
+const valuesPattern = /^professional_info_info_dropdown_(\d+)_values_(\d+)_value$/
+
+const parseRegisterCVBlock = (data: any): RegisterCvData => {
+  //TODO: Fix the values mapping issues. How to parse nested loops?
+  const values = Object.keys(data)
+    .filter(key => valuesPattern.test(key))
+    .map(key => key.match(valuesPattern)![1])
+    .map(
+      index =>
+        data[`professional_info_info_dropdown_${parseInt(index)}_values_${parseInt(index)}_value`]
+    )
+
+  const indexes = Object.keys(data)
+    .filter(key => registerPattern.test(key))
+    .map(key => key.match(registerPattern)![1])
+
+  const infoDropdown = indexes.map(index => ({
+    title: data[`professional_info_info_dropdown_${index}_title`],
+    values: values,
+  }))
+
+  return {
+    heading: data.heading,
+    description: data.description,
+    downloadLinkTitle: data.download_link_title,
+    downloadFile: data.download_file,
+    professionalInfo: { infoDropdown },
+    name: "acf/register-cv",
+  }
 }
