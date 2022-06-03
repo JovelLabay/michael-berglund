@@ -1,7 +1,7 @@
 import {
     BaseBlock, ContactData, DataPointsData, DescWithImageData, HeroData, isContactData,
     isDescWithImageData, isHeroData, isLogowallData, isRelatedArticlesData, isStatsData,
-    LogowallData, RelatedArticleData, ReviewSliderData, ShortDescData, StatsData
+    LogowallData, RelatedArticleData, ReviewSliderData, ShortDescData, StatsData, TabsData
 } from "@models/blocks"
 
 type Blocks = { attributesJSON: string }[]
@@ -33,6 +33,8 @@ export const parse = (rawBlocks: Blocks): { blocks: BaseBlock[] } => {
         return parseContactBlocks(data)
       case "acf/data-points":
         return parseDataPointsblock(data)
+      case "acf/tabs":
+        return parseTabsBlock(data)
 
       default:
         throw new Error(`Unknown block type: ${name}`)
@@ -225,4 +227,19 @@ const parseDataPointsblock = (data: any): DataPointsData => {
   }))
 
   return { points: points, name: "acf/data-points" }
+}
+
+const tabsPattern = /^tab_list_(\d+)_tab_title$/
+
+const parseTabsBlock = (data: any): TabsData => {
+  const indexes = Object.keys(data)
+    .filter(key => tabsPattern.test(key))
+    .map(key => key.match(tabsPattern)![1])
+
+  const tabsList = indexes.map(index => ({
+    title: data[`tab_list_${index}_tab_title`],
+    content: data[`tab_list_${index}_tab_content`],
+  }))
+
+  return { heading: data.heading, tabList: tabsList, name: "acf/tabs" }
 }

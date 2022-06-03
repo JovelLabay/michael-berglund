@@ -70,6 +70,14 @@ export interface DataPointsData extends BaseBlock {
   }[]
 }
 
+export interface TabsData extends BaseBlock {
+  heading:string;
+  tabList:{
+    title:string;
+    content:string;
+  }[]
+}
+
 export type BlockName =
   | "acf/hero"
   | "acf/stats"
@@ -80,6 +88,7 @@ export type BlockName =
   | "acf/short-desc"
   | "acf/contact"
   | "acf/data-points"
+  | "acf/tabs"
 
 /** Type-narrowing functions */
 export function isHeroData(object: any): object is HeroData {
@@ -116,4 +125,8 @@ export function isContactData(object: any): object is ContactData {
 
 export function isDataPointsData(object: any): object is DataPointsData {
   return object && typeof object.name === "string" && object.name === "acf/data-points"
+}
+
+export function isTabsData(object: any): object is TabsData {
+  return object && typeof object.name === "string" && object.name === "acf/tabs"
 }

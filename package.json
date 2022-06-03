@@ -9,12 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
+    
     "next": "12.1.6",
     "react": "18.1.0",
     "react-dom": "18.1.0",
     "sharp": "^0.30.6"
   },
   "devDependencies": {
+    "@headlessui/react": "^1.6.4",
     "@storyofams/next-password-protect": "^1.6.0",
     "@tailwindcss/aspect-ratio": "^0.4.0",
     "@tailwindcss/typography": "^0.5.2",

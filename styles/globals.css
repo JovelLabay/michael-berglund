@@ -17,7 +17,7 @@
 
 @layer components {
   .app-h1 {
-    @apply font-lora text-app-h1
+    @apply font-lora text-app-h1;
   }
 
   .app-h2 {
@@ -40,6 +40,10 @@
     @apply text-body-s;
   }
 
+  .body-m {
+    @apply text-body-m;
+  }
+
   .body-l {
     @apply text-body-l;
   }
@@ -54,6 +58,10 @@
 
   .quote-l {
     @apply font-lora text-quote-l italic text-dark-blue;
+  }
+
+  .pre-title {
+    @apply text-pre-title text-dark-blue;
   }
 
   .footer-contact-text {

@@ -20,6 +20,7 @@ module.exports = {
       "link-s": ["14px", "18px"],
       "link-m": ["16px", "20px"],
       "quote-l": ["24px", "32px"],
+      "pre-title": ["14px", "16px"],
     },
     aspectRatio: {
       auto: "auto",
@@ -57,5 +58,5 @@ module.exports = {
       },
     },
   },
-  plugins: [require("@tailwindcss/aspect-ratio"), require('@tailwindcss/typography'),],
+  plugins: [require('@tailwindcss/aspect-ratio'), require('@tailwindcss/typography'),],
 }
