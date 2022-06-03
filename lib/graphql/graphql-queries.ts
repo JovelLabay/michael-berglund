@@ -127,6 +127,9 @@ export const WP_BLOCKS = gql`
     ... on AcfRegisterCvBlock {
       attributesJSON
     }
+    ... on AcfAssignmentsBlock {
+      attributesJSON
+    }
   }
 `
 

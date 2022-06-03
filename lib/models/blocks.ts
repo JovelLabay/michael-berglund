@@ -78,6 +78,14 @@ export interface TabsData extends BaseBlock {
   }[]
 }
 
+export interface AssignmentsData extends BaseBlock {
+  title: string
+  assignments: {
+    title: string
+    description: string
+  }[]
+}
+
 export interface RegisterCvData extends BaseBlock {
   heading: string
   description: string
@@ -104,7 +112,7 @@ export type BlockName =
   | "acf/contact"
   | "acf/data-points"
   | "acf/tabs"
-  | "acf/register-cv"
+  | "acf/assignments"
 
 /** Type-narrowing functions */
 export function isHeroData(object: any): object is HeroData {
@@ -149,4 +157,8 @@ export function isTabsData(object: any): object is TabsData {
 
 export function isRegisterCvData(object: any): object is RegisterCvData {
   return object && typeof object.name === "string" && object.name === "acf/register-cv"
+}
+
+export function isAssignmentsData(object: any): object is AssignmentsData {
+  return object && typeof object.name === "string" && object.name === "acf/assignments"
 }

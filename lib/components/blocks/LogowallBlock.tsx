@@ -19,7 +19,7 @@ export const LogowallBlock = ({ heading, border, gallery }: LogowallData) => {
   ))
 
   return (
-    <div className="bg-light-beige">
+    <section className="bg-light-beige">
       <div
         className={classNames("mx-12 flex flex-col items-center  pt-[100px]", {
           "border-b border-normal-beige ": border === "border",
@@ -30,6 +30,6 @@ export const LogowallBlock = ({ heading, border, gallery }: LogowallData) => {
           {_logos}
         </div>
       </div>
-    </div>
+    </section>
   )
 }

@@ -128,6 +128,5 @@ export interface AnimatedPage {
   mainTitle: string
   preTitle: string
   linkText: string
-  linkUrl: string
   colorOverlay: string
 }

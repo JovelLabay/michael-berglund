@@ -1,8 +1,8 @@
 import {
-    BaseBlock, ContactData, DataPointsData, DescWithImageData, HeroData, isContactData,
-    isDescWithImageData, isHeroData, isLogowallData, isRegisterCvData, isRelatedArticlesData,
-    isStatsData, LogowallData, RegisterCvData, RelatedArticleData, ReviewSliderData, ShortDescData,
-    StatsData, TabsData
+    AssignmentsData, BaseBlock, ContactData, DataPointsData, DescWithImageData, HeroData,
+    isContactData, isDescWithImageData, isHeroData, isLogowallData, isRegisterCvData,
+    isRelatedArticlesData, isStatsData, LogowallData, RegisterCvData, RelatedArticleData,
+    ReviewSliderData, ShortDescData, StatsData, TabsData
 } from "@models/blocks"
 
 type Blocks = { attributesJSON: string }[]
@@ -36,9 +36,8 @@ export const parse = (rawBlocks: Blocks): { blocks: BaseBlock[] } => {
         return parseDataPointsblock(data)
       case "acf/tabs":
         return parseTabsBlock(data)
-      case "acf/register-cv":
-        // console.log(data)
-        return parseRegisterCVBlock(data)
+      case "acf/assignments":
+        return parseAssignmentsBlock(data)
 
       default:
         throw new Error(`Unknown block type: ${name}`)
@@ -118,7 +117,6 @@ const parseHeroBlock = (data: any): HeroData => {
         mainTitle: data[`animated_pages_${index}_main_title`],
         preTitle: data[`animated_pages_${index}_pre-title`],
         linkText: data[`animated_pages_${index}_link_text`],
-        linkUrl: data[`animated_pages_${index}_link_url`],
         colorOverlay: data[`animated_pages_${index}_color_overlay`],
       }))
   } else {
@@ -257,34 +255,15 @@ const parseTabsBlock = (data: any): TabsData => {
   return { heading: data.heading, tabList: tabsList, name: "acf/tabs" }
 }
 
-const registerPattern = /^professional_info_info_dropdown_(\d+)_title$/
-const valuesPattern = /^professional_info_info_dropdown_(\d+)_values_(\d+)_value$/
+const completedAssignmentsPattern = /^completed_assignments_(\d+)_title$/
+const parseAssignmentsBlock = (data: any): AssignmentsData => {
+  const completedAssignments = Object.keys(data)
+    .filter(key => completedAssignmentsPattern.test(key))
+    .map(key => key.match(completedAssignmentsPattern)![1])
+    .map(index => ({
+      title: data[`completed_assignments_${index}_title`],
+      description: data[`completed_assignments_${index}_description`],
+    }))
 
-const parseRegisterCVBlock = (data: any): RegisterCvData => {
-  //TODO: Fix the values mapping issues. How to parse nested loops?
-  const values = Object.keys(data)
-    .filter(key => valuesPattern.test(key))
-    .map(key => key.match(valuesPattern)![1])
-    .map(
-      index =>
-        data[`professional_info_info_dropdown_${parseInt(index)}_values_${parseInt(index)}_value`]
-    )
-
-  const indexes = Object.keys(data)
-    .filter(key => registerPattern.test(key))
-    .map(key => key.match(registerPattern)![1])
-
-  const infoDropdown = indexes.map(index => ({
-    title: data[`professional_info_info_dropdown_${index}_title`],
-    values: values,
-  }))
-
-  return {
-    heading: data.heading,
-    description: data.description,
-    downloadLinkTitle: data.download_link_title,
-    downloadFile: data.download_file,
-    professionalInfo: { infoDropdown },
-    name: "acf/register-cv",
-  }
+  return { name: "acf/assignments", title: data.title, assignments: completedAssignments }
 }
