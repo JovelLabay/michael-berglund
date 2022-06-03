@@ -94,6 +94,10 @@
   .app-hover {
     @apply duration-300 ease-in-out;
   }
+
+  .section-padding {
+    @apply px-12;
+  }
 }
 
 @layer utilities {
