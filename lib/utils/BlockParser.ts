@@ -1,7 +1,7 @@
 import {
-    BaseBlock, DataPointsData, DescWithImageData, HeroData, isDescWithImageData, isHeroData,
-    isLogowallData, isRelatedArticlesData, isStatsData, LogowallData, RelatedArticleData,
-    ReviewSliderData, ShortDescData, StatsData, TabsData
+    BaseBlock, ContactData, DataPointsData, DescWithImageData, HeroData, isContactData,
+    isDescWithImageData, isHeroData, isLogowallData, isRelatedArticlesData, isStatsData,
+    LogowallData, RelatedArticleData, ReviewSliderData, ShortDescData, StatsData, TabsData
 } from "@models/blocks"
 
 type Blocks = { attributesJSON: string }[]
@@ -29,10 +29,12 @@ export const parse = (rawBlocks: Blocks): { blocks: BaseBlock[] } => {
         return parseRelatedArticles(data)
       case "acf/short-desc":
         return parseShortDescblock(data)
+      case "acf/contact":
+        return parseContactBlocks(data)
       case "acf/data-points":
         return parseDataPointsblock(data)
       case "acf/tabs":
-        return parseTabsBlock(data)  
+        return parseTabsBlock(data)
 
       default:
         throw new Error(`Unknown block type: ${name}`)
@@ -76,6 +78,16 @@ export const getPostLinkIds = (blocks: BaseBlock[]) => {
   return Array.from(new Set(blocks.map(mapper).flatMap(ids => ids)))
 }
 
+export const getMedarbetareLinkIds = (blocks: BaseBlock[]) => {
+  const mapper = (block: BaseBlock) => {
+    if (isContactData(block)) return block.medarbetareIds
+
+    return []
+  }
+
+  return Array.from(new Set(blocks.map(mapper).flatMap(ids => ids)))
+}
+
 const animatedPagesPattern = /^animated_pages_(\d+)_page$/
 
 const parseHeroBlock = (data: any): HeroData => {
@@ -101,7 +113,7 @@ const parseHeroBlock = (data: any): HeroData => {
       title: data.basic_hero_title,
       linkText: data.basic_hero_link_text,
       linkUrl: data.basic_hero_link_url,
-      colorOverlay: data.basic_hero_color_overlay
+      colorOverlay: data.basic_hero_color_overlay,
     }
   }
 
@@ -190,6 +202,17 @@ const parseShortDescblock = (data: any): ShortDescData => {
   return { description: data.description, quote: data.quote, name: "acf/short-desc" }
 }
 
+const contactItemPattern = /^medarbetare_list_(\d+)_medarbetare$/
+
+const parseContactBlocks = (data: any): ContactData => {
+  const medarbetareIds = Object.keys(data)
+    .filter(key => contactItemPattern.test(key))
+    .map(key => key.match(contactItemPattern)![1])
+    .map(index => data[`medarbetare_list_${index}_medarbetare`])
+
+  return { name: "acf/contact", title: data.title, medarbetareIds }
+}
+
 const dataPointsPattern = /^data_points_(\d+)_data_number$/
 
 const parseDataPointsblock = (data: any): DataPointsData => {
@@ -208,15 +231,15 @@ const parseDataPointsblock = (data: any): DataPointsData => {
 
 const tabsPattern = /^tab_list_(\d+)_tab_title$/
 
-const parseTabsBlock = (data:any):TabsData=>{
+const parseTabsBlock = (data: any): TabsData => {
   const indexes = Object.keys(data)
     .filter(key => tabsPattern.test(key))
     .map(key => key.match(tabsPattern)![1])
 
   const tabsList = indexes.map(index => ({
-    title:data[`tab_list_${index}_tab_title`],
-    content:data[`tab_list_${index}_tab_content`],
+    title: data[`tab_list_${index}_tab_title`],
+    content: data[`tab_list_${index}_tab_content`],
   }))
 
-  return {heading: data.heading, tabList: tabsList, name:"acf/tabs"}
+  return { heading: data.heading, tabList: tabsList, name: "acf/tabs" }
 }

@@ -14,6 +14,7 @@ import { Wysiwyg } from "@components/shared/Wysiwyg"
 import { SwiperArrowLeft } from "@icons/SwiperArrowLeft"
 import { SwiperArrowRight } from "@icons/SwiperArrowRight"
 import { RelatedArticleData } from "@models/blocks"
+import { Post } from "@models/common"
 
 export const RelatedArticles = ({ title, postIds }: RelatedArticleData) => {
   const { postMap } = useGlobalContext()
@@ -34,7 +35,7 @@ export const RelatedArticles = ({ title, postIds }: RelatedArticleData) => {
   const slides = useMemo(
     () =>
       postIds.map(cardId => {
-        const { id, featuredImage, title, excerpt, uri } = postMap![cardId]
+        const { id, featuredImage, title, excerpt, uri } = postMap![cardId] as Post
 
         const cardBody = (
           <div className="p-8">

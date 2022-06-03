@@ -8,7 +8,7 @@ export type HeroType = "basic" | "animated"
 export type ImageMap = Record<number, Pick<ImageProps, "src" | "alt">>
 
 export type PageMap = Record<number, Page>
-export type PostMap = Record<number, Post>
+export type PostMap = Record<number, Post | MedarbetarePost>
 
 export interface PageProps {
   globalFields: GQLGlobalFields
@@ -99,6 +99,26 @@ export interface Post {
   featuredImage: {
     node: WPMedia
   }
+}
+
+export interface MedarbetarePost {
+  id: string
+  medarbetaredId: string
+  title: string
+  slug: string
+  uri: string
+  featuredImage: {
+    node: WPMedia
+  }
+  acfMedarbetare: AcfMedarbetare
+}
+
+export interface AcfMedarbetare {
+  position: string
+  email: string
+  phone: string
+  linkedin: string
+  bio: string
 }
 
 export interface AnimatedPage {

@@ -11,10 +11,10 @@ const easeOutQuad = (t: number) => t * (2 - t)
 
 export const Counter = ({ pointNumber, pointSymbol, pointTitle }: CounterProps) => {
   const [count, setCount] = useState(0)
-  const duration = 2000
-  const frameDuration = 1000 / 60
 
   useEffect(() => {
+    const duration = 2000
+    const frameDuration = 1000 / 60
     let frame = 0
 
     const totalFrames = Math.round(duration / frameDuration)
@@ -32,7 +32,7 @@ export const Counter = ({ pointNumber, pointSymbol, pointTitle }: CounterProps) 
     return () => {
       clearInterval(timer)
     }
-  }, [])
+  }, [pointNumber])
 
   return (
     <div className="flex w-[309px] flex-col items-center">

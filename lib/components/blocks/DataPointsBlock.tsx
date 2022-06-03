@@ -12,13 +12,13 @@ export const DataPointsBlock = ({ points }: DataPointsData) => {
     setIsVisible(entry.isIntersecting)
   }
 
-  const options = {
-    root: null,
-    rootMargin: "0px",
-    threshold: 0.2,
-  }
-
   useEffect(() => {
+    const options = {
+      root: null,
+      rootMargin: "0px",
+      threshold: 0.2,
+    }
+
     const observer = new IntersectionObserver(startCountAnimation, options)
 
     if (containerRef.current) observer.observe(containerRef.current)
@@ -26,7 +26,7 @@ export const DataPointsBlock = ({ points }: DataPointsData) => {
     return () => {
       if (containerRef.current) observer.unobserve(containerRef.current)
     }
-  }, [containerRef, options])
+  }, [containerRef])
 
   // Build the points.
   const _points = useMemo(
