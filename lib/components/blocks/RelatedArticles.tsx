@@ -62,7 +62,7 @@ export const RelatedArticles = ({ title, postIds }: RelatedArticleData) => {
   )
 
   return (
-    <div className="bg-white pl-12 pt-[100px] pb-[120px]">
+    <section className="bg-white pl-12 pt-[100px] pb-[120px]">
       <h3 className="app-h3 mb-[60px]">{title}</h3>
       <div className="relative">
         <Swiper
@@ -99,6 +99,6 @@ export const RelatedArticles = ({ title, postIds }: RelatedArticleData) => {
           </button>
         </div>
       </div>
-    </div>
+    </section>
   )
 }

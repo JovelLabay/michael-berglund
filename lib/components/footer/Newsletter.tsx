@@ -13,7 +13,7 @@ export const NewsLetter = () => {
   const { title, description, emailPlaceholder, privacyPolicy } = newsletter
 
   return (
-    <div className="bg-light-beige pt-[100px] pb-[120px] text-center">
+    <section className="bg-light-beige pt-[100px] pb-[120px] text-center">
       <div className="mx-auto max-w-[650px] ">
         <h3 className="app-h3">{title}</h3>
         <span className="mt-10 mb-8 inline-block">
@@ -39,6 +39,6 @@ export const NewsLetter = () => {
           </span>
         </form>
       </div>
-    </div>
+    </section>
   )
 }
