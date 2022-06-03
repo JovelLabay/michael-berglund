@@ -6,10 +6,12 @@ import client from "@graphql/urql-client"
 import invariant from "tiny-invariant"
 
 import {
-    getImageIds, getMedarbetareLinkIds, getPageLinkIds, getPostLinkIds, parse
+    getFileLinks, getImageIds, getMedarbetareLinkIds, getPageLinkIds, getPostLinkIds, parse
 } from "@/lib/utils/BlockParser"
 import { getImages } from "@/lib/utils/ImageGetter"
 import { PageMap, PostMap } from "@models/common"
+
+import { getFiles } from "./FileGetter"
 
 export const getPageProps = async (uri = "/") => {
   const [{ data: globalFields }, { data: pageBlocks }] = await Promise.all([
@@ -28,14 +30,16 @@ export const getPageProps = async (uri = "/") => {
   const pageLinkIds = getPageLinkIds(blocks)
   const postLinkIds = getPostLinkIds(blocks)
   const mendarbetareLinkIds = getMedarbetareLinkIds(blocks)
+  const downloadFileIds = getFileLinks(blocks)
 
-  const [images, pageMap, postMap] = await Promise.all([
+  const [images, pageMap, postMap, files] = await Promise.all([
     getImages(imageIds),
     getPages(pageLinkIds),
     getPosts(postLinkIds, mendarbetareLinkIds),
+    getFiles(downloadFileIds),
   ])
 
-  return { props: { globalFields, pageData, blocks, pageMap, postMap, images } }
+  return { props: { globalFields, pageData, blocks, pageMap, postMap, images, files } }
 }
 
 const getPages = async (ids: number[]): Promise<PageMap> => {

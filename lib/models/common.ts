@@ -9,6 +9,7 @@ export type ImageMap = Record<number, Pick<ImageProps, "src" | "alt">>
 
 export type PageMap = Record<number, Page>
 export type PostMap = Record<number, Post | MedarbetarePost>
+export type FileMap = Record<number, string>
 
 export interface PageProps {
   globalFields: GQLGlobalFields
