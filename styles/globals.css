@@ -88,9 +88,13 @@
   .wysiwyg {
     @apply prose-p:body-l prose prose-a:duration-300 prose-a:ease-in-out hover:prose-a:text-medium-beige;
   }
+
+  .app-hover {
+    @apply duration-300 ease-in-out;
+  }
 }
 
-@layer components {
+@layer utilities {
   .progress-bar-swiper.swiper .swiper-pagination-progressbar.swiper-pagination-horizontal {
     @apply top-auto bottom-0 h-0.5 w-[85%] bg-darker-beige;
   }
@@ -113,5 +117,9 @@
 
   .review-slider.swiper span.swiper-pagination-bullet.swiper-pagination-bullet-active {
     @apply h-3 w-3 bg-dark-green;
+  }
+
+  .hover-text-white {
+    @apply app-hover hover:text-medium-beige;
   }
 }

@@ -3,13 +3,13 @@ import Link from "next/link"
 
 import { WPMedia } from "@models/common"
 
-export interface ContactItemProps {
+export interface FooterContactItemProps {
   icon: WPMedia
   text: string
   link?: string
 }
 
-export const ContactItem = ({ icon, text, link }: ContactItemProps) => {
+export const FooterContactItem = ({ icon, text, link }: FooterContactItemProps) => {
   const info = (
     <>
       <Image src={icon.mediaItemUrl} alt={icon.altText} width={16} height={16} />
@@ -18,10 +18,7 @@ export const ContactItem = ({ icon, text, link }: ContactItemProps) => {
   )
 
   return link ? (
-    <a
-      href={`mailto:info@michaelberglund.se`}
-      className="icon-text duration-300 ease-in-out hover:text-medium-beige"
-    >
+    <a href={`mailto:info@michaelberglund.se`} className="icon-text hover-text-white">
       {info}
     </a>
   ) : (

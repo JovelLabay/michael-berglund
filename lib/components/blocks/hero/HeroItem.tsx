@@ -93,7 +93,7 @@ export function HeroItem({
           <motion.h2
             animate={{ marginLeft: isActive ? 20 : -20 }}
             transition={{ duration: 1 }}
-            className="pre-title uppercase tracking-[0.15em]"
+            className="pre-title uppercase tracking-[0.15em] text-white"
           >
             {preTitle}
           </motion.h2>
@@ -104,16 +104,19 @@ export function HeroItem({
             animate={{ opacity: 1 }}
             transition={{ duration: 1 }}
           >
-            <AppLink href={pageLink} className="flex items-center space-x-[10px]">
+            <AppLink
+              href={pageLink}
+              className="hover-text-white group flex items-center space-x-[10px]"
+            >
               <span className="link-m">Learn more</span>
-              <ArrowRight className="fill-white" />
+              <ArrowRight className="fill-white group-hover:fill-medium-beige" />
             </AppLink>
           </motion.div>
         )}
       </div>
-      {isActive && (
+      {/* {isActive && (
         <HeroItemProgressBar timeoutCallback={timeoutCallback} className="absolute bottom-0 z-30" />
-      )}
+      )} */}
     </motion.div>
   )
 }
