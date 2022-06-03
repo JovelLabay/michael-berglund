@@ -6,7 +6,7 @@ import mapImage from "@/public/Map.png"
 import { AppLink } from "@components/shared/AppLink"
 import { FooterLogo } from "@logos/FooterLogo"
 
-import { ContactItem } from "./ContactItem"
+import { FooterContactItem } from "./FooterContactItem"
 import { NewsLetter } from "./Newsletter"
 
 export const Footer = () => {
@@ -36,7 +36,7 @@ export const Footer = () => {
             {/* Contact Link */}
             <div className="footer-contact-text flex flex-col space-y-3">
               {contactInfo &&
-                contactInfo.map(contact => <ContactItem key={contact.text} {...contact} />)}
+                contactInfo.map(contact => <FooterContactItem key={contact.text} {...contact} />)}
             </div>
 
             {/* Social Link */}
@@ -44,20 +44,12 @@ export const Footer = () => {
               {links &&
                 links.map(({ linkType, text, externalLink, internalLink }) =>
                   linkType === "internal" ? (
-                    <AppLink
-                      key={text}
-                      href={internalLink.uri}
-                      className="duration-300 ease-in-out hover:text-medium-beige"
-                    >
+                    <AppLink key={text} href={internalLink.uri} className="hover-text-white">
                       <span>{text}</span>
                     </AppLink>
                   ) : (
                     <Link key={text} href={externalLink}>
-                      <a
-                        className="duration-300 ease-in-out hover:text-medium-beige"
-                        target="_blank"
-                        rel="noreferrer"
-                      >
+                      <a className="hover-text-white outline-none" target="_blank" rel="noreferrer">
                         <span>{text}</span>
                       </a>
                     </Link>
@@ -77,7 +69,7 @@ export const Footer = () => {
                     <a
                       key={logo.mediaItemUrl}
                       href={link}
-                      className="duration-300 ease-in-out hover:opacity-75"
+                      className="app-hover outline-none hover:opacity-75"
                       target="_blank"
                       rel="noreferrer"
                     >

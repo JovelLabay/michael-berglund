@@ -17,7 +17,7 @@
 
 @layer components {
   .app-h1 {
-    @apply font-lora text-app-h1
+    @apply font-lora text-app-h1;
   }
 
   .app-h2 {
@@ -40,6 +40,10 @@
     @apply text-body-s;
   }
 
+  .body-m {
+    @apply text-body-m;
+  }
+
   .body-l {
     @apply text-body-l;
   }
@@ -54,6 +58,10 @@
 
   .quote-l {
     @apply font-lora text-quote-l italic text-dark-blue;
+  }
+
+  .pre-title {
+    @apply text-pre-title text-dark-blue;
   }
 
   .footer-contact-text {
@@ -76,13 +84,19 @@
     @apply font-lora text-app-h1;
   }
 
-  /* TODO: Update later */
   .wysiwyg {
-    @apply prose-p:body-l prose prose-a:duration-300 prose-a:ease-in-out hover:prose-a:text-medium-beige;
+    @apply prose-p:body-l prose-h4:app-h4 prose prose-h4:mt-3 prose-h4:font-lora prose-a:no-underline prose-a:outline-none prose-a:duration-300 prose-a:ease-in-out hover:prose-a:text-medium-beige;
+  }
+  .wysiwyg.privacy-policy {
+    @apply link-s prose text-dark-beige prose-a:no-underline prose-a:outline-none prose-strong:text-dark-beige prose-strong:transition-colors prose-strong:duration-300 hover:prose-strong:text-medium-beige;
+  }
+
+  .app-hover {
+    @apply duration-300 ease-in-out;
   }
 }
 
-@layer components {
+@layer utilities {
   .progress-bar-swiper.swiper .swiper-pagination-progressbar.swiper-pagination-horizontal {
     @apply top-auto bottom-0 h-0.5 w-[85%] bg-darker-beige;
   }
@@ -105,5 +119,9 @@
 
   .review-slider.swiper span.swiper-pagination-bullet.swiper-pagination-bullet-active {
     @apply h-3 w-3 bg-dark-green;
+  }
+
+  .hover-text-white {
+    @apply app-hover hover:text-medium-beige;
   }
 }

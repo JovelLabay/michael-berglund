@@ -57,6 +57,27 @@ export interface ShortDescData extends BaseBlock {
   quote: string
 }
 
+export interface ContactData extends BaseBlock {
+  title: string
+  medarbetareIds: number[]
+}
+
+export interface DataPointsData extends BaseBlock {
+  points: {
+    pointNumber: number
+    pointSymbol: string
+    pointTitle: string
+  }[]
+}
+
+export interface TabsData extends BaseBlock {
+  heading:string;
+  tabList:{
+    title:string;
+    content:string;
+  }[]
+}
+
 export type BlockName =
   | "acf/hero"
   | "acf/stats"
@@ -65,6 +86,9 @@ export type BlockName =
   | "acf/logo-wall"
   | "acf/reviews-slider"
   | "acf/short-desc"
+  | "acf/contact"
+  | "acf/data-points"
+  | "acf/tabs"
 
 /** Type-narrowing functions */
 export function isHeroData(object: any): object is HeroData {
@@ -93,4 +117,16 @@ export function isRelatedArticlesData(object: any): object is RelatedArticleData
 
 export function isShortDescData(object: any): object is ShortDescData {
   return object && typeof object.name === "string" && object.name === "acf/short-desc"
+}
+
+export function isContactData(object: any): object is ContactData {
+  return object && typeof object.name === "string" && object.name === "acf/contact"
+}
+
+export function isDataPointsData(object: any): object is DataPointsData {
+  return object && typeof object.name === "string" && object.name === "acf/data-points"
+}
+
+export function isTabsData(object: any): object is TabsData {
+  return object && typeof object.name === "string" && object.name === "acf/tabs"
 }
