@@ -46,11 +46,12 @@ export function HeroItem({
       key={preTitle}
       initial={{ height: 0, opacity: 0 }}
       animate={{ height: "auto", opacity: 1 }}
-      transition={{ duration: 0.75 }}
+      exit={{ opacity: 0.5 }}
+      transition={{ duration: 0.75, easings: "linear" }}
       className={classNames("relative", className)}
     >
       {/* Base */}
-      <motion.div animate={{ height: heroHeight }} transition={{ duration: 1 }}></motion.div>
+      <motion.div animate={{ height: heroHeight }} transition={{ duration: 0.85 }}></motion.div>
       <div className="h-[100px]"></div>
       {/* Background Image - Layer 1 */}
       <div className="absolute inset-0 z-10 overflow-hidden">
@@ -60,7 +61,9 @@ export function HeroItem({
           width={expandDimension.width}
           height={expandDimension.height}
           objectFit="cover"
-          className={classNames("transition-all duration-1000", { "blur-[15px]": !isActive })}
+          className={classNames("bottom-0 transition-all duration-1000", {
+            "blur-[15px]": !isActive,
+          })}
         />
       </div>
       {/* Overlay - Layer 2 */}
@@ -76,7 +79,7 @@ export function HeroItem({
             initial={{ opacity: 0, translateY: 150 }}
             animate={{ opacity: 1, translateY: 0 }}
             exit={{ opacity: 0, translateY: -50 }}
-            transition={{ duration: 1 }}
+            transition={{ duration: 0.85 }}
             className="app-h2 absolute bottom-[220px] z-30 mx-12 max-w-[660px] font-lora text-light-beige"
           >
             <h3>{mainTitle}</h3>

@@ -14,7 +14,7 @@ export interface CardProps {
 
 export const Card = ({ image, body, link, className }: CardProps) => {
   const card = (
-    <div className={classNames("relative")}>
+    <div className={classNames("relative h-full")}>
       {/* Overlay */}
       <div className="absolute top-0 z-0 h-full w-full bg-darker-beige"></div>
 

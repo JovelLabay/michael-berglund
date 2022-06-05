@@ -58,7 +58,8 @@ export const ProgressSwiper = ({ totalPages, slidesPerView, slides }: ProgressSw
         <button
           onClick={handleNext}
           className={classNames("p-1 outline-none", {
-            "pointer-events-none opacity-25": index === totalPages,
+            "pointer-events-none opacity-25":
+              index === (slides.length % 2 === 0 ? totalPages : totalPages - 1),
           })}
         >
           <SwiperArrowRight />
