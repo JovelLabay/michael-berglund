@@ -16,7 +16,7 @@ export const Assignments = ({ title, assignments }: AssignmentsData) => {
     () =>
       assignments.map(({ title, description }, index) => (
         <SwiperSlide key={index}>
-          <div className="item flex">
+          <div className="item flex h-full">
             <div className="relative aspect-square w-[28.05%] shrink-0">
               <Image
                 src={AssignmentBg.src}

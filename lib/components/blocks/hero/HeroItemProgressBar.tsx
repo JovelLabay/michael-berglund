@@ -1,5 +1,5 @@
 import classNames from "classnames"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { usePageVisibility } from "react-page-visibility"
 
 export interface HeroItemProgressBarProps {
@@ -14,6 +14,7 @@ export const HeroItemProgressBar = ({ timeoutCallback, className }: HeroItemProg
   const [percentage, setPercentage] = useState(0)
   const [opacity, setOpacity] = useState(1)
   const [isAnimate, setIsAnimate] = useState(false)
+  const hasAnimated = useRef(false)
 
   useEffect(() => {
     setPercentage(100)
@@ -27,9 +28,10 @@ export const HeroItemProgressBar = ({ timeoutCallback, className }: HeroItemProg
   }, [])
 
   useEffect(() => {
-    if (isAnimate && isVisible) {
+    if (!hasAnimated.current && isAnimate && isVisible) {
       setOpacity(0)
       timeoutCallback()
+      hasAnimated.current = true
     }
   }, [isAnimate, isVisible, timeoutCallback])
 
