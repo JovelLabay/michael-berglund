@@ -44,7 +44,7 @@ export const AnimatedHero = ({ pages }: HeroData) => {
   return (
     <section
       ref={heroContainer}
-      className="relative flex h-screen flex-col justify-end overflow-hidden bg-dark-blue text-white"
+      className="relative flex h-screen flex-col justify-end overflow-hidden  text-white"
     >
       {imageDimenstions.height > 0 && (
         <AnimatePresence initial={false}>

@@ -30,7 +30,7 @@ export const RelatedArticles = ({ title, postIds }: RelatedArticleData) => {
         )
 
         return (
-          <SwiperSlide key={id}>
+          <SwiperSlide key={id} className="pt-1">
             <Card
               image={featuredImage.node}
               body={cardBody}
