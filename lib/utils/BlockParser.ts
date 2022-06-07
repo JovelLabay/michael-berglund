@@ -4,6 +4,7 @@ import {
     isRelatedArticlesData, isStatsData, LogowallData, RegisterCvData, RelatedArticleData,
     ReviewSliderData, ShortDescData, StatsData, TabsData
 } from "@models/blocks"
+import { IDropDown } from "@models/common"
 
 type Blocks = { attributesJSON: string }[]
 
@@ -38,6 +39,8 @@ export const parse = (rawBlocks: Blocks): { blocks: BaseBlock[] } => {
         return parseTabsBlock(data)
       case "acf/assignments":
         return parseAssignmentsBlock(data)
+      case "acf/register-cv":
+        return parseRegisterCVBlock(data)
 
       default:
         throw new Error(`Unknown block type: ${name}`)
@@ -266,4 +269,29 @@ const parseAssignmentsBlock = (data: any): AssignmentsData => {
     }))
 
   return { name: "acf/assignments", title: data.title, assignments: completedAssignments }
+}
+
+const parseRegisterCVBlock = (data: any): RegisterCvData => {
+  const dropDownLength = data.professional_info_info_dropdown
+
+  let infoDropdown: IDropDown[] = []
+
+  for (let i = 0; i < dropDownLength; i++) {
+    let values = []
+    let title = data[`professional_info_info_dropdown_${i}_title`]
+
+    for (let j = 0; j < data[`professional_info_info_dropdown_${i}_values`]; j++) {
+      values.push(data[`professional_info_info_dropdown_${i}_values_${j}_value`])
+    }
+    infoDropdown.push({ title, values })
+  }
+
+  return {
+    heading: data.heading,
+    description: data.description,
+    downloadLinkTitle: data.download_link_title,
+    downloadFile: data.download_file,
+    professionalInfo: { infoDropdown },
+    name: "acf/register-cv",
+  }
 }

@@ -56,6 +56,9 @@ module.exports = {
         "normal-beige": "#ECE5E2",
         "darker-beige": "#ECE5E2",
       },
+      backgroundImage: {
+        "register-pattern": "url('/bg/register-pattern.png')",
+      }
     },
   },
   plugins: [require('@tailwindcss/aspect-ratio'), require('@tailwindcss/typography'),],

@@ -98,6 +98,14 @@
   .section-padding {
     @apply px-12;
   }
+
+  .form-input {
+    @apply placeholder:link-m p-4 placeholder:opacity-50;
+  }
+
+  .form-btn {
+    @apply link-m w-[220px] bg-orange py-4 text-white;
+  }
 }
 
 @layer utilities {

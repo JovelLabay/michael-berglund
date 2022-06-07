@@ -1,7 +1,7 @@
 import {
     BaseBlock, isAssignmentsData, isContactData, isDataPointsData, isDescWithImageData, isHeroData,
-    isLogowallData, isRelatedArticlesData, isReviewSilderData, isShortDescData, isStatsData,
-    isTabsData
+    isLogowallData, isRegisterCvData, isRelatedArticlesData, isReviewSilderData, isShortDescData,
+    isStatsData, isTabsData
 } from "@models/blocks"
 
 import { DescWithImgBlock } from "./"
@@ -10,6 +10,7 @@ import { Contact } from "./Contact"
 import { DataPointsBlock } from "./DataPointsBlock"
 import Hero from "./hero/Hero"
 import { LogowallBlock } from "./LogowallBlock"
+import { RegisterCVBlock } from "./RegisterCVBlock"
 import { RelatedArticles } from "./RelatedArticles"
 import { ReviewSlider } from "./ReviewSlider"
 import { ShortDescBlock } from "./ShortDescBlock"
@@ -28,5 +29,6 @@ export const Block = ({ block }: { block: BaseBlock }) => {
   if (isDataPointsData(block)) return <DataPointsBlock {...block} />
   if (isTabsData(block)) return <TabsBlock {...block} />
   if (isAssignmentsData(block)) return <Assignments {...block} />
+  if (isRegisterCvData(block)) return <RegisterCVBlock {...block} />
   return null
 }

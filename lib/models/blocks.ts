@@ -1,4 +1,4 @@
-import { AnimatedPage, HeroType, Page } from "./common"
+import { AnimatedPage, HeroType, IDropDown, Page } from "./common"
 
 export interface BaseBlock {
   name: BlockName
@@ -92,12 +92,7 @@ export interface RegisterCvData extends BaseBlock {
   downloadLinkTitle: string
   downloadFile: number
   professionalInfo: {
-    infoDropdown: {
-      title: string
-      values: {
-        value: string
-      }[]
-    }[]
+    infoDropdown: IDropDown[]
   }
 }
 
@@ -113,6 +108,7 @@ export type BlockName =
   | "acf/data-points"
   | "acf/tabs"
   | "acf/assignments"
+  | "acf/register-cv"
 
 /** Type-narrowing functions */
 export function isHeroData(object: any): object is HeroData {
