@@ -29,10 +29,12 @@ export const BasicHero = ({ page }: HeroData) => {
         <div className="absolute bottom-0 z-30 flex w-full items-end justify-between p-12 text-white">
           <h1 className="app-h1">{title}</h1>
 
-          <AppLink href="#" className="hover-text-white group flex items-center space-x-3">
-            <span>{linkText}</span>
-            <ArrowDown className="app-hover fill-white group-hover:fill-medium-beige" />
-          </AppLink>
+          {linkText && (
+            <AppLink href="#" className="hover-text-white group flex items-center space-x-3">
+              <span>{linkText}</span>
+              <ArrowDown className="app-hover fill-white group-hover:fill-medium-beige" />
+            </AppLink>
+          )}
         </div>
       </div>
     </section>

@@ -1,9 +1,16 @@
 import { useGlobalContext } from "@context/global"
+import classNames from "classnames"
+import { useState } from "react"
+import { SubmitHandler, useForm } from "react-hook-form"
 
 import { Wysiwyg } from "@components/shared/Wysiwyg"
 import { SendEmail } from "@icons/SendEmail"
+import { NewsletterFormValues } from "@models/forms"
 
 export const NewsLetter = () => {
+  const [submitted, setSubmitted] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
   const {
     acf: {
       acfGlobal: { newsletter },
@@ -11,6 +18,31 @@ export const NewsLetter = () => {
   } = useGlobalContext()
 
   const { title, description, emailPlaceholder, privacyPolicy } = newsletter
+
+  const { register, handleSubmit, reset } = useForm<NewsletterFormValues>()
+  const onSubmit: SubmitHandler<NewsletterFormValues> = async data => {
+    try {
+      setIsSubmitting(true)
+
+      const response = await fetch("api/newsletter", {
+        method: "POST",
+        cache: "no-cache",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      })
+
+      if (response.ok) {
+        console.log("newsletter submit [success!]")
+        reset()
+        setSubmitted(true)
+      }
+    } catch (error) {
+      console.log("newsletter submit [failed!]")
+      console.log(error)
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
 
   return (
     <section className="bg-light-beige pt-[100px] pb-[120px] text-center">
@@ -20,14 +52,24 @@ export const NewsLetter = () => {
           <Wysiwyg content={description} />
         </span>
 
-        <form>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-5 flex items-center justify-center overflow-hidden rounded-sm">
             <input
-              type="text"
+              type="email"
+              required
+              disabled={isSubmitting}
               className="input-link-text w-full px-4 py-[17px] outline-none"
               placeholder={emailPlaceholder}
+              {...register("email")}
             />
-            <button className="app-hover flex h-[52px] w-[64px] items-center justify-center bg-orange outline-none hover:opacity-75">
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className={classNames(
+                "app-hover flex h-[52px] w-[64px] items-center justify-center bg-orange outline-none hover:opacity-75",
+                { "pointer-events-none opacity-50": isSubmitting }
+              )}
+            >
               <SendEmail />
             </button>
           </div>
