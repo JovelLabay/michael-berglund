@@ -109,6 +109,10 @@
 }
 
 @layer utilities {
+  .progress-bar-swiper.swiper .swiper-slide {
+    @apply h-auto;
+  }
+
   .progress-bar-swiper.swiper .swiper-pagination-progressbar.swiper-pagination-horizontal {
     @apply top-auto bottom-0 h-0.5 w-[85%] bg-darker-beige;
   }
