@@ -8,7 +8,7 @@ export const LogowallBlock = ({ heading, border, gallery }: LogowallData) => {
   const { images } = useGlobalContext()
 
   const _logos = gallery.map(({ imageId }) => (
-    <div key={imageId} className="relative h-14 w-[158px] ">
+    <div key={imageId} className="relative h-14 w-[155px] ">
       <Image
         src={images![imageId].src}
         alt={images![imageId].alt}
@@ -19,14 +19,14 @@ export const LogowallBlock = ({ heading, border, gallery }: LogowallData) => {
   ))
 
   return (
-    <section className="bg-light-beige">
+    <section className="section-padding bg-light-beige">
       <div
-        className={classNames("mx-12 flex flex-col items-center  pt-[100px]", {
+        className={classNames("flex flex-col items-center", {
           "border-b border-normal-beige ": border === "border",
         })}
       >
-        <h3 className="app-h3 mb-[70px] text-dark-blue">{heading}</h3>
-        <div className="mb-[65px] flex flex-wrap justify-center gap-y-10 gap-x-20 px-[200px]">
+        <h3 className="app-h3 mb-10 px-5 text-center text-dark-blue lg:mb-[70px]">{heading}</h3>
+        <div className="mb-[65px] flex flex-wrap justify-center gap-y-10 gap-x-10 lg:gap-x-20 xl:px-[200px]">
           {_logos}
         </div>
       </div>

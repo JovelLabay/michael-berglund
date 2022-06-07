@@ -5,13 +5,15 @@ import { SwiperSlide } from "swiper/react"
 import { Card } from "@components/cards"
 import { Wysiwyg } from "@components/shared/Wysiwyg"
 import { ProgressSwiper } from "@components/swiper"
+import { useResponsiveMD } from "@hooks/shared"
 import { RelatedArticleData } from "@models/blocks"
 import { Post } from "@models/common"
 
 export const RelatedArticles = ({ title, postIds }: RelatedArticleData) => {
   const { postMap } = useGlobalContext()
+  const responsiveMD = useResponsiveMD()
 
-  const slidesPerView = 2.5
+  const slidesPerView = responsiveMD ? 2.5 : 1
   const totalPages = Math.ceil(postIds.length / Math.floor(slidesPerView))
 
   const slides = useMemo(
@@ -44,8 +46,8 @@ export const RelatedArticles = ({ title, postIds }: RelatedArticleData) => {
   )
 
   return (
-    <section className="bg-white pl-12 pt-[100px] pb-[120px]">
-      <h3 className="app-h3 mb-[60px]">{title}</h3>
+    <section className="section-padding bg-white pb-[120px] lg:pl-12">
+      <h3 className="app-h3 mb-10 lg:mb-[60px]">{title}</h3>
       <ProgressSwiper totalPages={totalPages} slidesPerView={slidesPerView} slides={slides} />
     </section>
   )

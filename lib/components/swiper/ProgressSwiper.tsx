@@ -40,13 +40,13 @@ export const ProgressSwiper = ({ totalPages, slidesPerView, slides }: ProgressSw
         navigation={true}
         modules={[Pagination]}
         initialSlide={0}
-        className="progress-bar-swiper !pb-14 pr-12"
+        className="progress-bar-swiper !pb-14 lg:pr-12"
         onSwiper={handleSwiperInit}
       >
         {slides}
       </Swiper>
 
-      <div className="absolute bottom-0 right-[4%] z-10 inline-flex translate-y-1/2 space-x-[15px]">
+      <div className="absolute -bottom-10 right-[4%] z-10 inline-flex translate-y-1/2 space-x-[15px] lg:bottom-0">
         <button
           onClick={handlePrev}
           className={classNames("p-1 outline-none", {
