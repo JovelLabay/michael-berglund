@@ -39,7 +39,7 @@ export const BigPageLinks = ({ title, postIds }: PostData) => {
   return (
     <section className="bg-white px-12 pt-[100px] pb-[120px]">
       <h3 className="app-h3 mb-[60px]">{title}</h3>
-        <div className="grid grid-cols-2 gap-8 cs-sm:grid-cols-1 cs-sm:gap-6 ">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-8 ">
           { cards }
         </div>
     </section>
