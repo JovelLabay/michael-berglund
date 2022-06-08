@@ -13,11 +13,11 @@ export const NewsLetter = () => {
   const { title, description, emailPlaceholder, privacyPolicy } = newsletter
 
   return (
-    <section className="bg-light-beige pt-[100px] pb-[120px] text-center">
+    <section className="section-padding bg-light-beige pb-[120px] text-center">
       <div className="mx-auto max-w-[650px] ">
         <h3 className="app-h3">{title}</h3>
         <span className="mt-10 mb-8 inline-block">
-          <Wysiwyg content={description} />
+          <Wysiwyg className="body-m" content={description} />
         </span>
 
         <form>
