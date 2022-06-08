@@ -5,11 +5,14 @@ import { SwiperSlide } from "swiper/react"
 import AssignmentBg from "@/public/bg/assignments.png"
 import { Wysiwyg } from "@components/shared/Wysiwyg"
 import { ProgressSwiper } from "@components/swiper"
+import { useResponsiveLG, useResponsiveMD } from "@hooks/shared"
 import { CheckMark } from "@icons/CheckMark"
 import { AssignmentsData } from "@models/blocks"
 
 export const Assignments = ({ title, assignments }: AssignmentsData) => {
-  const slidesPerView = 2.02
+  const responsiveLG = useResponsiveLG()
+
+  const slidesPerView = responsiveLG ? 2.02 : 1
   const totalPages = Math.ceil(assignments.length / Math.floor(slidesPerView))
 
   const slides = useMemo(
@@ -37,7 +40,7 @@ export const Assignments = ({ title, assignments }: AssignmentsData) => {
   )
 
   return (
-    <section className="relative bg-white pl-12 pt-[100px] pb-[120px]">
+    <section className="relative bg-white px-12 pt-[100px] pb-[120px]">
       <div className="section-padding absolute top-0 left-0 w-full">
         <hr className="bg-darker-beige" />
       </div>

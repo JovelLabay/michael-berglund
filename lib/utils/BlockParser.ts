@@ -1,9 +1,8 @@
 import {
     AssignmentsData, BaseBlock, ContactData, DataPointsData, DescWithImageData, HeroData,
-    isBigPageLinks,
-    isContactData, isDescWithImageData, isHeroData, isLogowallData, isRelatedArticlesData,
-    isStatsData, LogowallData, PostData, RelatedArticleData, ReviewSliderData, ShortDescData, StatsData, 
-    TabsData
+    isBigPageLinks, isContactData, isDescWithImageData, isHeroData, isLogowallData,
+    isRelatedArticlesData, isStatsData, isTabsData, LogowallData, PostData, RelatedArticleData,
+    ReviewSliderData, ShortDescData, StatsData, TabsData
 } from "@models/blocks"
 
 type Blocks = { attributesJSON: string }[]
@@ -39,7 +38,7 @@ export const parse = (rawBlocks: Blocks): { blocks: BaseBlock[] } => {
         return parseTabsBlock(data)
       case "acf/assignments":
         return parseAssignmentsBlock(data)
-      case "acf/big-page-links": 
+      case "acf/big-page-links":
         return parseAnyPostData(data, name)
       default:
         throw new Error(`Unknown block type: ${name}`)
@@ -54,7 +53,7 @@ export const getImageIds = (blocks: BaseBlock[]): number[] => {
   const mapper = (block: BaseBlock) => {
     if (isStatsData(block) || isLogowallData(block))
       return block.gallery.map(({ imageId }: any) => imageId)
-    if (isDescWithImageData(block)) return [block.imageId]
+    if (isDescWithImageData(block) || isTabsData(block)) return [block.imageId]
 
     return []
   }
@@ -253,7 +252,7 @@ const parseTabsBlock = (data: any): TabsData => {
     content: data[`tab_list_${index}_tab_content`],
   }))
 
-  return { heading: data.heading, tabList: tabsList, name: "acf/tabs" }
+  return { heading: data.heading, imageId: data.image, tabList: tabsList, name: "acf/tabs" }
 }
 
 const completedAssignmentsPattern = /^completed_assignments_(\d+)_title$/
@@ -269,9 +268,8 @@ const parseAssignmentsBlock = (data: any): AssignmentsData => {
   return { name: "acf/assignments", title: data.title, assignments: completedAssignments }
 }
 
-
 /**
- * 
+ *
  * @param data Object value from the block
  * @param name Attribute name of the block
  * @param pattern Regex pattern to be match from the key/attributejson
@@ -279,25 +277,25 @@ const parseAssignmentsBlock = (data: any): AssignmentsData => {
  */
 
 const parseAnyPostData = (data: any, name: any): PostData => {
-  const { title } = data;
-  
+  const { title } = data
+
   const postIds = Object.keys(data)
     .filter(key => regexPostPatternFinder(name).test(key))
-    .map(key => data[key]);
+    .map(key => data[key])
   return { title, postIds, name }
-};
+}
 
 /**
- * 
+ *
  * @param name Use this to create more regex pattern to a certain post type
  * @returns Regex pattern for a specific type of post
  */
 
 const regexPostPatternFinder = (name: any): RegExp => {
-  const [ postDataPattern ] = [
-    { name: 'acf/related-articles', pattern: /^articles_(\d+)_article$/ },
-    { name: 'acf/big-page-links', pattern: /^tailored_courses_(\d+)_tailored_course$/ },
-  ].filter(data => name == data.name);
+  const [postDataPattern] = [
+    { name: "acf/related-articles", pattern: /^articles_(\d+)_article$/ },
+    { name: "acf/big-page-links", pattern: /^tailored_courses_(\d+)_tailored_course$/ },
+  ].filter(data => name == data.name)
 
-  return postDataPattern.pattern;
+  return postDataPattern.pattern
 }

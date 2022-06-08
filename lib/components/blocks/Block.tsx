@@ -1,7 +1,7 @@
 import {
-    BaseBlock, isAssignmentsData, isBigPageLinks, isContactData, isDataPointsData, isDescWithImageData, isHeroData,
-    isLogowallData, isRelatedArticlesData, isReviewSilderData, isShortDescData, isStatsData,
-    isTabsData
+    BaseBlock, isAssignmentsData, isBigPageLinks, isContactData, isDataPointsData,
+    isDescWithImageData, isHeroData, isLogowallData, isRelatedArticlesData, isReviewSilderData,
+    isShortDescData, isStatsData, isTabsData
 } from "@models/blocks"
 
 import { DescWithImgBlock } from "./"

@@ -50,7 +50,7 @@ export const ReviewSlider = ({ heading, reviews }: ReviewSliderData) => {
         modules={[Pagination]}
         initialSlide={0}
         onSwiper={handleSwiperInit}
-        className="review-slider mx-0 lg:mx-[164px]"
+        className="review-slider mx-0 sm:mx-10 lg:mx-0 xl:mx-[100px] 2xl:mx-[164px]"
       >
         {_slides}
 
