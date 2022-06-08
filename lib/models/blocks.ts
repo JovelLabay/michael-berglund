@@ -47,7 +47,9 @@ export interface ReviewSliderData extends BaseBlock {
     reviewCompany: string
   }[]
 }
-export interface RelatedArticleData extends BaseBlock {
+export interface RelatedArticleData extends PostData {}
+
+export interface PostData extends BaseBlock {
   title: string
   postIds: number[]
 }
@@ -98,6 +100,7 @@ export type BlockName =
   | "acf/data-points"
   | "acf/tabs"
   | "acf/assignments"
+  | "acf/big-page-links"
 
 /** Type-narrowing functions */
 export function isHeroData(object: any): object is HeroData {
@@ -142,4 +145,8 @@ export function isTabsData(object: any): object is TabsData {
 
 export function isAssignmentsData(object: any): object is AssignmentsData {
   return object && typeof object.name === "string" && object.name === "acf/assignments"
+}
+
+export function isBigPageLinks(object: any): object is PostData {
+  return object && typeof object.name === "string" && object.name === "acf/big-page-links"
 }

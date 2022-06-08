@@ -55,7 +55,7 @@ module.exports = {
         "dark-beige": "#A5A09E",
         "normal-beige": "#ECE5E2",
         "darker-beige": "#ECE5E2",
-      },
+      }
     },
   },
   plugins: [require('@tailwindcss/aspect-ratio'), require('@tailwindcss/typography'),],
