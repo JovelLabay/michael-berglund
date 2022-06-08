@@ -56,6 +56,13 @@ module.exports = {
         "normal-beige": "#ECE5E2",
         "darker-beige": "#ECE5E2",
       },
+      screens: {
+        'cs-sm': { 'raw': '(max-width: 640px)' },
+        'cs-md': { 'raw': '(max-width: 768px)' },
+        'cs-lg': { 'raw': '(max-width: 1024px)' },
+        'cs-xl': { 'raw': '(max-width: 1280px)' },
+        'cs-2xl': { 'raw': '(max-width: 1536px)' },
+      }
     },
   },
   plugins: [require('@tailwindcss/aspect-ratio'), require('@tailwindcss/typography'),],

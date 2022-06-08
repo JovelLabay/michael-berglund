@@ -1,7 +1,8 @@
 import {
     AssignmentsData, BaseBlock, ContactData, DataPointsData, DescWithImageData, HeroData,
+    isBigPageLinks,
     isContactData, isDescWithImageData, isHeroData, isLogowallData, isRelatedArticlesData,
-    isStatsData, LogowallData, RelatedArticleData, ReviewSliderData, ShortDescData, StatsData,
+    isStatsData, LogowallData, PostData, RelatedArticleData, ReviewSliderData, ShortDescData, StatsData, 
     TabsData
 } from "@models/blocks"
 
@@ -38,7 +39,8 @@ export const parse = (rawBlocks: Blocks): { blocks: BaseBlock[] } => {
         return parseTabsBlock(data)
       case "acf/assignments":
         return parseAssignmentsBlock(data)
-
+      case "acf/big-page-links": 
+        return parseAnyPostData(data, name)
       default:
         throw new Error(`Unknown block type: ${name}`)
     }
@@ -88,6 +90,14 @@ export const getMedarbetareLinkIds = (blocks: BaseBlock[]) => {
     return []
   }
 
+  return Array.from(new Set(blocks.map(mapper).flatMap(ids => ids)))
+}
+
+export const getCoursesLinkIds = (blocks: BaseBlock[]) => {
+  const mapper = (block: BaseBlock) => {
+    if (isBigPageLinks(block)) return block.postIds
+    return []
+  }
   return Array.from(new Set(blocks.map(mapper).flatMap(ids => ids)))
 }
 
@@ -257,4 +267,37 @@ const parseAssignmentsBlock = (data: any): AssignmentsData => {
     }))
 
   return { name: "acf/assignments", title: data.title, assignments: completedAssignments }
+}
+
+
+/**
+ * 
+ * @param data Object value from the block
+ * @param name Attribute name of the block
+ * @param pattern Regex pattern to be match from the key/attributejson
+ * @returns Parse data from different types of post
+ */
+
+const parseAnyPostData = (data: any, name: any): PostData => {
+  const { title } = data;
+  
+  const postIds = Object.keys(data)
+    .filter(key => regexPostPatternFinder(name).test(key))
+    .map(key => data[key]);
+  return { title, postIds, name }
+};
+
+/**
+ * 
+ * @param name Use this to create more regex pattern to a certain post type
+ * @returns Regex pattern for a specific type of post
+ */
+
+const regexPostPatternFinder = (name: any): RegExp => {
+  const [ postDataPattern ] = [
+    { name: 'acf/related-articles', pattern: /^articles_(\d+)_article$/ },
+    { name: 'acf/big-page-links', pattern: /^tailored_courses_(\d+)_tailored_course$/ },
+  ].filter(data => name == data.name);
+
+  return postDataPattern.pattern;
 }

@@ -127,6 +127,9 @@ export const WP_BLOCKS = gql`
     ... on AcfAssignmentsBlock {
       attributesJSON
     }
+    ... on AcfBigPageLinksBlock {
+      attributesJSON
+    }
   }
 `
 
@@ -223,3 +226,32 @@ export const GET_MEDARBETARE_DATA_BY_ID = gql`
     }
   }
 `
+
+
+
+export const GET_COURSE_DATA_BY_ID = gql`
+  ${WP_MEDIA_FIELDS}
+  query GetCoursePostById($id: ID!) {
+    course(id: $id, idType: DATABASE_ID) {
+      id
+      databaseId
+      excerpt
+      title
+      uri
+      slug
+      featuredImage {
+        node {
+          ...WPMediaFields
+        }
+      }
+      postCourses {
+        duration
+        fieldGroupName
+        isCourseFull
+        language
+        startDate
+      }
+    }
+  }
+`
+
