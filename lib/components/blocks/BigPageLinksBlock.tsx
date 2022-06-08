@@ -1,17 +1,13 @@
 import { useGlobalContext } from "@context/global"
 import React, { useMemo } from "react"
-import { SwiperSlide } from "swiper/react"
 
 import { Card } from "@components/cards"
 import { Wysiwyg } from "@components/shared/Wysiwyg"
-import { ProgressSwiper } from "@components/swiper"
 import { PostData } from "@models/blocks"
-import { CoursePost, MedarbetarePost, Post } from "@models/common"
+import { Post } from "@models/common"
 
 export const BigPageLinks = ({ title, postIds }: PostData) => {
   const { postMap } = useGlobalContext()
-  const slidesPerView = 2.5
-  const totalPages = Math.ceil(postIds.length / Math.floor(slidesPerView))
   const cards = useMemo(
     () =>
       postIds.map(cardId => {
