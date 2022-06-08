@@ -1,9 +1,8 @@
 import {
     AssignmentsData, BaseBlock, ContactData, DataPointsData, DescWithImageData, HeroData,
-    isBigPageLinks,
-    isContactData, isDescWithImageData, isHeroData, isLogowallData, isRelatedArticlesData,
-    isStatsData, LogowallData, PostData, RelatedArticleData, ReviewSliderData, ShortDescData, StatsData, 
-    TabsData
+    InfoIconData, isBigPageLinks, isContactData, isDescWithImageData, isHeroData, isInfoIconBlock,
+    isLogowallData, isRelatedArticlesData, isStatsData, LogowallData, PostData, RelatedArticleData,
+    ReviewSliderData, ShortDescData, StatsData, TabsData
 } from "@models/blocks"
 
 type Blocks = { attributesJSON: string }[]
@@ -41,6 +40,8 @@ export const parse = (rawBlocks: Blocks): { blocks: BaseBlock[] } => {
         return parseAssignmentsBlock(data)
       case "acf/big-page-links": 
         return parseAnyPostData(data, name)
+      case "acf/info-icon": 
+        return parseInfoIconBlock(data)
       default:
         throw new Error(`Unknown block type: ${name}`)
     }
@@ -52,10 +53,10 @@ export const parse = (rawBlocks: Blocks): { blocks: BaseBlock[] } => {
 //collect all unique image ids used by different blocks
 export const getImageIds = (blocks: BaseBlock[]): number[] => {
   const mapper = (block: BaseBlock) => {
-    if (isStatsData(block) || isLogowallData(block))
+    if (isStatsData(block) || isLogowallData(block) || isInfoIconBlock(block))
       return block.gallery.map(({ imageId }: any) => imageId)
     if (isDescWithImageData(block)) return [block.imageId]
-
+    
     return []
   }
 
@@ -179,6 +180,23 @@ const parseLogowallBlock = (data: any): LogowallData => {
     border: data.border_bottom,
     gallery: gallery,
     name: "acf/logo-wall",
+  }
+}
+
+
+const parseInfoIconBlock = (data: any): InfoIconData => {
+  const indexes = Object.keys(data)
+    .filter(key => logoWallPattern.test(key))
+    .map(key => key.match(logoWallPattern)![1])
+
+  const gallery = indexes.map(index => ({
+    imageId: parseInt(data[`logo_gallery_${index}_logo_image`]),
+    description: data[`logo_gallery_${index}_description`],
+  }))
+  return {
+    heading: data.heading,
+    gallery: gallery,
+    name: "acf/info-icon",
   }
 }
 
