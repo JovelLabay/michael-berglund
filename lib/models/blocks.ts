@@ -42,7 +42,7 @@ export interface LogowallData extends BaseBlock {
 export interface InfoIconData extends BaseBlock {
   heading: string
   gallery: {
-    imageId: number,
+    imageId: number
     description: string
   }[]
 }
@@ -82,6 +82,7 @@ export interface DataPointsData extends BaseBlock {
 
 export interface TabsData extends BaseBlock {
   heading: string
+  imageId: number
   tabList: {
     title: string
     content: string
