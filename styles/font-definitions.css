@@ -44,3 +44,14 @@
   font-weight: normal;
   font-style: normal;
 }
+
+@font-face {
+  font-family: "lora";
+  src: url(fonts/lora/Lora-Italic.eot);
+  src: url(fonts/lora/Lora-Italic.eot?#iefix) format("embedded-opentype"),
+    url(fonts/lora/Lora-Italic.svg#Lora-Italic) format("svg"),
+    url(fonts/lora/Lora-Italic.otf) format("otf"), url(fonts/lora/Lora-Italic.woff) format("woff"),
+    url(fonts/lora/Lora-Italic.woff2) format("woff2");
+  font-weight: normal;
+  font-style: italic;
+}

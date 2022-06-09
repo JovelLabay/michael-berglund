@@ -1,4 +1,4 @@
-import { AnimatedPage, HeroType, Page } from "./common"
+import { AnimatedPage, Courses, HeroType, Page } from "./common"
 
 export interface BaseBlock {
   name: BlockName
@@ -39,6 +39,14 @@ export interface LogowallData extends BaseBlock {
   }[]
 }
 
+export interface InfoIconData extends BaseBlock {
+  heading: string
+  gallery: {
+    imageId: number
+    description: string
+  }[]
+}
+
 export interface ReviewSliderData extends BaseBlock {
   heading?: string
   reviews: {
@@ -47,7 +55,9 @@ export interface ReviewSliderData extends BaseBlock {
     reviewCompany: string
   }[]
 }
-export interface RelatedArticleData extends BaseBlock {
+export interface RelatedArticleData extends PostData {}
+
+export interface PostData extends BaseBlock {
   title: string
   postIds: number[]
 }
@@ -72,6 +82,7 @@ export interface DataPointsData extends BaseBlock {
 
 export interface TabsData extends BaseBlock {
   heading: string
+  imageId: number
   tabList: {
     title: string
     content: string
@@ -86,6 +97,10 @@ export interface AssignmentsData extends BaseBlock {
   }[]
 }
 
+export interface CourseCardsData extends BaseBlock {
+  title: string
+}
+
 export type BlockName =
   | "acf/hero"
   | "acf/stats"
@@ -98,6 +113,9 @@ export type BlockName =
   | "acf/data-points"
   | "acf/tabs"
   | "acf/assignments"
+  | "acf/big-page-links"
+  | "acf/course-cards"
+  | "acf/info-icon"
 
 /** Type-narrowing functions */
 export function isHeroData(object: any): object is HeroData {
@@ -142,4 +160,16 @@ export function isTabsData(object: any): object is TabsData {
 
 export function isAssignmentsData(object: any): object is AssignmentsData {
   return object && typeof object.name === "string" && object.name === "acf/assignments"
+}
+
+export function isBigPageLinks(object: any): object is PostData {
+  return object && typeof object.name === "string" && object.name === "acf/big-page-links"
+}
+
+export function isCourseCardData(object: any): object is CourseCardsData {
+  return object && typeof object.name === "string" && object.name === "acf/course-cards"
+}
+
+export function isInfoIconBlock(object: any): object is InfoIconData {
+  return object && typeof object.name === "string" && object.name === "acf/info-icon"
 }
