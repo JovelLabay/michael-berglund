@@ -96,9 +96,8 @@ const getCoursePostData = async (ids: number[]) => {
   const coursePostDataList = await Promise.all(
     ids.map(async id => client.query(GET_COURSE_DATA_BY_ID, { id }).toPromise())
   )
-  return coursePostDataList
-    .map(({ data: { course } }) => course)
-    .reduce((acc, post) => ({ ...acc, [post.courseId]: post }), {})
+  return coursePostDataList.map(({ data: { course } }) => course)
+    .reduce((acc, post) => ({ ...acc, [post.courseId]: post }), {});
 }
 
 export const getUpcomingCourses = async () => {
