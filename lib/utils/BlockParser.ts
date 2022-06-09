@@ -1,8 +1,8 @@
 import {
-    AssignmentsData, BaseBlock, ContactData, DataPointsData, DescWithImageData, HeroData,
-    InfoIconData, isBigPageLinks, isContactData, isDescWithImageData, isHeroData, isInfoIconBlock,
-    isLogowallData, isRelatedArticlesData, isStatsData, isTabsData, LogowallData, PostData,
-    RelatedArticleData, ReviewSliderData, ShortDescData, StatsData, TabsData
+    AssignmentsData, BaseBlock, ContactData, CourseCardsData, DataPointsData, DescWithImageData,
+    HeroData, InfoIconData, isBigPageLinks, isContactData, isCourseCardData, isDescWithImageData,
+    isHeroData, isInfoIconBlock, isLogowallData, isRelatedArticlesData, isStatsData, isTabsData,
+    LogowallData, PostData, RelatedArticleData, ReviewSliderData, ShortDescData, StatsData, TabsData
 } from "@models/blocks"
 
 type Blocks = { attributesJSON: string }[]
@@ -40,6 +40,8 @@ export const parse = (rawBlocks: Blocks): { blocks: BaseBlock[] } => {
         return parseAssignmentsBlock(data)
       case "acf/big-page-links":
         return parseAnyPostData(data, name)
+      case "acf/course-card":
+        return parseCourseCardData(data)
       case "acf/info-icon":
         return parseInfoIconBlock(data)
       default:
@@ -101,6 +103,10 @@ export const getCoursesLinkIds = (blocks: BaseBlock[]) => {
     return []
   }
   return Array.from(new Set(blocks.map(mapper).flatMap(ids => ids)))
+}
+
+export const hasCourseCardBlock = (blocks: BaseBlock[]): boolean => {
+  return blocks.find(block => isCourseCardData(block)) ? true : false
 }
 
 const animatedPagesPattern = /^animated_pages_(\d+)_page$/
@@ -317,4 +323,8 @@ const regexPostPatternFinder = (name: any): RegExp => {
   ].filter(data => name == data.name)
 
   return postDataPattern.pattern
+}
+
+const parseCourseCardData = (data: any): CourseCardsData => {
+  return { name: "acf/course-cards", title: data.title }
 }

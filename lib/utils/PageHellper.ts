@@ -1,15 +1,17 @@
 import {
-    GET_COURSE_DATA_BY_ID, GET_GLOBAL_FIELDS, GET_MEDARBETARE_DATA_BY_ID, GET_PAGE_BLOCKS_BY_URI,
-    GET_PAGE_DATA_BY_ID, GET_POST_DATA_BY_ID
+    GET_ALL_UNTAILORED_COURESES, GET_COURSE_DATA_BY_ID, GET_GLOBAL_FIELDS,
+    GET_MEDARBETARE_DATA_BY_ID, GET_PAGE_BLOCKS_BY_URI, GET_PAGE_DATA_BY_ID, GET_POST_DATA_BY_ID
 } from "@graphql/graphql-queries"
 import client from "@graphql/urql-client"
 import invariant from "tiny-invariant"
 
 import {
-    getCoursesLinkIds, getImageIds, getMedarbetareLinkIds, getPageLinkIds, getPostLinkIds, parse
+    getCoursesLinkIds, getImageIds, getMedarbetareLinkIds, getPageLinkIds, getPostLinkIds,
+    hasCourseCardBlock, parse
 } from "@/lib/utils/BlockParser"
 import { getImages } from "@/lib/utils/ImageGetter"
-import { PageMap, PostMap } from "@models/common"
+import { BaseBlock } from "@models/blocks"
+import { Courses, PageMap, PostMap } from "@models/common"
 
 export const getPageProps = async (uri = "/") => {
   const [{ data: globalFields }, { data: pageBlocks }] = await Promise.all([
@@ -26,14 +28,11 @@ export const getPageProps = async (uri = "/") => {
 
   const imageIds = getImageIds(blocks)
   const pageLinkIds = getPageLinkIds(blocks)
-  const postLinkIds = getPostLinkIds(blocks)
-  const mendarbetareLinkIds = getMedarbetareLinkIds(blocks)
-  const coursesIds = getCoursesLinkIds(blocks)
 
   const [images, pageMap, postMap] = await Promise.all([
     getImages(imageIds),
     getPages(pageLinkIds),
-    getPosts(postLinkIds, mendarbetareLinkIds, coursesIds),
+    getPosts(blocks),
   ])
 
   return { props: { globalFields, pageData, blocks, pageMap, postMap, images } }
@@ -49,14 +48,29 @@ const getPages = async (ids: number[]): Promise<PageMap> => {
     .reduce((acc, page) => ({ ...acc, [page.pageId]: page }), {})
 }
 
-const getPosts = async (postIds: number[], medarbetarePostIds: number[], coursesIds: number[]) => {
-  const [postList, medarbetariList, courseList ] = await Promise.all([
-    getPostData(postIds),
-    getMedarbetarePostData(medarbetarePostIds),
+const getPosts = async (blocks: BaseBlock[]) => {
+  const postLinkIds = getPostLinkIds(blocks)
+  const mendarbetareLinkIds = getMedarbetareLinkIds(blocks)
+  const coursesIds = getCoursesLinkIds(blocks)
+
+  const fetchAllPost = [
+    getPostData(postLinkIds),
+    getMedarbetarePostData(mendarbetareLinkIds),
     getCoursePostData(coursesIds),
-  ])
-  
-  return { ...postList, ...medarbetariList, ...courseList }
+  ]
+
+  if (hasCourseCardBlock(blocks)) {
+    fetchAllPost.push(getUpcomingCourses())
+  }
+
+  const [postList, medarbetariList, courseList, upcomingCourses] = await Promise.all(fetchAllPost)
+
+  return {
+    ...postList,
+    ...medarbetariList,
+    ...courseList,
+    0: upcomingCourses ?? null,
+  }
 }
 
 const getPostData = async (ids: number[]): Promise<PostMap> => {
@@ -82,6 +96,20 @@ const getCoursePostData = async (ids: number[]) => {
   const coursePostDataList = await Promise.all(
     ids.map(async id => client.query(GET_COURSE_DATA_BY_ID, { id }).toPromise())
   )
-   return coursePostDataList.map(({ data: { course } }) => course)
-     .reduce((acc, post) => ({ ...acc, [post.courseId]: post }), {});
+  return coursePostDataList.map(({ data: { course } }) => course)
+    .reduce((acc, post) => ({ ...acc, [post.courseId]: post }), {});
+}
+
+export const getUpcomingCourses = async () => {
+  const {
+    data: { courses },
+  } = await client.query(GET_ALL_UNTAILORED_COURESES).toPromise()
+
+  return (courses as Courses).edges
+    .map(({ node }) => node)
+    .filter(course => new Date(course.acfCourse.startDate).getTime() > new Date().getTime())
+    .sort(
+      (a, b) =>
+        new Date(a.acfCourse.startDate).getTime() - new Date(b.acfCourse.startDate).getTime()
+    )
 }

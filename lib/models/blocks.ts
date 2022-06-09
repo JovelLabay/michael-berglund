@@ -1,4 +1,4 @@
-import { AnimatedPage, HeroType, Page } from "./common"
+import { AnimatedPage, Courses, HeroType, Page } from "./common"
 
 export interface BaseBlock {
   name: BlockName
@@ -97,6 +97,10 @@ export interface AssignmentsData extends BaseBlock {
   }[]
 }
 
+export interface CourseCardsData extends BaseBlock {
+  title: string
+}
+
 export type BlockName =
   | "acf/hero"
   | "acf/stats"
@@ -110,6 +114,7 @@ export type BlockName =
   | "acf/tabs"
   | "acf/assignments"
   | "acf/big-page-links"
+  | "acf/course-cards"
   | "acf/info-icon"
 
 /** Type-narrowing functions */
@@ -159,6 +164,10 @@ export function isAssignmentsData(object: any): object is AssignmentsData {
 
 export function isBigPageLinks(object: any): object is PostData {
   return object && typeof object.name === "string" && object.name === "acf/big-page-links"
+}
+
+export function isCourseCardData(object: any): object is CourseCardsData {
+  return object && typeof object.name === "string" && object.name === "acf/course-cards"
 }
 
 export function isInfoIconBlock(object: any): object is InfoIconData {

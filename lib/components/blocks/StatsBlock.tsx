@@ -34,7 +34,7 @@ export const StatsBlock = ({ heading, description, linkTitle, linkUri, gallery }
         <AppLink href={pageMap![linkUri]!.uri} className="link-m font-normal text-dark-green">
           {linkTitle}
         </AppLink>
-        <ArrowRight className="fill-[#3E5C58]" />
+        <ArrowRight className="fill-dark-green" />
       </div>
     </section>
   )

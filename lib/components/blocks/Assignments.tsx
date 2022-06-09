@@ -5,7 +5,7 @@ import { SwiperSlide } from "swiper/react"
 import AssignmentBg from "@/public/bg/assignments.png"
 import { Wysiwyg } from "@components/shared/Wysiwyg"
 import { ProgressSwiper } from "@components/swiper"
-import { useResponsiveLG, useResponsiveMD } from "@hooks/shared"
+import { useResponsiveLG } from "@hooks/shared"
 import { CheckMark } from "@icons/CheckMark"
 import { AssignmentsData } from "@models/blocks"
 
