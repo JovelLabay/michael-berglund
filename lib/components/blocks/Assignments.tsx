@@ -38,7 +38,7 @@ export const Assignments = ({ title, assignments }: AssignmentsData) => {
 
   return (
     <section className="relative bg-white pl-12 pt-[100px] pb-[120px]">
-      <div className="section-padding absolute top-0 left-0 w-full">
+      <div className="absolute top-0 left-0 w-full px-12">
         <hr className="bg-darker-beige" />
       </div>
       <h3 className="app-h3 mb-[60px]">{title}</h3>

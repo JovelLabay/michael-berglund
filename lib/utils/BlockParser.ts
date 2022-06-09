@@ -1,9 +1,8 @@
 import {
-    AssignmentsData, BaseBlock, ContactData, DataPointsData, DescWithImageData, HeroData,
-    isBigPageLinks,
-    isContactData, isDescWithImageData, isHeroData, isLogowallData, isRelatedArticlesData,
-    isStatsData, LogowallData, PostData, RelatedArticleData, ReviewSliderData, ShortDescData, StatsData, 
-    TabsData
+    AssignmentsData, BaseBlock, ContactData, CourseCardsData, DataPointsData, DescWithImageData,
+    HeroData, isBigPageLinks, isContactData, isCourseCardData, isDescWithImageData, isHeroData,
+    isLogowallData, isRelatedArticlesData, isStatsData, LogowallData, PostData, RelatedArticleData,
+    ReviewSliderData, ShortDescData, StatsData, TabsData
 } from "@models/blocks"
 
 type Blocks = { attributesJSON: string }[]
@@ -39,8 +38,10 @@ export const parse = (rawBlocks: Blocks): { blocks: BaseBlock[] } => {
         return parseTabsBlock(data)
       case "acf/assignments":
         return parseAssignmentsBlock(data)
-      case "acf/big-page-links": 
+      case "acf/big-page-links":
         return parseAnyPostData(data, name)
+      case "acf/course-card":
+        return parseCourseCardData(data)
       default:
         throw new Error(`Unknown block type: ${name}`)
     }
@@ -99,6 +100,10 @@ export const getCoursesLinkIds = (blocks: BaseBlock[]) => {
     return []
   }
   return Array.from(new Set(blocks.map(mapper).flatMap(ids => ids)))
+}
+
+export const hasCourseCardBlock = (blocks: BaseBlock[]): boolean => {
+  return blocks.find(block => isCourseCardData(block)) ? true : false
 }
 
 const animatedPagesPattern = /^animated_pages_(\d+)_page$/
@@ -269,9 +274,8 @@ const parseAssignmentsBlock = (data: any): AssignmentsData => {
   return { name: "acf/assignments", title: data.title, assignments: completedAssignments }
 }
 
-
 /**
- * 
+ *
  * @param data Object value from the block
  * @param name Attribute name of the block
  * @param pattern Regex pattern to be match from the key/attributejson
@@ -279,25 +283,29 @@ const parseAssignmentsBlock = (data: any): AssignmentsData => {
  */
 
 const parseAnyPostData = (data: any, name: any): PostData => {
-  const { title } = data;
-  
+  const { title } = data
+
   const postIds = Object.keys(data)
     .filter(key => regexPostPatternFinder(name).test(key))
-    .map(key => data[key]);
+    .map(key => data[key])
   return { title, postIds, name }
-};
+}
 
 /**
- * 
+ *
  * @param name Use this to create more regex pattern to a certain post type
  * @returns Regex pattern for a specific type of post
  */
 
 const regexPostPatternFinder = (name: any): RegExp => {
-  const [ postDataPattern ] = [
-    { name: 'acf/related-articles', pattern: /^articles_(\d+)_article$/ },
-    { name: 'acf/big-page-links', pattern: /^tailored_courses_(\d+)_tailored_course$/ },
-  ].filter(data => name == data.name);
+  const [postDataPattern] = [
+    { name: "acf/related-articles", pattern: /^articles_(\d+)_article$/ },
+    { name: "acf/big-page-links", pattern: /^tailored_courses_(\d+)_tailored_course$/ },
+  ].filter(data => name == data.name)
 
-  return postDataPattern.pattern;
+  return postDataPattern.pattern
+}
+
+const parseCourseCardData = (data: any): CourseCardsData => {
+  return { name: "acf/course-cards", title: data.title }
 }

@@ -87,8 +87,12 @@ export function HeroItem({
         )}
       </AnimatePresence>
 
-      <div className="absolute bottom-0 z-30 flex  w-full justify-between px-12 pb-10 font-[350]">
-        <div className="flex items-center">
+      <div className="section-padding absolute bottom-0 z-30 flex  w-full justify-between pb-10 font-[350]">
+        <div
+          className={classNames("flex items-center", {
+            "hidden md:flex": isActive,
+          })}
+        >
           {/* {isActive && <LogoDots />} */}
           <motion.div animate={{ opacity: isActive ? 1 : 0 }} transition={{ duration: 1.5 }}>
             <LogoDots />
@@ -117,9 +121,9 @@ export function HeroItem({
           </motion.div>
         )}
       </div>
-      {isActive && (
+      {/* {isActive && (
         <HeroItemProgressBar timeoutCallback={timeoutCallback} className="absolute bottom-0 z-30" />
-      )}
+      )} */}
     </motion.div>
   )
 }

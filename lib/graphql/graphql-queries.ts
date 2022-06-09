@@ -130,6 +130,9 @@ export const WP_BLOCKS = gql`
     ... on AcfBigPageLinksBlock {
       attributesJSON
     }
+    ... on AcfCourseCardBlock {
+      attributesJSON
+    }
   }
 `
 
@@ -227,14 +230,12 @@ export const GET_MEDARBETARE_DATA_BY_ID = gql`
   }
 `
 
-
-
 export const GET_COURSE_DATA_BY_ID = gql`
   ${WP_MEDIA_FIELDS}
   query GetCoursePostById($id: ID!) {
     course(id: $id, idType: DATABASE_ID) {
       id
-      databaseId
+      courseId
       excerpt
       title
       uri
@@ -244,9 +245,8 @@ export const GET_COURSE_DATA_BY_ID = gql`
           ...WPMediaFields
         }
       }
-      postCourses {
+      acfCourse {
         duration
-        fieldGroupName
         isCourseFull
         language
         startDate
@@ -255,3 +255,24 @@ export const GET_COURSE_DATA_BY_ID = gql`
   }
 `
 
+export const GET_ALL_UNTAILORED_COURESES = gql`
+  query GetUntailoredCourses {
+    courses(where: { categoryNotIn: 3 }) {
+      edges {
+        node {
+          id
+          courseId
+          uri
+          title
+          excerpt
+          acfCourse {
+            startDate
+            language
+            isCourseFull
+            duration
+          }
+        }
+      }
+    }
+  }
+`
