@@ -30,7 +30,7 @@ export const BasicHero = ({ page }: HeroData) => {
           <h1 className="app-h1">{title}</h1>
 
           {linkText && (
-            <AppLink href="#" className="hover-text-white group flex items-center space-x-3">
+            <AppLink href={linkUrl} className="hover-text-white group flex items-center space-x-3">
               <span>{linkText}</span>
               <ArrowDown className="app-hover fill-white group-hover:fill-medium-beige" />
             </AppLink>

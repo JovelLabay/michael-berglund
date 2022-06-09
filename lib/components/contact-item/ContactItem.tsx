@@ -22,10 +22,10 @@ export const ContactItem = ({ image, name, position, phone, email }: ContactItem
         <span className="pre-title mt-4 mb-5 font-[350] uppercase tracking-[0.15em]">
           {position}
         </span>
-        <a href={`mailto:${email}`} className="mb-3 lg:mb-0">
+        <a href={`mailto:${email}`} className="app-hover mb-3 hover:opacity-50 lg:mb-0">
           {email}
         </a>
-        <a href={`tel:${phone}`} className="mb-1">
+        <a href={`tel:${phone}`} className="app-hover mb-1 hover:opacity-50">
           {phone}
         </a>
       </div>
