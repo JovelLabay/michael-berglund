@@ -1,14 +1,12 @@
 import {
-    GET_GLOBAL_FIELDS, GET_MEDARBETARE_DATA_BY_ID, GET_PAGE_BLOCKS_BY_URI, GET_PAGE_DATA_BY_ID,
-    GET_COURSE_DATA_BY_ID,
-    GET_POST_DATA_BY_ID
+    GET_COURSE_DATA_BY_ID, GET_GLOBAL_FIELDS, GET_MEDARBETARE_DATA_BY_ID, GET_PAGE_BLOCKS_BY_URI,
+    GET_PAGE_DATA_BY_ID, GET_POST_DATA_BY_ID
 } from "@graphql/graphql-queries"
 import client from "@graphql/urql-client"
 import invariant from "tiny-invariant"
 
 import {
-  getCoursesLinkIds,
-    getImageIds, getMedarbetareLinkIds, getPageLinkIds, getPostLinkIds, parse
+    getCoursesLinkIds, getImageIds, getMedarbetareLinkIds, getPageLinkIds, getPostLinkIds, parse
 } from "@/lib/utils/BlockParser"
 import { getImages } from "@/lib/utils/ImageGetter"
 import { PageMap, PostMap } from "@models/common"
@@ -84,6 +82,6 @@ const getCoursePostData = async (ids: number[]) => {
   const coursePostDataList = await Promise.all(
     ids.map(async id => client.query(GET_COURSE_DATA_BY_ID, { id }).toPromise())
   )
-  return coursePostDataList.map(({ data: { course } }) => course)
-     .reduce((acc, post) => ({ ...acc, [post.databaseId]: post }), {})
+   return coursePostDataList.map(({ data: { course } }) => course)
+     .reduce((acc, post) => ({ ...acc, [post.courseId]: post }), {});
 }

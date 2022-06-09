@@ -39,6 +39,14 @@ export interface LogowallData extends BaseBlock {
   }[]
 }
 
+export interface InfoIconData extends BaseBlock {
+  heading: string
+  gallery: {
+    imageId: number
+    description: string
+  }[]
+}
+
 export interface ReviewSliderData extends BaseBlock {
   heading?: string
   reviews: {
@@ -102,6 +110,7 @@ export type BlockName =
   | "acf/tabs"
   | "acf/assignments"
   | "acf/big-page-links"
+  | "acf/info-icon"
 
 /** Type-narrowing functions */
 export function isHeroData(object: any): object is HeroData {
@@ -150,4 +159,8 @@ export function isAssignmentsData(object: any): object is AssignmentsData {
 
 export function isBigPageLinks(object: any): object is PostData {
   return object && typeof object.name === "string" && object.name === "acf/big-page-links"
+}
+
+export function isInfoIconBlock(object: any): object is InfoIconData {
+  return object && typeof object.name === "string" && object.name === "acf/info-icon"
 }

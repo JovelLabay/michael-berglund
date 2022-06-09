@@ -114,7 +114,8 @@ export interface MedarbetarePost {
 }
 
 export interface CoursePost extends Post {
-  postCourses: AcfCourse
+  courseId: string
+  acfCourse: AcfCourse
 }
 export interface AcfCourse {
   isCourseFull: boolean
