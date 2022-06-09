@@ -28,10 +28,12 @@ export const ReviewSlider = ({ heading, reviews }: ReviewSliderData) => {
         <SwiperSlide key={review.reviewClient}>
           <div className="mx-auto flex max-w-[884px] flex-col items-center">
             <QuoteIcon className="mb-8" />
-            <p className="quote-l mb-8 text-center">{review.reviewText}</p>
+            <p className="quote-l mb-5 text-center lg:mb-8">{review.reviewText}</p>
             <div className="mb-8">
-              <span className="text-body-l font-normal">{review.reviewClient}, </span>
-              <span className="text-body-l">{review.reviewCompany}</span>
+              <span className="text-body-m font-normal lg:text-body-l">
+                {review.reviewClient},{" "}
+              </span>
+              <span className="text-body-m lg:text-body-l">{review.reviewCompany}</span>
             </div>
           </div>
         </SwiperSlide>
@@ -40,7 +42,7 @@ export const ReviewSlider = ({ heading, reviews }: ReviewSliderData) => {
   )
 
   return (
-    <section className="relative flex flex-col bg-light-beige pt-[60px] pb-[120px]">
+    <section className="section-padding relative flex flex-col bg-light-beige pt-10 pb-[60px] lg:pb-[120px]">
       {heading && <h3 className="app-h3 mb-[60px] text-center">{heading}</h3>}
       <Swiper
         slidesPerView={1}
@@ -48,7 +50,7 @@ export const ReviewSlider = ({ heading, reviews }: ReviewSliderData) => {
         modules={[Pagination]}
         initialSlide={0}
         onSwiper={handleSwiperInit}
-        className="review-slider mx-[164px]"
+        className="review-slider mx-0 sm:mx-10 lg:mx-0 xl:mx-[100px] 2xl:mx-[164px]"
       >
         {_slides}
 
