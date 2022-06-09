@@ -19,8 +19,8 @@ export const TabsBlock = ({ heading, tabList, imageId }: TabsData) => {
     <section className="flex w-full flex-col justify-between bg-white lg:h-[760px] lg:flex-row">
       <div className="section-padding mb-10 flex flex-1 flex-col xl:pr-[147px]">
         <h3 className="app-h3 mb-10 lg:mb-[60px]">{heading}</h3>
-        {Object.values(tabList).map((tab, index) => (
-          <Disclosure>
+        {tabList.map((tab, index) => (
+          <Disclosure key={tab.title}>
             <>
               <Disclosure.Button
                 onClick={() => toggleDisc(index)}

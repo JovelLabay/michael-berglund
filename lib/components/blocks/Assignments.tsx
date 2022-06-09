@@ -40,8 +40,8 @@ export const Assignments = ({ title, assignments }: AssignmentsData) => {
   )
 
   return (
-    <section className="relative bg-white px-12 pt-[100px] pb-[120px]">
-      <div className="section-padding absolute top-0 left-0 w-full">
+    <section className="section-padding relative bg-white px-12 pb-[120px]">
+      <div className=" absolute top-0 left-0 w-full">
         <hr className="bg-darker-beige" />
       </div>
       <h3 className="app-h3 mb-[60px]">{title}</h3>
