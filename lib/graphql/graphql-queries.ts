@@ -238,7 +238,6 @@ export const GET_COURSE_DATA_BY_ID = gql`
   query GetCoursePostById($id: ID!) {
     course(id: $id, idType: DATABASE_ID) {
       id
-      databaseId
       courseId
       excerpt
       title

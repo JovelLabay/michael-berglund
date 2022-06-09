@@ -121,9 +121,9 @@ export function HeroItem({
           </motion.div>
         )}
       </div>
-      {/* {isActive && (
+      {isActive && (
         <HeroItemProgressBar timeoutCallback={timeoutCallback} className="absolute bottom-0 z-30" />
-      )} */}
+      )}
     </motion.div>
   )
 }
