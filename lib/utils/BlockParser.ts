@@ -1,8 +1,8 @@
 import {
     AssignmentsData, BaseBlock, ContactData, CourseCardsData, DataPointsData, DescWithImageData,
     HeroData, InfoIconData, isBigPageLinks, isContactData, isCourseCardData, isDescWithImageData,
-    isHeroData, isInfoIconBlock, isLogowallData, isRelatedArticlesData, isStatsData, LogowallData,
-    PostData, RelatedArticleData, ReviewSliderData, ShortDescData, StatsData, TabsData
+    isHeroData, isInfoIconBlock, isLogowallData, isRelatedArticlesData, isStatsData, isTabsData,
+    LogowallData, PostData, RelatedArticleData, ReviewSliderData, ShortDescData, StatsData, TabsData
 } from "@models/blocks"
 
 type Blocks = { attributesJSON: string }[]
@@ -57,7 +57,8 @@ export const getImageIds = (blocks: BaseBlock[]): number[] => {
   const mapper = (block: BaseBlock) => {
     if (isStatsData(block) || isLogowallData(block) || isInfoIconBlock(block))
       return block.gallery.map(({ imageId }: any) => imageId)
-    if (isDescWithImageData(block)) return [block.imageId]
+
+    if (isDescWithImageData(block) || isTabsData(block)) return [block.imageId]
 
     return []
   }
@@ -276,7 +277,7 @@ const parseTabsBlock = (data: any): TabsData => {
     content: data[`tab_list_${index}_tab_content`],
   }))
 
-  return { heading: data.heading, tabList: tabsList, name: "acf/tabs" }
+  return { heading: data.heading, imageId: data.image, tabList: tabsList, name: "acf/tabs" }
 }
 
 const completedAssignmentsPattern = /^completed_assignments_(\d+)_title$/

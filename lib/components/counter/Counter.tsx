@@ -35,8 +35,8 @@ export const Counter = ({ pointNumber, pointSymbol, pointTitle }: CounterProps) 
   }, [pointNumber])
 
   return (
-    <div className="flex w-[309px] flex-col items-center">
-      <div className="app-h1 mb-4 text-dark-beige">
+    <div className="flex flex-col items-center lg:w-[309px]">
+      <div className="app-h2 xl:app-h1 mb-4 text-dark-beige">
         <span>{Math.floor(count)}</span>
         {pointSymbol && <span>{pointSymbol}</span>}
       </div>

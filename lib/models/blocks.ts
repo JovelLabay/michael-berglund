@@ -82,6 +82,7 @@ export interface DataPointsData extends BaseBlock {
 
 export interface TabsData extends BaseBlock {
   heading: string
+  imageId: number
   tabList: {
     title: string
     content: string
