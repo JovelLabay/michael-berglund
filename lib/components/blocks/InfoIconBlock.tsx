@@ -22,7 +22,7 @@ export const InfoIconBlock = ({ heading, gallery }: InfoIconData) => {
   ))
 
   return (
-    <section className="bg-light-beige px-12 pt-[100px] pb-[120px]">
+    <section className="bg-light-beige  pb-[120px] section-padding">
       <h3 className="app-h3 mb-[60px] text-center">{heading}</h3>
       <div className="container m-auto grid grid-cols-1 gap-6 text-center sm:grid-cols-2 sm:gap-8 ">
         {_infoIcon}
