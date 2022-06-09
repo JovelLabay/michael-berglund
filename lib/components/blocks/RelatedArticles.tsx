@@ -36,7 +36,7 @@ export const RelatedArticles = ({ title, postIds }: RelatedArticleData) => {
             <Card
               image={featuredImage.node}
               body={cardBody}
-              link={`/post${uri}`}
+              link={`/articles${uri}`}
               className="h-full"
             />
           </SwiperSlide>
