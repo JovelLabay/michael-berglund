@@ -88,7 +88,7 @@
     @apply lg:prose-p:body-l prose-h4:app-h4 prose prose-h4:mt-3 prose-h4:font-lora prose-h4:font-normal prose-p:text-body-m prose-a:no-underline prose-a:outline-none prose-a:duration-300 prose-a:ease-in-out hover:prose-a:text-medium-beige;
   }
   .wysiwyg.privacy-policy {
-    @apply prose-p:link-s prose prose-a:no-underline prose-strong:text-dark-beige prose-strong:transition-colors prose-strong:duration-300 hover:prose-strong:text-medium-beige;
+    @apply prose-p:link-s prose prose-p:text-dark-beige prose-a:no-underline prose-strong:text-dark-beige prose-strong:transition-colors prose-strong:duration-300 hover:prose-strong:text-medium-beige;
   }
 
   .app-hover {
