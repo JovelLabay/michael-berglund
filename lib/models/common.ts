@@ -157,3 +157,17 @@ export interface AnimatedPage {
   linkText: string
   colorOverlay: string
 }
+
+export interface SingleArticlePost {
+  post: {
+    title: string
+    date: string
+    content: string
+    featuredImage: {
+      node: WPMedia
+    }
+    blocks: {
+      attributesJSON: string
+    }[]
+  }
+}
