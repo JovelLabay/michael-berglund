@@ -19,15 +19,15 @@ export const Assignments = ({ title, assignments }: AssignmentsData) => {
     () =>
       assignments.map(({ title, description }, index) => (
         <SwiperSlide key={index}>
-          <div className="item flex h-full">
-            <div className="relative aspect-square w-[28.05%] shrink-0">
+          <div className="item flex h-full flex-col lg:flex-row">
+            <div className="relative h-[64px] w-[100%] shrink-0 lg:aspect-square lg:h-full lg:w-[28.05%]">
               <Image
                 src={AssignmentBg.src}
                 alt="Completed Assignments BG"
                 layout="fill"
                 objectFit="cover"
               />
-              <CheckMark className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 fill-white" />
+              <CheckMark className="absolute left-12 top-8 h-5 w-[28px] -translate-x-1/2 -translate-y-1/2 fill-white lg:top-1/2 lg:left-1/2 lg:h-[32px] lg:w-[52px]" />
             </div>
             <div className="flex w-full flex-col justify-center bg-light-beige p-8">
               <h5 className="app-h4 mb-5">{title}</h5>
