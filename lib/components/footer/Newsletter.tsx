@@ -53,7 +53,10 @@ export const NewsLetter = () => {
   }
 
   return (
-    <section className="section-padding bg-light-beige pb-[120px] text-center">
+    <section
+      id="newsletterSection"
+      className="section-padding bg-light-beige pb-[120px] text-center"
+    >
       <div className="mx-auto max-w-[650px] ">
         {!submitted && (
           <>
