@@ -1,8 +1,9 @@
 import {
-    AssignmentsData, BaseBlock, ContactData, CourseCardsData, DataPointsData, DescWithImageData,
-    HeroData, InfoIconData, isBigPageLinks, isContactData, isCourseCardData, isDescWithImageData,
-    isHeroData, isInfoIconBlock, isLogowallData, isRelatedArticlesData, isStatsData, isTabsData,
-    LogowallData, PostData, RelatedArticleData, ReviewSliderData, ShortDescData, StatsData, TabsData
+    AssignmentsData, BaseBlock, ContactData, ContactFeedListblock, CourseCardsData, DataPointsData,
+    DescWithImageData, HeroData, InfoIconData, isBigPageLinks, isContactData, isContactFeedBlock,
+    isCourseCardData, isDescWithImageData, isHeroData, isInfoIconBlock, isLogowallData,
+    isRelatedArticlesData, isStatsData, isTabsData, LogowallData, PostData, RelatedArticleData,
+    ReviewSliderData, ShortDescData, StatsData, TabsData
 } from "@models/blocks"
 
 type Blocks = { attributesJSON: string }[]
@@ -44,6 +45,8 @@ export const parse = (rawBlocks: Blocks): { blocks: BaseBlock[] } => {
         return parseCourseCardData(data)
       case "acf/info-icon":
         return parseInfoIconBlock(data)
+       case "acf/contact-feed":
+          return parseContactFeedBlocks(data)
       default:
         throw new Error(`Unknown block type: ${name}`)
     }
@@ -90,7 +93,7 @@ export const getPostLinkIds = (blocks: BaseBlock[]) => {
 export const getMedarbetareLinkIds = (blocks: BaseBlock[]) => {
   const mapper = (block: BaseBlock) => {
     if (isContactData(block)) return block.medarbetareIds
-
+    if (isContactFeedBlock(block)) return block.medarbetareIds
     return []
   }
 
@@ -204,6 +207,38 @@ const parseInfoIconBlock = (data: any): InfoIconData => {
     gallery: gallery,
     name: "acf/info-icon",
   }
+}
+
+
+const contactFeedBlockPattern = /^contact_feed_group_(\d+)_heading$/
+const contactFeedBlockSubPattern = /^contact_feed_group_(\d+)_medarbetare_list_(\d+)_medarbetare$/
+const parseContactFeedBlocks = (data: any): ContactFeedListblock => {
+
+  let resultParse: { title: any, tempLists: any[], medarbetareIds: any[]}[] = [];
+  Object.keys(data).forEach((keys)=> {
+    if((contactFeedBlockPattern.test(keys))) {
+      resultParse.push({
+        title: data[keys],
+        tempLists: [],
+        medarbetareIds: []
+      });
+    } else { if((resultParse && resultParse.length > 0) && ((contactFeedBlockPattern.test(keys)) || keys.charAt(0)!='_')) {
+          resultParse[resultParse.length - 1].tempLists.push(keys);
+      }
+    }
+  });
+  let medarbetareIds: any[] = [];
+  resultParse.forEach((dataRes, i)=> {
+      let indexes = dataRes.tempLists.filter(key => contactFeedBlockSubPattern.test(key)).map(key => key.match(contactFeedBlockSubPattern)![2]); 
+      indexes.map((value)=> {
+        dataRes.medarbetareIds.push(
+          data[`contact_feed_group_${i}_medarbetare_list_${value}_medarbetare`]
+        )
+        medarbetareIds.push(data[`contact_feed_group_${i}_medarbetare_list_${value}_medarbetare`]);
+      });
+  });
+  const contactListsBlockData = resultParse.map((value)=> { return { title: value.title, medarbetareIds: value.medarbetareIds}}) as any;
+  return { contactLists: contactListsBlockData, medarbetareIds: medarbetareIds,  name: 'acf/contact-feed' }
 }
 
 const reviewSliderPattern = /^reviews_(\d+)_review_text$/

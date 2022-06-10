@@ -1,13 +1,15 @@
 import {
-    BaseBlock, isAssignmentsData, isBigPageLinks, isContactData, isCourseCardData, isDataPointsData,
-    isDescWithImageData, isHeroData, isInfoIconBlock, isLogowallData, isRelatedArticlesData,
-    isReviewSilderData, isShortDescData, isStatsData, isTabsData
+    BaseBlock, isAssignmentsData, isBigPageLinks, isContactData, isContactFeedBlock,
+    isCourseCardData, isDataPointsData, isDescWithImageData, isHeroData, isInfoIconBlock,
+    isLogowallData, isRelatedArticlesData, isReviewSilderData, isShortDescData, isStatsData,
+    isTabsData
 } from "@models/blocks"
 
 import { DescWithImgBlock } from "./"
 import { Assignments } from "./Assignments"
 import { BigPageLinks } from "./BigPageLinksBlock"
 import { Contact } from "./Contact"
+import { ContactFeedBlock } from "./ContactFeedBlock"
 import { CourseCards } from "./CourseCards"
 import { DataPointsBlock } from "./DataPointsBlock"
 import Hero from "./hero/Hero"
@@ -34,5 +36,6 @@ export const Block = ({ block }: { block: BaseBlock }) => {
   if (isBigPageLinks(block)) return <BigPageLinks {...block} />
   if (isCourseCardData(block)) return <CourseCards {...block} />
   if (isInfoIconBlock(block)) return <InfoIconBlock {...block} />
+  if (isContactFeedBlock(block)) return <ContactFeedBlock {...block} />
   return null
 }

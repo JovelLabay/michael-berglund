@@ -97,6 +97,11 @@ export interface AssignmentsData extends BaseBlock {
   }[]
 }
 
+export interface ContactFeedListblock extends BaseBlock {
+  contactLists: ContactData[]
+  medarbetareIds?: number[]
+}
+
 export interface CourseCardsData extends BaseBlock {
   title: string
 }
@@ -116,6 +121,7 @@ export type BlockName =
   | "acf/big-page-links"
   | "acf/course-cards"
   | "acf/info-icon"
+  | "acf/contact-feed"
 
 /** Type-narrowing functions */
 export function isHeroData(object: any): object is HeroData {
@@ -172,4 +178,8 @@ export function isCourseCardData(object: any): object is CourseCardsData {
 
 export function isInfoIconBlock(object: any): object is InfoIconData {
   return object && typeof object.name === "string" && object.name === "acf/info-icon"
+}
+
+export function isContactFeedBlock(object: any): object is ContactFeedListblock {
+  return object && typeof object.name === "string" && object.name === "acf/contact-feed"
 }
