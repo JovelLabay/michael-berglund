@@ -293,6 +293,13 @@ export const GET_SINGLE_ARTICLE = gql`
           ...WPMediaFields
         }
       }
+      acfPostSingleArticle {
+        coverImage {
+          ...WPMediaFields
+        }
+        linkTitle
+        mediaFile
+      }
       blocks {
         ...WPBlocks
       }

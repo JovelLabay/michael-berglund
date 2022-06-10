@@ -166,6 +166,11 @@ export interface SingleArticlePost {
     featuredImage: {
       node: WPMedia
     }
+    acfPostSingleArticle: {
+      coverImage: WPMedia
+      linkTitle: string
+      mediaFile: string
+    }
     blocks: {
       attributesJSON: string
     }[]

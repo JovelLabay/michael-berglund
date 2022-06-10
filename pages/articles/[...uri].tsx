@@ -4,13 +4,15 @@ import { GetServerSideProps } from "next"
 import Image from "next/image"
 import invariant from "tiny-invariant"
 
+import { useResponsiveLG } from "@/lib/hooks/shared"
 import { getImageIds, getPageLinkIds, parse } from "@/lib/utils/BlockParser"
 import { getImages } from "@/lib/utils/ImageGetter"
-import { getPageProps, getPosts } from "@/lib/utils/PageHellper"
+import { getPosts } from "@/lib/utils/PageHellper"
+import { ArticleShareLinks } from "@components/article-share-links"
 import { Block } from "@components/blocks"
-import { BasicHero } from "@components/blocks/hero/BasicHero"
 import Layout from "@components/Layout/Layout"
 import { Wysiwyg } from "@components/shared/Wysiwyg"
+import { PlayIcon } from "@icons/PlayIcon"
 import { BaseBlock } from "@models/blocks"
 import { GQLGlobalFields, ImageMap, PostMap, SingleArticlePost } from "@models/common"
 
@@ -59,18 +61,54 @@ export default function SingleArticle({
   postMap,
 }: SingleArticleProps) {
   const { title, date, content, featuredImage } = articleData.post
+  const { linkTitle, mediaFile, coverImage } = articleData.post.acfPostSingleArticle
+
+  const responsiveLG = useResponsiveLG()
+
+  console.log(responsiveLG)
+
+  const publishedDate = new Date(date).toLocaleDateString("eu-SV", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  })
 
   return (
     <Layout {...globalFields} pageData={pageData} images={images} postMap={postMap}>
-      <section className="relative bg-white pt-[200px]">
-        {/* <div className="absolute w-full">
-          <div className="relative inset-0 z-0">
-            <Image src={featuredImage.node.mediaItemUrl} alt="" layout="fill" objectFit="cover" />
+      <section className="bg-white">
+        <div className="inset-0 h-[440px] bg-hero-pattern"></div>
+        <div className="section-padding flex">
+          <div className="mr-0 w-full lg:mr-[100px] lg:w-1/2 xl:mr-[147px]">
+            <div className="mb-10 flex flex-col">
+              <h1 className="lg:app-h2 mb-10 font-lora text-app-h3 md:max-w-[656px]">{title}</h1>
+              <span className="pre-title uppercase text-dark-beige">published {publishedDate}</span>
+            </div>
+            <Wysiwyg className="article" content={content} />
+            <ArticleShareLinks />
           </div>
-        </div> */}
-        <h1 className="app-h1 mt-[200px]">{title}</h1>
-        <Wysiwyg className="bg-white" content={content} />
-        <p>Dela links</p>
+          {responsiveLG && (
+            <div className="w-1/2">
+              <div className="aspect-w-16 aspect-h-9 relative h-[300px] w-full">
+                <Image
+                  src={coverImage.mediaItemUrl}
+                  alt={coverImage.altText}
+                  layout="fill"
+                  objectFit="cover"
+                />
+              </div>
+              <div className="flex w-full items-center bg-dark-green">
+                <a
+                  href={mediaFile}
+                  target="_blank"
+                  rel="noopener noreferer"
+                  className="flex items-center py-5 px-8 text-link-m text-white"
+                >
+                  {linkTitle} <PlayIcon className="ml-[10px]" />
+                </a>
+              </div>
+            </div>
+          )}
+        </div>
         {blocks ? blocks.map(block => <Block key={block.name} block={block} />) : null}
       </section>
     </Layout>
