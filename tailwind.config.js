@@ -56,6 +56,9 @@ module.exports = {
         "normal-beige": "#ECE5E2",
         "darker-beige": "#ECE5E2",
       },
+      backgroundImage:{
+        "hero-pattern": "url('/bg/hero-pattern.png')"
+      }
     },
   },
   plugins: [require("@tailwindcss/aspect-ratio"), require("@tailwindcss/typography")],
