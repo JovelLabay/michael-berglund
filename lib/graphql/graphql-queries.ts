@@ -138,6 +138,9 @@ export const WP_BLOCKS = gql`
     ... on AcfInfoIconBlock {
       attributesJSON
     }
+    ... on AcfAccordionListBlock {
+      attributesJSON
+    }
   }
 `
 

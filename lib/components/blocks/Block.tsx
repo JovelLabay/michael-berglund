@@ -1,10 +1,12 @@
 import {
-    BaseBlock, isAssignmentsData, isBigPageLinks, isContactData, isCourseCardData, isDataPointsData,
-    isDescWithImageData, isHeroData, isInfoIconBlock, isLogowallData, isRelatedArticlesData,
-    isReviewSilderData, isShortDescData, isStatsData, isTabsData
+    BaseBlock, isAccordionListBlock, isAssignmentsData, isBigPageLinks, isContactData,
+    isCourseCardData, isDataPointsData, isDescWithImageData, isHeroData, isInfoIconBlock,
+    isLogowallData, isRelatedArticlesData, isReviewSilderData, isShortDescData, isStatsData,
+    isTabsData
 } from "@models/blocks"
 
 import { DescWithImgBlock } from "./"
+import { AccordionListBlock } from "./accordion/AccordionListBlock"
 import { Assignments } from "./Assignments"
 import { BigPageLinks } from "./BigPageLinksBlock"
 import { Contact } from "./Contact"
@@ -34,5 +36,6 @@ export const Block = ({ block }: { block: BaseBlock }) => {
   if (isBigPageLinks(block)) return <BigPageLinks {...block} />
   if (isCourseCardData(block)) return <CourseCards {...block} />
   if (isInfoIconBlock(block)) return <InfoIconBlock {...block} />
+  if (isAccordionListBlock(block)) return <AccordionListBlock {...block} />
   return null
 }
