@@ -281,3 +281,30 @@ export const GET_ALL_UNTAILORED_COURESES = gql`
     }
   }
 `
+
+export const GET_SINGLE_ARTICLE = gql`
+  ${WP_MEDIA_FIELDS}
+  ${WP_BLOCKS}
+  query GetSingleArticle($id: ID!) {
+    post(id: $id, idType: SLUG) {
+      title
+      date
+      content
+      featuredImage {
+        node {
+          ...WPMediaFields
+        }
+      }
+      acfPostSingleArticle {
+        coverImage {
+          ...WPMediaFields
+        }
+        linkTitle
+        mediaFile
+      }
+      blocks {
+        ...WPBlocks
+      }
+    }
+  }
+`
