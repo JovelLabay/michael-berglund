@@ -91,6 +91,33 @@
     @apply link-s prose text-dark-beige prose-a:no-underline prose-a:outline-none prose-strong:text-dark-beige prose-strong:transition-colors prose-strong:duration-300 hover:prose-strong:text-medium-beige;
   }
 
+  .wysiwyg.article {
+    @apply prose-p:body-m prose-h4:body-m lg:prose-h4:body-l prose-h2:app-h4 prose-blockquote:wp-block-quote prose-figure:wp-block-image prose-figcaption:body-s prose w-full prose-h4:mb-10 prose-h4:font-gotham prose-h4:font-[325] prose-h4:uppercase prose-p:font-lora prose-blockquote:mb-10 prose-blockquote:border-none prose-figcaption:text-dark-blue;
+  }
+
+  .wp-block-quote {
+    @apply relative mt-10 px-0 pt-4;
+  }
+
+  .wp-block-quote:before {
+    content: "";
+    position: absolute;
+    background: url("/quotation.svg") no-repeat center center/cover;
+    top: 0;
+    left: 50%;
+    margin-left: -10px;
+    width: 20px;
+    height: 20px;
+  }
+
+  .wp-block-quote p {
+    @apply border-none text-center text-body-l font-normal text-dark-beige;
+  }
+
+  .wp-block-image img {
+    @apply mb-0;
+  }
+
   .app-hover {
     @apply duration-300 ease-in-out;
   }
