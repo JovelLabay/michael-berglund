@@ -42,6 +42,8 @@ export interface ACFGlobalFields {
       description: string
       emailPlaceholder: string
       privacyPolicy: string
+      successTitle: string
+      successMessage: string
     }
     footer: {
       contactInfo: {

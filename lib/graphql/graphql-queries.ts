@@ -43,6 +43,8 @@ export const GET_GLOBAL_FIELDS = gql`
           description
           emailPlaceholder
           privacyPolicy
+          successTitle
+          successMessage
         }
         footer {
           contactInfo {
