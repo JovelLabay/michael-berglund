@@ -63,6 +63,8 @@ export const getImageIds = (blocks: BaseBlock[]): number[] => {
 
     if (isDescWithImageData(block) || isTabsData(block)) return [block.imageId]
 
+    if (isContactFeedBlock(block)) return [block.coverPhotoId]
+
     return []
   }
 
@@ -238,7 +240,7 @@ const parseContactFeedBlocks = (data: any): ContactFeedListblock => {
       });
   });
   const contactListsBlockData = resultParse.map((value)=> { return { title: value.title, medarbetareIds: value.medarbetareIds}}) as any;
-  return { contactLists: contactListsBlockData, medarbetareIds: medarbetareIds,  name: 'acf/contact-feed' }
+  return { contactLists: contactListsBlockData, coverPhotoId: data['cover_photo'], medarbetareIds: medarbetareIds,  name: 'acf/contact-feed' }
 }
 
 const reviewSliderPattern = /^reviews_(\d+)_review_text$/

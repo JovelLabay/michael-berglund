@@ -100,6 +100,7 @@ export interface AssignmentsData extends BaseBlock {
 export interface ContactFeedListblock extends BaseBlock {
   contactLists: ContactData[]
   medarbetareIds?: number[]
+  coverPhotoId?: number
 }
 
 export interface CourseCardsData extends BaseBlock {
