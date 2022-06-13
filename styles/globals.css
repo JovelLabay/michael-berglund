@@ -125,6 +125,12 @@
   .section-padding {
     @apply px-5 pt-[60px] lg:px-12 lg:pt-[100px];
   }
+
+  .profile-card { perspective: 500px;}
+  .profile-card .content { transform-style: preserve-3d;}
+  .profile-card .transform { transform: rotateY( 180deg ); transition: transform 0.5s;}
+  .profile-card .front, .profile-card .back {  backface-visibility: hidden; }
+  .profile-card .back {  transform: rotateY( 180deg ); }
 }
 
 @layer utilities {
@@ -160,3 +166,4 @@
     @apply app-hover hover:text-medium-beige;
   }
 }
+
