@@ -32,9 +32,7 @@ export const Block = ({ block }: { block: BaseBlock }) => {
   if (isDataPointsData(block)) return <DataPointsBlock {...block} />
   if (isTabsData(block)) return <TabsBlock {...block} />
   if (isAssignmentsData(block)) return <Assignments {...block} />
-
   if (isRegisterCvData(block)) return <RegisterCVBlock {...block} />
-
   if (isBigPageLinks(block)) return <BigPageLinks {...block} />
   if (isCourseCardData(block)) return <CourseCards {...block} />
   if (isInfoIconBlock(block)) return <InfoIconBlock {...block} />

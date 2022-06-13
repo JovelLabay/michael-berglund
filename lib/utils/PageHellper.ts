@@ -9,11 +9,10 @@ import {
     getCoursesLinkIds, getFileLinks, getImageIds, getMedarbetareLinkIds, getPageLinkIds,
     getPostLinkIds, hasCourseCardBlock, parse
 } from "@/lib/utils/BlockParser"
+import { getFiles } from "@/lib/utils/FileGetter"
 import { getImages } from "@/lib/utils/ImageGetter"
 import { BaseBlock } from "@models/blocks"
 import { Courses, PageMap, PostMap } from "@models/common"
-
-import { getFiles } from "./FileGetter"
 
 export const getPageProps = async (uri = "/") => {
   const [{ data: globalFields }, { data: pageBlocks }] = await Promise.all([
@@ -35,8 +34,9 @@ export const getPageProps = async (uri = "/") => {
   const [images, pageMap, postMap, files] = await Promise.all([
     getImages(imageIds),
     getPages(pageLinkIds),
-    getFiles(downloadFileIds),
+
     getPosts(blocks),
+    getFiles(downloadFileIds),
   ])
 
   return { props: { globalFields, pageData, blocks, pageMap, postMap, images, files } }

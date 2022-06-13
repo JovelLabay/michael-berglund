@@ -1,84 +1,144 @@
 import { Listbox } from "@headlessui/react"
+import classNames from "classnames"
 import { useState } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
 
+import { ArrowRight } from "@icons/ArrowRight"
 import { DropdownArrow } from "@icons/DropdownArrow"
 import { IDropDown } from "@models/common"
 
-interface RegisterForm {
+import { ProfInfoFields } from "./ProfInfoFields"
+
+interface RegisterFormData {
   firstName: string
   lastName: string
   email: string
   phone: string
-  dropdown: string[]
+  city: string
+  newsletter: boolean
 }
+
+interface ExSearchFields extends RegisterFormData {
+  linkedIn: string
+  selectRole: string
+  sizeOfLeaderShip: string
+  intExperience: string
+}
+
+interface InterimEffectfields extends RegisterFormData {
+  budgetResponsibility: string
+  sizeOfLeaderShip: string
+  language: string
+  intExperience: string
+  compensation: string
+  industry: string
+  availability: string
+}
+
+type FormDataUnion = RegisterFormData | ExSearchFields | InterimEffectfields
 
 interface RegisterFormProps {
   infoDropdown: IDropDown[]
+  activeStep: number
+  nextStep: () => void
+  prevStep: () => void
+  pageUrl: string
 }
 
-export const RegisterForm = ({ infoDropdown }: RegisterFormProps) => {
-  const [dropDownValue, setDropDownValue] = useState<string[]>([])
-
-  const { register, handleSubmit, reset } = useForm<RegisterForm>()
-  const onSubmit: SubmitHandler<RegisterForm> = data => {
+export const RegisterForm = ({
+  infoDropdown,
+  activeStep,
+  nextStep,
+  prevStep,
+  pageUrl,
+}: RegisterFormProps) => {
+  const { register, handleSubmit, reset, watch } = useForm<FormDataUnion>()
+  const onSubmit: SubmitHandler<FormDataUnion> = data => {
     console.log(data)
     reset()
+    nextStep()
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="w-full">
-      <div className="mb-10 flex flex-col">
-        <h4 className="pre-title mb-6 uppercase text-light-green">Contact details</h4>
-        <div className="mb-5 flex w-full space-x-5">
+    <form onSubmit={handleSubmit(onSubmit)} className="w-full pb-[100px]">
+      {activeStep === 1 && (
+        <div className="mb-10 flex flex-col space-y-4">
           <input
-            className="form-input flex-1"
-            placeholder="First name"
-            {...register("firstName")}
+            type="text"
+            className="form-input"
+            placeholder="First name*"
+            {...register("firstName", { required: true })}
           />
-          <input className="form-input flex-1" placeholder="Last name" {...register("firstName")} />
+          <input
+            type="text"
+            className="form-input "
+            placeholder="Last name*"
+            {...register("lastName", { required: true })}
+          />
+          <input
+            type="email"
+            className="form-input"
+            placeholder="E-mail address*"
+            {...register("email", { required: true })}
+          />
+          <input
+            type="text"
+            className="form-input"
+            placeholder="Phone number*"
+            {...register("phone", { required: true })}
+          />
+          <input
+            type="text"
+            className="form-input"
+            placeholder="City*"
+            {...register("city", { required: true })}
+          />
         </div>
-        <div className="flex flex-col space-y-5">
-          <input className="form-input" placeholder="Email" {...register("email")} />
-          <input className="form-input" placeholder="Phone number" {...register("phone")} />
+      )}
+
+      {/* Dropdowns */}
+      {activeStep === 2 && (
+        <ProfInfoFields
+          infoDropdown={infoDropdown}
+          register={register}
+          pageLocation={pageUrl}
+          watch={watch}
+        />
+      )}
+
+      {activeStep === 3 && <p>Thank you!!</p>}
+
+      {/* Buttons */}
+      {activeStep !== 3 && (
+        <div
+          className={classNames("flex items-center justify-between", {
+            "justify-end": activeStep === 1,
+          })}
+        >
+          {activeStep === 1 ? (
+            <button
+              type="button"
+              onClick={nextStep}
+              className="link-m flex items-center font-[350] text-white "
+            >
+              Next Step <ArrowRight className="ml-[10px] fill-white" />
+            </button>
+          ) : (
+            <>
+              <button
+                type="button"
+                onClick={prevStep}
+                className="link-m flex items-center font-[350] text-white "
+              >
+                <ArrowRight className="mr-[10px] rotate-180 fill-white" /> Previous Step
+              </button>
+              <button type="submit" className="form-btn">
+                Register
+              </button>{" "}
+            </>
+          )}
         </div>
-      </div>
-
-      {/* Add cv */}
-      <div className="mb-10 flex flex-col">
-        <h4 className="pre-title mb-6 uppercase text-light-green">Your cv</h4>
-      </div>
-
-      {/* Professinal info */}
-      <div className="mb-10 flex flex-col">
-        <h4 className="pre-title mb-6 uppercase text-light-green">professional information</h4>
-        <div className="flex flex-col">
-          {infoDropdown.map((option, i) => (
-            <Listbox value={dropDownValue} onChange={setDropDownValue} name="dropdown">
-              <Listbox.Button className="mb-5 flex items-center justify-between bg-white p-4 text-left">
-                <span className="link-m opacity-25">{option.title}</span>
-                <DropdownArrow />
-              </Listbox.Button>
-              <Listbox.Options>
-                {option.values.map(value => (
-                  <Listbox.Option
-                    key={value}
-                    value={value}
-                    className="text-white"
-                    {...register("dropdown")}
-                  >
-                    {value}
-                  </Listbox.Option>
-                ))}
-              </Listbox.Options>
-            </Listbox>
-          ))}
-        </div>
-      </div>
-
-      <button type="submit" className="form-btn">
-        Register
-      </button>
+      )}
     </form>
   )
 }

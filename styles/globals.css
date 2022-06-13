@@ -127,11 +127,11 @@
   }
 
   .form-input {
-    @apply placeholder:link-m p-4 placeholder:opacity-50;
+    @apply placeholder:link-m rounded-sm p-4 outline-dark-green placeholder:font-[325] placeholder:text-dark-blue placeholder:opacity-50;
   }
 
   .form-btn {
-    @apply link-m w-[220px] bg-orange py-4 text-white;
+    @apply link-m w-[220px] rounded bg-orange py-4 text-white;
   }
 }
 
