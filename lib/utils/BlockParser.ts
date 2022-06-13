@@ -1,7 +1,8 @@
 import {
-    AssignmentsData, BaseBlock, ContactData, DataPointsData, DescWithImageData, HeroData,
-    isContactData, isDescWithImageData, isHeroData, isLogowallData, isRegisterCvData,
-    isRelatedArticlesData, isStatsData, LogowallData, RegisterCvData, RelatedArticleData,
+    AssignmentsData, BaseBlock, ContactData, CourseCardsData, DataPointsData, DescWithImageData,
+    HeroData, InfoIconData, isBigPageLinks, isContactData, isCourseCardData, isDescWithImageData,
+    isHeroData, isInfoIconBlock, isLogowallData, isRegisterCvData, isRelatedArticlesData,
+    isStatsData, isTabsData, LogowallData, PostData, RegisterCvData, RelatedArticleData,
     ReviewSliderData, ShortDescData, StatsData, TabsData
 } from "@models/blocks"
 import { IDropDown } from "@models/common"
@@ -41,7 +42,12 @@ export const parse = (rawBlocks: Blocks): { blocks: BaseBlock[] } => {
         return parseAssignmentsBlock(data)
       case "acf/register-cv":
         return parseRegisterCVBlock(data)
-
+      case "acf/big-page-links":
+        return parseAnyPostData(data, name)
+      case "acf/course-card":
+        return parseCourseCardData(data)
+      case "acf/info-icon":
+        return parseInfoIconBlock(data)
       default:
         throw new Error(`Unknown block type: ${name}`)
     }
@@ -53,9 +59,10 @@ export const parse = (rawBlocks: Blocks): { blocks: BaseBlock[] } => {
 //collect all unique image ids used by different blocks
 export const getImageIds = (blocks: BaseBlock[]): number[] => {
   const mapper = (block: BaseBlock) => {
-    if (isStatsData(block) || isLogowallData(block))
+    if (isStatsData(block) || isLogowallData(block) || isInfoIconBlock(block))
       return block.gallery.map(({ imageId }: any) => imageId)
-    if (isDescWithImageData(block)) return [block.imageId]
+
+    if (isDescWithImageData(block) || isTabsData(block)) return [block.imageId]
 
     return []
   }
@@ -101,6 +108,19 @@ export const getFileLinks = (blocks: BaseBlock[]) => {
     return []
   }
   return Array.from(new Set(blocks.map(mapper).flatMap(ids => ids)))
+}
+
+export const getCoursesLinkIds = (blocks: BaseBlock[]) => {
+  const mapper = (block: BaseBlock) => {
+    if (isBigPageLinks(block)) return block.postIds
+
+    return []
+  }
+  return Array.from(new Set(blocks.map(mapper).flatMap(ids => ids)))
+}
+
+export const hasCourseCardBlock = (blocks: BaseBlock[]): boolean => {
+  return blocks.find(block => isCourseCardData(block)) ? true : false
 }
 
 const animatedPagesPattern = /^animated_pages_(\d+)_page$/
@@ -184,6 +204,22 @@ const parseLogowallBlock = (data: any): LogowallData => {
   }
 }
 
+const parseInfoIconBlock = (data: any): InfoIconData => {
+  const indexes = Object.keys(data)
+    .filter(key => logoWallPattern.test(key))
+    .map(key => key.match(logoWallPattern)![1])
+
+  const gallery = indexes.map(index => ({
+    imageId: parseInt(data[`logo_gallery_${index}_logo_image`]),
+    description: data[`logo_gallery_${index}_description`],
+  }))
+  return {
+    heading: data.heading,
+    gallery: gallery,
+    name: "acf/info-icon",
+  }
+}
+
 const reviewSliderPattern = /^reviews_(\d+)_review_text$/
 
 const parseReviewSilderBlock = (data: any): ReviewSliderData => {
@@ -255,7 +291,7 @@ const parseTabsBlock = (data: any): TabsData => {
     content: data[`tab_list_${index}_tab_content`],
   }))
 
-  return { heading: data.heading, tabList: tabsList, name: "acf/tabs" }
+  return { heading: data.heading, imageId: data.image, tabList: tabsList, name: "acf/tabs" }
 }
 
 const completedAssignmentsPattern = /^completed_assignments_(\d+)_title$/
@@ -294,4 +330,40 @@ const parseRegisterCVBlock = (data: any): RegisterCvData => {
     professionalInfo: { infoDropdown },
     name: "acf/register-cv",
   }
+}
+
+/**
+ *
+ * @param data Object value from the block
+ * @param name Attribute name of the block
+ * @param pattern Regex pattern to be match from the key/attributejson
+ * @returns Parse data from different types of post
+ */
+
+const parseAnyPostData = (data: any, name: any): PostData => {
+  const { title } = data
+
+  const postIds = Object.keys(data)
+    .filter(key => regexPostPatternFinder(name).test(key))
+    .map(key => data[key])
+  return { title, postIds, name }
+}
+
+/**
+ *
+ * @param name Use this to create more regex pattern to a certain post type
+ * @returns Regex pattern for a specific type of post
+ */
+
+const regexPostPatternFinder = (name: any): RegExp => {
+  const [postDataPattern] = [
+    { name: "acf/related-articles", pattern: /^articles_(\d+)_article$/ },
+    { name: "acf/big-page-links", pattern: /^tailored_courses_(\d+)_tailored_course$/ },
+  ].filter(data => name == data.name)
+
+  return postDataPattern.pattern
+}
+
+const parseCourseCardData = (data: any): CourseCardsData => {
+  return { name: "acf/course-cards", title: data.title }
 }

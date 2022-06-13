@@ -8,13 +8,16 @@ export type HeroType = "basic" | "animated"
 export type ImageMap = Record<number, Pick<ImageProps, "src" | "alt">>
 
 export type PageMap = Record<number, Page>
-export type PostMap = Record<number, Post | MedarbetarePost>
+
+// export type PostMap = Record<number, Post | MedarbetarePost>
 export type FileMap = Record<number, string>
 
 export interface IDropDown {
   title: string
   values: string[]
 }
+
+export type PostMap = Record<number, Post | MedarbetarePost | CoursePost | CoursePost[]>
 
 export interface PageProps {
   globalFields: GQLGlobalFields
@@ -49,6 +52,8 @@ export interface ACFGlobalFields {
       description: string
       emailPlaceholder: string
       privacyPolicy: string
+      successTitle: string
+      successMessage: string
     }
     footer: {
       contactInfo: {
@@ -120,6 +125,34 @@ export interface MedarbetarePost {
   acfMedarbetare: AcfMedarbetare
 }
 
+export interface Courses {
+  edges: {
+    node: {
+      id: string
+      courseId: string
+      uri: string
+      title: string
+      excerpt: string
+      acfCourse: AcfCourse
+    }
+  }[]
+}
+
+export interface CoursePost extends Post {
+  id: string
+  courseId: string
+  uri: string
+  title: string
+  excerpt: string
+  acfCourse: AcfCourse
+}
+export interface AcfCourse {
+  isCourseFull: boolean
+  startDate: Date
+  duration: number
+  language: string
+}
+
 export interface AcfMedarbetare {
   position: string
   email: string
@@ -135,4 +168,23 @@ export interface AnimatedPage {
   preTitle: string
   linkText: string
   colorOverlay: string
+}
+
+export interface SingleArticlePost {
+  post: {
+    title: string
+    date: string
+    content: string
+    featuredImage: {
+      node: WPMedia
+    }
+    acfPostSingleArticle: {
+      coverImage: WPMedia
+      linkTitle: string
+      mediaFile: string
+    }
+    blocks: {
+      attributesJSON: string
+    }[]
+  }
 }

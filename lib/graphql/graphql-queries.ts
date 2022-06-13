@@ -43,6 +43,8 @@ export const GET_GLOBAL_FIELDS = gql`
           description
           emailPlaceholder
           privacyPolicy
+          successTitle
+          successMessage
         }
         footer {
           contactInfo {
@@ -128,6 +130,15 @@ export const WP_BLOCKS = gql`
       attributesJSON
     }
     ... on AcfAssignmentsBlock {
+      attributesJSON
+    }
+    ... on AcfBigPageLinksBlock {
+      attributesJSON
+    }
+    ... on AcfCourseCardBlock {
+      attributesJSON
+    }
+    ... on AcfInfoIconBlock {
       attributesJSON
     }
   }
@@ -222,6 +233,80 @@ export const GET_MEDARBETARE_DATA_BY_ID = gql`
         phone
         linkedin
         bio
+      }
+    }
+  }
+`
+
+export const GET_COURSE_DATA_BY_ID = gql`
+  ${WP_MEDIA_FIELDS}
+  query GetCoursePostById($id: ID!) {
+    course(id: $id, idType: DATABASE_ID) {
+      id
+      courseId
+      excerpt
+      title
+      uri
+      slug
+      featuredImage {
+        node {
+          ...WPMediaFields
+        }
+      }
+      acfCourse {
+        duration
+        isCourseFull
+        language
+        startDate
+      }
+    }
+  }
+`
+
+export const GET_ALL_UNTAILORED_COURESES = gql`
+  query GetUntailoredCourses {
+    courses(where: { categoryNotIn: 3 }) {
+      edges {
+        node {
+          id
+          courseId
+          uri
+          title
+          excerpt
+          acfCourse {
+            startDate
+            language
+            isCourseFull
+            duration
+          }
+        }
+      }
+    }
+  }
+`
+
+export const GET_SINGLE_ARTICLE = gql`
+  ${WP_MEDIA_FIELDS}
+  ${WP_BLOCKS}
+  query GetSingleArticle($id: ID!) {
+    post(id: $id, idType: SLUG) {
+      title
+      date
+      content
+      featuredImage {
+        node {
+          ...WPMediaFields
+        }
+      }
+      acfPostSingleArticle {
+        coverImage {
+          ...WPMediaFields
+        }
+        linkTitle
+        mediaFile
+      }
+      blocks {
+        ...WPBlocks
       }
     }
   }

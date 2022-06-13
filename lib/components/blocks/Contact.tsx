@@ -9,9 +9,9 @@ export const Contact = ({ title, medarbetareIds }: ContactData) => {
   const { postMap } = useGlobalContext()
 
   return (
-    <section className="bg-white px-12 pt-[100px] pb-[120px]">
-      <h3 className="app-h3">{title}</h3>
-      <div className="mt-[60px] grid grid-cols-2 gap-y-12 gap-x-10">
+    <section className="section-padding bg-white pb-[120px]">
+      <h3 className="app-h3 text-center lg:text-left">{title}</h3>
+      <div className="mt-10 grid grid-cols-1 gap-y-8 gap-x-10 lg:mt-[60px] lg:grid-cols-2 lg:gap-y-12">
         {medarbetareIds &&
           medarbetareIds.map(postId => {
             const {
