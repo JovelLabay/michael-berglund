@@ -37,16 +37,16 @@ export const ProfileCard = ({ image, name, position, phone, email, bio, coverPho
                     <Image  src={image.mediaItemUrl}  alt={image.altText} layout="fill" objectFit="cover" />
                   </div>
                 )}
-                <div className='p-8 min-h-[228px]'>
+                <div className='p-8 min-h-[228px] pt-[36px]'>
                   <h5 className="app-h4">{name}</h5>
-                  <span className="pre-title mt-4 mb-5  uppercase  font-medium tracking-[0.15em] w-full block">{position}</span>
-                  <span className="pre-title mt-4 mb-2  tracking-[0.15em] w-full block break-all"> {email} </span>
-                  <span className="pre-title  mb-5  tracking-[0.15em] w-full block"> {phone} </span>
-                  <span className="w-full flex">
+                  <span className="pre-title pt-[16px] uppercase  font-medium tracking-[0.15em] w-full block">{position}</span>
+                  <span className="pre-title pt-[20px]  tracking-[0.15em] w-full block break-all"> {email} </span>
+                  <span className="pre-title pt-[8px] tracking-[0.15em] w-full block"> {phone} </span>
+                  <span className="w-full flex pt-[22px]">
                     <span className="w-40 font-medium text-base pt-6 inline-flex cursor-pointer" onClick={handleClick}>
                       Read Bio  &nbsp; <FlipIcon className="top-1 relative"/>
                     </span>
-                    <span className="pre-title  w-full text-right pt-6 text-base font-mediumfont-medium tracking-[0.15em] " >
+                    <span className="pre-title   w-full text-right pt-6 text-base font-mediumfont-medium tracking-[0.15em] " >
                       <a href={linkedin} target="_blank">
                           <LinkedinIcon className="float-right"/> 
                         </a>
@@ -59,18 +59,18 @@ export const ProfileCard = ({ image, name, position, phone, email, bio, coverPho
           <div className="back absolute w-full h-full inline-block">
             <div className=" mb-5 aspect-square  h-full w-full shrink-0 bg-light-beige">
                 <div style={{backgroundImage: `url(${coverPhoto.src})`}} className='h-14 absolute w-full -top-px'></div><br/> 
-                <div className="relative aspect-square w-[57px]  shrink-0 overflow-hidden rounded-full  m-auto border-2 border-white">
+                <div className="relative aspect-square w-[64px]  shrink-0 overflow-hidden rounded-full  m-auto border-2 border-white">
                       {image && (
                         <Image src={image.mediaItemUrl} alt={image.altText} layout="fill"  objectFit="cover"/>
                       )}
                     
                   </div>
-                  <span className=" p-8  text-center uppercase break-all font-medium tracking-[0.15em] w-full block">
+                  <span className="p-[20px] text-center uppercase break-all font-medium tracking-[0.15em] w-full block">
                     <h5 className="app-h4 text-center pb-5">{name}</h5>
                     {position}
                   </span>
-                  <Wysiwyg content={bio} hasWysiwyg={false}  className=" text-dark-blue p-8  min-h-[330px] overflow-auto"/>
-                  <span className="absolute p-8 pre-title font-medium  text-base inline-flex cursor-pointer" onClick={handleClick}>
+                  <Wysiwyg content={bio} hasWysiwyg={false}  className=" text-dark-blue p-8   pt-[32px] min-h-[330px] overflow-auto"/>
+                  <span className="relative p-8 w-48 pt-[52px] font-medium text-base inline-flex cursor-pointer" onClick={handleClick}>
                       Contact Info  &nbsp; <FlipIcon className="top-0 relative"/>
                     </span>
               </div>
