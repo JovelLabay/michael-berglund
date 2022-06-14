@@ -6,6 +6,7 @@ import {
 } from "@models/blocks"
 
 import { DescWithImgBlock } from "./"
+import { AccordionListBlock } from "./accordion/AccordionListBlock"
 import { Assignments } from "./Assignments"
 import { BigPageLinks } from "./BigPageLinksBlock"
 import { Contact } from "./Contact"
@@ -37,5 +38,6 @@ export const Block = ({ block }: { block: BaseBlock }) => {
   if (isCourseCardData(block)) return <CourseCards {...block} />
   if (isInfoIconBlock(block)) return <InfoIconBlock {...block} />
   if (isContactFeedBlock(block)) return <ContactFeedBlock {...block} />
+  if (isAccordionListBlock(block)) return <AccordionListBlock {...block} />
   return null
 }

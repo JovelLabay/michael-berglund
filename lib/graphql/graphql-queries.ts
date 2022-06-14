@@ -141,6 +141,9 @@ export const WP_BLOCKS = gql`
     ... on AcfContactFeedBlock {
       attributesJSON
     }
+    ... on AcfAccordionListBlock {
+      attributesJSON
+    }
   }
 `
 
