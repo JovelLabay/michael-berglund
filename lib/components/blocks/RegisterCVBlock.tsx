@@ -32,7 +32,7 @@ export const RegisterCVBlock = ({
 
   return (
     <section className="flex bg-dark-green ">
-      <div className="w-1/2 flex-1 bg-register-pattern pt-[100px] pl-12 pr-20">
+      <div className="w-1/2 flex-1 bg-register-pattern py-[100px] pl-12 pr-20">
         <h3 className="app-h3 mb-[60px] text-white">{heading}</h3>
         <Wysiwyg content={description} className="body-m mb-[26px] text-white" />
 
@@ -45,7 +45,7 @@ export const RegisterCVBlock = ({
           <DownloadIcon className="ml-[10px]" fill="white" />
         </a>
       </div>
-      <div className="w-1/2 flex-1 px-[60px] pt-[100px]">
+      <div className="w-1/2 flex-1 px-[60px] py-[100px]">
         {activeStep !== 3 && (
           <div className="mb-8 flex items-center justify-between">
             <h5 className="app-h4 text-white">

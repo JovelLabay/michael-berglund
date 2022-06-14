@@ -307,6 +307,15 @@ const parseAssignmentsBlock = (data: any): AssignmentsData => {
   return { name: "acf/assignments", title: data.title, assignments: completedAssignments }
 }
 
+// A replace function to convert any string to camelCase
+const toCamelCase = (text: string): string => {
+  return text
+    .replace(/(?:^\w|[A-Z]|\b\w)/g, (leftTrim: string, index: number) =>
+      index === 0 ? leftTrim.toLowerCase() : leftTrim.toUpperCase()
+    )
+    .replace(/\s+/g, "")
+}
+
 const parseRegisterCVBlock = (data: any): RegisterCvData => {
   const dropDownLength = data.professional_info_info_dropdown
 
@@ -315,11 +324,12 @@ const parseRegisterCVBlock = (data: any): RegisterCvData => {
   for (let i = 0; i < dropDownLength; i++) {
     let values = []
     let title = data[`professional_info_info_dropdown_${i}_title`]
+    let fieldName = toCamelCase(title)
 
     for (let j = 0; j < data[`professional_info_info_dropdown_${i}_values`]; j++) {
       values.push(data[`professional_info_info_dropdown_${i}_values_${j}_value`])
     }
-    infoDropdown.push({ title, values })
+    infoDropdown.push({ title, fieldName, values })
   }
 
   return {

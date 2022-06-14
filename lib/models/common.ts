@@ -14,6 +14,7 @@ export type FileMap = Record<number, string>
 
 export interface IDropDown {
   title: string
+  fieldName: string
   values: string[]
 }
 

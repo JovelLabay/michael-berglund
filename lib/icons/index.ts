@@ -11,9 +11,8 @@ export * from "./SwiperArrowRight"
 export * from "./SwiperArrowLeft"
 export * from "./ArrowDown"
 export * from "./CheckMark"
-
 export * from "./DownloadIcon"
-
 export * from "./ClockIcon"
 export * from "./GlobeIcon"
 export * from "./PlayIcon"
+export * from "./AddFileIcon"
