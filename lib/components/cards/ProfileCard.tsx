@@ -37,9 +37,9 @@ export const ProfileCard = ({ image, name, position, phone, email, bio, coverPho
                     <Image  src={image.mediaItemUrl}  alt={image.altText} layout="fill" objectFit="cover" />
                   </div>
                 )}
-                <div className='p-8 min-h-[228px] pt-[36px]'>
-                  <h5 className="app-h4">{name}</h5>
-                  <span className="pre-title pt-[16px] uppercase  font-medium tracking-[0.15em] w-full block">{position}</span>
+                <div className='p-8 min-h-[228px] pt-[36px] dark-blue'>
+                  <h5 className="app-h4 ">{name}</h5>
+                  <span className="pre-title  pt-[16px] uppercase  font-medium tracking-[0.15em] w-full block">{position}</span>
                   <span className="pre-title pt-[20px]  tracking-[0.15em] w-full block break-all"> {email} </span>
                   <span className="pre-title pt-[8px] tracking-[0.15em] w-full block"> {phone} </span>
                   <span className="w-full flex pt-[22px]">
@@ -65,11 +65,11 @@ export const ProfileCard = ({ image, name, position, phone, email, bio, coverPho
                       )}
                     
                   </div>
-                  <span className="p-[20px] text-center uppercase break-all font-medium tracking-[0.15em] w-full block">
-                    <h5 className="app-h4 text-center pb-5">{name}</h5>
+                  <span className="p-[20px] text-center uppercase break-all font-medium tracking-[0.15em] w-full block dark-blue">
+                    <h5 className="app-h4 text-center pb-5 ">{name}</h5>
                     {position}
                   </span>
-                  <Wysiwyg content={bio} hasWysiwyg={false}  className=" text-dark-blue p-8   pt-[32px] min-h-[330px] overflow-auto"/>
+                  <Wysiwyg content={bio} hasWysiwyg={false}  className="p-8 dark-blue  pt-[32px] min-h-[330px] overflow-auto"/>
                   <span className="relative link-m  p-8 w-48 pt-[52px] font-medium text-base inline-flex cursor-pointer" onClick={handleClick}>
                       Contact Info  &nbsp; <FlipIcon className="relative"/>
                     </span>
