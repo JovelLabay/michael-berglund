@@ -2,8 +2,8 @@ import {
     AccordionListsData, AssignmentsData, BaseBlock, ContactData, CourseCardsData, DataPointsData,
     DescWithImageData, HeroData, InfoIconData, isAccordionListBlock, isBigPageLinks, isContactData,
     isCourseCardData, isDescWithImageData, isHeroData, isInfoIconBlock, isLogowallData,
-    isRelatedArticlesData, isStatsData, isTabsData, LogowallData, PostData, RelatedArticleData,
-    ReviewSliderData, ShortDescData, StatsData, TabsData
+    isRelatedArticlesData, isStatsData, isTabsData, LogowallData, PostData, PressFeedData,
+    RelatedArticleData, ReviewSliderData, ShortDescData, StatsData, TabsData
 } from "@models/blocks"
 
 type Blocks = { attributesJSON: string }[]
@@ -47,6 +47,8 @@ export const parse = (rawBlocks: Blocks): { blocks: BaseBlock[] } => {
         return parseInfoIconBlock(data)
       case "acf/accordion-list":
         return parseAccordionListsBlock(data)
+      case "acf/press-feed":
+         return parsePressFeedblock(data)
       default:
         throw new Error(`Unknown block type: ${name}`)
     }
@@ -266,6 +268,21 @@ const parseDataPointsblock = (data: any): DataPointsData => {
   }))
 
   return { points: points, name: "acf/data-points" }
+}
+
+const pressFeedPattern = /^press_list_(\d+)_title$/
+const parsePressFeedblock = (data: any): PressFeedData => {
+  const indexes = Object.keys(data)
+    .filter(key => pressFeedPattern.test(key))
+    .map(key => key.match(pressFeedPattern)![1])
+  const pressList = indexes.map(index => ({
+    title: data[`press_list_${index}_title`],
+    details: data[`press_list_${index}_details`],
+    url: data[`press_list_${index}_url`],
+    titleId: data[`_press_list_${index}_title`]
+  }))
+
+  return { title: data['title'], pressList, name: "acf/press-feed" }
 }
 
 const tabsPattern = /^tab_list_(\d+)_tab_title$/
