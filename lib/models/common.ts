@@ -159,3 +159,22 @@ export interface AnimatedPage {
   linkText: string
   colorOverlay: string
 }
+
+export interface SingleArticlePost {
+  post: {
+    title: string
+    date: string
+    content: string
+    featuredImage: {
+      node: WPMedia
+    }
+    acfPostSingleArticle: {
+      coverImage: WPMedia
+      linkTitle: string
+      mediaFile: string
+    }
+    blocks: {
+      attributesJSON: string
+    }[]
+  }
+}

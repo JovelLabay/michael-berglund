@@ -1,8 +1,10 @@
 import {
-    AssignmentsData, BaseBlock, ContactData, CourseCardsData, DataPointsData, DescWithImageData,
-    HeroData, InfoIconData, isBigPageLinks, isContactData, isCourseCardData, isDescWithImageData,
-    isHeroData, isInfoIconBlock, isLogowallData, isRelatedArticlesData, isStatsData, isTabsData,
-    LogowallData, PostData, RelatedArticleData, ReviewSliderData, ShortDescData, StatsData, TabsData
+    AccordionListsData, AssignmentsData, BaseBlock, ContactData, ContactFeedListblock,
+    CourseCardsData, DataPointsData, DescWithImageData, HeroData, InfoIconData,
+    isAccordionListBlock, isBigPageLinks, isContactData, isContactFeedBlock, isCourseCardData,
+    isDescWithImageData, isHeroData, isInfoIconBlock, isLogowallData, isRelatedArticlesData,
+    isStatsData, isTabsData, LogowallData, PostData, RelatedArticleData, ReviewSliderData,
+    ShortDescData, StatsData, TabsData
 } from "@models/blocks"
 
 type Blocks = { attributesJSON: string }[]
@@ -44,6 +46,10 @@ export const parse = (rawBlocks: Blocks): { blocks: BaseBlock[] } => {
         return parseCourseCardData(data)
       case "acf/info-icon":
         return parseInfoIconBlock(data)
+       case "acf/contact-feed":
+          return parseContactFeedBlocks(data)
+      case "acf/accordion-list":
+        return parseAccordionListsBlock(data)
       default:
         throw new Error(`Unknown block type: ${name}`)
     }
@@ -55,10 +61,12 @@ export const parse = (rawBlocks: Blocks): { blocks: BaseBlock[] } => {
 //collect all unique image ids used by different blocks
 export const getImageIds = (blocks: BaseBlock[]): number[] => {
   const mapper = (block: BaseBlock) => {
-    if (isStatsData(block) || isLogowallData(block) || isInfoIconBlock(block))
+    if (isStatsData(block) || isLogowallData(block) || isInfoIconBlock(block) || isAccordionListBlock(block))
       return block.gallery.map(({ imageId }: any) => imageId)
 
     if (isDescWithImageData(block) || isTabsData(block)) return [block.imageId]
+
+    if (isContactFeedBlock(block)) return [block.coverPhotoId]
 
     return []
   }
@@ -90,7 +98,7 @@ export const getPostLinkIds = (blocks: BaseBlock[]) => {
 export const getMedarbetareLinkIds = (blocks: BaseBlock[]) => {
   const mapper = (block: BaseBlock) => {
     if (isContactData(block)) return block.medarbetareIds
-
+    if (isContactFeedBlock(block)) return block.medarbetareIds
     return []
   }
 
@@ -206,6 +214,38 @@ const parseInfoIconBlock = (data: any): InfoIconData => {
   }
 }
 
+
+const contactFeedBlockPattern = /^contact_feed_group_(\d+)_heading$/
+const contactFeedBlockSubPattern = /^contact_feed_group_(\d+)_medarbetare_list_(\d+)_medarbetare$/
+const parseContactFeedBlocks = (data: any): ContactFeedListblock => {
+
+  let resultParse: { title: any, tempLists: any[], medarbetareIds: any[]}[] = [];
+  Object.keys(data).forEach((keys)=> {
+    if((contactFeedBlockPattern.test(keys))) {
+      resultParse.push({
+        title: data[keys],
+        tempLists: [],
+        medarbetareIds: []
+      });
+    } else { if((resultParse && resultParse.length > 0) && ((contactFeedBlockPattern.test(keys)) || keys.charAt(0)!='_')) {
+          resultParse[resultParse.length - 1].tempLists.push(keys);
+      }
+    }
+  });
+  let medarbetareIds: any[] = [];
+  resultParse.forEach((dataRes, i)=> {
+      let indexes = dataRes.tempLists.filter(key => contactFeedBlockSubPattern.test(key)).map(key => key.match(contactFeedBlockSubPattern)![2]); 
+      indexes.map((value)=> {
+        dataRes.medarbetareIds.push(
+          data[`contact_feed_group_${i}_medarbetare_list_${value}_medarbetare`]
+        )
+        medarbetareIds.push(data[`contact_feed_group_${i}_medarbetare_list_${value}_medarbetare`]);
+      });
+  });
+  const contactListsBlockData = resultParse.map((value)=> { return { title: value.title, medarbetareIds: value.medarbetareIds}}) as any;
+  return { contactLists: contactListsBlockData, coverPhotoId: data['cover_photo'], medarbetareIds: medarbetareIds,  name: 'acf/contact-feed' }
+}
+
 const reviewSliderPattern = /^reviews_(\d+)_review_text$/
 
 const parseReviewSilderBlock = (data: any): ReviewSliderData => {
@@ -280,6 +320,46 @@ const parseTabsBlock = (data: any): TabsData => {
   return { heading: data.heading, imageId: data.image, tabList: tabsList, name: "acf/tabs" }
 }
 
+const accordionGroupPattern = /^accordion_group_(\d+)_group_title$/
+const accordionSubGroupPattern = /^accordion_group_(\d+)_accordion_list_(\d+)_tab_title$/
+const parseAccordionListsBlock = (data: any): AccordionListsData => {
+
+  let resultParse: { groupTitle: any, tempLists: any[], accordionLists: any[]}[] = [];
+  const gallery: { imageId: any }[] = [];
+  Object.keys(data).forEach((keys)=> {
+    if((accordionGroupPattern.test(keys))) {
+      resultParse.push({
+        groupTitle: data[keys],
+        tempLists: [],
+        accordionLists: []
+      });
+    } else {
+      if(resultParse && resultParse.length > 0) {
+        if((accordionGroupPattern.test(keys)) || keys.charAt(0)!='_')
+          resultParse[resultParse.length - 1].tempLists.push(keys)
+      }
+    }
+  })
+  resultParse.forEach((dataRes, i)=> {
+      let indexes = dataRes.tempLists.filter(key => accordionSubGroupPattern.test(key)).map(key => key.match(accordionSubGroupPattern)![2]); 
+      indexes.map((value)=> {
+        dataRes.accordionLists.push({
+          tabTitle: data[`accordion_group_${i}_accordion_list_${value}_tab_title`],
+          contentTitle: data[`accordion_group_${i}_accordion_list_${value}_content_title`],
+          content: data[`accordion_group_${i}_accordion_list_${value}_content`],
+          imageId: data[`accordion_group_${i}_accordion_list_${value}_image`],
+          externalUrl: data[`accordion_group_${i}_accordion_list_${value}_external_url`],
+          externalUrlLabel: data[`accordion_group_${i}_accordion_list_${value}_external_url_label`]
+        })
+        gallery.push({imageId: data[`accordion_group_${i}_accordion_list_${value}_image`]});
+      });
+  });
+
+  const accordionListsBlockData = resultParse.map((value)=> { return { groupTitle: value.groupTitle, accordionLists: value.accordionLists}});
+  return { gallery: gallery, accordionLists: accordionListsBlockData , name: 'acf/accordion-list' }
+
+}
+
 const completedAssignmentsPattern = /^completed_assignments_(\d+)_title$/
 const parseAssignmentsBlock = (data: any): AssignmentsData => {
   const completedAssignments = Object.keys(data)
@@ -328,3 +408,8 @@ const regexPostPatternFinder = (name: any): RegExp => {
 const parseCourseCardData = (data: any): CourseCardsData => {
   return { name: "acf/course-cards", title: data.title }
 }
+
+function AccordionGroupData(arg0: (index: string) => { const: any }, AccordionGroupData: any) {
+  throw new Error("Function not implemented.")
+}
+
