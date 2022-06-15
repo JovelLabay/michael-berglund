@@ -35,14 +35,6 @@ export const ProfInfoFields = ({
     setValue(dropdown.fieldName, value)
   }
 
-  // const handleCvUpload = (e: SyntheticEvent) => {
-  //   const target = e.target as HTMLInputElement
-
-  //   if (target.files && target.files.length > 0) {
-  //     setValue("cvFile", target.files[0])
-  //   }
-  // }
-
   return (
     <div className="mb-10 flex flex-col">
       {pageLocation === "/executive-search" && (
