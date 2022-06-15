@@ -28,5 +28,6 @@ const getFile = async (id: number) => {
   const { data } = await client.query<FileDetails>(GetFileDetails, { id }).toPromise()
 
   invariant(data)
+
   return data.mediaItem.mediaItemUrl
 }

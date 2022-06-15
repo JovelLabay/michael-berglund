@@ -31,21 +31,22 @@ export const RegisterCVBlock = ({
   const pageLocation = router.asPath
 
   return (
-    <section className="flex bg-dark-green ">
-      <div className="w-1/2 flex-1 bg-register-pattern py-[100px] pl-12 pr-20">
+    <section className="flex flex-col bg-dark-green lg:flex-row ">
+      <div className="w-full flex-1 bg-register-pattern py-[60px] px-5 lg:w-1/2 lg:py-[100px] lg:pl-12 lg:pr-20">
         <h3 className="app-h3 mb-[60px] text-white">{heading}</h3>
         <Wysiwyg content={description} className="body-m mb-[26px] text-white" />
-
-        <a
-          href={files![downloadFile]}
-          className="link-m flex items-center font-[350] text-white"
-          download
-        >
-          {downloadLinkTitle}
-          <DownloadIcon className="ml-[10px]" fill="white" />
-        </a>
+        {downloadLinkTitle && (
+          <a
+            href={files![downloadFile!]}
+            className="link-m flex items-center font-[350] text-white"
+            download
+          >
+            {downloadLinkTitle}
+            <DownloadIcon className="ml-[10px]" fill="white" />
+          </a>
+        )}
       </div>
-      <div className="w-1/2 flex-1 px-[60px] py-[100px]">
+      <div className="w-full flex-1 px-5 py-[60px] lg:w-1/2 lg:py-[100px] lg:px-[60px]">
         {activeStep !== 3 && (
           <div className="mb-8 flex items-center justify-between">
             <h5 className="app-h4 text-white">

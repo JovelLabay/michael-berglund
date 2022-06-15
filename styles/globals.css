@@ -131,20 +131,11 @@
   }
 
   .form-btn {
-    @apply link-m w-[220px] rounded bg-orange py-4 text-white;
+    @apply link-m w-full rounded bg-orange py-4 text-white lg:w-[220px];
   }
 
   .form-chk {
-    @apply relative cursor-pointer rounded-sm border-dark-green bg-transparent text-white transition before:absolute before:top-px before:left-[7px] before:h-[16px] before:w-[8px] before:rotate-45 before:border-b-2 before:border-r-2 before:border-transparent  before:transition checked:border-orange checked:before:border-orange checked:before:bg-white checked:hover:border-orange focus:ring-0 focus:ring-offset-0 checked:focus:border-orange;
-  }
-
-  /* Hide the file upload button */
-  ::-webkit-file-upload-button {
-    display: none;
-  }
-
-  ::file-selector-button {
-    display: none;
+    @apply relative cursor-pointer rounded-sm border-0 bg-white text-white transition before:absolute before:top-px before:left-[7px] before:h-[16px] before:w-[8px] before:rotate-45 before:border-b-2 before:border-r-2 before:border-transparent  before:transition  checked:bg-none checked:before:border-orange checked:before:bg-none checked:hover:border-orange focus:ring-0 focus:ring-offset-0;
   }
 }
 

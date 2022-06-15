@@ -103,7 +103,13 @@ export const getMedarbetareLinkIds = (blocks: BaseBlock[]) => {
 
 export const getFileLinks = (blocks: BaseBlock[]) => {
   const mapper = (block: BaseBlock) => {
-    if (isRegisterCvData(block)) return block.downloadFile
+    if (isRegisterCvData(block)) {
+      if (block.downloadFile !== null) {
+        return block.downloadFile
+      } else {
+        return []
+      }
+    }
 
     return []
   }
@@ -332,11 +338,14 @@ const parseRegisterCVBlock = (data: any): RegisterCvData => {
     infoDropdown.push({ title, fieldName, values })
   }
 
+  const linkTitle = data.download_link_title ? data.download_link_title : null
+  const linkFile = data.download_file ? data.download_file : null
+
   return {
     heading: data.heading,
     description: data.description,
-    downloadLinkTitle: data.download_link_title,
-    downloadFile: data.download_file,
+    downloadLinkTitle: linkTitle,
+    downloadFile: linkFile,
     professionalInfo: { infoDropdown },
     name: "acf/register-cv",
   }

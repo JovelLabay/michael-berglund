@@ -100,8 +100,8 @@ export interface AssignmentsData extends BaseBlock {
 export interface RegisterCvData extends BaseBlock {
   heading: string
   description: string
-  downloadLinkTitle: string
-  downloadFile: number
+  downloadLinkTitle?: string
+  downloadFile?: number
   professionalInfo: {
     infoDropdown: IDropDown[]
   }

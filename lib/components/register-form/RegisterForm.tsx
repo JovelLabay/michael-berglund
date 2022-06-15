@@ -1,5 +1,4 @@
 import classNames from "classnames"
-import { useState } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
 
 import { ArrowRight } from "@icons/ArrowRight"
@@ -16,6 +15,7 @@ interface RegisterFormData {
   city: string
   cvFile?: File
   newsletter?: boolean
+  privacyPolicy: boolean
 }
 
 interface ExSearchFields extends RegisterFormData {
@@ -61,19 +61,18 @@ export const RegisterForm = ({
     formState: { errors, isValid },
   } = useForm<FormDataUnion>({
     mode: "onBlur",
-    defaultValues: { firstName: "", lastName: "", email: "", phone: "" },
   })
 
+  // TODO: Connect to external api.
   const onSubmit: SubmitHandler<FormDataUnion> = data => {
-    console.log(data, errors)
+    console.log(data)
     reset()
     nextStep()
   }
 
-  console.log(isValid)
-
+  // TODO: Add styling to error messages.
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="w-full pb-[100px]">
+    <form onSubmit={handleSubmit(onSubmit)} className="w-full lg:pb-[100px]">
       {activeStep === 1 && (
         <div className="mb-10 flex flex-col space-y-4">
           <div>
@@ -83,36 +82,47 @@ export const RegisterForm = ({
               placeholder="First name*"
               {...register("firstName", { required: true, pattern: /^[A-Za-z]+$/i })}
             />
-            {errors.firstName && "Error"}
+            {errors.firstName && "Please fill in field"}
           </div>
-          <input
-            type="text"
-            className="form-input "
-            placeholder="Last name*"
-            {...register("lastName", { required: true })}
-          />
-          <input
-            type="email"
-            className="form-input"
-            placeholder="E-mail address*"
-            {...register("email", { required: true })}
-          />
-          <input
-            type="text"
-            className="form-input"
-            placeholder="Phone number*"
-            {...register("phone", {
-              required: true,
-              pattern: /^(?:(?:(?:(?:0{2}?)|(?:\+){1})46)|0)\d{8,9}$/,
-            })}
-          />
-          {errors.phone && "phone is required or wrong format"}
-          <input
-            type="text"
-            className="form-input"
-            placeholder="City*"
-            {...register("city", { required: true })}
-          />
+          <div>
+            <input
+              type="text"
+              className="form-input w-full"
+              placeholder="Last name*"
+              {...register("lastName", { required: true })}
+            />
+            {errors.lastName && "Please fill in field"}
+          </div>
+          <div>
+            <input
+              type="email"
+              className="form-input w-full"
+              placeholder="E-mail address*"
+              {...register("email", { required: true, pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/ })}
+            />
+            {errors.email && "Please fill in field"}
+          </div>
+          <div>
+            <input
+              type="text"
+              className="form-input w-full"
+              placeholder="Phone number*"
+              {...register("phone", {
+                required: true,
+                pattern: /^(?:(?:(?:(?:0{2}?)|(?:\+){1})46)|0)\d{8,9}$/,
+              })}
+            />
+            {errors.phone && "Please fill in field"}
+          </div>
+          <div>
+            <input
+              type="text"
+              className="form-input w-full"
+              placeholder="City*"
+              {...register("city", { required: true })}
+            />
+            {errors.city && "Please fill in field"}
+          </div>
         </div>
       )}
 
@@ -124,6 +134,7 @@ export const RegisterForm = ({
           pageLocation={pageUrl}
           watch={watch}
           setValue={setValue}
+          errors={errors}
         />
       )}
 
@@ -131,9 +142,7 @@ export const RegisterForm = ({
 
       {/* Buttons */}
       {activeStep !== 3 && (
-        <div
-          className={`flex items-center ${activeStep === 1 ? "justify-end" : "justify-between"}`}
-        >
+        <div className="flex justify-end">
           {activeStep === 1 ? (
             <button
               disabled={!isValid}
@@ -141,21 +150,22 @@ export const RegisterForm = ({
               onClick={nextStep}
               className="link-m flex items-center font-[350] text-white "
             >
-              Next Step <ArrowRight className="ml-[10px] fill-white" />
+              <span>Next Step</span>
+              <ArrowRight className="ml-[10px] fill-white" />
             </button>
           ) : (
-            <>
+            <div className="flex w-full flex-col lg:flex-row lg:items-center lg:justify-between">
               <button
                 type="button"
                 onClick={prevStep}
-                className="link-m flex items-center font-[350] text-white "
+                className="link-m mb-8 flex items-center font-[350] text-white lg:mb-0"
               >
                 <ArrowRight className="mr-[10px] rotate-180 fill-white" /> Previous Step
               </button>
               <button type="submit" className={classNames("form-btn")}>
                 Register
               </button>{" "}
-            </>
+            </div>
           )}
         </div>
       )}
