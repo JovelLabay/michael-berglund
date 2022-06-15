@@ -7,7 +7,7 @@ export const InfoIconBlock = ({ heading, gallery }: InfoIconData) => {
   const { images } = useGlobalContext()
 
   const _infoIcon = gallery.map(({ imageId, description }) => (
-    <div key={imageId}  className="m-auto max-w-sm">
+    <div key={imageId}  className="m-auto max-w-[465px]">
       <div className="relative h-11 w-full">
         <Image
           src={images![imageId].src}
@@ -16,8 +16,7 @@ export const InfoIconBlock = ({ heading, gallery }: InfoIconData) => {
           objectFit="contain"
         />
       </div>
-      <br />
-      <p className="pt-3 ">{description}</p>
+      <p className="pt-[32px] ">{description}</p>
     </div>
   ))
 
