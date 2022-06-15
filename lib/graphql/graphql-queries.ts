@@ -144,6 +144,9 @@ export const WP_BLOCKS = gql`
     ... on AcfPressFeedBlock {
       attributesJSON
     }
+    ... on AcfImageGalleryBlock {
+       attributesJSON
+    }
   }
 `
 
