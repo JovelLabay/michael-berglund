@@ -1,4 +1,5 @@
 import classNames from "classnames"
+import { SyntheticEvent } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
 
 import { ArrowRight } from "@icons/ArrowRight"
@@ -6,6 +7,7 @@ import { IDropDown } from "@models/common"
 
 import { ProfInfoFields } from "./ProfInfoFields"
 import { ThankYouMsg } from "./ThankYouMsg"
+import { UploadCV } from "./UploadCV"
 
 interface RegisterFormData {
   firstName: string
@@ -70,6 +72,14 @@ export const RegisterForm = ({
     nextStep()
   }
 
+  const handleCvUpload = (e: SyntheticEvent) => {
+    const target = e.target as HTMLInputElement
+
+    if (target.files && target.files.length > 0) {
+      setValue("cvFile", target.files[0])
+    }
+  }
+
   // TODO: Add styling to error messages.
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="w-full lg:pb-[100px]">
@@ -123,6 +133,12 @@ export const RegisterForm = ({
             />
             {errors.city && "Please fill in field"}
           </div>
+
+          {pageUrl === "/interim-management" && (
+            <div>
+              <UploadCV upload={handleCvUpload} classname="mb-0 mt-5" />
+            </div>
+          )}
         </div>
       )}
 
@@ -135,6 +151,7 @@ export const RegisterForm = ({
           watch={watch}
           setValue={setValue}
           errors={errors}
+          uploadCvhandler={handleCvUpload}
         />
       )}
 

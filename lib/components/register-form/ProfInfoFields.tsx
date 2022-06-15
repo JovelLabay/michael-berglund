@@ -6,6 +6,8 @@ import { AddFileIcon } from "@icons/AddFileIcon"
 import { DropdownArrow } from "@icons/DropdownArrow"
 import { IDropDown } from "@models/common"
 
+import { UploadCV } from "./UploadCV"
+
 interface ProfInfoFieldsProps {
   infoDropdown: IDropDown[]
   register: any
@@ -13,6 +15,7 @@ interface ProfInfoFieldsProps {
   setValue: any
   errors: any
   pageLocation: string
+  uploadCvhandler: (e: SyntheticEvent) => void
 }
 
 export const ProfInfoFields = ({
@@ -22,6 +25,7 @@ export const ProfInfoFields = ({
   setValue,
   errors,
   pageLocation,
+  uploadCvhandler,
 }: ProfInfoFieldsProps) => {
   const [hasConfirmedPolicy, setHasConfirmedPolicy] = useState(true)
 
@@ -31,13 +35,13 @@ export const ProfInfoFields = ({
     setValue(dropdown.fieldName, value)
   }
 
-  const handleCvUpload = (e: SyntheticEvent) => {
-    const target = e.target as HTMLInputElement
+  // const handleCvUpload = (e: SyntheticEvent) => {
+  //   const target = e.target as HTMLInputElement
 
-    if (target.files && target.files.length > 0) {
-      setValue("cvFile", target.files[0])
-    }
-  }
+  //   if (target.files && target.files.length > 0) {
+  //     setValue("cvFile", target.files[0])
+  //   }
+  // }
 
   return (
     <div className="mb-10 flex flex-col">
@@ -82,29 +86,7 @@ export const ProfInfoFields = ({
       </div>
 
       {/* Add cv */}
-      <div className="mb-10 flex flex-col">
-        <h4 className="pre-title mb-4 uppercase text-light-green"> Upload your cv</h4>
-        <label
-          htmlFor="uploadCv"
-          className="form-input flex cursor-pointer flex-col items-center justify-center text-white outline outline-white xl:flex-row"
-        >
-          <div className="mb-1 flex lg:mb-0">
-            <AddFileIcon className="mr-[10px]" />
-            <span className="link-m pr-2">Add file or drop files here</span>{" "}
-          </div>
-          <span className="link-s text-medium-green"> pdf, doc, doxc, jpg · max 10 mb</span>
-          <input
-            id="uploadCv"
-            type="file"
-            multiple={false}
-            accept=".doc,.docx,.pdf,.jpeg,.jpg,.png"
-            onChange={handleCvUpload}
-            className="hidden"
-          />
-        </label>
-        {/* TODO: show file name. */}
-        {/* <span className="text-white">File name here</span> */}
-      </div>
+      {pageLocation === "/executive-search" && <UploadCV upload={uploadCvhandler} />}
 
       {/* checkboxes */}
       <div>
