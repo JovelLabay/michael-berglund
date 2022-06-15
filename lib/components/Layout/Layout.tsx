@@ -7,7 +7,7 @@ import { ReactNode, useCallback, useEffect, useState } from "react"
 import { Footer } from "@components/footer"
 import { Header, MenuContent } from "@components/menu"
 import {
-    ACFGeneralSettings, ACFGlobalFields, ImageMap, Page, PageMap, PostMap
+    ACFGeneralSettings, ACFGlobalFields, FileMap, ImageMap, Page, PageMap, PostMap
 } from "@models/common"
 
 export interface LayoutProps {
@@ -19,6 +19,7 @@ export interface LayoutProps {
   postMap?: PostMap
   images?: ImageMap
   isHomePage?: boolean
+  files?: FileMap
 }
 
 export default function Layout({
@@ -30,6 +31,7 @@ export default function Layout({
   postMap,
   images,
   isHomePage,
+  files,
 }: LayoutProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const router = useRouter()
@@ -40,7 +42,7 @@ export default function Layout({
 
   useEffect(() => {
     const handleStop = () => {
-      if(isMenuOpen) {
+      if (isMenuOpen) {
         setIsMenuOpen(false)
       }
     }
@@ -56,7 +58,14 @@ export default function Layout({
 
   return (
     <GlobalContext.Provider
-      value={{ acf: acfGlobalFields, pageData: pageData, pageMap: pageMap, postMap: postMap, images: images }}
+      value={{
+        acf: acfGlobalFields,
+        pageData: pageData,
+        pageMap: pageMap,
+        postMap: postMap,
+        images: images,
+        files: files,
+      }}
     >
       <div
         className={classNames("relative h-screen w-screen bg-dark-blue", {

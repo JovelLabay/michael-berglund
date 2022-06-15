@@ -16,9 +16,24 @@ export const getServerSideProps: GetServerSideProps<PageProps> = context => {
   return getPageProps(pageUri)
 }
 
-export default function OtherPages({ globalFields, blocks, pageMap, postMap, images, pageData }: PageProps) {
+export default function OtherPages({
+  globalFields,
+  blocks,
+  pageMap,
+  postMap,
+  images,
+  pageData,
+  files,
+}: PageProps) {
   return (
-    <Layout {...globalFields} pageData={pageData} pageMap={pageMap} postMap={postMap} images={images}>
+    <Layout
+      {...globalFields}
+      pageData={pageData}
+      pageMap={pageMap}
+      postMap={postMap}
+      images={images}
+      files={files}
+    >
       {blocks ? blocks.map(block => <Block key={block.name} block={block} />) : null}
     </Layout>
   )
