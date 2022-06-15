@@ -1,8 +1,8 @@
 import {
     BaseBlock, isAccordionListBlock, isAssignmentsData, isBigPageLinks, isContactData,
-    isCourseCardData, isDataPointsData, isDescWithImageData, isHeroData, isImageGalleryBlock,
-    isInfoIconBlock, isLogowallData, isPressFeedBlock, isRelatedArticlesData, isReviewSilderData,
-    isShortDescData, isStatsData, isTabsData
+    isContactFeedBlock, isCourseCardData, isDataPointsData, isDescWithImageData, isHeroData,
+    isImageGalleryBlock, isInfoIconBlock, isLogowallData, isPressFeedBlock, isRelatedArticlesData,
+    isReviewSilderData, isShortDescData, isStatsData, isTabsData
 } from "@models/blocks"
 
 import { DescWithImgBlock } from "./"
@@ -10,6 +10,7 @@ import { AccordionListBlock } from "./accordion/AccordionListBlock"
 import { Assignments } from "./Assignments"
 import { BigPageLinks } from "./BigPageLinksBlock"
 import { Contact } from "./Contact"
+import { ContactFeedBlock } from "./ContactFeedBlock"
 import { CourseCards } from "./CourseCards"
 import { DataPointsBlock } from "./DataPointsBlock"
 import Hero from "./hero/Hero"
@@ -38,6 +39,7 @@ export const Block = ({ block }: { block: BaseBlock }) => {
   if (isBigPageLinks(block)) return <BigPageLinks {...block} />
   if (isCourseCardData(block)) return <CourseCards {...block} />
   if (isInfoIconBlock(block)) return <InfoIconBlock {...block} />
+  if (isContactFeedBlock(block)) return <ContactFeedBlock {...block} />
   if (isAccordionListBlock(block)) return <AccordionListBlock {...block} />
   if (isPressFeedBlock(block)) return <PressFeedBlock {...block} />
   if (isImageGalleryBlock(block)) return <ImageGalleryBlock {...block} />
