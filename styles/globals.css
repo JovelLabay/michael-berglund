@@ -137,6 +137,24 @@
   .form-chk {
     @apply relative cursor-pointer rounded-sm border-0 bg-white text-white transition before:absolute before:top-px before:left-[7px] before:h-[16px] before:w-[8px] before:rotate-45 before:border-b-2 before:border-r-2 before:border-transparent  before:transition  checked:bg-none checked:before:border-orange checked:before:bg-none checked:hover:border-orange focus:ring-0 focus:ring-offset-0;
   }
+
+  .profile-card {
+    perspective: 500px;
+  }
+  .profile-card .content {
+    transform-style: preserve-3d;
+  }
+  .profile-card .transform {
+    transform: rotateY(180deg);
+    transition: transform 0.5s;
+  }
+  .profile-card .front,
+  .profile-card .back {
+    backface-visibility: hidden;
+  }
+  .profile-card .back {
+    transform: rotateY(180deg);
+  }
 }
 
 @layer utilities {

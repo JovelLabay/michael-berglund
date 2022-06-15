@@ -89,6 +89,25 @@ export interface TabsData extends BaseBlock {
   }[]
 }
 
+export interface AccordionListsData extends BaseBlock {
+  gallery: {
+    imageId: number
+  }[]
+  accordionLists: {
+    groupTitle: string
+    accordionLists: AccordionGroupData[]
+  }[]
+}
+
+export interface AccordionGroupData {
+  tabTitle: string
+  contentTitle: string
+  content: string
+  imageId: number
+  externalUrl: string
+  externalUrlLabel: string
+}
+
 export interface AssignmentsData extends BaseBlock {
   title: string
   assignments: {
@@ -106,6 +125,13 @@ export interface RegisterCvData extends BaseBlock {
     infoDropdown: IDropDown[]
   }
 }
+
+export interface ContactFeedListblock extends BaseBlock {
+  contactLists: ContactData[]
+  medarbetareIds?: number[]
+  coverPhotoId?: number
+}
+
 export interface CourseCardsData extends BaseBlock {
   title: string
 }
@@ -126,6 +152,8 @@ export type BlockName =
   | "acf/big-page-links"
   | "acf/course-cards"
   | "acf/info-icon"
+  | "acf/contact-feed"
+  | "acf/accordion-list"
 
 /** Type-narrowing functions */
 export function isHeroData(object: any): object is HeroData {
@@ -186,4 +214,11 @@ export function isCourseCardData(object: any): object is CourseCardsData {
 
 export function isInfoIconBlock(object: any): object is InfoIconData {
   return object && typeof object.name === "string" && object.name === "acf/info-icon"
+}
+
+export function isContactFeedBlock(object: any): object is ContactFeedListblock {
+  return object && typeof object.name === "string" && object.name === "acf/contact-feed"
+}
+export function isAccordionListBlock(object: any): object is AccordionListsData {
+  return object && typeof object.name === "string" && object.name === "acf/accordion-list"
 }
