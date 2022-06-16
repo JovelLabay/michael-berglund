@@ -43,10 +43,10 @@ export const ProfileCard = ({ image, name, position, phone, email, bio, coverPho
                   <span className="pre-title pt-[20px]  tracking-[0.15em] w-full block break-all"> {email} </span>
                   <span className="pre-title pt-[8px] tracking-[0.15em] w-full block"> {phone} </span>
                   <span className="w-full flex pt-[22px]">
-                    <span className="w-40 link-m font-medium text-base pt-6 inline-flex cursor-pointer" onClick={handleClick}>
+                    <span className="w-40 link-m font-medium text-base  inline-flex cursor-pointer" onClick={handleClick}>
                       Read Bio  &nbsp; <FlipIcon className="relative"/>
                     </span>
-                    <span className="pre-title  w-full text-right pt-6 text-base font-medium tracking-[0.15em] " >
+                    <span className="pre-title  w-full text-right  text-base font-medium tracking-[0.15em] " >
                       <a href={linkedin} target="_blank">
                           <LinkedinIcon className="float-right"/> 
                         </a>
@@ -70,7 +70,7 @@ export const ProfileCard = ({ image, name, position, phone, email, bio, coverPho
                     {position}
                   </span>
                   <Wysiwyg content={bio} hasWysiwyg={false}  className="p-8 dark-blue  pt-[32px] min-h-[330px] overflow-auto"/>
-                  <span className="relative link-m  p-8 w-48 pt-[52px] font-medium text-base inline-flex cursor-pointer" onClick={handleClick}>
+                  <span className="relative link-m  p-8 w-48 pt-[38px] font-medium text-base inline-flex cursor-pointer" onClick={handleClick}>
                       Contact Info  &nbsp; <FlipIcon className="relative"/>
                     </span>
               </div>
