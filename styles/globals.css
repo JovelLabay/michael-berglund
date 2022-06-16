@@ -95,6 +95,25 @@
     @apply prose-p:body-m prose-h4:body-m lg:prose-h4:body-l prose-h2:app-h4 prose-blockquote:wp-block-quote prose-figure:wp-block-image prose-figcaption:body-s prose w-full prose-h4:mb-10 prose-h4:font-gotham prose-h4:font-[325] prose-h4:uppercase prose-p:font-lora prose-blockquote:mb-10 prose-blockquote:border-none prose-figcaption:text-dark-blue;
   }
 
+  .wysiwyg.tabs {
+    @apply prose-p:body-m prose-a:tab-link prose prose-p:mb-5;
+  }
+
+  .tab-link {
+    @apply link-m relative text-dark-green no-underline hover:opacity-75;
+  }
+
+  .tab-link:after {
+    content: "";
+    position: absolute;
+    background: url("/rightArrow.svg") no-repeat center center/cover;
+    top: 2px;
+    left: 100%;
+    margin-left: 10px;
+    width: 15px;
+    height: 13px;
+  }
+
   .wp-block-quote {
     @apply relative mt-10 px-0 pt-4;
   }
