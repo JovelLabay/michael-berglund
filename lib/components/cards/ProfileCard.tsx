@@ -25,10 +25,10 @@ export const ProfileCard = ({ image, name, position, phone, email, bio, coverPho
   }
 
   return (
-    <div className="relative h-[650px] bg-light-beige">
+    <div className="relative h-[650px] ">
       <div className="profile-card absolute w-full float-left">
         <div className={classNames(isActive ? 'transform' : '', 'content w-full h-full absolute transition-transform duration-1000 ease-in-out')} >
-          <div className={classNames(isActive ? 'z-0' : '', 'front absolute w-full h-full')}>
+          <div className={classNames(isActive ? 'z-0' : '', 'front absolute w-full h-[650px] bg-light-beige')}>
             <div className="relative mb-5 aspect-square  w-full shrink-0  ">
               <div className="absolute top-0 z-0 h-full w-full "></div>
               <div className=" w-full translate-x-0.5 -translate-y-0.5 transition ease-in-out hover:translate-x-1 hover:-translate-y-1">
@@ -56,7 +56,7 @@ export const ProfileCard = ({ image, name, position, phone, email, bio, coverPho
                 </div>
             </div>
           </div>
-          <div className="back absolute w-full h-full inline-block">
+          <div className="back absolute w-full inline-block h-[650px] bg-light-beige">
             <div className=" mb-5 aspect-square  h-full w-full shrink-0 bg-light-beige">
                 <div style={{backgroundImage: `url(${coverPhoto.src})`}} className='h-14 absolute w-full -top-px'></div><br/> 
                 <div className="relative aspect-square w-[64px]  shrink-0 overflow-hidden rounded-full  m-auto border-2 border-white">
