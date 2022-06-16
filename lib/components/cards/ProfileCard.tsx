@@ -40,8 +40,8 @@ export const ProfileCard = ({ image, name, position, phone, email, bio, coverPho
                 <div className='p-8 min-h-[228px] pt-[36px] dark-blue'>
                   <h5 className="app-h4 ">{name}</h5>
                   <span className="pre-title  pt-[16px] uppercase  font-medium tracking-[0.15em] w-full block">{position}</span>
-                  <span className="pre-title pt-[20px]  tracking-[0.15em] w-full block break-all"> {email} </span>
-                  <span className="pre-title pt-[8px] tracking-[0.15em] w-full block"> {phone} </span>
+                  <span className="pre-title pt-[20px]  tracking-[0.15em] w-full block break-all font-[350] font-gotham"> {email} </span>
+                  <span className="pre-title pt-[8px] tracking-[0.15em] w-full block font-[350] font-gotham"> {phone} </span>
                   <span className="w-full flex pt-[22px]">
                     <span className="w-40 link-m font-medium text-base  inline-flex cursor-pointer" onClick={handleClick}>
                       Read Bio  &nbsp; <FlipIcon className="relative"/>
