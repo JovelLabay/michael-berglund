@@ -49,6 +49,7 @@ export interface InfoIconData extends BaseBlock {
 
 export interface ReviewSliderData extends BaseBlock {
   heading?: string
+  backgroundColor: "white" | "beige"
   reviews: {
     reviewText: string
     reviewClient: string
@@ -65,6 +66,7 @@ export interface PostData extends BaseBlock {
 export interface ShortDescData extends BaseBlock {
   description: string
   quote: string
+  backgroundColor: "white" | "beige"
 }
 
 export interface ContactData extends BaseBlock {

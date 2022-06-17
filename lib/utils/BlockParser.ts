@@ -295,7 +295,12 @@ const parseReviewSilderBlock = (data: any): ReviewSliderData => {
     reviewCompany: data[`reviews_${index}_review_company`],
   }))
 
-  return { heading: data.heading, reviews, name: "acf/reviews-slider" }
+  return {
+    heading: data.heading,
+    backgroundColor: data.background_color,
+    reviews,
+    name: "acf/reviews-slider",
+  }
 }
 
 const relatedArticlePattern = /^articles_(\d+)_article$/
@@ -311,7 +316,12 @@ const parseRelatedArticles = (data: any): RelatedArticleData => {
 }
 
 const parseShortDescblock = (data: any): ShortDescData => {
-  return { description: data.description, quote: data.quote, name: "acf/short-desc" }
+  return {
+    description: data.description,
+    quote: data.quote,
+    backgroundColor: data.background_color,
+    name: "acf/short-desc",
+  }
 }
 
 const contactItemPattern = /^medarbetare_list_(\d+)_medarbetare$/
