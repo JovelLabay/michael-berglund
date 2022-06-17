@@ -65,8 +65,6 @@ export default function SingleArticle({
 
   const responsiveLG = useResponsiveLG()
 
-  console.log(responsiveLG)
-
   const publishedDate = new Date(date).toLocaleDateString("eu-SV", {
     year: "numeric",
     month: "short",
