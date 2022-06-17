@@ -16,7 +16,7 @@ export const BigPageLinks = ({ title, postIds }: PostData) => {
         const { id, featuredImage, title, excerpt, uri } = postMap![cardId] as Post
         const cardBody = (
           <div className="p-8">
-            <div className="app-h4">{title}</div>
+            <h5 className="app-h4">{title}</h5>
             <Wysiwyg content={excerpt} className="body-l pt-[20px] leading-6 font-gotham font-[350]" />
             <div className="link-m flex items-center space-x-[10px]    pt-[20px] text-dark-green">
               <span className="leading-5 font-gotham font-medium font-[350]">Read more</span>
