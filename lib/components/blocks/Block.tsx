@@ -18,6 +18,7 @@ import { ImageGalleryBlock } from "./ImageGalleryBlock"
 import { InfoIconBlock } from "./InfoIconBlock"
 import { LogowallBlock } from "./LogowallBlock"
 import { PressFeedBlock } from "./PressFeedBlock"
+import { RegisterCVBlock } from "./RegisterCVBlock"
 import { RelatedArticles } from "./RelatedArticles"
 import { ReviewSlider } from "./ReviewSlider"
 import { ShortDescBlock } from "./ShortDescBlock"
@@ -36,6 +37,7 @@ export const Block = ({ block }: { block: BaseBlock }) => {
   if (isDataPointsData(block)) return <DataPointsBlock {...block} />
   if (isTabsData(block)) return <TabsBlock {...block} />
   if (isAssignmentsData(block)) return <Assignments {...block} />
+  if (isRegisterCvData(block)) return <RegisterCVBlock {...block} />
   if (isBigPageLinks(block)) return <BigPageLinks {...block} />
   if (isCourseCardData(block)) return <CourseCards {...block} />
   if (isInfoIconBlock(block)) return <InfoIconBlock {...block} />
@@ -43,5 +45,6 @@ export const Block = ({ block }: { block: BaseBlock }) => {
   if (isAccordionListBlock(block)) return <AccordionListBlock {...block} />
   if (isPressFeedBlock(block)) return <PressFeedBlock {...block} />
   if (isImageGalleryBlock(block)) return <ImageGalleryBlock {...block} />
+
   return null
 }

@@ -1,9 +1,9 @@
 import { useGlobalContext } from "@context/global"
 import { Disclosure, Transition } from "@headlessui/react"
-import classNames from "classnames"
 import Image from "next/image"
 import { useState } from "react"
 
+import { Wysiwyg } from "@components/shared/Wysiwyg"
 import { TabsData } from "@models/blocks"
 
 export const TabsBlock = ({ heading, tabList, imageId }: TabsData) => {
@@ -12,7 +12,7 @@ export const TabsBlock = ({ heading, tabList, imageId }: TabsData) => {
   const [indexOfOpenDisc, setIndexOfOpenDisc] = useState(0)
 
   const toggleDisc = (key: number) => {
-    setIndexOfOpenDisc(prev => (prev !== key ? key : 0))
+    setIndexOfOpenDisc(prev => (prev !== key ? key : prev))
   }
 
   return (
@@ -34,9 +34,17 @@ export const TabsBlock = ({ heading, tabList, imageId }: TabsData) => {
                   {tab.title}
                 </span>
               </Disclosure.Button>
-              <Transition show={index === indexOfOpenDisc}>
+              <Transition
+                show={index === indexOfOpenDisc}
+                enter="transition-all delay-150 duration-300 ease-out"
+                enterFrom="opacity-0 max-h-0"
+                enterTo="opacity-100 max-h-[200px]"
+                leave="transition-all duration-100 ease-out "
+                leaveFrom="opacity-100 max-h-[200px]"
+                leaveTo="opacity-0 max-h-0"
+              >
                 <Disclosure.Panel className="mb-7 md:w-2/3 lg:w-full">
-                  <span>{tab.content}</span>
+                  <Wysiwyg className="tabs" content={tab.content} />
                 </Disclosure.Panel>
               </Transition>
             </>

@@ -1,4 +1,4 @@
-import { AnimatedPage, Courses, HeroType, Page } from "./common"
+import { AnimatedPage, Courses, HeroType, IDropDown, Page } from "./common"
 
 export interface BaseBlock {
   name: BlockName
@@ -120,12 +120,11 @@ export interface ImageGalleryData extends BaseBlock {
 export interface AccordionGroupData {
   tabTitle: string
   contentTitle: string
-  content: string 
+  content: string
   imageId: number
   externalUrl: string
   externalUrlLabel: string
 }
-
 
 export interface AssignmentsData extends BaseBlock {
   title: string
@@ -133,6 +132,16 @@ export interface AssignmentsData extends BaseBlock {
     title: string
     description: string
   }[]
+}
+
+export interface RegisterCvData extends BaseBlock {
+  heading: string
+  description: string
+  downloadLinkTitle?: string
+  downloadFile?: number
+  professionalInfo: {
+    infoDropdown: IDropDown[]
+  }
 }
 
 export interface ContactFeedListblock extends BaseBlock {
@@ -157,6 +166,7 @@ export type BlockName =
   | "acf/data-points"
   | "acf/tabs"
   | "acf/assignments"
+  | "acf/register-cv"
   | "acf/big-page-links"
   | "acf/course-cards"
   | "acf/info-icon"
@@ -204,6 +214,10 @@ export function isDataPointsData(object: any): object is DataPointsData {
 
 export function isTabsData(object: any): object is TabsData {
   return object && typeof object.name === "string" && object.name === "acf/tabs"
+}
+
+export function isRegisterCvData(object: any): object is RegisterCvData {
+  return object && typeof object.name === "string" && object.name === "acf/register-cv"
 }
 
 export function isAssignmentsData(object: any): object is AssignmentsData {
