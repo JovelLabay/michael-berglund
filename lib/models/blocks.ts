@@ -99,6 +99,20 @@ export interface AccordionListsData extends BaseBlock {
   }[]
 }
 
+export interface TableDescData extends BaseBlock {
+  title: string
+  tableLists: {
+    services: string
+    individual:  {
+      title: string
+      description: string
+    },
+    group:  {
+      title: string
+      description: string
+    } 
+  }[]
+}
 export interface AccordionGroupData {
   tabTitle: string
   contentTitle: string
@@ -154,6 +168,7 @@ export type BlockName =
   | "acf/info-icon"
   | "acf/contact-feed"
   | "acf/accordion-list"
+  | "acf/table-desc"
 
 /** Type-narrowing functions */
 export function isHeroData(object: any): object is HeroData {
@@ -221,4 +236,7 @@ export function isContactFeedBlock(object: any): object is ContactFeedListblock 
 }
 export function isAccordionListBlock(object: any): object is AccordionListsData {
   return object && typeof object.name === "string" && object.name === "acf/accordion-list"
+}
+export function isTableDesc(object: any): object is TableDescData {
+  return object && typeof object.name === "string" && object.name === "acf/table-desc"
 }

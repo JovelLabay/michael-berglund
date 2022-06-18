@@ -4,7 +4,7 @@ import {
     isAccordionListBlock, isBigPageLinks, isContactData, isContactFeedBlock, isCourseCardData,
     isDescWithImageData, isHeroData, isInfoIconBlock, isLogowallData, isRegisterCvData,
     isRelatedArticlesData, isStatsData, isTabsData, LogowallData, PostData, RegisterCvData,
-    RelatedArticleData, ReviewSliderData, ShortDescData, StatsData, TabsData
+    RelatedArticleData, ReviewSliderData, ShortDescData, StatsData, TableDescData, TabsData
 } from "@models/blocks"
 import { IDropDown } from "@models/common"
 
@@ -53,6 +53,8 @@ export const parse = (rawBlocks: Blocks): { blocks: BaseBlock[] } => {
         return parseContactFeedBlocks(data)
       case "acf/accordion-list":
         return parseAccordionListsBlock(data)
+      case  "acf/table-desc" :
+          return parseTableDescBlock(data)
       default:
         throw new Error(`Unknown block type: ${name}`)
     }
@@ -396,6 +398,31 @@ const parseAccordionListsBlock = (data: any): AccordionListsData => {
     return { groupTitle: value.groupTitle, accordionLists: value.accordionLists }
   })
   return { gallery: gallery, accordionLists: accordionListsBlockData, name: "acf/accordion-list" }
+}
+
+const tableDescPattern = /^table_(\d+)_services$/
+const parseTableDescBlock = (data: any): TableDescData => {
+
+  const indexes = Object.keys(data)
+    .filter(key => tableDescPattern.test(key))
+    .map(key => key.match(tableDescPattern)![1])
+    
+  let tableLists: { services: any; group: { title: any; description: any }; individual: { title: any; description: any } }[] = [];
+  indexes.forEach((index) => {
+    tableLists.push({
+      services:  data[`table_${index}_services`],
+      group: {
+        title: data[`table_${index}_group_0_title`],
+        description: data[`table_${index}_group_0_description`] ? data[`table_${index}_individual_0_description`] : data[`table_${index}_individual_0_desciption`]
+      },
+      individual: {
+        title: data[`table_${index}_individual_0_title`],
+        description: data[`table_${index}_individual_0_description`] ? data[`table_${index}_individual_0_description`] : data[`table_${index}_individual_0_desciption`]
+      },
+    });
+  });
+
+  return { title: data['title'], tableLists, name: "acf/table-desc" }
 }
 
 const completedAssignmentsPattern = /^completed_assignments_(\d+)_title$/
