@@ -13,7 +13,7 @@ export const ContactFeedBlock = ({ contactLists, coverPhotoId }: ContactFeedList
       contactLists && contactLists.map(data => {
       return (<section className="section-padding bg-white w-full " key={data.title}> 
                 <h3 className="app-h3 text-left ">{data.title}</h3>
-                <div className="grid grid-cols-1 pt-[40px] gap-8 md:grid-cols-3 md:gap-4  lg:grid-cols-3 lg:gap-8 md:pt-[100px]">
+                <div className="grid grid-cols-1 pt-[60px] gap-8 md:grid-cols-3 md:gap-4  lg:grid-cols-3 lg:gap-8 ">
                   {data.medarbetareIds &&
                     data.medarbetareIds.map(postId => {
                       const {
