@@ -56,8 +56,10 @@ module.exports = {
         "normal-beige": "#ECE5E2",
         "darker-beige": "#ECE5E2",
       },
-      backgroundImage:{
-        "hero-pattern": "url('/bg/hero-pattern.png')"
+
+      backgroundImage: {
+        "register-pattern": "url('/bg/register-pattern.png')",
+        "hero-pattern": "url('/bg/hero-pattern.png')",
       }
     },
   },

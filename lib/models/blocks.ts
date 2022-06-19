@@ -1,4 +1,4 @@
-import { AnimatedPage, Courses, HeroType, Page } from "./common"
+import { AnimatedPage, Courses, HeroType, IDropDown, Page } from "./common"
 
 export interface BaseBlock {
   name: BlockName
@@ -49,6 +49,7 @@ export interface InfoIconData extends BaseBlock {
 
 export interface ReviewSliderData extends BaseBlock {
   heading?: string
+  backgroundColor: "white" | "beige"
   reviews: {
     reviewText: string
     reviewClient: string
@@ -65,6 +66,7 @@ export interface PostData extends BaseBlock {
 export interface ShortDescData extends BaseBlock {
   description: string
   quote: string
+  backgroundColor: "white" | "beige"
 }
 
 export interface ContactData extends BaseBlock {
@@ -89,6 +91,16 @@ export interface TabsData extends BaseBlock {
   }[]
 }
 
+export interface PressFeedData extends BaseBlock {
+  title: string
+  pressList: {
+    title: string
+    titleId?: string
+    details: string
+    url: string
+  }[]
+}
+
 export interface AccordionListsData extends BaseBlock {
   gallery: {
     imageId: number
@@ -99,15 +111,22 @@ export interface AccordionListsData extends BaseBlock {
   }[]
 }
 
+export interface ImageGalleryData extends BaseBlock {
+  title: any
+  gallery: {
+    imageId: number,
+    imageIdKey: string
+  }[]
+}
+
 export interface AccordionGroupData {
   tabTitle: string
   contentTitle: string
-  content: string 
+  content: string
   imageId: number
   externalUrl: string
   externalUrlLabel: string
 }
-
 
 export interface AssignmentsData extends BaseBlock {
   title: string
@@ -115,6 +134,16 @@ export interface AssignmentsData extends BaseBlock {
     title: string
     description: string
   }[]
+}
+
+export interface RegisterCvData extends BaseBlock {
+  heading: string
+  description: string
+  downloadLinkTitle?: string
+  downloadFile?: number
+  professionalInfo: {
+    infoDropdown: IDropDown[]
+  }
 }
 
 export interface ContactFeedListblock extends BaseBlock {
@@ -139,11 +168,14 @@ export type BlockName =
   | "acf/data-points"
   | "acf/tabs"
   | "acf/assignments"
+  | "acf/register-cv"
   | "acf/big-page-links"
   | "acf/course-cards"
   | "acf/info-icon"
   | "acf/contact-feed"
   | "acf/accordion-list"
+  | "acf/press-feed"
+  | "acf/image-gallery"
 
 /** Type-narrowing functions */
 export function isHeroData(object: any): object is HeroData {
@@ -186,6 +218,10 @@ export function isTabsData(object: any): object is TabsData {
   return object && typeof object.name === "string" && object.name === "acf/tabs"
 }
 
+export function isRegisterCvData(object: any): object is RegisterCvData {
+  return object && typeof object.name === "string" && object.name === "acf/register-cv"
+}
+
 export function isAssignmentsData(object: any): object is AssignmentsData {
   return object && typeof object.name === "string" && object.name === "acf/assignments"
 }
@@ -207,4 +243,12 @@ export function isContactFeedBlock(object: any): object is ContactFeedListblock 
 }
 export function isAccordionListBlock(object: any): object is AccordionListsData {
   return object && typeof object.name === "string" && object.name === "acf/accordion-list"
+}
+
+export function isPressFeedBlock(object: any): object is PressFeedData {
+  return object && typeof object.name === "string" && object.name === "acf/press-feed"
+}
+
+export function isImageGalleryBlock(object: any): object is ImageGalleryData {
+  return object && typeof object.name === "string" && object.name === "acf/image-gallery"
 }

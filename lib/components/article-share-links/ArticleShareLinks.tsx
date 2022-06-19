@@ -29,13 +29,13 @@ export const ArticleShareLinks = ({ title }: ArticleLinksProps) => {
     <div className="mt-10 flex items-center">
       <h6 className="mr-[18px]">Dela Artikleln:</h6>
       <div className="flex items-center space-x-4">
-        <a href={facebookHref} target="_blank" rel="noopener noreferer">
+        <a href={facebookHref} target="_blank" rel="noopener noreferrer">
           <FacebookLogo />
         </a>
-        <a href={twitterHref} target="_blank" rel="noopener noreferer">
+        <a href={twitterHref} target="_blank" rel="noopener noreferrer">
           <TwitterLogo />
         </a>
-        <a href={linkedInHref} target="_blank" rel="noopener noreferer">
+        <a href={linkedInHref} target="_blank" rel="noopener noreferrer">
           <LinkedinLogo />
         </a>
         <a href={emailHref}>

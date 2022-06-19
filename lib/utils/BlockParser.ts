@@ -1,11 +1,13 @@
 import {
     AccordionListsData, AssignmentsData, BaseBlock, ContactData, ContactFeedListblock,
-    CourseCardsData, DataPointsData, DescWithImageData, HeroData, InfoIconData,
+    CourseCardsData, DataPointsData, DescWithImageData, HeroData, ImageGalleryData, InfoIconData,
     isAccordionListBlock, isBigPageLinks, isContactData, isContactFeedBlock, isCourseCardData,
-    isDescWithImageData, isHeroData, isInfoIconBlock, isLogowallData, isRelatedArticlesData,
-    isStatsData, isTabsData, LogowallData, PostData, RelatedArticleData, ReviewSliderData,
-    ShortDescData, StatsData, TabsData
+    isDescWithImageData, isHeroData, isImageGalleryBlock, isInfoIconBlock, isLogowallData,
+    isRegisterCvData, isRelatedArticlesData, isStatsData, isTabsData, LogowallData, PostData,
+    PressFeedData, RegisterCvData, RelatedArticleData, ReviewSliderData, ShortDescData, StatsData,
+    TabsData
 } from "@models/blocks"
+import { IDropDown } from "@models/common"
 
 type Blocks = { attributesJSON: string }[]
 
@@ -40,16 +42,22 @@ export const parse = (rawBlocks: Blocks): { blocks: BaseBlock[] } => {
         return parseTabsBlock(data)
       case "acf/assignments":
         return parseAssignmentsBlock(data)
+      case "acf/register-cv":
+        return parseRegisterCVBlock(data)
       case "acf/big-page-links":
         return parseAnyPostData(data, name)
       case "acf/course-card":
         return parseCourseCardData(data)
       case "acf/info-icon":
         return parseInfoIconBlock(data)
-       case "acf/contact-feed":
-          return parseContactFeedBlocks(data)
+      case "acf/contact-feed":
+        return parseContactFeedBlocks(data)
       case "acf/accordion-list":
         return parseAccordionListsBlock(data)
+      case "acf/press-feed":
+        return parsePressFeedblock(data)
+      case "acf/image-gallery":
+        return parseImageGalleryBlock(data)
       default:
         throw new Error(`Unknown block type: ${name}`)
     }
@@ -61,7 +69,13 @@ export const parse = (rawBlocks: Blocks): { blocks: BaseBlock[] } => {
 //collect all unique image ids used by different blocks
 export const getImageIds = (blocks: BaseBlock[]): number[] => {
   const mapper = (block: BaseBlock) => {
-    if (isStatsData(block) || isLogowallData(block) || isInfoIconBlock(block) || isAccordionListBlock(block))
+    if (
+      isStatsData(block) ||
+      isLogowallData(block) ||
+      isInfoIconBlock(block) ||
+      isAccordionListBlock(block) ||
+      isImageGalleryBlock(block)
+    )
       return block.gallery.map(({ imageId }: any) => imageId)
 
     if (isDescWithImageData(block) || isTabsData(block)) return [block.imageId]
@@ -98,16 +112,32 @@ export const getPostLinkIds = (blocks: BaseBlock[]) => {
 export const getMedarbetareLinkIds = (blocks: BaseBlock[]) => {
   const mapper = (block: BaseBlock) => {
     if (isContactData(block)) return block.medarbetareIds
-    if (isContactFeedBlock(block)) return block.medarbetareIds
+    if (isContactFeedBlock(block)) return block.medarbetareIds!
     return []
   }
 
   return Array.from(new Set(blocks.map(mapper).flatMap(ids => ids)))
 }
 
+export const getFileLinks = (blocks: BaseBlock[]) => {
+  const mapper = (block: BaseBlock) => {
+    if (isRegisterCvData(block)) {
+      if (block.downloadFile !== null) {
+        return block.downloadFile!
+      } else {
+        return []
+      }
+    }
+
+    return []
+  }
+  return Array.from(new Set(blocks.map(mapper).flatMap(ids => ids)))
+}
+
 export const getCoursesLinkIds = (blocks: BaseBlock[]) => {
   const mapper = (block: BaseBlock) => {
     if (isBigPageLinks(block)) return block.postIds
+
     return []
   }
   return Array.from(new Set(blocks.map(mapper).flatMap(ids => ids)))
@@ -179,6 +209,18 @@ const parseDescWithImageBlock = (data: any): DescWithImageData => {
   }
 }
 
+const imageGalleryPattern = /^images_(\d+)_image$/
+const parseImageGalleryBlock = (data: any): ImageGalleryData => {
+  const indexes = Object.keys(data)
+    .filter(key => imageGalleryPattern.test(key))
+    .map(key => key.match(imageGalleryPattern)![1])
+  const gallery = indexes.map(index => ({
+    imageIdKey: data[`_images_${index}_image`] + Math.random(),
+    imageId: parseInt(data[`images_${index}_image`]),
+  }))
+  return { gallery, title: data["title"], name: "acf/image-gallery" }
+}
+
 const logoWallPattern = /^logo_gallery_(\d+)_logo_image$/
 
 const parseLogowallBlock = (data: any): LogowallData => {
@@ -214,36 +256,48 @@ const parseInfoIconBlock = (data: any): InfoIconData => {
   }
 }
 
-
 const contactFeedBlockPattern = /^contact_feed_group_(\d+)_heading$/
 const contactFeedBlockSubPattern = /^contact_feed_group_(\d+)_medarbetare_list_(\d+)_medarbetare$/
 const parseContactFeedBlocks = (data: any): ContactFeedListblock => {
-
-  let resultParse: { title: any, tempLists: any[], medarbetareIds: any[]}[] = [];
-  Object.keys(data).forEach((keys)=> {
-    if((contactFeedBlockPattern.test(keys))) {
+  let resultParse: { title: any; tempLists: any[]; medarbetareIds: any[] }[] = []
+  Object.keys(data).forEach(keys => {
+    if (contactFeedBlockPattern.test(keys)) {
       resultParse.push({
         title: data[keys],
         tempLists: [],
-        medarbetareIds: []
-      });
-    } else { if((resultParse && resultParse.length > 0) && ((contactFeedBlockPattern.test(keys)) || keys.charAt(0)!='_')) {
-          resultParse[resultParse.length - 1].tempLists.push(keys);
+        medarbetareIds: [],
+      })
+    } else {
+      if (
+        resultParse &&
+        resultParse.length > 0 &&
+        (contactFeedBlockPattern.test(keys) || keys.charAt(0) != "_")
+      ) {
+        resultParse[resultParse.length - 1].tempLists.push(keys)
       }
     }
-  });
-  let medarbetareIds: any[] = [];
-  resultParse.forEach((dataRes, i)=> {
-      let indexes = dataRes.tempLists.filter(key => contactFeedBlockSubPattern.test(key)).map(key => key.match(contactFeedBlockSubPattern)![2]); 
-      indexes.map((value)=> {
-        dataRes.medarbetareIds.push(
-          data[`contact_feed_group_${i}_medarbetare_list_${value}_medarbetare`]
-        )
-        medarbetareIds.push(data[`contact_feed_group_${i}_medarbetare_list_${value}_medarbetare`]);
-      });
-  });
-  const contactListsBlockData = resultParse.map((value)=> { return { title: value.title, medarbetareIds: value.medarbetareIds}}) as any;
-  return { contactLists: contactListsBlockData, coverPhotoId: data['cover_photo'], medarbetareIds: medarbetareIds,  name: 'acf/contact-feed' }
+  })
+  let medarbetareIds: any[] = []
+  resultParse.forEach((dataRes, i) => {
+    let indexes = dataRes.tempLists
+      .filter(key => contactFeedBlockSubPattern.test(key))
+      .map(key => key.match(contactFeedBlockSubPattern)![2])
+    indexes.map(value => {
+      dataRes.medarbetareIds.push(
+        data[`contact_feed_group_${i}_medarbetare_list_${value}_medarbetare`]
+      )
+      medarbetareIds.push(data[`contact_feed_group_${i}_medarbetare_list_${value}_medarbetare`])
+    })
+  })
+  const contactListsBlockData = resultParse.map(value => {
+    return { title: value.title, medarbetareIds: value.medarbetareIds }
+  }) as any
+  return {
+    contactLists: contactListsBlockData,
+    coverPhotoId: data["cover_photo"],
+    medarbetareIds: medarbetareIds,
+    name: "acf/contact-feed",
+  }
 }
 
 const reviewSliderPattern = /^reviews_(\d+)_review_text$/
@@ -259,7 +313,12 @@ const parseReviewSilderBlock = (data: any): ReviewSliderData => {
     reviewCompany: data[`reviews_${index}_review_company`],
   }))
 
-  return { heading: data.heading, reviews, name: "acf/reviews-slider" }
+  return {
+    heading: data.heading,
+    backgroundColor: data.background_color,
+    reviews,
+    name: "acf/reviews-slider",
+  }
 }
 
 const relatedArticlePattern = /^articles_(\d+)_article$/
@@ -275,7 +334,12 @@ const parseRelatedArticles = (data: any): RelatedArticleData => {
 }
 
 const parseShortDescblock = (data: any): ShortDescData => {
-  return { description: data.description, quote: data.quote, name: "acf/short-desc" }
+  return {
+    description: data.description,
+    quote: data.quote,
+    backgroundColor: data.background_color,
+    name: "acf/short-desc",
+  }
 }
 
 const contactItemPattern = /^medarbetare_list_(\d+)_medarbetare$/
@@ -305,6 +369,21 @@ const parseDataPointsblock = (data: any): DataPointsData => {
   return { points: points, name: "acf/data-points" }
 }
 
+const pressFeedPattern = /^press_list_(\d+)_title$/
+const parsePressFeedblock = (data: any): PressFeedData => {
+  const indexes = Object.keys(data)
+    .filter(key => pressFeedPattern.test(key))
+    .map(key => key.match(pressFeedPattern)![1])
+  const pressList = indexes.map(index => ({
+    title: data[`press_list_${index}_title`],
+    details: data[`press_list_${index}_details`],
+    url: data[`press_list_${index}_url`],
+    titleId: data[`_press_list_${index}_title`] + Math.random(),
+  }))
+
+  return { title: data["title"], pressList, name: "acf/press-feed" }
+}
+
 const tabsPattern = /^tab_list_(\d+)_tab_title$/
 
 const parseTabsBlock = (data: any): TabsData => {
@@ -323,41 +402,43 @@ const parseTabsBlock = (data: any): TabsData => {
 const accordionGroupPattern = /^accordion_group_(\d+)_group_title$/
 const accordionSubGroupPattern = /^accordion_group_(\d+)_accordion_list_(\d+)_tab_title$/
 const parseAccordionListsBlock = (data: any): AccordionListsData => {
-
-  let resultParse: { groupTitle: any, tempLists: any[], accordionLists: any[]}[] = [];
-  const gallery: { imageId: any }[] = [];
-  Object.keys(data).forEach((keys)=> {
-    if((accordionGroupPattern.test(keys))) {
+  let resultParse: { groupTitle: any; tempLists: any[]; accordionLists: any[] }[] = []
+  const gallery: { imageId: any }[] = []
+  Object.keys(data).forEach(keys => {
+    if (accordionGroupPattern.test(keys)) {
       resultParse.push({
         groupTitle: data[keys],
         tempLists: [],
-        accordionLists: []
-      });
+        accordionLists: [],
+      })
     } else {
-      if(resultParse && resultParse.length > 0) {
-        if((accordionGroupPattern.test(keys)) || keys.charAt(0)!='_')
+      if (resultParse && resultParse.length > 0) {
+        if (accordionGroupPattern.test(keys) || keys.charAt(0) != "_")
           resultParse[resultParse.length - 1].tempLists.push(keys)
       }
     }
   })
-  resultParse.forEach((dataRes, i)=> {
-      let indexes = dataRes.tempLists.filter(key => accordionSubGroupPattern.test(key)).map(key => key.match(accordionSubGroupPattern)![2]); 
-      indexes.map((value)=> {
-        dataRes.accordionLists.push({
-          tabTitle: data[`accordion_group_${i}_accordion_list_${value}_tab_title`],
-          contentTitle: data[`accordion_group_${i}_accordion_list_${value}_content_title`],
-          content: data[`accordion_group_${i}_accordion_list_${value}_content`],
-          imageId: data[`accordion_group_${i}_accordion_list_${value}_image`],
-          externalUrl: data[`accordion_group_${i}_accordion_list_${value}_external_url`],
-          externalUrlLabel: data[`accordion_group_${i}_accordion_list_${value}_external_url_label`]
-        })
-        gallery.push({imageId: data[`accordion_group_${i}_accordion_list_${value}_image`]});
-      });
-  });
+  resultParse.forEach((dataRes, i) => {
+    let indexes = dataRes.tempLists
+      .filter(key => accordionSubGroupPattern.test(key))
+      .map(key => key.match(accordionSubGroupPattern)![2])
+    indexes.map(value => {
+      dataRes.accordionLists.push({
+        tabTitle: data[`accordion_group_${i}_accordion_list_${value}_tab_title`],
+        contentTitle: data[`accordion_group_${i}_accordion_list_${value}_content_title`],
+        content: data[`accordion_group_${i}_accordion_list_${value}_content`],
+        imageId: data[`accordion_group_${i}_accordion_list_${value}_image`],
+        externalUrl: data[`accordion_group_${i}_accordion_list_${value}_external_url`],
+        externalUrlLabel: data[`accordion_group_${i}_accordion_list_${value}_external_url_label`],
+      })
+      gallery.push({ imageId: data[`accordion_group_${i}_accordion_list_${value}_image`] })
+    })
+  })
 
-  const accordionListsBlockData = resultParse.map((value)=> { return { groupTitle: value.groupTitle, accordionLists: value.accordionLists}});
-  return { gallery: gallery, accordionLists: accordionListsBlockData , name: 'acf/accordion-list' }
-
+  const accordionListsBlockData = resultParse.map(value => {
+    return { groupTitle: value.groupTitle, accordionLists: value.accordionLists }
+  })
+  return { gallery: gallery, accordionLists: accordionListsBlockData, name: "acf/accordion-list" }
 }
 
 const completedAssignmentsPattern = /^completed_assignments_(\d+)_title$/
@@ -371,6 +452,44 @@ const parseAssignmentsBlock = (data: any): AssignmentsData => {
     }))
 
   return { name: "acf/assignments", title: data.title, assignments: completedAssignments }
+}
+
+// A replace function to convert any string to camelCase
+const toCamelCase = (text: string): string => {
+  return text
+    .replace(/(?:^\w|[A-Z]|\b\w)/g, (leftTrim: string, index: number) =>
+      index === 0 ? leftTrim.toLowerCase() : leftTrim.toUpperCase()
+    )
+    .replace(/\s+/g, "")
+}
+
+const parseRegisterCVBlock = (data: any): RegisterCvData => {
+  const dropDownLength = data.professional_info_info_dropdown
+
+  let infoDropdown: IDropDown[] = []
+
+  for (let i = 0; i < dropDownLength; i++) {
+    let values = []
+    let title = data[`professional_info_info_dropdown_${i}_title`]
+    let fieldName = toCamelCase(title)
+
+    for (let j = 0; j < data[`professional_info_info_dropdown_${i}_values`]; j++) {
+      values.push(data[`professional_info_info_dropdown_${i}_values_${j}_value`])
+    }
+    infoDropdown.push({ title, fieldName, values })
+  }
+
+  const linkTitle = data.download_link_title ? data.download_link_title : null
+  const linkFile = data.download_file ? data.download_file : null
+
+  return {
+    heading: data.heading,
+    description: data.description,
+    downloadLinkTitle: linkTitle,
+    downloadFile: linkFile,
+    professionalInfo: { infoDropdown },
+    name: "acf/register-cv",
+  }
 }
 
 /**
@@ -412,4 +531,3 @@ const parseCourseCardData = (data: any): CourseCardsData => {
 function AccordionGroupData(arg0: (index: string) => { const: any }, AccordionGroupData: any) {
   throw new Error("Function not implemented.")
 }
-

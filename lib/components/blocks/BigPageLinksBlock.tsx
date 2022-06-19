@@ -2,7 +2,6 @@ import { useGlobalContext } from "@context/global"
 import React, { useMemo } from "react"
 
 import { Card } from "@components/cards"
-import { AppLink } from "@components/shared/AppLink"
 import { Wysiwyg } from "@components/shared/Wysiwyg"
 import { ArrowRight } from "@icons/ArrowRight"
 import { PostData } from "@models/blocks"
@@ -16,11 +15,10 @@ export const BigPageLinks = ({ title, postIds }: PostData) => {
         const { id, featuredImage, title, excerpt, uri } = postMap![cardId] as Post
         const cardBody = (
           <div className="p-8">
-            <h4 className="app-h4">{title}</h4>
-            <Wysiwyg content={excerpt} className="my-5" />
-
-            <div className="link-m flex items-center space-x-[10px] font-normal text-dark-green">
-              <span>Read more</span>
+            <h5 className="app-h4">{title}</h5>
+            <Wysiwyg content={excerpt} className="prose-p:body-m prose my-5" />
+            <div className="link-m flex items-center space-x-[10px] text-dark-green">
+              <span className="font-[350]">Read more</span>
               <ArrowRight className="fill-dark-green" />
             </div>
           </div>

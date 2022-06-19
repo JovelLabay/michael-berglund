@@ -9,7 +9,7 @@ import { SwiperArrowLeft } from "@icons/SwiperArrowLeft"
 import { SwiperArrowRight } from "@icons/SwiperArrowRight"
 import { ReviewSliderData } from "@models/blocks"
 
-export const ReviewSlider = ({ heading, reviews }: ReviewSliderData) => {
+export const ReviewSlider = ({ heading, backgroundColor, reviews }: ReviewSliderData) => {
   const [index, setIndex] = useState(0)
   const swiperRef = useRef<SwiperClass>(null!)
 
@@ -42,35 +42,47 @@ export const ReviewSlider = ({ heading, reviews }: ReviewSliderData) => {
   )
 
   return (
-    <section className="section-padding relative flex flex-col bg-light-beige pt-10 pb-[60px] lg:pb-[120px]">
-      {heading && <h3 className="app-h3 mb-[60px] text-center">{heading}</h3>}
-      <Swiper
-        slidesPerView={1}
-        pagination={{ clickable: true }}
-        modules={[Pagination]}
-        initialSlide={0}
-        onSwiper={handleSwiperInit}
-        className="review-slider mx-0 sm:mx-10 lg:mx-0 xl:mx-[100px] 2xl:mx-[164px]"
+    <>
+      <section
+        className={classNames(
+          "section-padding relative flex flex-col bg-white pt-10 pb-[60px] lg:pb-[120px]",
+          { "bg-light-beige": backgroundColor === "beige" }
+        )}
       >
-        {_slides}
+        {heading && <h3 className="app-h3 mb-[60px] text-center">{heading}</h3>}
+        <Swiper
+          slidesPerView={1}
+          pagination={{ clickable: true }}
+          modules={[Pagination]}
+          initialSlide={0}
+          onSwiper={handleSwiperInit}
+          className="review-slider mx-0 sm:mx-10 lg:mx-0 xl:mx-[100px] 2xl:mx-[164px]"
+        >
+          {_slides}
 
-        <button
-          className={classNames("swiper-nav-btn left-0 outline-none", {
-            "pointer-events-none opacity-25": index === 0,
-          })}
-          onClick={handlePrev}
-        >
-          <SwiperArrowLeft />
-        </button>
-        <button
-          className={classNames("swiper-nav-btn right-0 outline-none", {
-            "pointer-events-none opacity-25": index === _slides.length - 1,
-          })}
-          onClick={handleNext}
-        >
-          <SwiperArrowRight />
-        </button>
-      </Swiper>
-    </section>
+          <button
+            className={classNames("swiper-nav-btn left-0 outline-none", {
+              "pointer-events-none opacity-25": index === 0,
+            })}
+            onClick={handlePrev}
+          >
+            <SwiperArrowLeft />
+          </button>
+          <button
+            className={classNames("swiper-nav-btn right-0 outline-none", {
+              "pointer-events-none opacity-25": index === _slides.length - 1,
+            })}
+            onClick={handleNext}
+          >
+            <SwiperArrowRight />
+          </button>
+        </Swiper>
+      </section>
+      {backgroundColor === "white" && (
+        <div className="h-[1px] w-full bg-white">
+          <hr className="mx-auto w-[95%] bg-normal-beige" />
+        </div>
+      )}
+    </>
   )
 }

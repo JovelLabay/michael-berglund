@@ -10,6 +10,14 @@ export type ImageMap = Record<number, Pick<ImageProps, "src" | "alt">>
 export type PageMap = Record<number, Page>
 export type PostMap = Record<number, Post | MedarbetarePost | CoursePost | CoursePost[]>
 
+export type FileMap = Record<number, string>
+
+export interface IDropDown {
+  title: string
+  fieldName: string
+  values: string[]
+}
+
 export interface PageProps {
   globalFields: GQLGlobalFields
   blocks: BaseBlock[]
@@ -17,6 +25,7 @@ export interface PageProps {
   postMap?: PostMap
   images?: ImageMap
   pageData?: Page
+  files?: FileMap
 }
 
 export interface GQLGlobalFields {

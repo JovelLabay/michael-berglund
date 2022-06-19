@@ -95,6 +95,25 @@
     @apply prose-p:body-m prose-h4:body-m lg:prose-h4:body-l prose-h2:app-h4 prose-blockquote:wp-block-quote prose-figure:wp-block-image prose-figcaption:body-s prose w-full prose-h4:mb-10 prose-h4:font-gotham prose-h4:font-[325] prose-h4:uppercase prose-p:font-lora prose-blockquote:mb-10 prose-blockquote:border-none prose-figcaption:text-dark-blue;
   }
 
+  .wysiwyg.tabs {
+    @apply prose-p:body-m prose-a:tab-link prose prose-p:mb-5;
+  }
+
+  .tab-link {
+    @apply link-m relative text-dark-green no-underline hover:opacity-75;
+  }
+
+  .tab-link:after {
+    content: "";
+    position: absolute;
+    background: url("/rightArrow.svg") no-repeat center center/cover;
+    top: 2px;
+    left: 100%;
+    margin-left: 10px;
+    width: 15px;
+    height: 13px;
+  }
+
   .wp-block-quote {
     @apply relative mt-10 px-0 pt-4;
   }
@@ -126,11 +145,35 @@
     @apply px-5 pt-[60px] lg:px-12 lg:pt-[100px];
   }
 
-  .profile-card { perspective: 500px;}
-  .profile-card .content { transform-style: preserve-3d;}
-  .profile-card .transform { transform: rotateY( 180deg ); transition: transform 0.5s;}
-  .profile-card .front, .profile-card .back {  backface-visibility: hidden; }
-  .profile-card .back {  transform: rotateY( 180deg ); }
+  .form-input {
+    @apply placeholder:link-m rounded-sm p-4 outline-dark-green placeholder:font-[325] placeholder:text-dark-blue placeholder:opacity-50;
+  }
+
+  .form-btn {
+    @apply link-m w-full rounded bg-orange py-4 text-white lg:w-[220px];
+  }
+
+  .form-chk {
+    @apply relative cursor-pointer rounded-sm border-0 bg-white text-white transition before:absolute before:top-px before:left-[7px] before:h-[16px] before:w-[8px] before:rotate-45 before:border-b-2 before:border-r-2 before:border-transparent  before:transition  checked:bg-none checked:before:border-orange checked:before:bg-none checked:hover:border-orange focus:ring-0 focus:ring-offset-0;
+  }
+
+  .profile-card {
+    perspective: 500px;
+  }
+  .profile-card .content {
+    transform-style: preserve-3d;
+  }
+  .profile-card .transform {
+    transform: rotateY(180deg);
+    transition: transform 0.5s;
+  }
+  .profile-card .front,
+  .profile-card .back {
+    backface-visibility: hidden;
+  }
+  .profile-card .back {
+    transform: rotateY(180deg);
+  }
 }
 
 @layer utilities {
@@ -166,4 +209,3 @@
     @apply app-hover hover:text-medium-beige;
   }
 }
-
