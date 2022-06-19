@@ -1,10 +1,11 @@
 import {
     AccordionListsData, AssignmentsData, BaseBlock, ContactData, ContactFeedListblock,
-    CourseCardsData, DataPointsData, DescWithImageData, HeroData, InfoIconData,
+    CourseCardsData, DataPointsData, DescWithImageData, HeroData, ImageGalleryData, InfoIconData,
     isAccordionListBlock, isBigPageLinks, isContactData, isContactFeedBlock, isCourseCardData,
-    isDescWithImageData, isHeroData, isInfoIconBlock, isLogowallData, isRegisterCvData,
-    isRelatedArticlesData, isStatsData, isTabsData, LogowallData, PostData, RegisterCvData,
-    RelatedArticleData, ReviewSliderData, ShortDescData, StatsData, TabsData
+    isDescWithImageData, isHeroData, isImageGalleryBlock, isInfoIconBlock, isLogowallData,
+    isRegisterCvData, isRelatedArticlesData, isStatsData, isTabsData, LogowallData, PostData,
+    PressFeedData, RegisterCvData, RelatedArticleData, ReviewSliderData, ShortDescData, StatsData,
+    TabsData
 } from "@models/blocks"
 import { IDropDown } from "@models/common"
 
@@ -53,6 +54,10 @@ export const parse = (rawBlocks: Blocks): { blocks: BaseBlock[] } => {
         return parseContactFeedBlocks(data)
       case "acf/accordion-list":
         return parseAccordionListsBlock(data)
+      case "acf/press-feed":
+         return parsePressFeedblock(data)
+      case "acf/image-gallery":
+          return parseImageGalleryBlock(data)
       default:
         throw new Error(`Unknown block type: ${name}`)
     }
@@ -64,12 +69,7 @@ export const parse = (rawBlocks: Blocks): { blocks: BaseBlock[] } => {
 //collect all unique image ids used by different blocks
 export const getImageIds = (blocks: BaseBlock[]): number[] => {
   const mapper = (block: BaseBlock) => {
-    if (
-      isStatsData(block) ||
-      isLogowallData(block) ||
-      isInfoIconBlock(block) ||
-      isAccordionListBlock(block)
-    )
+    if (isStatsData(block) || isLogowallData(block) || isInfoIconBlock(block) || isAccordionListBlock(block) || isImageGalleryBlock(block))
       return block.gallery.map(({ imageId }: any) => imageId)
 
     if (isDescWithImageData(block) || isTabsData(block)) return [block.imageId]
@@ -201,6 +201,18 @@ const parseDescWithImageBlock = (data: any): DescWithImageData => {
     imageId: data.image,
     name: "acf/desc-image",
   }
+}
+
+const imageGalleryPattern = /^images_(\d+)_image$/
+const parseImageGalleryBlock = (data: any): ImageGalleryData => {
+  const indexes = Object.keys(data)
+  .filter(key => imageGalleryPattern.test(key))
+  .map(key => key.match(imageGalleryPattern)![1])
+  const gallery = indexes.map(index => ({
+    imageIdKey: data[`_images_${index}_image`] + Math.random(), 
+    imageId: parseInt(data[`images_${index}_image`]),
+  }))
+  return {gallery, title: data['title'], name: "acf/image-gallery"};
 }
 
 const logoWallPattern = /^logo_gallery_(\d+)_logo_image$/
@@ -349,6 +361,21 @@ const parseDataPointsblock = (data: any): DataPointsData => {
   }))
 
   return { points: points, name: "acf/data-points" }
+}
+
+const pressFeedPattern = /^press_list_(\d+)_title$/
+const parsePressFeedblock = (data: any): PressFeedData => {
+  const indexes = Object.keys(data)
+    .filter(key => pressFeedPattern.test(key))
+    .map(key => key.match(pressFeedPattern)![1])
+  const pressList = indexes.map(index => ({
+    title: data[`press_list_${index}_title`],
+    details: data[`press_list_${index}_details`],
+    url: data[`press_list_${index}_url`],
+    titleId: data[`_press_list_${index}_title`] + Math.random()
+  }))
+
+  return { title: data['title'], pressList, name: "acf/press-feed" }
 }
 
 const tabsPattern = /^tab_list_(\d+)_tab_title$/

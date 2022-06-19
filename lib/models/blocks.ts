@@ -91,6 +91,16 @@ export interface TabsData extends BaseBlock {
   }[]
 }
 
+export interface PressFeedData extends BaseBlock {
+  title: string
+  pressList: {
+    title: string
+    titleId?: string
+    details: string
+    url: string
+  }[]
+}
+
 export interface AccordionListsData extends BaseBlock {
   gallery: {
     imageId: number
@@ -98,6 +108,14 @@ export interface AccordionListsData extends BaseBlock {
   accordionLists: {
     groupTitle: string
     accordionLists: AccordionGroupData[]
+  }[]
+}
+
+export interface ImageGalleryData extends BaseBlock {
+  title: any
+  gallery: {
+    imageId: number,
+    imageIdKey: string
   }[]
 }
 
@@ -156,6 +174,8 @@ export type BlockName =
   | "acf/info-icon"
   | "acf/contact-feed"
   | "acf/accordion-list"
+  | "acf/press-feed"
+  | "acf/image-gallery"
 
 /** Type-narrowing functions */
 export function isHeroData(object: any): object is HeroData {
@@ -223,4 +243,12 @@ export function isContactFeedBlock(object: any): object is ContactFeedListblock 
 }
 export function isAccordionListBlock(object: any): object is AccordionListsData {
   return object && typeof object.name === "string" && object.name === "acf/accordion-list"
+}
+
+export function isPressFeedBlock(object: any): object is PressFeedData {
+  return object && typeof object.name === "string" && object.name === "acf/press-feed"
+}
+
+export function isImageGalleryBlock(object: any): object is ImageGalleryData {
+  return object && typeof object.name === "string" && object.name === "acf/image-gallery"
 }
