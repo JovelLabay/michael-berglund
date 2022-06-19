@@ -9,17 +9,15 @@ export const ContactFeedBlock = ({ contactLists, coverPhotoId }: ContactFeedList
   const { images, postMap } = useGlobalContext()
   const coverPhoto = images && coverPhotoId ? images[coverPhotoId] : undefined
 
-  console.log(coverPhoto)
-
   return (
     <>
       {contactLists &&
-        contactLists.map(data => {
+        contactLists.map((data, index) => {
           return (
             <section className="section-padding w-full bg-white " key={data.title}>
-              <div className="mx-auto max-w-[1440px] xl:px-12">
+              <div className="mx-auto ">
                 <h3 className="app-h3 text-left ">{data.title}</h3>
-                <div className="grid grid-cols-1 gap-8 pt-[60px] md:grid-cols-2 md:gap-4  lg:grid-cols-3 lg:gap-8 ">
+                <div className="grid grid-cols-1 gap-8 pt-[60px] pb-[100px] md:grid-cols-2 md:gap-4  lg:grid-cols-3 lg:gap-8 ">
                   {data.medarbetareIds &&
                     data.medarbetareIds.map(postId => {
                       const {
@@ -44,7 +42,7 @@ export const ContactFeedBlock = ({ contactLists, coverPhotoId }: ContactFeedList
                     })}
                 </div>
 
-                <div className="w-full border-b pt-[100px]"></div>
+                {index < contactLists.length - 1 && <div className="w-full border-b"></div>}
               </div>
             </section>
           )

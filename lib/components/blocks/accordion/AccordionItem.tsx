@@ -3,6 +3,9 @@ import { Disclosure, Transition } from "@headlessui/react"
 import Image from "next/image"
 import { useState } from "react"
 
+import { AppLink } from "@components/shared/AppLink"
+import { Wysiwyg } from "@components/shared/Wysiwyg"
+import { ExternalUrlIcon } from "@icons/ExternalUrlIcon"
 import { AccordionGroupData } from "@models/blocks"
 
 export const AccordionItem = ({ accordionGroupDataList }: any) => {
@@ -15,22 +18,16 @@ export const AccordionItem = ({ accordionGroupDataList }: any) => {
   }
 
   return (
-    <section className="flex w-full flex-col justify-between bg-white ">
-      <div className="flex flex-1 flex-col border-b pb-[60px] lg:pb-24 xl:pr-[147px]">
+    <div className="flex w-full flex-col justify-between bg-white ">
+      <div className="flex flex-1 flex-col  pb-[60px] lg:pb-[40px]">
         {accordionGroupDataList.map((accordion: AccordionGroupData, index: any) => (
           <Disclosure key={accordion.tabTitle}>
             <>
               <Disclosure.Button
                 onClick={() => toggleDisc(index)}
-                className="mb-7 text-left text-app-h4 text-light-green"
+                className="mb-10 text-left text-app-h4 text-light-green"
               >
-                <span
-                  className={`${
-                    index === indexOfOpenDisc ? "text-light-green" : "text-light-green"
-                  }`}
-                >
-                  {accordion.tabTitle}
-                </span>
+                <h3 className="app-h3 font-[350] text-light-green">{accordion.tabTitle}</h3>
               </Disclosure.Button>
               <Transition
                 show={index === indexOfOpenDisc}
@@ -42,45 +39,32 @@ export const AccordionItem = ({ accordionGroupDataList }: any) => {
                 leaveTo="opacity-0"
               >
                 <Disclosure.Panel className="mb-7 w-full">
-                  <div className="grid grid-cols-1 sm:grid-cols-8 sm:gap-8 lg:gap-6 ">
-                    <div className="relative col-span-1 mb-6 lg:col-span-3 lg:mb-0">
-                      <Image
-                        src={images![accordion.imageId].src}
-                        alt={images![accordion.imageId].alt}
-                        width={600}
-                        height={300}
-                        layout="responsive"
-                        objectFit="cover"
-                      />
+                  <div className="flex flex-col items-center md:flex-row">
+                    <div className="relative w-full shrink-0 md:w-[32%]">
+                      <div className="aspect-w-[335] aspect-h-[188] md:aspect-w-[427] md:aspect-h-[342]">
+                        <Image
+                          src={images![accordion.imageId].src}
+                          alt={images![accordion.imageId].alt}
+                          layout="fill"
+                          objectFit="cover"
+                        />
+                      </div>
                     </div>
-                    <div className="col-span-5 ">
-                      <h3 className="mb-6 text-app-h4  font-semibold text-dark-green lg:mb-10">
-                        {accordion.contentTitle}
-                      </h3>
-                      <p className="mb-6 lg:mb-10">{accordion.content}</p>
-                      <a
-                        href={`${accordion.externalUrl}`}
-                        className=" mb-1 flex font-medium text-dark-green"
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        {" "}
-                        {accordion.externalUrlLabel} &nbsp;
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="h-6 w-6"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                          strokeWidth={2}
+                    <div className="mt-6 w-full md:mt-0 md:ml-8">
+                      <h3 className="app-h3 mb-8 text-dark-green">{accordion.contentTitle}</h3>
+                      <Wysiwyg content={accordion.content} />
+
+                      {accordion.externalUrl && (
+                        <AppLink
+                          href={accordion.externalUrl}
+                          className="mt-6 flex items-center space-x-[10px]"
                         >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                          />
-                        </svg>
-                      </a>
+                          <span className="link-m font-[350] text-dark-green">
+                            {accordion.externalUrlLabel}
+                          </span>
+                          <ExternalUrlIcon />
+                        </AppLink>
+                      )}
                     </div>
                   </div>
                 </Disclosure.Panel>
@@ -89,6 +73,6 @@ export const AccordionItem = ({ accordionGroupDataList }: any) => {
           </Disclosure>
         ))}
       </div>
-    </section>
+    </div>
   )
 }
