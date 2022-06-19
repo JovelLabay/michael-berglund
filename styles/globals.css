@@ -158,7 +158,7 @@
   }
 
   .profile-card {
-    perspective: 500px;
+    perspective: 1000px;
   }
   .profile-card .content {
     transform-style: preserve-3d;
