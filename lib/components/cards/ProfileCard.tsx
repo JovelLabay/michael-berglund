@@ -35,7 +35,7 @@ export const ProfileCard = ({
   }
 
   return (
-    <div className="relative min-h-[520px] xsm:min-h-[700px] md:min-h-[540px]">
+    <div className="relative min-h-[490px] md:min-h-[550px]">
       <div className="profile-card absolute h-full w-full">
         <div
           className={classNames(
@@ -48,18 +48,19 @@ export const ProfileCard = ({
           <div
             className={classNames(
               isActive ? "z-0" : "",
-              "front absolute min-h-[520px] w-full xsm:min-h-[700px] md:min-h-[540px] "
+              "front absolute min-h-[490px] w-full md:min-h-[550px] "
             )}
           >
             <div className="absolute top-0 z-0 h-full w-full bg-darker-beige"></div>
             <div className="absolute flex h-full w-full translate-x-0.5 -translate-y-0.5 flex-col bg-light-beige transition ease-in-out hover:translate-x-1 hover:-translate-y-1">
               {image && (
-                <div className="aspect-h-[220] aspect-w-[335] relative max-h-[300px] w-full lg:aspect-h-[300] lg:aspect-w-[427]">
+                <div className="relative h-full max-h-[220px] w-full shrink-0 lg:max-h-[300px]">
                   <Image
                     src={image.mediaItemUrl}
                     alt={image.altText}
                     layout="fill"
                     objectFit="cover"
+                    objectPosition="center"
                   />
                 </div>
               )}
@@ -71,22 +72,21 @@ export const ProfileCard = ({
                   </span>
 
                   <a href={`mailto:${email}`}>
-                    <span className="block  w-full break-all pt-[20px] tracking-[0.15em]">
-                      {email}
-                    </span>
+                    <span className="block  w-full break-all pt-[20px]">{email}</span>
                   </a>
                   <a href={`tel:${phone}`}>
-                    <span className="block w-full pt-1 tracking-[0.15em]">{phone}</span>
+                    <span className="block w-full pt-1">{phone}</span>
                   </a>
                 </div>
 
                 <span className="flex w-full justify-between pt-[22px]">
-                  <span
-                    className="link-m text-base inline-flex w-40  cursor-pointer font-medium"
+                  <div
+                    className="link-m flex cursor-pointer items-center space-x-[10px] font-[350]"
                     onClick={handleClick}
                   >
-                    Read Bio &nbsp; <FlipIcon className="relative" />
-                  </span>
+                    <span>Read Bio</span>
+                    <FlipIcon className="relative" />
+                  </div>
 
                   {linkedin && (
                     <AppLink href={linkedin}>
@@ -97,7 +97,7 @@ export const ProfileCard = ({
               </div>
             </div>
           </div>
-          <div className="back absolute flex min-h-[520px] w-full flex-col bg-light-beige xsm:min-h-[700px] md:min-h-[540px]">
+          <div className="back absolute flex min-h-[490px] w-full flex-col bg-light-beige md:min-h-[550px]">
             <div className="absolute top-0 z-0 h-full w-full bg-darker-beige"></div>
             <div className="absolute flex h-full w-full translate-x-0.5 -translate-y-0.5 flex-col bg-light-beige transition ease-in-out hover:translate-x-1 hover:-translate-y-1">
               <div className="relative h-16 shrink-0">
@@ -125,12 +125,14 @@ export const ProfileCard = ({
                 content={bio}
                 className="prose-p:body-m prose flex-1 p-5 py-5 lg:px-[36px]"
               />
-              <span
-                className="link-m text-base  relative inline-flex w-48 cursor-pointer p-5 pt-0 font-medium lg:p-8"
+
+              <div
+                className="link-m flex cursor-pointer items-center space-x-[10px] p-5 pt-0 font-[350] lg:p-8"
                 onClick={handleClick}
               >
-                Contact Info &nbsp; <FlipIcon className="relative" />
-              </span>
+                <span>Contact Info</span>
+                <FlipIcon className="relative" />
+              </div>
             </div>
           </div>
         </div>
