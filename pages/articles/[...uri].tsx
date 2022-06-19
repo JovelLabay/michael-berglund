@@ -98,7 +98,7 @@ export default function SingleArticle({
                 <a
                   href={mediaFile}
                   target="_blank"
-                  rel="noopener noreferer"
+                  rel="noopener noreferrer"
                   className="flex items-center py-5 px-8 text-link-m text-white"
                 >
                   {linkTitle} <PlayIcon className="ml-[10px]" />

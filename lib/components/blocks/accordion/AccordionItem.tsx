@@ -62,6 +62,7 @@ export const AccordionItem = ({ accordionGroupDataList }: any) => {
                         href={`${accordion.externalUrl}`}
                         className=" mb-1 flex font-medium text-dark-green"
                         target="_blank"
+                        rel="noreferrer"
                       >
                         {" "}
                         {accordion.externalUrlLabel} &nbsp;
