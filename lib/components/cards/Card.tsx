@@ -15,7 +15,7 @@ export interface CardProps {
 
 export const Card = ({ image, body, link, className }: CardProps) => {
   const card = (
-    <div className={classNames("bg-light-beige ", className)}>
+    <div className={classNames("h-full bg-light-beige", className)}>
       {image && (
         <div className="relative aspect-video w-full">
           <Image src={image.mediaItemUrl} alt={image.altText} layout="fill" objectFit="cover" />
