@@ -118,10 +118,7 @@ export const TableDescSubDisplay = ({ description, title, services }: any) => {
         <TableHeaderDisplay title={services} className="mb-[20px] text-dark-beige sm:hidden" />
       </span>
       <h5 className="app-h4 mb-[24px]">{title}</h5>
-      <Wysiwyg
-        content={description}
-        className="mb-[24px] font-gotham text-[16px] font-[325] leading-[28px] sm:text-[20px]"
-      />
+      <Wysiwyg content={description} className="body-l prose-p:body-l prose mb-[24px]" />
       <div className=" link-m  mb-[60px] flex items-center space-x-[10px] font-gotham text-dark-green">
         <span className="font-[350]">Read more</span>
         <PlusIcon className="fill-dark-green" />
@@ -132,12 +129,7 @@ export const TableDescSubDisplay = ({ description, title, services }: any) => {
 
 export const TableHeaderDisplay = ({ title, className }: any) => {
   return (
-    <div
-      className={classNames(
-        className,
-        "font-gotham text-[14px] font-[350] leading-[28px] tracking-[.15em]"
-      )}
-    >
+    <div className={classNames(className, "pre-title font-[350] uppercase tracking-[0.15em]")}>
       {title}
     </div>
   )
