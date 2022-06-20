@@ -149,6 +149,7 @@ export interface AcfCourse {
   isCourseFull: boolean
   startDate: Date
   duration: number
+  durationUnit: string
   language: string
 }
 
