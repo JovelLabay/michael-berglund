@@ -26,7 +26,7 @@ export const CourseCards = ({ title }: CourseCardsData) => {
             uri,
             title,
             excerpt,
-            acfCourse: { startDate, duration, language, isCourseFull },
+            acfCourse: { startDate, duration, durationUnit, language, isCourseFull },
           }) => {
             const date = new Date(startDate)
 
@@ -52,7 +52,7 @@ export const CourseCards = ({ title }: CourseCardsData) => {
                 <div className="body-m flex items-center space-x-[22px]">
                   <div className="flex items-center space-x-[10px]">
                     <ClockIcon />
-                    <span>{duration}</span>
+                    <span>{`${duration} ${durationUnit}`}</span>
                   </div>
                   <div className="flex items-center space-x-[10px]">
                     <GlobeIcon />

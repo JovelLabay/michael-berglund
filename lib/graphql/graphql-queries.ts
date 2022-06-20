@@ -270,6 +270,7 @@ export const GET_COURSE_DATA_BY_ID = gql`
       }
       acfCourse {
         duration
+        durationUnit
         isCourseFull
         language
         startDate
@@ -293,6 +294,7 @@ export const GET_ALL_UNTAILORED_COURESES = gql`
             language
             isCourseFull
             duration
+            durationUnit
           }
         }
       }
