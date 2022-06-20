@@ -52,7 +52,7 @@ export function HeroItem({
     >
       {/* Base */}
       <motion.div animate={{ height: heroHeight }} transition={{ duration: 0.85 }}></motion.div>
-      <div className="h-[100px]"></div>
+      <div className="h-12 lg:h-[100px]"></div>
       {/* Background Image - Layer 1 */}
       <div className="absolute inset-0 z-10 overflow-hidden">
         <Image
@@ -80,14 +80,40 @@ export function HeroItem({
             animate={{ opacity: 1, translateY: 0 }}
             exit={{ opacity: 0, translateY: -50 }}
             transition={{ duration: 0.85 }}
-            className="app-h2 absolute bottom-[220px] z-30 mx-12 max-w-[660px] font-lora text-light-beige"
+            className="app-h2 absolute bottom-[220px] z-30 mx-5 max-w-[660px] font-lora text-light-beige lg:mx-12"
           >
+            {/* For Mobile Only */}
+            <div
+              className={classNames("mb-8 flex items-center", {
+                "flex md:hidden": isActive,
+              })}
+            >
+              <motion.div
+                animate={{ opacity: isActive ? 1 : 0 }}
+                transition={{ duration: 1.5, delay: 0.15 }}
+              >
+                <LogoDots />
+              </motion.div>
+              <motion.h2
+                animate={{ marginLeft: isActive ? 20 : -20 }}
+                transition={{ duration: 1, delay: 0.15 }}
+                className="pre-title uppercase tracking-[0.15em] text-white"
+          >
+                {preTitle}
+              </motion.h2>
+            </div>
+
             <h3>{mainTitle}</h3>
           </motion.div>
         )}
       </AnimatePresence>
 
-      <div className="section-padding absolute bottom-0 z-30 flex  w-full justify-between pb-10 font-[350]">
+      <div
+        className={classNames(
+          "section-padding absolute bottom-0 z-30 flex  w-full justify-between py-4 font-[350] lg:py-10",
+          { "pb-10": isActive }
+        )}
+      >
         <div
           className={classNames("flex items-center", {
             "hidden md:flex": isActive,
