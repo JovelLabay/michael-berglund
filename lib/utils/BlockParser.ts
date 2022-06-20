@@ -461,15 +461,11 @@ const parseTableDescBlock = (data: any): TableDescData => {
       services: data[`table_${index}_services`],
       group: {
         title: data[`table_${index}_group_0_title`],
-        description: data[`table_${index}_group_0_description`]
-          ? data[`table_${index}_individual_0_description`]
-          : data[`table_${index}_individual_0_desciption`],
+        description: data[`table_${index}_group_0_description`],
       },
       individual: {
         title: data[`table_${index}_individual_0_title`],
-        description: data[`table_${index}_individual_0_description`]
-          ? data[`table_${index}_individual_0_description`]
-          : data[`table_${index}_individual_0_desciption`],
+        description: data[`table_${index}_individual_0_description`],
       },
     })
   })
