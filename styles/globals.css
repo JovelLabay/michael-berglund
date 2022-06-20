@@ -46,7 +46,7 @@
   }
 
   .body-l {
-    @apply text-body-l;
+    @apply !text-body-l;
   }
 
   .link-s {

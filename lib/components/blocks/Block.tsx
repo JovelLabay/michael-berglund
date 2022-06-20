@@ -2,7 +2,7 @@ import {
     BaseBlock, isAccordionListBlock, isAssignmentsData, isBigPageLinks, isContactData,
     isContactFeedBlock, isCourseCardData, isDataPointsData, isDescWithImageData, isHeroData,
     isImageGalleryBlock, isInfoIconBlock, isLogowallData, isPressFeedBlock, isRegisterCvData,
-    isRelatedArticlesData, isReviewSilderData, isShortDescData, isStatsData, isTabsData
+    isRelatedArticlesData, isReviewSilderData, isShortDescData, isStatsData, isTableDesc, isTabsData
 } from "@models/blocks"
 
 import { DescWithImgBlock } from "./"
@@ -23,6 +23,7 @@ import { RelatedArticles } from "./RelatedArticles"
 import { ReviewSlider } from "./ReviewSlider"
 import { ShortDescBlock } from "./ShortDescBlock"
 import { StatsBlock } from "./StatsBlock"
+import { TableDescBlock } from "./TableDescBlock"
 import { TabsBlock } from "./TabsBlock"
 
 export const Block = ({ block }: { block: BaseBlock }) => {
@@ -43,6 +44,7 @@ export const Block = ({ block }: { block: BaseBlock }) => {
   if (isInfoIconBlock(block)) return <InfoIconBlock {...block} />
   if (isContactFeedBlock(block)) return <ContactFeedBlock {...block} />
   if (isAccordionListBlock(block)) return <AccordionListBlock {...block} />
+  if (isTableDesc(block)) return <TableDescBlock {...block} />
   if (isPressFeedBlock(block)) return <PressFeedBlock {...block} />
   if (isImageGalleryBlock(block)) return <ImageGalleryBlock {...block} />
 

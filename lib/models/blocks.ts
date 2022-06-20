@@ -111,10 +111,25 @@ export interface AccordionListsData extends BaseBlock {
   }[]
 }
 
+export interface TableDescData extends BaseBlock {
+  title: string
+  tableLists: {
+    services: string
+    individual: {
+      title: string
+      description: string
+    }
+    group: {
+      title: string
+      description: string
+    }
+  }[]
+}
+
 export interface ImageGalleryData extends BaseBlock {
   title: any
   gallery: {
-    imageId: number,
+    imageId: number
     imageIdKey: string
   }[]
 }
@@ -174,6 +189,7 @@ export type BlockName =
   | "acf/info-icon"
   | "acf/contact-feed"
   | "acf/accordion-list"
+  | "acf/table-desc"
   | "acf/press-feed"
   | "acf/image-gallery"
 
@@ -241,8 +257,13 @@ export function isInfoIconBlock(object: any): object is InfoIconData {
 export function isContactFeedBlock(object: any): object is ContactFeedListblock {
   return object && typeof object.name === "string" && object.name === "acf/contact-feed"
 }
+
 export function isAccordionListBlock(object: any): object is AccordionListsData {
   return object && typeof object.name === "string" && object.name === "acf/accordion-list"
+}
+
+export function isTableDesc(object: any): object is TableDescData {
+  return object && typeof object.name === "string" && object.name === "acf/table-desc"
 }
 
 export function isPressFeedBlock(object: any): object is PressFeedData {
