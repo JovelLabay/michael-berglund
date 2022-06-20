@@ -24,26 +24,26 @@ export const TabsBlock = ({ heading, tabList, imageId }: TabsData) => {
             <>
               <Disclosure.Button
                 onClick={() => toggleDisc(index)}
-                className="mb-7 text-left text-app-h4 text-light-green"
+                className="mb-7 text-left text-app-h4 text-light-green lg:mb-8 "
               >
                 <span
                   className={`${
                     index === indexOfOpenDisc ? "text-dark-green" : "text-light-green"
-                  }`}
+                  } transition-colors duration-300 ease-in-out hover:text-dark-green`}
                 >
                   {tab.title}
                 </span>
               </Disclosure.Button>
               <Transition
                 show={index === indexOfOpenDisc}
-                enter="transition-all delay-150 duration-300 ease-out"
+                enter="transition-all delay-300 duration-[800ms] ease-out"
                 enterFrom="opacity-0 max-h-0"
-                enterTo="opacity-100 max-h-[200px]"
-                leave="transition-all duration-100 ease-out "
-                leaveFrom="opacity-100 max-h-[200px]"
+                enterTo="opacity-100 max-h-[235px] lg:max-h-[200px]"
+                leave="transition-all duration-150 ease-out "
+                leaveFrom="opacity-100 max-h-[235px] lg:max-h-[200px]"
                 leaveTo="opacity-0 max-h-0"
               >
-                <Disclosure.Panel className="mb-7 md:w-2/3 lg:w-full">
+                <Disclosure.Panel className="-mt-2 mb-7 md:w-2/3 lg:mb-10 lg:w-full">
                   <Wysiwyg className="tabs" content={tab.content} />
                 </Disclosure.Panel>
               </Transition>

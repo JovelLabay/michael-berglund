@@ -31,7 +31,7 @@ export const RegisterCVBlock = ({
   const pageLocation = router.asPath
 
   return (
-    <section className="flex flex-col bg-dark-green lg:flex-row ">
+    <section id="register-cv" className="flex flex-col bg-dark-green lg:flex-row ">
       <div className="w-full flex-1 bg-register-pattern py-[60px] px-5 lg:w-1/2 lg:py-[100px] lg:pl-12 lg:pr-20">
         <h3 className="app-h3 mb-[60px] text-white">{heading}</h3>
         <Wysiwyg content={description} className="body-m mb-[26px] text-white" />

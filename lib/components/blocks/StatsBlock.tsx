@@ -11,10 +11,10 @@ export const StatsBlock = ({ heading, description, linkTitle, linkUri, gallery }
 
   const _stats = gallery.map(({ imageId, title }) => (
     <div key={title} className="flex w-[335px] flex-col items-center md:w-[427px]">
-      <div className="relative mb-[28px] aspect-square h-[96px] w-[96px]">
+      <div className="relative mb-4 aspect-square h-[96px] w-[96px] lg:mb-[28px]">
         <Image {...images![imageId]} alt="" layout="fill" objectFit="cover" />
       </div>
-      <h4 className="app-h4 text-dark-green">{title}</h4>
+      <h4 className="stats-title text-dark-green">{title}</h4>
     </div>
   ))
 
@@ -27,7 +27,7 @@ export const StatsBlock = ({ heading, description, linkTitle, linkUri, gallery }
         content={description}
       />
 
-      <div className="mb-20 flex w-full flex-col items-center space-y-9 lg:flex-row lg:justify-between lg:space-y-0 xl:space-x-8">
+      <div className="mb-[50px] flex w-full flex-col items-center space-y-8 lg:mb-20 lg:flex-row lg:justify-between lg:space-y-0 xl:space-x-8">
         {_stats}
       </div>
       <div className="flex items-center space-x-[10px] transition-all hover:opacity-70">
