@@ -8,6 +8,7 @@
   html {
     height: stretch;
     height: -webkit-stretch;
+    scroll-behavior: smooth;
   }
 
   body {
@@ -64,6 +65,10 @@
     @apply text-pre-title text-dark-blue;
   }
 
+  .stats-title {
+    @apply font-lora text-body-l lg:text-app-h4;
+  }
+
   .footer-contact-text {
     @apply text-link-footer;
   }
@@ -85,7 +90,7 @@
   }
 
   .wysiwyg {
-    @apply lg:prose-p:body-l prose-h4:app-h4 prose prose-h4:mt-3 prose-h4:font-lora prose-h4:font-normal prose-p:text-body-m prose-a:no-underline prose-a:outline-none prose-a:duration-300 prose-a:ease-in-out hover:prose-a:text-medium-beige;
+    @apply lg:prose-p:body-l prose-h4:app-h4 prose prose-h4:mt-5 prose-h4:mb-5 prose-h4:font-lora prose-h4:font-normal prose-p:text-body-m prose-a:no-underline prose-a:outline-none prose-a:duration-300 prose-a:ease-in-out hover:prose-a:text-medium-beige;
   }
   .wysiwyg.privacy-policy {
     @apply prose-p:link-s prose prose-p:text-dark-beige prose-a:no-underline prose-strong:text-dark-beige prose-strong:transition-colors prose-strong:duration-300 hover:prose-strong:text-medium-beige;
@@ -95,8 +100,12 @@
     @apply prose-p:body-m prose-h4:body-m lg:prose-h4:body-l prose-h2:app-h4 prose-blockquote:wp-block-quote prose-figure:wp-block-image prose-figcaption:body-s prose w-full prose-h4:mb-10 prose-h4:font-gotham prose-h4:font-[325] prose-h4:uppercase prose-p:font-lora prose-blockquote:mb-10 prose-blockquote:border-none prose-figcaption:text-dark-blue;
   }
 
+  .wysiwyg.article-card {
+    @apply prose-p:body-m;
+  }
+
   .wysiwyg.tabs {
-    @apply prose-p:body-m prose-a:tab-link prose prose-p:mb-5;
+    @apply prose-p:body-m prose-a:tab-link prose font-[325] prose-p:mb-5;
   }
 
   .tab-link {
@@ -194,7 +203,7 @@
   }
 
   .review-slider.swiper {
-    @apply h-[335px] lg:h-[260px];
+    @apply h-[315px] sm:h-[250px] md:h-[230px] lg:h-[260px];
   }
 
   .review-slider.swiper span.swiper-pagination-bullet {

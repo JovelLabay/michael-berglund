@@ -40,12 +40,11 @@ export const Assignments = ({ title, assignments }: AssignmentsData) => {
   )
 
   return (
-    <section className="section-padding relative bg-white px-12 pb-[120px] lg:pl-12 lg:pr-0">
+    <section className="section-padding relative bg-white pb-[120px] lg:pl-12 lg:pr-0">
       <div className=" absolute top-0 left-0 w-full">
         <hr className="bg-darker-beige" />
       </div>
-      <h3 className="app-h3 mb-[60px]">{title}</h3>
-
+      <h3 className="app-h3 mb-10 lg:mb-[60px]">{title}</h3>
       <ProgressSwiper totalPages={totalPages} slidesPerView={slidesPerView} slides={slides} />
     </section>
   )

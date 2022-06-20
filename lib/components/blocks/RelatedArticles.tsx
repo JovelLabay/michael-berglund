@@ -22,12 +22,15 @@ export const RelatedArticles = ({ title, postIds }: RelatedArticleData) => {
         const { id, featuredImage, title, excerpt, uri } = postMap![cardId] as Post
 
         const cardBody = (
-          <div className="p-8">
+          <div className="px-4 py-6 lg:p-8">
             <span className="pre-title font-[350] uppercase tracking-[0.15em]">
               Aktuellt · Artiklar
             </span>
             <h4 className="app-h4 my-5">{title}</h4>
-            <Wysiwyg content={excerpt} />
+            <Wysiwyg
+              content={excerpt}
+              className="article-card h-[72px] overflow-y-hidden lg:h-auto lg:overflow-auto"
+            />
           </div>
         )
 
