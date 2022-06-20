@@ -27,9 +27,11 @@ export const AnimatedHero = ({ pages }: HeroData) => {
 
   useEffect(() => {
     const handleResize = () => {
+      const initialHeroHeight = window.matchMedia("(min-width: 1024px)").matches ? 100 : 30
+
       setImageDimenstions({
         width: window.innerWidth,
-        height: window.innerHeight - heroItems.length * 100 + 100,
+        height: window.innerHeight - heroItems.length * initialHeroHeight + initialHeroHeight,
       })
     }
 
@@ -44,7 +46,7 @@ export const AnimatedHero = ({ pages }: HeroData) => {
   return (
     <section
       ref={heroContainer}
-      className="relative flex h-screen flex-col justify-end overflow-hidden  text-white"
+      className="relative flex h-screen flex-col justify-end overflow-hidden text-white"
     >
       {imageDimenstions.height > 0 && (
         <AnimatePresence initial={false}>

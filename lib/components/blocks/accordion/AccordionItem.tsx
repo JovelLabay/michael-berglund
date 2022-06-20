@@ -14,7 +14,7 @@ export const AccordionItem = ({ accordionGroupDataList }: any) => {
   const [indexOfOpenDisc, setIndexOfOpenDisc] = useState(0)
 
   const toggleDisc = (key: number) => {
-    setIndexOfOpenDisc(prev => (prev !== key ? key : 0))
+    setIndexOfOpenDisc(prev => (prev !== key ? key : key))
   }
 
   return (
@@ -25,18 +25,24 @@ export const AccordionItem = ({ accordionGroupDataList }: any) => {
             <>
               <Disclosure.Button
                 onClick={() => toggleDisc(index)}
-                className="mb-10 text-left text-app-h4 text-light-green"
+                className="mb-7 text-left text-app-h4 text-light-green lg:mb-10"
               >
-                <h3 className="app-h3 font-[350] text-light-green">{accordion.tabTitle}</h3>
+                <h3
+                  className={`${
+                    index === indexOfOpenDisc ? "text-dark-green" : "text-light-green"
+                  } app-h3 transition-colors duration-300 ease-in-out hover:text-dark-green`}
+                >
+                  {accordion.tabTitle}
+                </h3>
               </Disclosure.Button>
               <Transition
                 show={index === indexOfOpenDisc}
-                enter="transition-opacity duration-75"
-                enterFrom="opacity-0"
-                enterTo="opacity-100"
-                leave="transition-opacity duration-150"
-                leaveFrom="opacity-100"
-                leaveTo="opacity-0"
+                enter="transition-all delay-100 duration-[500ms] ease-in-out"
+                enterFrom="opacity-0 max-h-0"
+                enterTo="opacity-100 max-h-[700px] lg:max-h-[400px]"
+                leave="transition-all duration-300 ease-out "
+                leaveFrom="opacity-100 max-h-[700px] lg:max-h-[400px]"
+                leaveTo="opacity-0 max-h-0"
               >
                 <Disclosure.Panel className="mb-7 w-full">
                   <div className="flex flex-col items-center md:flex-row">
@@ -50,14 +56,17 @@ export const AccordionItem = ({ accordionGroupDataList }: any) => {
                         />
                       </div>
                     </div>
+
                     <div className="mt-6 w-full md:mt-0 md:ml-8">
-                      <h3 className="app-h3 mb-8 text-dark-green">{accordion.contentTitle}</h3>
+                      <h3 className="app-h3 mb-6 text-dark-green lg:mb-8">
+                        {accordion.contentTitle}
+                      </h3>
                       <Wysiwyg content={accordion.content} />
 
                       {accordion.externalUrl && (
                         <AppLink
                           href={accordion.externalUrl}
-                          className="mt-6 flex items-center space-x-[10px]"
+                          className="mt-5 flex items-center space-x-[10px] lg:mt-6"
                         >
                           <span className="link-m font-[350] text-dark-green">
                             {accordion.externalUrlLabel}
