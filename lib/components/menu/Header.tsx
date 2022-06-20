@@ -11,7 +11,7 @@ export interface HeaderProps {
 
 export const Header = ({ isMenuOpen, isHomePage, toggleMenu }: HeaderProps) => {
   return (
-    <div className="absolute top-0 z-[100] flex w-full items-center justify-between px-12 py-6 text-white">
+    <div className="section-padding absolute top-0 z-[100] flex w-full items-center justify-between py-4 text-white lg:py-6">
       <Hamburger toggled={isMenuOpen} toggle={toggleMenu} />
       {isMenuOpen && isHomePage && (
         <div onClick={toggleMenu} className="cursor-pointer">
@@ -20,7 +20,7 @@ export const Header = ({ isMenuOpen, isHomePage, toggleMenu }: HeaderProps) => {
       )}
       {(!isMenuOpen || !isHomePage) && (
         <AppLink href="/">
-          <MainLogo />
+          <MainLogo className="w-[78px] md:w-auto" />
         </AppLink>
       )}
       <AppLink href="/contact-us" className="link-m hover-text-white font-normal">

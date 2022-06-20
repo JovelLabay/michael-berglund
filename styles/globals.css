@@ -17,11 +17,11 @@
 
 @layer components {
   .app-h1 {
-    @apply font-lora text-app-h1;
+    @apply font-lora text-app-h2 md:text-app-h1;
   }
 
   .app-h2 {
-    @apply font-lora text-app-h2;
+    @apply font-lora text-app-h3 md:text-app-h2;
   }
 
   .app-h3 {
