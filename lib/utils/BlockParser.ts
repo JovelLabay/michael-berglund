@@ -1,10 +1,11 @@
 import {
     AccordionListsData, AssignmentsData, BaseBlock, ContactData, ContactFeedListblock,
-    CourseCardsData, DataPointsData, DescWithImageData, HeroData, InfoIconData,
+    CourseCardsData, DataPointsData, DescWithImageData, HeroData, ImageGalleryData, InfoIconData,
     isAccordionListBlock, isBigPageLinks, isContactData, isContactFeedBlock, isCourseCardData,
-    isDescWithImageData, isHeroData, isInfoIconBlock, isLogowallData, isRegisterCvData,
-    isRelatedArticlesData, isStatsData, isTabsData, LogowallData, PostData, RegisterCvData,
-    RelatedArticleData, ReviewSliderData, ShortDescData, StatsData, TableDescData, TabsData
+    isDescWithImageData, isHeroData, isImageGalleryBlock, isInfoIconBlock, isLogowallData,
+    isRegisterCvData, isRelatedArticlesData, isStatsData, isTabsData, LogowallData, PostData,
+    PressFeedData, RegisterCvData, RelatedArticleData, ReviewSliderData, ShortDescData, StatsData,
+    TableDescData, TabsData
 } from "@models/blocks"
 import { IDropDown } from "@models/common"
 
@@ -53,8 +54,12 @@ export const parse = (rawBlocks: Blocks): { blocks: BaseBlock[] } => {
         return parseContactFeedBlocks(data)
       case "acf/accordion-list":
         return parseAccordionListsBlock(data)
-      case  "acf/table-desc" :
-          return parseTableDescBlock(data)
+      case "acf/table-desc":
+        return parseTableDescBlock(data)
+      case "acf/press-feed":
+        return parsePressFeedblock(data)
+      case "acf/image-gallery":
+        return parseImageGalleryBlock(data)
       default:
         throw new Error(`Unknown block type: ${name}`)
     }
@@ -70,7 +75,8 @@ export const getImageIds = (blocks: BaseBlock[]): number[] => {
       isStatsData(block) ||
       isLogowallData(block) ||
       isInfoIconBlock(block) ||
-      isAccordionListBlock(block)
+      isAccordionListBlock(block) ||
+      isImageGalleryBlock(block)
     )
       return block.gallery.map(({ imageId }: any) => imageId)
 
@@ -108,7 +114,7 @@ export const getPostLinkIds = (blocks: BaseBlock[]) => {
 export const getMedarbetareLinkIds = (blocks: BaseBlock[]) => {
   const mapper = (block: BaseBlock) => {
     if (isContactData(block)) return block.medarbetareIds
-    if (isContactFeedBlock(block)) return block.medarbetareIds
+    if (isContactFeedBlock(block)) return block.medarbetareIds!
     return []
   }
 
@@ -119,7 +125,7 @@ export const getFileLinks = (blocks: BaseBlock[]) => {
   const mapper = (block: BaseBlock) => {
     if (isRegisterCvData(block)) {
       if (block.downloadFile !== null) {
-        return block.downloadFile
+        return block.downloadFile!
       } else {
         return []
       }
@@ -203,6 +209,18 @@ const parseDescWithImageBlock = (data: any): DescWithImageData => {
     imageId: data.image,
     name: "acf/desc-image",
   }
+}
+
+const imageGalleryPattern = /^images_(\d+)_image$/
+const parseImageGalleryBlock = (data: any): ImageGalleryData => {
+  const indexes = Object.keys(data)
+    .filter(key => imageGalleryPattern.test(key))
+    .map(key => key.match(imageGalleryPattern)![1])
+  const gallery = indexes.map(index => ({
+    imageIdKey: data[`_images_${index}_image`] + Math.random(),
+    imageId: parseInt(data[`images_${index}_image`]),
+  }))
+  return { gallery, title: data["title"], name: "acf/image-gallery" }
 }
 
 const logoWallPattern = /^logo_gallery_(\d+)_logo_image$/
@@ -297,7 +315,12 @@ const parseReviewSilderBlock = (data: any): ReviewSliderData => {
     reviewCompany: data[`reviews_${index}_review_company`],
   }))
 
-  return { heading: data.heading, reviews, name: "acf/reviews-slider" }
+  return {
+    heading: data.heading,
+    backgroundColor: data.background_color,
+    reviews,
+    name: "acf/reviews-slider",
+  }
 }
 
 const relatedArticlePattern = /^articles_(\d+)_article$/
@@ -313,7 +336,12 @@ const parseRelatedArticles = (data: any): RelatedArticleData => {
 }
 
 const parseShortDescblock = (data: any): ShortDescData => {
-  return { description: data.description, quote: data.quote, name: "acf/short-desc" }
+  return {
+    description: data.description,
+    quote: data.quote,
+    backgroundColor: data.background_color,
+    name: "acf/short-desc",
+  }
 }
 
 const contactItemPattern = /^medarbetare_list_(\d+)_medarbetare$/
@@ -341,6 +369,21 @@ const parseDataPointsblock = (data: any): DataPointsData => {
   }))
 
   return { points: points, name: "acf/data-points" }
+}
+
+const pressFeedPattern = /^press_list_(\d+)_title$/
+const parsePressFeedblock = (data: any): PressFeedData => {
+  const indexes = Object.keys(data)
+    .filter(key => pressFeedPattern.test(key))
+    .map(key => key.match(pressFeedPattern)![1])
+  const pressList = indexes.map(index => ({
+    title: data[`press_list_${index}_title`],
+    details: data[`press_list_${index}_details`],
+    url: data[`press_list_${index}_url`],
+    titleId: data[`_press_list_${index}_title`] + Math.random(),
+  }))
+
+  return { title: data["title"], pressList, name: "acf/press-feed" }
 }
 
 const tabsPattern = /^tab_list_(\d+)_tab_title$/
@@ -402,27 +445,36 @@ const parseAccordionListsBlock = (data: any): AccordionListsData => {
 
 const tableDescPattern = /^table_(\d+)_services$/
 const parseTableDescBlock = (data: any): TableDescData => {
+  console.log(data)
 
   const indexes = Object.keys(data)
     .filter(key => tableDescPattern.test(key))
     .map(key => key.match(tableDescPattern)![1])
-    
-  let tableLists: { services: any; group: { title: any; description: any }; individual: { title: any; description: any } }[] = [];
-  indexes.forEach((index) => {
+
+  let tableLists: {
+    services: any
+    group: { title: any; description: any }
+    individual: { title: any; description: any }
+  }[] = []
+  indexes.forEach(index => {
     tableLists.push({
-      services:  data[`table_${index}_services`],
+      services: data[`table_${index}_services`],
       group: {
         title: data[`table_${index}_group_0_title`],
-        description: data[`table_${index}_group_0_description`] ? data[`table_${index}_individual_0_description`] : data[`table_${index}_individual_0_desciption`]
+        description: data[`table_${index}_group_0_description`]
+          ? data[`table_${index}_individual_0_description`]
+          : data[`table_${index}_individual_0_desciption`],
       },
       individual: {
         title: data[`table_${index}_individual_0_title`],
-        description: data[`table_${index}_individual_0_description`] ? data[`table_${index}_individual_0_description`] : data[`table_${index}_individual_0_desciption`]
+        description: data[`table_${index}_individual_0_description`]
+          ? data[`table_${index}_individual_0_description`]
+          : data[`table_${index}_individual_0_desciption`],
       },
-    });
-  });
+    })
+  })
 
-  return { title: data['title'], tableLists, name: "acf/table-desc" }
+  return { title: data["title"], tableLists, name: "acf/table-desc" }
 }
 
 const completedAssignmentsPattern = /^completed_assignments_(\d+)_title$/

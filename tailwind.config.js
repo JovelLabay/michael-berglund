@@ -43,6 +43,14 @@ module.exports = {
       15: "15",
       16: "16",
     },
+    screens: {
+      xsm: "480px",
+      sm: "640px",
+      md: "768px",
+      lg: "1024px",
+      xl: "1280px",
+      "2xl": "1536px",
+    },
     extend: {
       colors: {
         "dark-blue": "#1A2241",
@@ -60,7 +68,7 @@ module.exports = {
       backgroundImage: {
         "register-pattern": "url('/bg/register-pattern.png')",
         "hero-pattern": "url('/bg/hero-pattern.png')",
-      }
+      },
     },
   },
   plugins: [require("@tailwindcss/aspect-ratio"), require("@tailwindcss/typography")],

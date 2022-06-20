@@ -20,11 +20,11 @@ export const RegisterCVBlock = ({
 
   const handleNextStep = useCallback(() => {
     setActiveStep(prev => prev + 1)
-  }, [activeStep])
+  }, [])
 
   const handlePrevStep = useCallback(() => {
     setActiveStep(prev => prev - 1)
-  }, [activeStep])
+  }, [])
 
   const { infoDropdown } = professionalInfo
 

@@ -49,6 +49,7 @@ export interface InfoIconData extends BaseBlock {
 
 export interface ReviewSliderData extends BaseBlock {
   heading?: string
+  backgroundColor: "white" | "beige"
   reviews: {
     reviewText: string
     reviewClient: string
@@ -65,6 +66,7 @@ export interface PostData extends BaseBlock {
 export interface ShortDescData extends BaseBlock {
   description: string
   quote: string
+  backgroundColor: "white" | "beige"
 }
 
 export interface ContactData extends BaseBlock {
@@ -89,6 +91,16 @@ export interface TabsData extends BaseBlock {
   }[]
 }
 
+export interface PressFeedData extends BaseBlock {
+  title: string
+  pressList: {
+    title: string
+    titleId?: string
+    details: string
+    url: string
+  }[]
+}
+
 export interface AccordionListsData extends BaseBlock {
   gallery: {
     imageId: number
@@ -103,16 +115,25 @@ export interface TableDescData extends BaseBlock {
   title: string
   tableLists: {
     services: string
-    individual:  {
+    individual: {
       title: string
       description: string
-    },
-    group:  {
+    }
+    group: {
       title: string
       description: string
-    } 
+    }
   }[]
 }
+
+export interface ImageGalleryData extends BaseBlock {
+  title: any
+  gallery: {
+    imageId: number
+    imageIdKey: string
+  }[]
+}
+
 export interface AccordionGroupData {
   tabTitle: string
   contentTitle: string
@@ -169,6 +190,8 @@ export type BlockName =
   | "acf/contact-feed"
   | "acf/accordion-list"
   | "acf/table-desc"
+  | "acf/press-feed"
+  | "acf/image-gallery"
 
 /** Type-narrowing functions */
 export function isHeroData(object: any): object is HeroData {
@@ -234,9 +257,19 @@ export function isInfoIconBlock(object: any): object is InfoIconData {
 export function isContactFeedBlock(object: any): object is ContactFeedListblock {
   return object && typeof object.name === "string" && object.name === "acf/contact-feed"
 }
+
 export function isAccordionListBlock(object: any): object is AccordionListsData {
   return object && typeof object.name === "string" && object.name === "acf/accordion-list"
 }
+
 export function isTableDesc(object: any): object is TableDescData {
   return object && typeof object.name === "string" && object.name === "acf/table-desc"
+}
+
+export function isPressFeedBlock(object: any): object is PressFeedData {
+  return object && typeof object.name === "string" && object.name === "acf/press-feed"
+}
+
+export function isImageGalleryBlock(object: any): object is ImageGalleryData {
+  return object && typeof object.name === "string" && object.name === "acf/image-gallery"
 }

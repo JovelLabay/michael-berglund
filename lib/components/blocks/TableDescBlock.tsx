@@ -1,4 +1,3 @@
-import { Tab, Transition } from "@headlessui/react"
 import classNames from "classnames"
 import { useState } from "react"
 
@@ -46,7 +45,11 @@ export const TableDescBlock = ({ title, tableLists }: TableDescData) => {
           {tabList &&
             tabList.map(data => {
               return (
-                <div key={data.label} className="mr-[32px] mb-[40px] cursor-pointer" onClick={() => handleClick(data.label)}>
+                <div
+                  key={data.label}
+                  className="mr-[32px] mb-[40px] cursor-pointer"
+                  onClick={() => handleClick(data.label)}
+                >
                   <TableHeaderDisplay
                     title={data.label}
                     className={classNames(data.active ? "" : "opacity-25")}
@@ -129,7 +132,12 @@ export const TableDescSubDisplay = ({ description, title, services }: any) => {
 
 export const TableHeaderDisplay = ({ title, className }: any) => {
   return (
-    <div className={classNames(className, "font-gotham text-[14px] font-[350] leading-[28px] tracking-[.15em]"  )}>
+    <div
+      className={classNames(
+        className,
+        "font-gotham text-[14px] font-[350] leading-[28px] tracking-[.15em]"
+      )}
+    >
       {title}
     </div>
   )

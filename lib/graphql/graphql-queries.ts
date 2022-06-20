@@ -150,6 +150,12 @@ export const WP_BLOCKS = gql`
     ... on AcfTableDescBlock {
       attributesJSON
     }
+    ... on AcfPressFeedBlock {
+      attributesJSON
+    }
+    ... on AcfImageGalleryBlock {
+      attributesJSON
+    }
   }
 `
 
