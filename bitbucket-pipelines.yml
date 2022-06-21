@@ -7,21 +7,21 @@ definitions:
   caches:
     node: node_modules/
   steps:
-    - step: &yarn
+    - step: &npm
         name: "Install node dependencies and Test build"
         image: node:16
         caches:
           - node
         script:
-          - yarn
-          - yarn build
+          - npm install
+          - npm run build
 
 pipelines:
   branches:
     develop:
-      - step: *yarn
+      - step: *npm
     staging:
-      - step: *yarn
+      - step: *npm
       # The following deployment steps will be executed for each pipeline run. To configure your steps and conditionally deploy see https://support.atlassian.com/bitbucket-cloud/docs/configure-bitbucket-pipelinesyml/
       - step:
           name: "Deployment to Beta Server"
