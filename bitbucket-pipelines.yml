@@ -1,0 +1,37 @@
+# This is an example Starter pipeline configuration
+# Use a skeleton to build, test and deploy using manual and parallel steps
+# -----
+# You can specify a custom docker image from Docker Hub as your build environment.
+
+definitions:
+  caches:
+    node: node_modules/
+  steps:
+    - step: &yarn
+        name: "Install node dependencies and Test build"
+        image: node:16
+        caches:
+          - node
+        script:
+          - yarn
+          - yarn build
+
+pipelines:
+  branches:
+    develop:
+      - step: *yarn
+    staging:
+      - step: *yarn
+      # The following deployment steps will be executed for each pipeline run. To configure your steps and conditionally deploy see https://support.atlassian.com/bitbucket-cloud/docs/configure-bitbucket-pipelinesyml/
+      - step:
+          name: "Deployment to Beta Server"
+          deployment: staging
+          trigger: "manual"
+          script:
+            - pipe: atlassian/ssh-run:0.4.0
+              variables:
+                SSH_USER: "digital"
+                SERVER: "193.93.251.137"
+                MODE: "command"
+                COMMAND: "./betabuilder/build.sh michaelberglund"
+                SSH_KEY: $SSH_DF_BETA_DIGITAL
