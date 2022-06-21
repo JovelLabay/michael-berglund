@@ -5,6 +5,10 @@
 
 image: atlassian/default-image:3
 
+definitions:
+  caches:
+    node: node_modules/
+
 pipelines:
   branches:
     develop:
@@ -16,9 +20,18 @@ pipelines:
     staging:
       - step:
           name: "Lint"
+          caches:
+            - node
           script:
             - npm install
             - npm run lint
+      - step:
+          name: "Install node dependencies and Test build"
+          caches:
+            - node
+          script:
+            - npm install
+            - npm run build
       # The following deployment steps will be executed for each pipeline run. To configure your steps and conditionally deploy see https://support.atlassian.com/bitbucket-cloud/docs/configure-bitbucket-pipelinesyml/
       - step:
           name: "Deployment to Beta Server"
@@ -31,4 +44,15 @@ pipelines:
                 SERVER: "193.93.251.137"
                 MODE: "command"
                 COMMAND: "./betabuilder/build.sh michaelberglund"
+                SSH_KEY: $SSH_DF_BETA_DIGITAL
+      - step:
+          name: "Restart Service"
+          trigger: "manual"
+          script:
+            - pipe: atlassian/ssh-run:0.4.0
+              variables:
+                SSH_USER: "digital"
+                SERVER: "193.93.251.137"
+                MODE: "command"
+                COMMAND: "sudo service michaelberglund restart"
                 SSH_KEY: $SSH_DF_BETA_DIGITAL
