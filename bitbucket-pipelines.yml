@@ -3,25 +3,22 @@
 # -----
 # You can specify a custom docker image from Docker Hub as your build environment.
 
-definitions:
-  caches:
-    node: node_modules/
-  steps:
-    - step: &npm
-        name: "Install node dependencies and Test build"
-        image: node:16
-        caches:
-          - node
-        script:
-          - npm install
-          - npm run build
+image: atlassian/default-image:3
 
 pipelines:
   branches:
     develop:
-      - step: *npm
+      - step:
+          name: "Install node dependencies and Test build"
+          script:
+            - npm install
+            - npm run build
     staging:
-      - step: *npm
+      - step:
+          name: "Lint"
+          script:
+            - npm install
+            - npm run lint
       # The following deployment steps will be executed for each pipeline run. To configure your steps and conditionally deploy see https://support.atlassian.com/bitbucket-cloud/docs/configure-bitbucket-pipelinesyml/
       - step:
           name: "Deployment to Beta Server"
