@@ -3,25 +3,37 @@
 # -----
 # You can specify a custom docker image from Docker Hub as your build environment.
 
+image: atlassian/default-image:3
+
 definitions:
   caches:
     node: node_modules/
-  steps:
-    - step: &yarn
-        name: "Install node dependencies and Test build"
-        image: node:16
-        caches:
-          - node
-        script:
-          - yarn
-          - yarn build
 
 pipelines:
   branches:
     develop:
-      - step: *yarn
+      - step:
+          name: "Test build"
+          caches:
+            - node
+          script:
+            - npm install
+            - npm run build
     staging:
-      - step: *yarn
+      - step:
+          name: "Lint"
+          caches:
+            - node
+          script:
+            - npm install
+            - npm run lint
+      # - step:
+      #     name: "Install node dependencies and Test build"
+      #     caches:
+      #       - node
+      #     script:
+      #       - npm install
+      #       - npm run build
       # The following deployment steps will be executed for each pipeline run. To configure your steps and conditionally deploy see https://support.atlassian.com/bitbucket-cloud/docs/configure-bitbucket-pipelinesyml/
       - step:
           name: "Deployment to Beta Server"
@@ -34,4 +46,15 @@ pipelines:
                 SERVER: "193.93.251.137"
                 MODE: "command"
                 COMMAND: "./betabuilder/build.sh michaelberglund"
+                SSH_KEY: $SSH_DF_BETA_DIGITAL
+      - step:
+          name: "Restart Service"
+          trigger: "manual"
+          script:
+            - pipe: atlassian/ssh-run:0.4.0
+              variables:
+                SSH_USER: "digital"
+                SERVER: "193.93.251.137"
+                MODE: "command"
+                COMMAND: "sudo service michaelberglund restart"
                 SSH_KEY: $SSH_DF_BETA_DIGITAL
