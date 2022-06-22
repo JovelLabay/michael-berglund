@@ -93,13 +93,15 @@ export interface TabsData extends BaseBlock {
 
 export interface PressFeedData extends BaseBlock {
   title: string
-  pressList: {
-    title: string
-    titleId?: string
-    details: string
-    url: string,
-    urlLabel: string
-  }[]
+  pressList: PressData[]
+}
+
+export interface PressData {
+  title: string
+  titleId?: string
+  details: string
+  url: string
+  urlLabel: string
 }
 
 export interface AccordionListsData extends BaseBlock {
