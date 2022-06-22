@@ -18,7 +18,7 @@ export const ImageGalleryBlock = ({ title, gallery }: ImageGalleryData) => {
   ))
 
   return (
-    <section className="section-padding bg-light-beige">
+    <section className="section-padding">
       <div>
       <h3 className="app-h3 mb-[60px] ">{title}</h3>
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3 lg:grid-cols-3">
