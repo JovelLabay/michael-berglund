@@ -27,7 +27,7 @@ export const PressFeedBlock = ({ title, pressList }: PressFeedData) => {
   return (
     <section className="section-padding  bg-white pb-[120px]">
       <h3 className="app-h3 mb-[60px]">{title}</h3>
-      <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-2">{pressCardList}</div>
+      <div className="grid grid-cols-1 gap-5 md:gap-8 md:grid-cols-2 lg:grid-cols-2">{pressCardList}</div>
       <div className="link-m mt-[60px] flex w-full cursor-pointer items-center justify-center space-x-[10px] text-center font-[350] text-dark-green">
         <span>Load more</span>
         <PlusIcon />
