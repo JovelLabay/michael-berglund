@@ -7,7 +7,7 @@ import { PlusIcon } from "@icons/PlusIcon"
 import { PressFeedData } from "@models/blocks"
 
 export const PressFeedBlock = ({ title, pressList }: PressFeedData) => {
-  const pressCardList = pressList.map(({ title, details, url, titleId }) => {
+  const pressCardList = pressList.map(({ title, details, url, titleId, urlLabel }) => {
     const cardBody = (
       <div className="p-8">
         <NewsPaper />
@@ -15,7 +15,7 @@ export const PressFeedBlock = ({ title, pressList }: PressFeedData) => {
         <Wysiwyg content={details} className="my-5 leading-6" />
         {url && (
           <AppLink href={url} className="flex items-center space-x-[10px]">
-            <span className="link-m font-[350] text-dark-green">Go to article</span>
+            <span className="link-m font-[350] text-dark-green">{ urlLabel ? urlLabel : 'Go to article' }</span>
             <ExternalUrlIcon />
           </AppLink>
         )}

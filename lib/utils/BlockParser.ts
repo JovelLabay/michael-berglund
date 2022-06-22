@@ -381,6 +381,7 @@ const parsePressFeedblock = (data: any): PressFeedData => {
     details: data[`press_list_${index}_details`],
     url: data[`press_list_${index}_url`],
     titleId: data[`_press_list_${index}_title`] + Math.random(),
+    urlLabel: data[`press_list_${index}_url_label`],
   }))
 
   return { title: data["title"], pressList, name: "acf/press-feed" }

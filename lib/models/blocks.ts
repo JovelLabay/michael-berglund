@@ -97,7 +97,8 @@ export interface PressFeedData extends BaseBlock {
     title: string
     titleId?: string
     details: string
-    url: string
+    url: string,
+    urlLabel: string
   }[]
 }
 
