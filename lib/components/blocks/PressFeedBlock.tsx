@@ -12,7 +12,7 @@ export const PressFeedBlock = ({ title, pressList }: PressFeedData) => {
       <div className="p-8">
         <NewsPaper />
         <h4 className="app-h4 mt-[21px]">{title}</h4>
-        <Wysiwyg content={details} className="my-5" />
+        <Wysiwyg content={details} className="my-5 leading-6" />
         {url && (
           <AppLink href={url} className="flex items-center space-x-[10px]">
             <span className="link-m font-[350] text-dark-green">Go to article</span>
