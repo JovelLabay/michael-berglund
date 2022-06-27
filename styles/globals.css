@@ -42,7 +42,7 @@
   }
 
   .body-m {
-    @apply text-body-m;
+    @apply !text-body-m;
   }
 
   .body-l {
