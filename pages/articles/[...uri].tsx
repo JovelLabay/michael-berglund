@@ -65,7 +65,7 @@ export default function SingleArticle({
 
   const responsiveLG = useResponsiveLG()
 
-  const publishedDate = new Date(date).toLocaleDateString("eu-SV", {
+  const publishedDate = new Date(date).toLocaleDateString("en-US", {
     year: "numeric",
     month: "short",
     day: "numeric",
@@ -78,8 +78,12 @@ export default function SingleArticle({
         <div className="section-padding flex">
           <div className="mr-0 w-full lg:mr-[100px] lg:w-1/2 xl:mr-[147px]">
             <div className="mb-10 flex flex-col">
-              <h1 className="lg:app-h2 mb-10 font-lora text-app-h3 md:max-w-[656px]">{title}</h1>
-              <span className="pre-title uppercase text-dark-beige">published {publishedDate}</span>
+              <h1 className="lg:app-h2 mb-6 font-lora text-app-h3 md:max-w-[656px] lg:mb-10">
+                {title}
+              </h1>
+              <span className="pre-title font-[350] uppercase tracking-[0.15em] text-dark-beige">
+                published {publishedDate}
+              </span>
             </div>
             <Wysiwyg className="article" content={content} />
             <ArticleShareLinks />
@@ -106,6 +110,9 @@ export default function SingleArticle({
               </div>
             </div>
           )}
+        </div>
+        <div className="mt-[60px] h-[1px] w-full bg-white lg:mt-[125px]">
+          <hr className="mx-auto w-[95%] bg-normal-beige" />
         </div>
         {blocks ? blocks.map(block => <Block key={block.name} block={block} />) : null}
       </section>
