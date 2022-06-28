@@ -12,6 +12,7 @@ module.exports = {
       "app-h3": ["36px", "40px"],
       "app-h3-mobile": ["28px", "32px"],
       "app-h4": ["24px", "28px"],
+      "app-h4-alt": ["28px", "32px"],
       "body-s": ["14px", "22px"],
       "body-m": ["16px", "24px"],
       "body-l": ["20px", "28px"],

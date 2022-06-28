@@ -24,7 +24,7 @@ export const TabsBlock = ({ heading, tabList, imageId }: TabsData) => {
             <>
               <Disclosure.Button
                 onClick={() => toggleDisc(index)}
-                className="mb-7 text-left text-app-h4 text-light-green lg:mb-8 "
+                className="mb-7 text-left text-app-h4 text-light-green lg:mb-10 lg:text-app-h4-alt"
               >
                 <span
                   className={`${
@@ -43,7 +43,7 @@ export const TabsBlock = ({ heading, tabList, imageId }: TabsData) => {
                 leaveFrom="opacity-100 max-h-[235px] lg:max-h-[200px]"
                 leaveTo="opacity-0 max-h-0"
               >
-                <Disclosure.Panel className="-mt-2 mb-7 md:w-2/3 lg:mb-10 lg:w-full">
+                <Disclosure.Panel className="-mt-5 mb-7 md:w-2/3 lg:mb-10 lg:w-full">
                   <Wysiwyg className="tabs" content={tab.content} />
                 </Disclosure.Panel>
               </Transition>
