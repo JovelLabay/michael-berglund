@@ -14,7 +14,7 @@ export const AccordionItem = ({ accordionGroupDataList }: any) => {
   const [indexOfOpenDisc, setIndexOfOpenDisc] = useState(0)
 
   const toggleDisc = (key: number) => {
-    setIndexOfOpenDisc(prev => (prev !== key ? key : key))
+    setIndexOfOpenDisc(key)
   }
 
   return (
