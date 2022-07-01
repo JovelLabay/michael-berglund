@@ -19,7 +19,7 @@ module.exports = {
       input: ["16px", "18px"],
       "link-footer": ["14px", "16px"],
       "link-s": ["14px", "18px"],
-      "link-m": ["16px", "20px"],
+      "link-m": ["16px", "18px"],
       "quote-l": ["24px", "32px"],
       "pre-title": ["14px", "16px"],
     },
