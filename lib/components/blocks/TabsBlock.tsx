@@ -11,10 +11,6 @@ export const TabsBlock = ({ heading, tabList, imageId }: TabsData) => {
 
   const [indexOfOpenDisc, setIndexOfOpenDisc] = useState(0)
 
-  const toggleDisc = (key: number) => {
-    setIndexOfOpenDisc(prev => (prev !== key ? key : prev))
-  }
-
   return (
     <section className="flex w-full flex-col justify-between bg-white lg:h-[760px] lg:flex-row">
       <div className="section-padding mb-10 flex flex-1 flex-col xl:pr-[147px]">
@@ -23,7 +19,7 @@ export const TabsBlock = ({ heading, tabList, imageId }: TabsData) => {
           <Disclosure key={tab.title}>
             <>
               <Disclosure.Button
-                onClick={() => toggleDisc(index)}
+                onClick={() => setIndexOfOpenDisc(index)}
                 className="mb-7 text-left text-app-h4 text-light-green lg:mb-10 lg:text-app-h4-alt"
               >
                 <span
@@ -36,7 +32,7 @@ export const TabsBlock = ({ heading, tabList, imageId }: TabsData) => {
               </Disclosure.Button>
               <Transition
                 show={index === indexOfOpenDisc}
-                enter="transition-all delay-300 duration-[800ms] ease-out"
+                enter="transition-all delay-300 duration-[600ms] ease-out"
                 enterFrom="opacity-0 max-h-0"
                 enterTo="opacity-100 max-h-[235px] lg:max-h-[200px]"
                 leave="transition-all duration-150 ease-out "
