@@ -49,7 +49,7 @@ export const RelatedArticles = ({ title, postIds }: RelatedArticleData) => {
   )
 
   return (
-    <section className="section-padding bg-white pb-[120px] md:pr-0">
+    <section className="section-padding bg-white pb-[100px] md:pr-0">
       <h3 className="app-h3 mb-10 lg:mb-[60px]">{title}</h3>
       <ProgressSwiper totalPages={totalPages} slidesPerView={slidesPerView} slides={slides} />
     </section>
