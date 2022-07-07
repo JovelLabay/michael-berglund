@@ -13,10 +13,6 @@ export const AccordionItem = ({ accordionGroupDataList }: any) => {
 
   const [indexOfOpenDisc, setIndexOfOpenDisc] = useState(0)
 
-  const toggleDisc = (key: number) => {
-    setIndexOfOpenDisc(prev => (prev !== key ? key : key))
-  }
-
   return (
     <div className="flex w-full flex-col justify-between bg-white ">
       <div className="flex flex-1 flex-col  pb-[60px] lg:pb-[40px]">
@@ -24,7 +20,7 @@ export const AccordionItem = ({ accordionGroupDataList }: any) => {
           <Disclosure key={accordion.tabTitle}>
             <>
               <Disclosure.Button
-                onClick={() => toggleDisc(index)}
+                onClick={() => setIndexOfOpenDisc(index)}
                 className="mb-7 text-left text-app-h4 text-light-green lg:mb-10"
               >
                 <h3
@@ -37,9 +33,9 @@ export const AccordionItem = ({ accordionGroupDataList }: any) => {
               </Disclosure.Button>
               <Transition
                 show={index === indexOfOpenDisc}
-                enter="transition-all delay-100 duration-[500ms] ease-in-out"
+                enter="transition-all delay-100 duration-[800ms] ease-in-out"
                 enterFrom="opacity-0 max-h-0"
-                enterTo="opacity-100 max-h-[700px] lg:max-h-[400px]"
+                enterTo="opacity-100 max-h-[700px] lg:max-h-auto"
                 leave="transition-all duration-300 ease-out "
                 leaveFrom="opacity-100 max-h-[700px] lg:max-h-[400px]"
                 leaveTo="opacity-0 max-h-0"

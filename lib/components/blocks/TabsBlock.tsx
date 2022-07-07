@@ -11,10 +11,6 @@ export const TabsBlock = ({ heading, tabList, imageId }: TabsData) => {
 
   const [indexOfOpenDisc, setIndexOfOpenDisc] = useState(0)
 
-  const toggleDisc = (key: number) => {
-    setIndexOfOpenDisc(prev => (prev !== key ? key : prev))
-  }
-
   return (
     <section className="flex w-full flex-col justify-between bg-white lg:h-[760px] lg:flex-row">
       <div className="section-padding mb-10 flex flex-1 flex-col xl:pr-[147px]">
@@ -23,8 +19,8 @@ export const TabsBlock = ({ heading, tabList, imageId }: TabsData) => {
           <Disclosure key={tab.title}>
             <>
               <Disclosure.Button
-                onClick={() => toggleDisc(index)}
-                className="mb-7 text-left text-app-h4 text-light-green lg:mb-8 "
+                onClick={() => setIndexOfOpenDisc(index)}
+                className="mb-7 text-left text-app-h4 text-light-green lg:mb-10 lg:text-app-h4-alt"
               >
                 <span
                   className={`${
@@ -36,14 +32,14 @@ export const TabsBlock = ({ heading, tabList, imageId }: TabsData) => {
               </Disclosure.Button>
               <Transition
                 show={index === indexOfOpenDisc}
-                enter="transition-all delay-300 duration-[800ms] ease-out"
+                enter="transition-all delay-300 duration-[600ms] ease-out"
                 enterFrom="opacity-0 max-h-0"
                 enterTo="opacity-100 max-h-[235px] lg:max-h-[200px]"
                 leave="transition-all duration-150 ease-out "
                 leaveFrom="opacity-100 max-h-[235px] lg:max-h-[200px]"
                 leaveTo="opacity-0 max-h-0"
               >
-                <Disclosure.Panel className="-mt-2 mb-7 md:w-2/3 lg:mb-10 lg:w-full">
+                <Disclosure.Panel className="-mt-5 mb-7 md:w-2/3 lg:mb-10 lg:w-full">
                   <Wysiwyg className="tabs" content={tab.content} />
                 </Disclosure.Panel>
               </Transition>

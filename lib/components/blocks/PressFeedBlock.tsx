@@ -26,7 +26,7 @@ export const PressFeedBlock = ({ title, pressList }: PressFeedData) => {
   const pressCardList = pressCardDisplay.map(
     ({ title, details, url, titleId, urlLabel }: PressData) => {
       const cardBody = (
-        <div className="p-8">
+        <div className="px-5 py-6 lg:p-8">
           <NewsPaper />
           <h4 className="app-h4 mt-[21px]">{title}</h4>
           <Wysiwyg content={details} className="body-m my-5" />

@@ -1,4 +1,5 @@
 import { Listbox } from "@headlessui/react"
+import classNames from "classnames"
 import Link from "next/link"
 import { SyntheticEvent, useState } from "react"
 
@@ -56,23 +57,27 @@ export const ProfInfoFields = ({
             onChange={value => onChangeHandler(option, value)}
             key={option.title}
           >
-            <div className="relative">
-              <Listbox.Button className="mb-5 flex w-full items-center justify-between rounded-sm bg-white p-4 text-left">
-                <span className="link-m font-[325] text-dark-blue opacity-50">{option.title}</span>
-                <DropdownArrow />
-              </Listbox.Button>
-              <Listbox.Options className="absolute top-14 z-30 w-full overflow-auto rounded-sm bg-white p-2 shadow-lg">
-                {option.values.map(value => (
-                  <Listbox.Option
-                    key={value}
-                    value={value}
-                    className="mb-2 cursor-pointer text-dark-blue"
-                  >
-                    {value}
-                  </Listbox.Option>
-                ))}
-              </Listbox.Options>
-            </div>
+            {({ open }) => (
+              <div className="relative">
+                <Listbox.Button className="mb-5 flex w-full items-center justify-between rounded-sm bg-white p-4 text-left">
+                  <span className="link-m font-[325] text-dark-blue opacity-50">
+                    {option.title}
+                  </span>
+                  <DropdownArrow className={classNames({ "rotate-180": open })} />
+                </Listbox.Button>
+                <Listbox.Options className="absolute top-12 z-30 w-full overflow-auto rounded-sm bg-white px-4 pb-5 shadow-lg">
+                  {option.values.map(value => (
+                    <Listbox.Option
+                      key={value}
+                      value={value}
+                      className="link-m mb-4 cursor-pointer text-dark-blue last-of-type:mb-0"
+                    >
+                      {value}
+                    </Listbox.Option>
+                  ))}
+                </Listbox.Options>
+              </div>
+            )}
           </Listbox>
         ))}
       </div>
