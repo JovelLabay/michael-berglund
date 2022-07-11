@@ -1,9 +1,10 @@
+import classNames from "classnames"
 import { useEffect, useMemo, useRef, useState } from "react"
 
 import { Counter } from "@components/counter"
 import { DataPointsData } from "@models/blocks"
 
-export const DataPointsBlock = ({ points }: DataPointsData) => {
+export const DataPointsBlock = ({ points, backGroundColor }: DataPointsData) => {
   const containerRef = useRef<HTMLDivElement>(null)
   const [isVisible, setIsVisible] = useState(false)
 
@@ -43,7 +44,10 @@ export const DataPointsBlock = ({ points }: DataPointsData) => {
   return (
     <section
       ref={containerRef}
-      className="section-padding flex flex-col items-center justify-between space-y-7 bg-light-beige pb-[60px] md:flex-row md:space-y-0 lg:pb-[120px]"
+      className={classNames(
+        "section-padding flex flex-col items-center justify-between space-y-7 bg-white pb-[60px] md:flex-row md:space-y-0 lg:pb-[120px]",
+        { "bg-light-beige": backGroundColor === "beige" }
+      )}
     >
       {isVisible && _points}
     </section>

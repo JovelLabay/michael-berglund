@@ -43,7 +43,7 @@ export const PressFeedBlock = ({ title, pressList }: PressFeedData) => {
   )
 
   return (
-    <section className="section-padding   bg-white pb-[120px]">
+    <section className="section-padding bg-white">
       <h3 className="app-h3 mb-[60px]">{title}</h3>
       <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-8 lg:grid-cols-2">
         {pressCardList}
@@ -57,7 +57,7 @@ export const PressFeedBlock = ({ title, pressList }: PressFeedData) => {
           <PlusIcon />
         </div>
       )}
-      <hr className="mt-[80px]" />
+      <hr className="mt-[60px] lg:mt-[80px]" />
     </section>
   )
 }

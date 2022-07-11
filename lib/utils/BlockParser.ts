@@ -1,11 +1,39 @@
 import {
-    AccordionListsData, AssignmentsData, BaseBlock, ContactData, ContactFeedListblock,
-    CourseCardsData, DataPointsData, DescWithImageData, HeroData, ImageGalleryData, InfoIconData,
-    isAccordionListBlock, isBigPageLinks, isContactData, isContactFeedBlock, isCourseCardData,
-    isDescWithImageData, isHeroData, isImageGalleryBlock, isInfoIconBlock, isLogowallData,
-    isRegisterCvData, isRelatedArticlesData, isStatsData, isTabsData, LogowallData, PostData,
-    PressFeedData, RegisterCvData, RelatedArticleData, ReviewSliderData, ShortDescData, StatsData,
-    TableDescData, TabsData
+  AccordionListsData,
+  AssignmentsData,
+  BaseBlock,
+  ContactData,
+  ContactFeedListblock,
+  CourseCardsData,
+  DataPointsData,
+  DescWithImageData,
+  HeroData,
+  ImageGalleryData,
+  InfoIconData,
+  isAccordionListBlock,
+  isBigPageLinks,
+  isContactData,
+  isContactFeedBlock,
+  isCourseCardData,
+  isDescWithImageData,
+  isHeroData,
+  isImageGalleryBlock,
+  isInfoIconBlock,
+  isLogowallData,
+  isRegisterCvData,
+  isRelatedArticlesData,
+  isStatsData,
+  isTabsData,
+  LogowallData,
+  PostData,
+  PressFeedData,
+  RegisterCvData,
+  RelatedArticleData,
+  ReviewSliderData,
+  ShortDescData,
+  StatsData,
+  TableDescData,
+  TabsData,
 } from "@models/blocks"
 import { IDropDown } from "@models/common"
 
@@ -368,7 +396,7 @@ const parseDataPointsblock = (data: any): DataPointsData => {
     pointTitle: data[`data_points_${index}_data_title`],
   }))
 
-  return { points: points, name: "acf/data-points" }
+  return { points: points, backGroundColor: data.background_color, name: "acf/data-points" }
 }
 
 const pressFeedPattern = /^press_list_(\d+)_title$/
