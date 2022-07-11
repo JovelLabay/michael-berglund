@@ -23,8 +23,6 @@ export const ArticleShareLinks = ({ title }: ArticleLinksProps) => {
   const linkedInHref = `https://www.linkedin.com/shareArticle?mini=true&url=${postUrl}`
   const emailHref = `mailto:?subject=${postTitle}&body=${postUrl}`
 
-  //'mailto:test@example.com?subject=subject&body=body')
-
   return (
     <div className="mt-10 flex items-center">
       <h6 className="mr-[18px]">Dela Artikleln:</h6>
