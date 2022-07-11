@@ -5,6 +5,7 @@ import { SubmitHandler, useForm } from "react-hook-form"
 import { ArrowRight } from "@icons/ArrowRight"
 import { IDropDown } from "@models/common"
 
+import { FormItem } from "./FormItem"
 import { ProfInfoFields } from "./ProfInfoFields"
 import { ThankYouMsg } from "./ThankYouMsg"
 import { UploadCV } from "./UploadCV"
@@ -85,60 +86,36 @@ export const RegisterForm = ({
     <form onSubmit={handleSubmit(onSubmit)} className="w-full lg:pb-[100px]">
       {activeStep === 1 && (
         <div className="mb-10 flex flex-col space-y-4">
-          <div>
-            <input
-              type="text"
-              className="form-input w-full"
-              placeholder="First name*"
-              {...register("firstName", { required: true, pattern: /^[A-Za-z]+$/i })}
-            />
-            {errors.firstName && "Please fill in field"}
-          </div>
-          <div>
-            <input
-              type="text"
-              className="form-input w-full"
-              placeholder="Last name*"
-              {...register("lastName", { required: true })}
-            />
-            {errors.lastName && "Please fill in field"}
-          </div>
-          <div>
-            <input
-              type="email"
-              className="form-input w-full"
-              placeholder="E-mail address*"
-              {...register("email", { required: true, pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/ })}
-            />
-            {errors.email && "Please fill in field"}
-          </div>
-          <div>
-            <input
-              type="text"
-              className="form-input w-full"
-              placeholder="Phone number*"
-              {...register("phone", {
-                required: true,
-                pattern: /^(?:(?:(?:(?:0{2}?)|(?:\+){1})46)|0)\d{8,9}$/,
-              })}
-            />
-            {errors.phone && "Please fill in field"}
-          </div>
-          <div>
-            <input
-              type="text"
-              className="form-input w-full"
-              placeholder="City*"
-              {...register("city", { required: true })}
-            />
-            {errors.city && "Please fill in field"}
-          </div>
-
-          {pageUrl === "/interim-management" && (
-            <div>
-              <UploadCV upload={handleCvUpload} classname="mb-0 mt-5" />
-            </div>
-          )}
+          <FormItem
+            label="Förnamn*"
+            inputType="text"
+            formRegister={register("firstName", { required: true })}
+            hasInputError={errors.firstName}
+          />
+          <FormItem
+            label="Efternamn*"
+            inputType="text"
+            formRegister={register("lastName", { required: true })}
+            hasInputError={errors.lastName}
+          />
+          <FormItem
+            label="E-postadress*"
+            inputType="email"
+            formRegister={register("email", { required: true })}
+            hasInputError={errors.email}
+          />
+          <FormItem
+            label="Telefonnummer*"
+            inputType="tel"
+            formRegister={register("phone", { required: true })}
+            hasInputError={errors.phone}
+          />
+          <FormItem
+            label="Ort*"
+            inputType="text"
+            formRegister={register("city", { required: true })}
+            hasInputError={errors.city}
+          />
         </div>
       )}
 
@@ -162,12 +139,12 @@ export const RegisterForm = ({
         <div className="flex justify-end">
           {activeStep === 1 ? (
             <button
-              disabled={!isValid}
+              // disabled={!isValid}
               type="button"
               onClick={nextStep}
               className="link-m flex items-center font-[350] text-white "
             >
-              <span>Next Step</span>
+              <span>Nästa steg</span>
               <ArrowRight className="ml-[10px] fill-white" />
             </button>
           ) : (
@@ -177,10 +154,10 @@ export const RegisterForm = ({
                 onClick={prevStep}
                 className="link-m mb-8 flex items-center font-[350] text-white lg:mb-0"
               >
-                <ArrowRight className="mr-[10px] rotate-180 fill-white" /> Previous Step
+                <ArrowRight className="mr-[10px] rotate-180 fill-white" /> Föregående steg
               </button>
               <button type="submit" className={classNames("form-btn")}>
-                Register
+                Registrera
               </button>{" "}
             </div>
           )}

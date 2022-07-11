@@ -7,6 +7,7 @@ import { AddFileIcon } from "@icons/AddFileIcon"
 import { DropdownArrow } from "@icons/DropdownArrow"
 import { IDropDown } from "@models/common"
 
+import { FormItem } from "./FormItem"
 import { UploadCV } from "./UploadCV"
 
 interface ProfInfoFieldsProps {
@@ -39,14 +40,13 @@ export const ProfInfoFields = ({
   return (
     <div className="mb-10 flex flex-col">
       {pageLocation === "/executive-search" && (
-        <div className=" mb-4">
-          <input
-            type="text"
-            className="form-input w-full"
-            placeholder="Link to LinkedIn"
-            {...register("linkedIn", { pattern: /^[A-Za-z]+$/i })}
+        <div className="mb-4">
+          <FormItem
+            label="Länk till LinkedIn-profil"
+            inputType="text"
+            formRegister={register("linkedIn")}
+            hasInputError={errors.linkedIn}
           />
-          {errors.linkedIn && "Please add a valid link"}
         </div>
       )}
 
@@ -83,7 +83,7 @@ export const ProfInfoFields = ({
       </div>
 
       {/* Add cv */}
-      {pageLocation === "/executive-search" && <UploadCV upload={uploadCvhandler} />}
+      <UploadCV upload={uploadCvhandler} />
 
       {/* checkboxes */}
       <div>
@@ -97,7 +97,7 @@ export const ProfInfoFields = ({
             checked={hasConfirmedPolicy}
           />
           <label htmlFor="newsletter" className="body-s text-white">
-            Yes, I would like to receive the Michaël Berglund newsletter.
+            Ja, jag vill anmäla mig till Michaël Berglunds nyhetsbrev.
           </label>
         </div>
 
@@ -109,10 +109,10 @@ export const ProfInfoFields = ({
             {...register("privacyPolicy", { required: true })}
           />
           <label htmlFor="privacy" className="body-s text-white">
-            I agree to the terms and conditions of Michaël Berglund’s{" "}
+            Jag godkänner villkoren i Michaël Berglunds
             {/* TODO: Add policy page href */}
-            <Link href="">
-              <a className="font-[350]">Privacy Policy.</a>
+            <Link href="/privacy-policy">
+              <a className="font-[350]"> integritetspolicy.</a>
             </Link>
           </label>
         </div>

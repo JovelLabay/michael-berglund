@@ -50,7 +50,7 @@ export const RegisterCVBlock = ({
         {activeStep !== 3 && (
           <div className="mb-8 flex items-center justify-between">
             <h5 className="app-h4 text-white">
-              {activeStep === 1 ? "Contact Details " : "Professional Information"}
+              {activeStep === 1 ? "Kontaktuppgifter" : "Professionell information"}
             </h5>
             <span className="pre-title text-light-green">{activeStep} / 2</span>
           </div>
@@ -58,8 +58,8 @@ export const RegisterCVBlock = ({
 
         {activeStep === 1 && (
           <p className="body-m mb-10 pr-5 text-white">
-            Please fill in the form below to complete your registration. Fields marked with * are
-            mandatory.
+            Vänligen fyll i formuläret för att slutföra din registrering. Fält markerade med * är
+            obligatoriska.
           </p>
         )}
         <RegisterForm
