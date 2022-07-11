@@ -80,6 +80,7 @@ export interface DataPointsData extends BaseBlock {
     pointSymbol: string
     pointTitle: string
   }[]
+  backGroundColor: "white" | "beige"
 }
 
 export interface TabsData extends BaseBlock {
