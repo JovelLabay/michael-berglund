@@ -1,44 +1,35 @@
+import { zodResolver } from "@hookform/resolvers/zod"
 import classNames from "classnames"
-import { SyntheticEvent } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
+import { z } from "zod"
 
 import { ArrowRight } from "@icons/ArrowRight"
+import { WarningIcon } from "@icons/WarningIcon"
 import { IDropDown } from "@models/common"
 
 import { FormItem } from "./FormItem"
 import { ProfInfoFields } from "./ProfInfoFields"
-import { ThankYouMsg } from "./ThankYouMsg"
-import { UploadCV } from "./UploadCV"
 
-interface RegisterFormData {
-  firstName: string
-  lastName: string
-  email: string
-  phone: string
-  city: string
-  cvFile?: File
-  newsletter?: boolean
-  privacyPolicy: boolean
-}
-
-interface ExSearchFields extends RegisterFormData {
-  linkedIn: string
-  selectRole: string
-  sizeOfLeaderShip: string
-  internationalExperience: string
-}
-
-interface InterimEffectfields extends RegisterFormData {
-  budgetResponsibility: string
-  sizeOfLeaderShip: string
-  language: string
-  internationalExperience: string
-  compensation: string
-  industry: string
-  availability: string
-}
-
-type FormDataUnion = RegisterFormData | ExSearchFields | InterimEffectfields
+const schema = z.object({
+  firstName: z.string().min(1),
+  lastName: z.string().min(1),
+  email: z.string().min(1).email(),
+  phone: z.string().regex(/^(?:(?:(?:(?:0{2}?)|(?:\+){1})46)|0)\d{8,9}$/),
+  city: z.string().min(1),
+  cvFile: z.any().optional(),
+  coverLetter: z.any().optional(),
+  newsletter: z.boolean(),
+  privacyPolicy: z.literal(true),
+  linkedIn: z.string().optional(),
+  angeRoll: z.string().optional(),
+  storlekPåLedarskap: z.string().optional(),
+  internationellErfarenhet: z.string().optional(),
+  budgetResponsibility: z.string().optional(),
+  language: z.string().optional(),
+  compensation: z.string().optional(),
+  industry: z.string().optional(),
+  availability: z.string().optional(),
+})
 
 interface RegisterFormProps {
   infoDropdown: IDropDown[]
@@ -59,29 +50,50 @@ export const RegisterForm = ({
     register,
     handleSubmit,
     reset,
+    trigger,
     watch,
     setValue,
-    formState: { errors, isValid },
-  } = useForm<FormDataUnion>({
-    mode: "onBlur",
-  })
+    formState: { errors },
+  } = useForm<z.output<typeof schema>>({ mode: "onBlur", resolver: zodResolver(schema) })
 
   // TODO: Connect to external api.
-  const onSubmit: SubmitHandler<FormDataUnion> = data => {
+  const onSubmit: SubmitHandler<z.output<typeof schema>> = async data => {
     console.log(data)
-    reset()
-    nextStep()
-  }
 
-  const handleCvUpload = (e: SyntheticEvent) => {
-    const target = e.target as HTMLInputElement
+    const formData = new FormData()
+    Object.entries(data).forEach(([key, value]) => {
+      formData.append(key, value)
+    })
 
-    if (target.files && target.files.length > 0) {
-      setValue("cvFile", target.files[0])
+    try {
+      const response = await fetch("/api/register-cv", {
+        method: "POST",
+        cache: "no-cache",
+        headers: { "Content-type": "multipart/form-data" },
+        body: formData,
+      })
+
+      if (response.ok) {
+        reset()
+        nextStep()
+      } else {
+        throw new Error(response.statusText)
+      }
+    } catch (err) {
+      console.error(err)
     }
   }
 
-  // TODO: Add styling to error messages.
+  const validateStep1 = async () => {
+    const validate = await trigger(["firstName", "lastName", "email", "phone", "city"])
+
+    if (validate === false) {
+      return
+    } else {
+      nextStep()
+    }
+  }
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="w-full lg:pb-[100px]">
       {activeStep === 1 && (
@@ -98,12 +110,14 @@ export const RegisterForm = ({
             formRegister={register("lastName", { required: true })}
             hasInputError={errors.lastName}
           />
+
           <FormItem
             label="E-postadress*"
             inputType="email"
             formRegister={register("email", { required: true })}
             hasInputError={errors.email}
           />
+
           <FormItem
             label="Telefonnummer*"
             inputType="tel"
@@ -128,20 +142,16 @@ export const RegisterForm = ({
           watch={watch}
           setValue={setValue}
           errors={errors}
-          uploadCvhandler={handleCvUpload}
         />
       )}
-
-      {activeStep === 3 && <ThankYouMsg />}
 
       {/* Buttons */}
       {activeStep !== 3 && (
         <div className="flex justify-end">
           {activeStep === 1 ? (
             <button
-              // disabled={!isValid}
               type="button"
-              onClick={nextStep}
+              onClick={validateStep1}
               className="link-m flex items-center font-[350] text-white "
             >
               <span>Nästa steg</span>
@@ -156,9 +166,19 @@ export const RegisterForm = ({
               >
                 <ArrowRight className="mr-[10px] rotate-180 fill-white" /> Föregående steg
               </button>
-              <button type="submit" className={classNames("form-btn")}>
-                Registrera
-              </button>{" "}
+              <button
+                type="submit"
+                className={classNames("form-btn", { "bg-red-400": Object.keys(errors).length > 0 })}
+              >
+                {Object.keys(errors).length > 0 ? (
+                  <div className="flex items-center justify-center">
+                    <WarningIcon />
+                    <span className="ml-2.5">Granska formuläret</span>
+                  </div>
+                ) : (
+                  "Registrera"
+                )}
+              </button>
             </div>
           )}
         </div>
