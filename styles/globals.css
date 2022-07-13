@@ -90,7 +90,7 @@
   }
 
   .wysiwyg {
-    @apply lg:prose-p:body-l prose-h4:app-h4 prose prose-h4:mt-5 prose-h4:mb-5 prose-h4:font-lora prose-h4:font-normal prose-p:text-body-m prose-a:no-underline prose-a:outline-none prose-a:duration-300 prose-a:ease-in-out hover:prose-a:text-medium-beige;
+    @apply lg:prose-p:body-l prose-h4:app-h4 prose prose-h4:mt-5 prose-h4:mb-5 prose-h4:font-lora prose-h4:font-normal prose-h4:text-white prose-p:text-body-m prose-a:no-underline prose-a:outline-none prose-a:duration-300 prose-a:ease-in-out hover:prose-a:text-medium-beige;
   }
   .wysiwyg.privacy-policy {
     @apply prose-p:link-s prose prose-p:text-dark-beige prose-a:no-underline prose-strong:text-dark-beige prose-strong:transition-colors prose-strong:duration-300 hover:prose-strong:text-medium-beige;
@@ -106,6 +106,18 @@
 
   .wysiwyg.article-card {
     @apply prose-p:body-m;
+  }
+
+  .wysiwyg.cv-form {
+    @apply prose-h4:app-h4 prose-ul:ul-marker prose-p:body-m prose-li:form-marker prose prose-h4:mt-5 prose-h4:mb-5 prose-h4:font-lora prose-h4:font-normal prose-h4:text-white prose-p:text-white prose-ul:mb-10 prose-ul:pl-0 prose-li:text-white;
+  }
+
+  .ul-marker {
+    list-style-position: inside;
+  }
+
+  .form-marker::marker {
+    color: white;
   }
 
   .li-marker::marker {
