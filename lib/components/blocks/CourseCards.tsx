@@ -39,7 +39,7 @@ export const CourseCards = ({ title }: CourseCardsData) => {
 
                 {isCourseFull && (
                   <div className="pre-title absolute bottom-0 w-full bg-orange px-[25px] py-2 text-center font-[350] uppercase tracking-[0.15em] text-white">
-                    Join Waiting List
+                    Väntelista
                   </div>
                 )}
               </div>
@@ -48,15 +48,15 @@ export const CourseCards = ({ title }: CourseCardsData) => {
             const body = (
               <div>
                 <span className="app-h4">{title}</span>
-                <Wysiwyg content={excerpt} className="prose-p:body-m prose my-5" />
+                <Wysiwyg content={excerpt} className="prose-p:body-m prose my-5 font-[350]" />
                 <div className="body-m flex items-center space-x-[22px]">
                   <div className="flex items-center space-x-[10px]">
                     <ClockIcon />
-                    <span>{`${duration} ${durationUnit}`}</span>
+                    <span className="font-[350]">{`${duration} ${durationUnit}`}</span>
                   </div>
                   <div className="flex items-center space-x-[10px]">
                     <GlobeIcon />
-                    <span>{language}</span>
+                    <span className="font-[350]">{language}</span>
                   </div>
                 </div>
               </div>

@@ -1,11 +1,41 @@
 import {
-    AccordionListsData, AssignmentsData, BaseBlock, ContactData, ContactFeedListblock,
-    CourseCardsData, DataPointsData, DescWithImageData, HeroData, ImageGalleryData, InfoIconData,
-    isAccordionListBlock, isBigPageLinks, isContactData, isContactFeedBlock, isCourseCardData,
-    isDescWithImageData, isHeroData, isImageGalleryBlock, isInfoIconBlock, isLogowallData,
-    isRegisterCvData, isRelatedArticlesData, isStatsData, isTabsData, LogowallData, PostData,
-    PressFeedData, RegisterCvData, RelatedArticleData, ReviewSliderData, ShortDescData, StatsData,
-    TableDescData, TabsData
+  AccordionListsData,
+  AssignmentsData,
+  BaseBlock,
+  ContactData,
+  ContactFeedListblock,
+  CourseCardsData,
+  DataPointsData,
+  DescWithImageData,
+  HeroData,
+  ImageGalleryData,
+  InfoIconData,
+  isAccordionListBlock,
+  isBigPageLinks,
+  isContactData,
+  isContactFeedBlock,
+  isCourseCardData,
+  isDescWithImageData,
+  isHeroData,
+  isImageGalleryBlock,
+  isInfoIconBlock,
+  isLogowallData,
+  isRegisterCvData,
+  isRelatedArticlesData,
+  isRightLeftImageBlock,
+  isStatsData,
+  isTabsData,
+  LogowallData,
+  PostData,
+  PressFeedData,
+  RegisterCvData,
+  RelatedArticleData,
+  ReviewSliderData,
+  RightLeftImageData,
+  ShortDescData,
+  StatsData,
+  TableDescData,
+  TabsData,
 } from "@models/blocks"
 import { IDropDown } from "@models/common"
 
@@ -60,6 +90,8 @@ export const parse = (rawBlocks: Blocks): { blocks: BaseBlock[] } => {
         return parsePressFeedblock(data)
       case "acf/image-gallery":
         return parseImageGalleryBlock(data)
+      case "acf/right-left-image":
+        return parseRightLeftImageBlock(data)
       default:
         throw new Error(`Unknown block type: ${name}`)
     }
@@ -80,7 +112,8 @@ export const getImageIds = (blocks: BaseBlock[]): number[] => {
     )
       return block.gallery.map(({ imageId }: any) => imageId)
 
-    if (isDescWithImageData(block) || isTabsData(block)) return [block.imageId]
+    if (isDescWithImageData(block) || isTabsData(block) || isRightLeftImageBlock(block))
+      return [block.imageId]
 
     if (isContactFeedBlock(block)) return [block.coverPhotoId]
 
@@ -207,7 +240,19 @@ const parseDescWithImageBlock = (data: any): DescWithImageData => {
     heading: data.heading,
     description: data.description,
     imageId: data.image,
+    backgroundColor: data.background_color,
     name: "acf/desc-image",
+  }
+}
+
+const parseRightLeftImageBlock = (data: any): RightLeftImageData => {
+  return {
+    heading: data.heading,
+    description: data.description,
+    imageId: data.image,
+    link: data.link,
+    position: data.image_position,
+    name: "acf/right-left-image",
   }
 }
 
@@ -368,7 +413,7 @@ const parseDataPointsblock = (data: any): DataPointsData => {
     pointTitle: data[`data_points_${index}_data_title`],
   }))
 
-  return { points: points, name: "acf/data-points" }
+  return { points: points, backGroundColor: data.background_color, name: "acf/data-points" }
 }
 
 const pressFeedPattern = /^press_list_(\d+)_title$/
@@ -454,19 +499,17 @@ const parseTableDescBlock = (data: any): TableDescData => {
 
   let tableLists: {
     services: any
-    group: { title: any; description: any }
-    individual: { title: any; description: any }
+    group: { content: any }
+    individual: { content: any }
   }[] = []
   indexes.forEach(index => {
     tableLists.push({
       services: data[`table_${index}_services`],
       group: {
-        title: data[`table_${index}_group_0_title`],
-        description: data[`table_${index}_group_0_description`],
+        content: data[`table_${index}_group`],
       },
       individual: {
-        title: data[`table_${index}_individual_0_title`],
-        description: data[`table_${index}_individual_0_description`],
+        content: data[`table_${index}_individual`],
       },
     })
   })

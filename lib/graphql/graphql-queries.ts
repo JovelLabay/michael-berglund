@@ -156,6 +156,9 @@ export const WP_BLOCKS = gql`
     ... on AcfImageGalleryBlock {
       attributesJSON
     }
+    ... on AcfRightLeftImageBlock {
+      attributesJSON
+    }
   }
 `
 

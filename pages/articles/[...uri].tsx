@@ -65,7 +65,7 @@ export default function SingleArticle({
 
   const responsiveLG = useResponsiveLG()
 
-  const publishedDate = new Date(date).toLocaleDateString("en-US", {
+  const publishedDate = new Date(date).toLocaleDateString("sv-SV", {
     year: "numeric",
     month: "short",
     day: "numeric",
@@ -74,7 +74,14 @@ export default function SingleArticle({
   return (
     <Layout {...globalFields} pageData={pageData} images={images} postMap={postMap}>
       <section className="bg-white">
-        <div className="inset-0 h-[440px] bg-hero-pattern"></div>
+        <div className="aspect-w-[375] aspect-h-[320] relative inset-0 lg:aspect-w-[1440] lg:aspect-h-[600]">
+          <Image
+            src={featuredImage.node.mediaItemUrl}
+            alt={featuredImage.node.altText}
+            layout="fill"
+            objectFit="cover"
+          />
+        </div>
         <div className="section-padding flex">
           <div className="mr-0 w-full lg:mr-[100px] lg:w-1/2 xl:mr-[147px]">
             <div className="mb-10 flex flex-col">
@@ -82,7 +89,7 @@ export default function SingleArticle({
                 {title}
               </h1>
               <span className="pre-title font-[350] uppercase tracking-[0.15em] text-dark-beige">
-                published {publishedDate}
+                publicerad {publishedDate}
               </span>
             </div>
             <Wysiwyg className="article" content={content} />

@@ -2,7 +2,7 @@ import { useGlobalContext } from "@context/global"
 import { useRouter } from "next/router"
 import { useCallback, useState } from "react"
 
-import { RegisterForm } from "@components/register-form"
+import { RegisterForm, ThankYouMsg } from "@components/register-form"
 import { Wysiwyg } from "@components/shared/Wysiwyg"
 import { DownloadIcon } from "@icons/DownloadIcon"
 import { RegisterCvData } from "@models/blocks"
@@ -34,7 +34,7 @@ export const RegisterCVBlock = ({
     <section id="register-cv" className="flex flex-col bg-dark-green lg:flex-row ">
       <div className="w-full flex-1 bg-register-pattern py-[60px] px-5 lg:w-1/2 lg:py-[100px] lg:pl-12 lg:pr-20">
         <h3 className="app-h3 mb-[60px] text-white">{heading}</h3>
-        <Wysiwyg content={description} className="body-m mb-[26px] text-white" />
+        <Wysiwyg content={description} className="cv-form body-m mb-[26px]" />
         {downloadLinkTitle && (
           <a
             href={files![downloadFile!]}
@@ -50,7 +50,7 @@ export const RegisterCVBlock = ({
         {activeStep !== 3 && (
           <div className="mb-8 flex items-center justify-between">
             <h5 className="app-h4 text-white">
-              {activeStep === 1 ? "Contact Details " : "Professional Information"}
+              {activeStep === 1 ? "Kontaktuppgifter" : "Professionell information"}
             </h5>
             <span className="pre-title text-light-green">{activeStep} / 2</span>
           </div>
@@ -58,17 +58,22 @@ export const RegisterCVBlock = ({
 
         {activeStep === 1 && (
           <p className="body-m mb-10 pr-5 text-white">
-            Please fill in the form below to complete your registration. Fields marked with * are
-            mandatory.
+            Vänligen fyll i formuläret för att slutföra din registrering. Fält markerade med * är
+            obligatoriska.
           </p>
         )}
-        <RegisterForm
-          infoDropdown={infoDropdown}
-          activeStep={activeStep}
-          nextStep={handleNextStep}
-          prevStep={handlePrevStep}
-          pageUrl={pageLocation}
-        />
+
+        {activeStep !== 3 && (
+          <RegisterForm
+            infoDropdown={infoDropdown}
+            activeStep={activeStep}
+            nextStep={handleNextStep}
+            prevStep={handlePrevStep}
+            pageUrl={pageLocation}
+          />
+        )}
+
+        {activeStep === 3 && <ThankYouMsg />}
       </div>
     </section>
   )
