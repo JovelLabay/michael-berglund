@@ -29,6 +29,7 @@ export interface DescWithImageData extends BaseBlock {
   heading: string
   description: string
   imageId: number
+  backgroundColor: "white" | "beige"
 }
 
 export interface LogowallData extends BaseBlock {
@@ -120,12 +121,10 @@ export interface TableDescData extends BaseBlock {
   tableLists: {
     services: string
     individual: {
-      title: string
-      description: string
+      content: string
     }
     group: {
-      title: string
-      description: string
+      content: string
     }
   }[]
 }
@@ -175,6 +174,14 @@ export interface CourseCardsData extends BaseBlock {
   title: string
 }
 
+export interface RightLeftImageData extends BaseBlock {
+  heading: string
+  description: string
+  imageId: number
+  link: string
+  position: "left" | "right"
+}
+
 export type BlockName =
   | "acf/hero"
   | "acf/stats"
@@ -196,6 +203,7 @@ export type BlockName =
   | "acf/table-desc"
   | "acf/press-feed"
   | "acf/image-gallery"
+  | "acf/right-left-image"
 
 /** Type-narrowing functions */
 export function isHeroData(object: any): object is HeroData {
@@ -276,4 +284,8 @@ export function isPressFeedBlock(object: any): object is PressFeedData {
 
 export function isImageGalleryBlock(object: any): object is ImageGalleryData {
   return object && typeof object.name === "string" && object.name === "acf/image-gallery"
+}
+
+export function isRightLeftImageBlock(object: any): object is RightLeftImageData {
+  return object && typeof object.name === "string" && object.name === "acf/right-left-image"
 }

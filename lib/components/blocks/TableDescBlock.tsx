@@ -3,11 +3,10 @@ import { useState } from "react"
 
 import { Wysiwyg } from "@components/shared/Wysiwyg"
 import { useMediaQuery } from "@hooks/shared"
-import { PlusIcon } from "@icons/PlusIcon"
 import { TableDescData } from "@models/blocks"
 
 export const TableDescBlock = ({ title, tableLists }: TableDescData) => {
-  const isMobile = useMediaQuery(`(max-width: 640px)`)
+  const isMobile = useMediaQuery(`(max-width: 767px)`)
   const [tabList, setTabList] = useState([
     {
       label: "INDIVIDUAL",
@@ -29,19 +28,19 @@ export const TableDescBlock = ({ title, tableLists }: TableDescData) => {
   }
 
   return (
-    <section className="section-padding bg-white">
+    <section className="section-padding bg-white pb-[60px]">
       <h3 className="app-h3 mb-10 lg:mb-[60px]">{title}</h3>
-      <div className="hidden grid-cols-1 gap-6 sm:grid sm:grid-cols-8 sm:gap-8">
+      <div className="hidden grid-cols-1 gap-6 md:grid md:grid-cols-12 md:gap-8">
         <div className="col-span-2"></div>
-        <div className="col-span-3 mb-[60px]">
+        <div className="col-span-5 mb-[60px]  md:pl-[10px] lg:pl-0">
           <TableHeaderDisplay title="INDIVIDUAL" />
         </div>
-        <div className="col-span-3 mb-[60px]">
+        <div className="col-span-5 mb-[60px]">
           <TableHeaderDisplay title="GROUP" />
         </div>
       </div>
       <div className="text-center">
-        <div className="inline-flex sm:hidden">
+        <div className="inline-flex md:hidden">
           {tabList &&
             tabList.map(data => {
               return (
@@ -62,24 +61,25 @@ export const TableDescBlock = ({ title, tableLists }: TableDescData) => {
       {tableLists &&
         tableLists.map(data => {
           return (
-            <div key={data.services} className="grid grid-cols-1 gap-6 sm:grid-cols-8 sm:gap-8">
-              <div className="hidden sm:col-span-2 sm:block">
+            <div
+              key={data.services}
+              className="mb-10 grid grid-cols-1 gap-6 md:grid-cols-12 md:gap-8 lg:mb-[60px]"
+            >
+              <div className="mr-10 hidden md:col-span-2 md:block">
                 <TableHeaderDisplay title={data.services} />{" "}
               </div>
               {!isMobile ? (
                 <>
-                  <div className="sm:col-span-3">
+                  <div className="md:col-span-5 md:pl-[10px] lg:pl-0">
                     <TableDescSubDisplay
-                      title={data.individual.title}
                       services={data.services}
-                      description={data.individual.description}
+                      description={data.individual.content}
                     />
                   </div>
-                  <div className="sm:col-span-3">
+                  <div className="md:col-span-5">
                     <TableDescSubDisplay
-                      title={data.group.title}
                       services={data.services}
-                      description={data.group.description}
+                      description={data.group.content}
                     />
                   </div>
                 </>
@@ -87,9 +87,8 @@ export const TableDescBlock = ({ title, tableLists }: TableDescData) => {
                 <>
                   <div>
                     <TableDescSubDisplay
-                      title={data.individual.title}
                       services={data.services}
-                      description={data.individual.description}
+                      description={data.individual.content}
                     />
                   </div>
                 </>
@@ -97,9 +96,8 @@ export const TableDescBlock = ({ title, tableLists }: TableDescData) => {
                 <>
                   <div>
                     <TableDescSubDisplay
-                      title={data.group.title}
                       services={data.services}
-                      description={data.group.description}
+                      description={data.group.content}
                     />
                   </div>
                 </>
@@ -111,25 +109,25 @@ export const TableDescBlock = ({ title, tableLists }: TableDescData) => {
   )
 }
 
-export const TableDescSubDisplay = ({ description, title, services }: any) => {
+export const TableDescSubDisplay = ({ description, services }: any) => {
   return (
     <div>
       <span>
-        <TableHeaderDisplay title={services} className="mb-[20px] text-dark-beige sm:hidden" />
+        <TableHeaderDisplay title={services} className="mb-[20px] text-dark-beige md:hidden" />
       </span>
-      <h5 className="app-h4 mb-[24px]">{title}</h5>
-      <Wysiwyg content={description} className="body-l prose-p:body-l prose mb-[24px]" />
-      <div className=" link-m  mb-[60px] flex items-center space-x-[10px] font-gotham text-dark-green">
-        <span className="font-[350]">Read more</span>
-        <PlusIcon className="fill-dark-green" />
-      </div>
+      <Wysiwyg content={description} className="table" />
     </div>
   )
 }
 
 export const TableHeaderDisplay = ({ title, className }: any) => {
   return (
-    <div className={classNames(className, "pre-title font-[350] uppercase tracking-[0.15em]")}>
+    <div
+      className={classNames(
+        className,
+        "pre-title font-[350] uppercase leading-[28px] tracking-[0.15em]"
+      )}
+    >
       {title}
     </div>
   )
