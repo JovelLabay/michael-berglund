@@ -1,12 +1,14 @@
-import { Listbox } from "@headlessui/react"
+import { Listbox, Transition } from "@headlessui/react"
 import classNames from "classnames"
 import Link from "next/link"
-import { SyntheticEvent, useState } from "react"
+import { useState } from "react"
+import { UseFormRegister, UseFormRegisterReturn, UseFormSetValue } from "react-hook-form"
 
 import { AddFileIcon } from "@icons/AddFileIcon"
 import { DropdownArrow } from "@icons/DropdownArrow"
 import { IDropDown } from "@models/common"
 
+import { FormItem } from "./FormItem"
 import { UploadCV } from "./UploadCV"
 
 interface ProfInfoFieldsProps {
@@ -16,7 +18,6 @@ interface ProfInfoFieldsProps {
   setValue: any
   errors: any
   pageLocation: string
-  uploadCvhandler: (e: SyntheticEvent) => void
 }
 
 export const ProfInfoFields = ({
@@ -26,30 +27,40 @@ export const ProfInfoFields = ({
   setValue,
   errors,
   pageLocation,
-  uploadCvhandler,
 }: ProfInfoFieldsProps) => {
-  const [hasConfirmedPolicy, setHasConfirmedPolicy] = useState(true)
+  const [hasConfirmedNewsletter, setHasConfirmedNewsletter] = useState(true)
 
-  const handleConfirmPolicy = () => setHasConfirmedPolicy(!hasConfirmedPolicy)
+  const handleConfirmNewsletter = () => setHasConfirmedNewsletter(!hasConfirmedNewsletter)
 
   const onChangeHandler = (dropdown: IDropDown, value: string): any => {
     setValue(dropdown.fieldName, value)
   }
 
+  const gdprLabel = (
+    <label htmlFor="privacy" className="body-s text-white">
+      Jag godkänner villkoren i Michaël Berglunds
+      {/* TODO: Add policy page href */}
+      <Link href="/privacy-policy">
+        <a className="font-[350]"> integritetspolicy.</a>
+      </Link>
+    </label>
+  )
+
   return (
     <div className="mb-10 flex flex-col">
+      {/* LinkedIn */}
       {pageLocation === "/executive-search" && (
-        <div className=" mb-4">
-          <input
-            type="text"
-            className="form-input w-full"
-            placeholder="Link to LinkedIn"
-            {...register("linkedIn", { pattern: /^[A-Za-z]+$/i })}
+        <div className="mb-4">
+          <FormItem
+            label="Länk till LinkedIn-profil"
+            inputType="text"
+            formRegister={register("linkedIn")}
+            hasInputError={errors.linkedIn}
           />
-          {errors.linkedIn && "Please add a valid link"}
         </div>
       )}
 
+      {/* Dropdowns */}
       <div className="mb-4 flex flex-col">
         {infoDropdown.map(option => (
           <Listbox
@@ -65,58 +76,72 @@ export const ProfInfoFields = ({
                   </span>
                   <DropdownArrow className={classNames({ "rotate-180": open })} />
                 </Listbox.Button>
-                <Listbox.Options className="absolute top-12 z-30 w-full overflow-auto rounded-sm bg-white px-4 pb-5 shadow-lg">
-                  {option.values.map(value => (
-                    <Listbox.Option
-                      key={value}
-                      value={value}
-                      className="link-m mb-4 cursor-pointer text-dark-blue last-of-type:mb-0"
-                    >
-                      {value}
-                    </Listbox.Option>
-                  ))}
-                </Listbox.Options>
+                <Transition
+                  show={open}
+                  enter="transition ease-in duration-75"
+                  enterFrom="opacity-0"
+                  enterTo="opacity-100"
+                  leave="transition ease-in duration-75"
+                  leaveFrom="opacity-100"
+                  leaveTo="opacity-0"
+                >
+                  <Listbox.Options className="absolute top-12 z-30 w-full overflow-auto rounded-sm bg-white px-4 pb-5 shadow-lg">
+                    {option.values.map(value => (
+                      <Listbox.Option
+                        key={value}
+                        value={value}
+                        className=" mb-4 cursor-pointer last-of-type:mb-0"
+                      >
+                        {({ selected, active }) => (
+                          <span
+                            className={`${
+                              active || selected ? "text-dark-beige" : "text-dark-blue"
+                            } link-m font-[325]`}
+                          >
+                            {value}
+                          </span>
+                        )}
+                      </Listbox.Option>
+                    ))}
+                  </Listbox.Options>
+                </Transition>
               </div>
             )}
           </Listbox>
         ))}
       </div>
 
-      {/* Add cv */}
-      {pageLocation === "/executive-search" && <UploadCV upload={uploadCvhandler} />}
+      {/* Add cv & letter*/}
+      <div className="mb-10 flex flex-col">
+        <h4 className="pre-title mb-4 uppercase text-light-green">
+          {pageLocation === "/interim-management"
+            ? "Ladda upp CV & Personligt brev"
+            : "Ladda upp ditt CV"}
+        </h4>
+        <UploadCV forId="cv" formRegister={register("cvFile")} classname="mb-5" />
 
-      {/* checkboxes */}
+        {pageLocation === "/interim-management" && (
+          <UploadCV forId="letter" formRegister={register("coverLetter")} />
+        )}
+      </div>
+
+      {/* Newsletter */}
       <div>
-        <div className="mb-4 flex items-center">
-          <input
-            id="newsletter"
-            type="checkbox"
-            {...register("newsletter")}
-            className="form-chk mr-5 h-6 w-6 "
-            onChange={handleConfirmPolicy}
-            checked={hasConfirmedPolicy}
-          />
-          <label htmlFor="newsletter" className="body-s text-white">
-            Yes, I would like to receive the Michaël Berglund newsletter.
-          </label>
-        </div>
+        <FormItem
+          label="Ja, jag vill anmäla mig till Michaël Berglunds nyhetsbrev."
+          inputType="checkbox"
+          formRegister={register("newsletter")}
+          isDefaultChecked={hasConfirmedNewsletter}
+          onCheck={handleConfirmNewsletter}
+        />
 
-        <div className="flex items-center">
-          <input
-            id="privacy"
-            type="checkbox"
-            className="form-chk mr-5 h-6 w-6"
-            {...register("privacyPolicy", { required: true })}
-          />
-          <label htmlFor="privacy" className="body-s text-white">
-            I agree to the terms and conditions of Michaël Berglund’s{" "}
-            {/* TODO: Add policy page href */}
-            <Link href="">
-              <a className="font-[350]">Privacy Policy.</a>
-            </Link>
-          </label>
-        </div>
-        {errors.privacyPolicy && "Please agree to policy"}
+        {/* Privacy policy */}
+        <FormItem
+          label={gdprLabel}
+          inputType="checkbox"
+          formRegister={register("privacyPolicy", { required: true })}
+          hasInputError={errors.privacyPolicy}
+        />
       </div>
     </div>
   )

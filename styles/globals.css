@@ -90,7 +90,7 @@
   }
 
   .wysiwyg {
-    @apply lg:prose-p:body-l prose-h4:app-h4 prose prose-h4:mt-5 prose-h4:mb-5 prose-h4:font-lora prose-h4:font-normal prose-p:text-body-m prose-a:no-underline prose-a:outline-none prose-a:duration-300 prose-a:ease-in-out hover:prose-a:text-medium-beige;
+    @apply lg:prose-p:body-l prose-h4:app-h4 prose prose-h4:mt-5 prose-h4:mb-5 prose-h4:font-lora prose-h4:font-normal prose-h4:text-white prose-p:text-body-m prose-a:no-underline prose-a:outline-none prose-a:duration-300 prose-a:ease-in-out hover:prose-a:text-medium-beige;
   }
   .wysiwyg.privacy-policy {
     @apply prose-p:link-s prose prose-p:text-dark-beige prose-a:no-underline prose-strong:text-dark-beige prose-strong:transition-colors prose-strong:duration-300 hover:prose-strong:text-medium-beige;
@@ -106,6 +106,18 @@
 
   .wysiwyg.article-card {
     @apply prose-p:body-m;
+  }
+
+  .wysiwyg.cv-form {
+    @apply prose-h4:app-h4 prose-ul:ul-marker prose-p:body-m prose-li:form-marker prose prose-h4:mt-5 prose-h4:mb-5 prose-h4:font-lora prose-h4:font-normal prose-h4:text-white prose-p:text-white prose-ul:mb-10 prose-ul:pl-0 prose-li:text-white;
+  }
+
+  .ul-marker {
+    list-style-position: inside;
+  }
+
+  .form-marker::marker {
+    color: white;
   }
 
   .li-marker::marker {
@@ -174,8 +186,20 @@
     @apply px-5 pt-10 lg:px-12 lg:pt-[100px];
   }
 
+  /* Remove background color for autofill input values */
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+  }
+
   .form-input {
-    @apply placeholder:link-m rounded-sm p-4 outline-dark-green placeholder:font-[325] placeholder:text-dark-blue placeholder:opacity-50;
+    @apply appearance-none rounded-sm pb-1 pt-6 pl-4 font-[325] focus:outline-none;
+  }
+
+  .form-label {
+    @apply absolute top-2 left-4 text-form-label text-dark-blue opacity-50 transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-link-m peer-focus:top-2 peer-focus:text-form-label peer-focus:text-dark-blue peer-focus:opacity-50;
   }
 
   .form-btn {
@@ -183,7 +207,7 @@
   }
 
   .form-chk {
-    @apply relative cursor-pointer rounded-sm border-0 bg-white text-white transition before:absolute before:top-px before:left-[7px] before:h-[16px] before:w-[8px] before:rotate-45 before:border-b-2 before:border-r-2 before:border-transparent  before:transition  checked:bg-none checked:before:border-orange checked:before:bg-none checked:hover:border-orange focus:ring-0 focus:ring-offset-0;
+    @apply relative cursor-pointer appearance-none rounded-sm border-0 bg-white text-white transition before:absolute before:top-px before:left-[9px] before:h-[16px] before:w-[8px] before:rotate-45 before:border-b-2 before:border-r-2 before:border-transparent  before:transition  checked:bg-none checked:before:border-orange checked:before:bg-none checked:hover:border-orange focus:ring-0 focus:ring-offset-0;
   }
 
   .profile-card {
