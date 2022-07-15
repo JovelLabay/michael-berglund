@@ -1,8 +1,26 @@
 import {
-    BaseBlock, isAccordionListBlock, isAssignmentsData, isBigPageLinks, isContactData,
-    isContactFeedBlock, isCourseCardData, isDataPointsData, isDescWithImageData, isHeroData,
-    isImageGalleryBlock, isInfoIconBlock, isLogowallData, isPressFeedBlock, isRegisterCvData,
-    isRelatedArticlesData, isReviewSilderData, isShortDescData, isStatsData, isTableDesc, isTabsData
+  BaseBlock,
+  isAccordionListBlock,
+  isAssignmentsData,
+  isBigPageLinks,
+  isContactData,
+  isContactFeedBlock,
+  isCourseCardData,
+  isDataPointsData,
+  isDescWithImageData,
+  isHeroData,
+  isImageGalleryBlock,
+  isInfoIconBlock,
+  isLogowallData,
+  isPressFeedBlock,
+  isRegisterCvData,
+  isRelatedArticlesData,
+  isReviewSilderData,
+  isRightLeftImageBlock,
+  isShortDescData,
+  isStatsData,
+  isTableDesc,
+  isTabsData,
 } from "@models/blocks"
 
 import { DescWithImgBlock } from "./"
@@ -21,6 +39,7 @@ import { PressFeedBlock } from "./PressFeedBlock"
 import { RegisterCVBlock } from "./RegisterCVBlock"
 import { RelatedArticles } from "./RelatedArticles"
 import { ReviewSlider } from "./ReviewSlider"
+import { RightLeftImageBlock } from "./RightLeftImageBlock"
 import { ShortDescBlock } from "./ShortDescBlock"
 import { StatsBlock } from "./StatsBlock"
 import { TableDescBlock } from "./TableDescBlock"
@@ -47,6 +66,7 @@ export const Block = ({ block }: { block: BaseBlock }) => {
   if (isTableDesc(block)) return <TableDescBlock {...block} />
   if (isPressFeedBlock(block)) return <PressFeedBlock {...block} />
   if (isImageGalleryBlock(block)) return <ImageGalleryBlock {...block} />
+  if (isRightLeftImageBlock(block)) return <RightLeftImageBlock {...block} />
 
   return null
 }
