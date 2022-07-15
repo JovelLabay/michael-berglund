@@ -100,6 +100,10 @@
     @apply prose-h4:body-m lg:prose-h4:body-l prose-h2:app-h4 prose-blockquote:wp-block-quote prose-figure:wp-block-image prose-figcaption:body-s lg:prose-p:body-m prose-a:article-link prose-li:body-m prose-li:li-marker prose w-full prose-h4:mb-10 prose-h4:font-gotham prose-h4:font-[325] prose-p:mb-10 prose-p:font-lora prose-p:font-[350] prose-p:text-dark-blue prose-blockquote:mb-10 prose-blockquote:border-none prose-figcaption:text-dark-blue prose-li:font-gotham prose-li:font-[325] prose-li:text-dark-blue;
   }
 
+  .wysiwyg.accordian {
+    @apply prose-p:body-m prose;
+  }
+
   .wysiwyg.image-desc {
     @apply prose-p:body-m prose;
   }

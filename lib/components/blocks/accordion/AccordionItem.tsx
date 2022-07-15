@@ -57,7 +57,7 @@ export const AccordionItem = ({ accordionGroupDataList }: any) => {
                       <h3 className="app-h3 mb-6 text-dark-green lg:mb-8">
                         {accordion.contentTitle}
                       </h3>
-                      <Wysiwyg content={accordion.content} />
+                      <Wysiwyg content={accordion.content} className="accordian" />
 
                       {accordion.externalUrl && (
                         <AppLink
