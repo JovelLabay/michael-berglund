@@ -6,8 +6,17 @@ import { SubmitHandler, useForm } from "react-hook-form"
 import { Wysiwyg } from "@components/shared/Wysiwyg"
 import { SendEmail } from "@icons/SendEmail"
 import { NewsletterFormValues } from "@models/forms"
+import CloseIcon from "@icons/CloseIcon"
+import DismissIcon from "@icons/DismissIcon"
 
-export const NewsLetter = () => {
+export const NewsLetter = (props: any) => {
+  const { showPopUp, setShowPopUp } = props
+
+  const closePopUp = () => {
+    setShowPopUp(false)
+    localStorage.setItem("newsLetterPopUp", "true")
+  }
+
   const [submitted, setSubmitted] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState(false)
@@ -55,12 +64,24 @@ export const NewsLetter = () => {
   return (
     <section
       id="newsletterSection"
-      className="section-padding bg-light-beige pb-[120px] text-center"
+      className={
+        showPopUp
+          ? "bg-light-beige p-10 text-center"
+          : "section-padding bg-light-beige pb-[120px] text-center"
+      }
     >
+      {showPopUp && (
+        <div className="flex justify-end">
+          <button onClick={closePopUp}>
+            <DismissIcon />
+          </button>
+        </div>
+      )}
+
       <div className="mx-auto max-w-[650px] ">
         {!submitted && (
           <>
-            <h3 className="app-h3">{title}</h3>
+            <h3 className="app-h3 text-dark-blue">{title}</h3>
             <span className="mt-10 mb-8 inline-block">
               <Wysiwyg className="prose-p:body-m prose" content={description} />
             </span>
