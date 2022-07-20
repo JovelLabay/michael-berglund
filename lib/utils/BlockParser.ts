@@ -236,11 +236,30 @@ const parseStatsBlock = (data: any): StatsData => {
 }
 
 const parseDescWithImageBlock = (data: any): DescWithImageData => {
+  let subHeading: any = []
+  let subDescription: any = []
+
+  // SUB HEADING
+  Object.entries(data).filter(item => {
+    if (item[0].startsWith("sub_heading_")) {
+      subHeading.push(item[1])
+    }
+  })
+
+  // SUB DESCRIPTION
+  Object.entries(data).filter(item => {
+    if (item[0].startsWith("sub_description_")) {
+      subDescription.push(item[1])
+    }
+  })
+
   return {
     heading: data.heading,
     description: data.description,
     imageId: data.image,
     backgroundColor: data.background_color,
+    subHeadings: subHeading,
+    subDescription: subDescription,
     name: "acf/desc-image",
   }
 }
@@ -371,13 +390,13 @@ const parseReviewSilderBlock = (data: any): ReviewSliderData => {
 const relatedArticlePattern = /^articles_(\d+)_article$/
 
 const parseRelatedArticles = (data: any): RelatedArticleData => {
-  const { title } = data
+  const { title, url_label, url } = data
 
   const postIds = Object.keys(data)
     .filter(key => relatedArticlePattern.test(key))
     .map(key => data[key])
 
-  return { title, postIds, name: "acf/related-articles" }
+  return { title, postIds, urlLabel: url_label, url, name: "acf/related-articles" }
 }
 
 const parseShortDescblock = (data: any): ShortDescData => {

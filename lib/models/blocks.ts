@@ -29,6 +29,8 @@ export interface DescWithImageData extends BaseBlock {
   heading: string
   description: string
   imageId: number
+  subHeadings: string[]
+  subDescription: string[]
   backgroundColor: "white" | "beige"
 }
 
@@ -57,7 +59,10 @@ export interface ReviewSliderData extends BaseBlock {
     reviewCompany: string
   }[]
 }
-export interface RelatedArticleData extends PostData {}
+export interface RelatedArticleData extends PostData {
+  urlLabel: string
+  url: string
+}
 
 export interface PostData extends BaseBlock {
   title: string

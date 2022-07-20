@@ -8,8 +8,10 @@ import { ProgressSwiper } from "@components/swiper"
 import { useResponsiveMD } from "@hooks/shared"
 import { RelatedArticleData } from "@models/blocks"
 import { Post } from "@models/common"
+import { ArrowRight } from "@icons/ArrowRight"
+import { SwiperArrowRight } from "@icons/SwiperArrowRight"
 
-export const RelatedArticles = ({ title, postIds }: RelatedArticleData) => {
+export const RelatedArticles = ({ title, postIds, urlLabel, url }: RelatedArticleData) => {
   const { postMap } = useGlobalContext()
   const responsiveMD = useResponsiveMD()
 
@@ -50,7 +52,18 @@ export const RelatedArticles = ({ title, postIds }: RelatedArticleData) => {
 
   return (
     <section className="section-padding bg-white pb-[100px] md:pr-0">
-      <h3 className="app-h3 mb-10 lg:mb-[60px]">{title}</h3>
+      <div className="app-h3 mb-10 flex flex-row justify-between lg:mb-[60px]">
+        <h3>{title}</h3>
+        <a
+          className=" text flex flex-row items-center pr-[48px] "
+          target="_blank"
+          rel="noopener noreferrer"
+          href={url}
+        >
+          <span className="mr-2 font-gotham text-[16px] font-medium">{urlLabel}</span>
+          <SwiperArrowRight className="w-5 text-[16px]" />
+        </a>
+      </div>
       <ProgressSwiper totalPages={totalPages} slidesPerView={slidesPerView} slides={slides} />
     </section>
   )

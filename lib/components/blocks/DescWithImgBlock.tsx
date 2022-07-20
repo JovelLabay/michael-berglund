@@ -1,5 +1,4 @@
 import { useGlobalContext } from "@context/global"
-import classNames from "classnames"
 import Image from "next/image"
 
 import { Wysiwyg } from "@components/shared/Wysiwyg"
@@ -9,22 +8,29 @@ export const DescWithImgBlock = ({
   heading,
   description,
   imageId,
-  backgroundColor,
+  subHeadings,
+  subDescription,
 }: DescWithImageData) => {
   const { images } = useGlobalContext()
 
   return (
-    <section
-      className={classNames(
-        "flex w-full flex-col items-center justify-between bg-white lg:h-auto lg:flex-row",
-        { "bg-light-beige": backgroundColor === "beige" }
-      )}
-    >
-      <div className="mb-10 w-full pt-[60px] pl-5 pr-12 lg:mb-8 lg:w-1/2 lg:pt-8 lg:pl-12  xl:pr-[147px]">
+    <section className=" flex w-full flex-col items-center justify-between bg-white py-10 md:py-20 lg:h-auto lg:flex-row">
+      <div className="mb-10 w-full pt-[60px] pl-5 pr-12 lg:mb-5 lg:w-1/2 lg:pt-5 lg:pl-12 lg:pr-[100px] xl:pr-[147px]">
         <h3 className="app-h3 mb-8 text-dark-blue lg:mb-[60px]">{heading}</h3>
-        <Wysiwyg className="image-desc" content={description} />
+        {subHeadings.map((subHeading, index) => {
+          return (
+            <>
+              <h5 className="pt-3 text-[14px] font-bold tracking-[0.15em]">
+                {subHeading.toLocaleUpperCase()}
+              </h5>
+              <h5 className="my-5 text-[16px] text-light-green">
+                {subDescription[index].toLocaleUpperCase()}
+              </h5>
+            </>
+          )
+        })}
       </div>
-      <div className="relative aspect-square w-full md:aspect-video lg:aspect-square lg:w-1/2 ">
+      <div className="relative mr-3 aspect-square w-[90%] md:mr-12 md:w-1/2">
         <Image
           src={images![imageId].src}
           alt={images![imageId].alt}
