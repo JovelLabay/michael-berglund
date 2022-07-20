@@ -27,7 +27,6 @@ export interface PageProps {
   pageData?: Page
   files?: FileMap
 }
-
 export interface GQLGlobalFields {
   generalSettings: ACFGeneralSettings
   acfGlobalFields: ACFGlobalFields

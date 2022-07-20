@@ -3,7 +3,6 @@ import { AnimatedPage, Courses, HeroType, IDropDown, Page } from "./common"
 export interface BaseBlock {
   name: BlockName
 }
-
 export interface HeroData extends BaseBlock {
   type: HeroType
   pages: AnimatedPage[] | null

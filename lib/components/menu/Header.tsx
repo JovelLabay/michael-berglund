@@ -5,6 +5,7 @@ import { MainLogo } from "@logos/MainLogo"
 import { NewsLetter } from "@components/footer/Newsletter"
 import { NewsPaper } from "@icons/NewsPaper"
 import { useContext, useEffect, useState } from "react"
+import { BaseBlock } from "@models/blocks"
 
 export interface HeaderProps {
   isMenuOpen: boolean
