@@ -16,7 +16,7 @@ export const Footer = () => {
     },
   } = useGlobalContext()
 
-  const { contactInfo, links, association, copyRightLabel } = footer
+  const { contactInfo, links, association, copyRightLabel, footerBottomLinks } = footer
 
   // convert year placeholder in copyright text
   const year = new Date().getFullYear()
@@ -25,22 +25,33 @@ export const Footer = () => {
   return (
     <>
       <NewsLetter />
-      <footer className="flex justify-between bg-dark-blue text-white">
-        <div className="flex w-1/2 flex-col justify-between p-12 pt-[60px]">
-          {/* Top */}
-          <div className="flex flex-wrap justify-between">
-            <AppLink href="/">
-              <FooterLogo className="shrink-0" />
-            </AppLink>
+      <footer className=" mr-4 bg-dark-blue px-6 py-[50px] text-white md:px-10">
+        {/* TOP */}
+        <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 sm:gap-12 md:grid-cols-3 md:gap-8 lg:grid-cols-4">
+          {/* ICON */}
+          <AppLink href="/">
+            <FooterLogo className="shrink-0" />
+          </AppLink>
 
-            {/* Contact Link */}
-            <div className="footer-contact-text flex flex-col space-y-3">
+          {/* CONTACT LIST */}
+          <div>
+            <span className="pre-title font-normal uppercase tracking-[0.15em] text-dark-beige">
+              {/* {association.title} */}
+              {"kontact".toUpperCase()}
+            </span>
+            <div className=" footer-contact-text mt-6 flex flex-col space-y-3">
               {contactInfo &&
                 contactInfo.map(contact => <FooterContactItem key={contact.text} {...contact} />)}
             </div>
+          </div>
 
-            {/* Social Link */}
-            <div className="footer-link-text flex flex-col space-y-2">
+          {/* SOCIALS */}
+          <div>
+            <span className="pre-title font-normal uppercase tracking-[0.15em] text-dark-beige">
+              {/* {association.title} */}
+              {"linkedin".toUpperCase()}
+            </span>
+            <div className=" footer-link-text mt-6 flex flex-col space-y-2">
               {links &&
                 links.map(({ linkType, text, externalLink, internalLink }) =>
                   linkType === "internal" ? (
@@ -57,40 +68,50 @@ export const Footer = () => {
                 )}
             </div>
           </div>
-          {/* Bottom */}
-          <div className="flex items-end justify-between">
-            <div>
-              <span className="pre-title font-normal uppercase tracking-[0.15em] text-dark-beige">
-                {association.title}
-              </span>
-              <div className="mt-6 flex space-x-10">
-                {association.partners &&
-                  association.partners.map(({ logo, link }) => (
-                    <a
-                      key={logo.mediaItemUrl}
-                      href={link}
-                      className="app-hover outline-none hover:opacity-75"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      <Image src={logo.mediaItemUrl} alt={logo.altText} width={110} height={40} />
-                    </a>
-                  ))}
-              </div>
+
+          {/* OTHER ICON */}
+          <div>
+            <span className="pre-title font-normal uppercase tracking-[0.15em] text-dark-beige">
+              {association.title}
+            </span>
+            <div className="mt-6 flex space-x-10">
+              {association.partners &&
+                association.partners.map(({ logo, link }) => (
+                  <a
+                    key={logo.mediaItemUrl}
+                    href={link}
+                    className="app-hover outline-none hover:opacity-75"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <Image src={logo.mediaItemUrl} alt={logo.altText} width={110} height={40} />
+                  </a>
+                ))}
             </div>
-            <span className="body-s text-dark-beige">{parsedCopyright}</span>
           </div>
         </div>
-        <div className="w-1/2 shrink-0">
-          {/* <Map /> */}
-          <div className="relative h-[455px]">
-            <Image
-              src={mapImage}
-              alt="Map"
-              layout="fill"
-              objectFit="cover"
-              objectPosition="center"
-            />
+
+        {/* BOOTM */}
+        <div>
+          <div className=" my-14 border-b-2 border-dark-beige" />
+          <div className="flex flex-col justify-between md:flex-row">
+            <div className="mb-10 flex w-48 flex-row justify-between sm:my-0">
+              {footerBottomLinks.map((footerBottomLink, index) => {
+                return (
+                  <a
+                    href={footerBottomLink.footerLinks}
+                    key={index}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <p>{footerBottomLink.footerLinksName}</p>
+                  </a>
+                )
+              })}
+            </div>
+            <div>
+              <span className="body-s text-dark-beige">{parsedCopyright}</span>
+            </div>
           </div>
         </div>
       </footer>

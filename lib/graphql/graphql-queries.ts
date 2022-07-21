@@ -36,6 +36,7 @@ export const GET_GLOBAL_FIELDS = gql`
                 }
               }
             }
+            description
           }
         }
         newsletter {
@@ -86,8 +87,11 @@ export const GET_GLOBAL_FIELDS = gql`
               }
             }
           }
-
           copyRightLabel
+          footerBottomLinks {
+            footerLinks
+            footerLinksName
+          }
         }
       }
     }

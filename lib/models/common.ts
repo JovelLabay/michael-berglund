@@ -43,6 +43,7 @@ export interface ACFGlobalFields {
       menuLinks: {
         text: string
         pagelink: Page
+        description: string
       }[]
     }
     newsletter: {
@@ -73,6 +74,10 @@ export interface ACFGlobalFields {
         }[]
       }
       copyRightLabel: string
+      footerBottomLinks: {
+        footerLinks: string
+        footerLinksName: string
+      }[]
     }
   }
 }

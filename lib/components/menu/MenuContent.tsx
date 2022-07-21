@@ -34,6 +34,7 @@ export const MenuContent = ({ blocks }: { blocks: BaseBlock[] }) => {
               link={link.pagelink.uri}
               image={link.pagelink.featuredImage.node}
               blocks={blocks}
+              description={link.description}
             />
           ))}
       </div>

@@ -16,12 +16,11 @@ export interface MenuItemProps {
   link: string
   image: WPMedia
   blocks: BaseBlockMenu[]
+  description: string
 }
 
-export const MenuItem = ({ text, link, image, blocks }: MenuItemProps) => {
+export const MenuItem = ({ text, link, image, blocks, description }: MenuItemProps) => {
   const [isShowImage, setIsShowImage] = useState(false)
-
-  // console.log(blocks[2].subDescription?.length)
 
   return (
     <div className="mt-0 flex md:mt-16">
@@ -35,16 +34,8 @@ export const MenuItem = ({ text, link, image, blocks }: MenuItemProps) => {
           className="transition-colors duration-500 ease-in-out hover:text-light-green"
         >
           {text}
-          <p className="block font-gotham text-[14px] text-light-green md:hidden">
-            {text === "Executive Search"
-              ? blocks[2].subDescription?.[0]
-              : text === "Interim Management"
-              ? blocks[2].subDescription?.[1]
-              : text === "Leadership Acceleration"
-              ? blocks[2].subDescription?.[2]
-              : text === "Board Value"
-              ? blocks[2].subDescription?.[3]
-              : "_"}
+          <p className="mb-2 block font-gotham text-[14px] leading-6 text-light-green md:hidden">
+            {description}
           </p>
         </AppLink>
       </div>
@@ -57,16 +48,8 @@ export const MenuItem = ({ text, link, image, blocks }: MenuItemProps) => {
         <div className="relative mt-16 hidden aspect-[656/512] w-full md:block">
           <Image src={image.mediaItemUrl} alt={image.altText} objectFit="cover" layout="fill" />
         </div>
-        <p className=" mt-6 hidden font-gotham text-[16px] leading-6 text-light-green md:block">
-          {text === "Executive Search"
-            ? blocks[2].subDescription?.[0]
-            : text === "Interim Management"
-            ? blocks[2].subDescription?.[1]
-            : text === "Leadership Acceleration"
-            ? blocks[2].subDescription?.[2]
-            : text === "Board Value"
-            ? blocks[2].subDescription?.[3]
-            : "_"}
+        <p className=" mt-6 hidden font-gotham text-[20px] leading-7 text-light-green md:block">
+          {description}
         </p>
       </div>
     </div>
