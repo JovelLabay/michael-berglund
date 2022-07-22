@@ -53,6 +53,8 @@ export interface ACFGlobalFields {
       privacyPolicy: string
       successTitle: string
       successMessage: string
+      successSubTitle: string
+      successSubMessage: string
     }
     footer: {
       contactInfo: {

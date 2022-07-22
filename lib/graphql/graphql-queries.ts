@@ -46,6 +46,8 @@ export const GET_GLOBAL_FIELDS = gql`
           privacyPolicy
           successTitle
           successMessage
+          successSubTitle
+          successSubMessage
         }
         footer {
           contactInfo {

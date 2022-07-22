@@ -28,8 +28,16 @@ export const NewsLetter = (props: any) => {
     },
   } = useGlobalContext()
 
-  const { title, description, emailPlaceholder, privacyPolicy, successTitle, successMessage } =
-    newsletter
+  const {
+    title,
+    description,
+    emailPlaceholder,
+    privacyPolicy,
+    successTitle,
+    successMessage,
+    successSubMessage,
+    successSubTitle,
+  } = newsletter
 
   const { register, handleSubmit, reset } = useForm<NewsletterFormValues>()
   const onSubmit: SubmitHandler<NewsletterFormValues> = async data => {
@@ -122,10 +130,15 @@ export const NewsLetter = (props: any) => {
         {submitted && (
           <>
             <h3 className="app-h3">{successTitle}</h3>
+            <p className="mt-10">{successSubMessage}</p>
+            <h3 className="app-h3 mt-10 text-[#69857D]">{successSubTitle}</h3>
             <span className="mt-10 mb-8 inline-block">
               <Wysiwyg
-                className="prose-p:body-m prose"
-                content={successMessage.replace("&lt;email&gt;", `<strong>${email}</strong>`)}
+                className="prose-p:body-m prose text-[#69857D]"
+                content={successMessage.replace(
+                  "&lt;email&gt;",
+                  `<strong classname="text-[#69857D] font-bold">${email}</strong>`
+                )}
               />
             </span>
           </>
