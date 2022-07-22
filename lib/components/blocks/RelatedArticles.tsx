@@ -6,10 +6,10 @@ import { Card } from "@components/cards"
 import { Wysiwyg } from "@components/shared/Wysiwyg"
 import { ProgressSwiper } from "@components/swiper"
 import { useResponsiveMD } from "@hooks/shared"
-import { RelatedArticleData } from "@models/blocks"
-import { Post } from "@models/common"
 import { ArrowRight } from "@icons/ArrowRight"
 import { SwiperArrowRight } from "@icons/SwiperArrowRight"
+import { RelatedArticleData } from "@models/blocks"
+import { Post } from "@models/common"
 
 export const RelatedArticles = ({ title, postIds, urlLabel, url }: RelatedArticleData) => {
   const { postMap } = useGlobalContext()
@@ -60,7 +60,7 @@ export const RelatedArticles = ({ title, postIds, urlLabel, url }: RelatedArticl
           rel="noopener noreferrer"
           href={url}
         >
-          <span className="mr-2 font-gotham text-[16px] font-medium">{urlLabel}</span>
+          <span className="mr-2 font-gotham text-[16px] font-medium text-dark-green">{urlLabel}</span>
           <SwiperArrowRight className="w-5 text-[16px]" />
         </a>
       </div>

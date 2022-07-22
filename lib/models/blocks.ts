@@ -29,8 +29,11 @@ export interface DescWithImageData extends BaseBlock {
   heading: string
   description: string
   imageId: number
-  subHeadings: string[]
-  subDescription: string[]
+  dataList: {
+    dataKey: string,
+    title: string,
+    description: string
+  }[],
   backgroundColor: "white" | "beige"
 }
 
