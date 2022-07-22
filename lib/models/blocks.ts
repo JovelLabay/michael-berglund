@@ -158,6 +158,11 @@ export interface AssignmentsData extends BaseBlock {
   }[]
 }
 
+export interface AssignmentsDataPopUp {
+  title: string
+  description: string
+}
+
 export interface RegisterCvData extends BaseBlock {
   heading: string
   description: string
