@@ -18,7 +18,7 @@ export const DescWithImgBlock = ({ heading,
         {dataList.map((data) => {
           return (
             <span key={data.dataKey}>
-              <h5 className="pt-3 text-[14px] font-bold tracking-[0.15em]">
+              <h5 className="pt-3 text-[14px] font-bold tracking-[0.15em] text-dark-blue uppercase">
                   {data.title}
               </h5>
               <h5 className="my-5 text-[16px] font-normal leading-[24px] text-dark-beige">

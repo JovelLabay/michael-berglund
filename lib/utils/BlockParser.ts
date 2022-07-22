@@ -208,7 +208,6 @@ const parseStatsBlock = (data: any): StatsData => {
 
 const descWithImagePattern = /^lists_(\d+)_title$/
 const parseDescWithImageBlock = (data: any): DescWithImageData => {
-  console.log(data);
   const indexes = Object.keys(data)
     .filter(key => descWithImagePattern.test(key))
     .map(key => key.match(descWithImagePattern)![1])
