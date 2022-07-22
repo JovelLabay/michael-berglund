@@ -1,17 +1,10 @@
-import Image from "next/image"
-import React, { useEffect, useMemo, useState } from "react"
-import { SwiperSlide } from "swiper/react"
+import React, { useEffect, useState } from "react"
 
-import AssignmentBg from "@/public/bg/assignments.png"
-import { Wysiwyg } from "@components/shared/Wysiwyg"
-import { ProgressSwiper } from "@components/swiper"
 import { useResponsiveLG } from "@hooks/shared"
-import { CheckMark } from "@icons/CheckMark"
-import { AssignmentsData, AssignmentsDataPopUp } from "@models/blocks"
-import { ArrowDown } from "@icons/ArrowDown"
+import AssignmentCheck from "@icons/AssignmentCheck"
 import DismissIcon from "@icons/DismissIcon"
 import { PlusIcon } from "@icons/PlusIcon"
-import AssignmentCheck from "@icons/AssignmentCheck"
+import { AssignmentsData, AssignmentsDataPopUp } from "@models/blocks"
 
 export const Assignments = ({ title, assignments }: AssignmentsData) => {
   const responsiveLG = useResponsiveLG()
@@ -44,13 +37,13 @@ export const Assignments = ({ title, assignments }: AssignmentsData) => {
               <AssignmentCheck />
               <p className="font-lora text-[24px] font-medium text-dark-blue">{assignment.title}</p>
               <button
-                className="flex flex-row items-center"
+                className="flex flex-row items-center text-dark-green leading-[20px]"
                 onClick={() => {
                   setIsShow(true)
                   setModelContent(assignment)
                 }}
               >
-                Läs mer <PlusIcon className="ml-4" />
+                Läs mer <PlusIcon className="ml-4 text-dark-green" />
               </button>
             </div>
           )
@@ -60,22 +53,22 @@ export const Assignments = ({ title, assignments }: AssignmentsData) => {
       {/* BUTTON */}
 
       <button
-        className="mx-auto mt-10 flex flex-row items-center"
+        className="mx-auto mt-10 flex flex-row items-center text-dark-green"
         onClick={() => {
           setLimiter(prev => prev + 3)
         }}
       >
-        Läs mer <PlusIcon className="ml-4" />
+        { assignments.length != assignmentList.length && ( <> Läs mer <PlusIcon className="ml-4 text-dark-green" /> </>) }
       </button>
 
       {/* SHOW EACH ASSIGNEMNT */}
       {isShow && (
-        <div className="fixed top-0 left-0 flex h-screen w-screen items-center justify-center bg-[#0000007f]">
+        <div className="fixed top-0 left-0 flex h-screen w-screen items-center justify-center bg-[#0000007f] z-10">
           <div className="col-span-1 mx-5 flex h-[380px] w-[656px] flex-col items-center justify-center gap-10 bg-white md:mx-0">
             <AssignmentCheck />
             <h3 className="app-h3 mx-2 text-dark-blue">{modelContent?.title}</h3>
             <p className="mx-4 text-dark-blue md:mx-14">{modelContent?.description}</p>
-            <button onClick={() => setIsShow(false)} className="flex items-center">
+            <button onClick={() => setIsShow(false)} className="flex items-center text-dark-green">
               Stäng <DismissIcon className="ml-4" />
             </button>
           </div>

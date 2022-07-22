@@ -1,11 +1,9 @@
 import { Squeeze as Hamburger } from "hamburger-react"
+import { useContext, useEffect, useState } from "react"
 
+import { NewsLetter } from "@components/footer/Newsletter"
 import { AppLink } from "@components/shared/AppLink"
 import { MainLogo } from "@logos/MainLogo"
-import { NewsLetter } from "@components/footer/Newsletter"
-import { NewsPaper } from "@icons/NewsPaper"
-import { useContext, useEffect, useState } from "react"
-import { BaseBlock } from "@models/blocks"
 
 export interface HeaderProps {
   isMenuOpen: boolean
@@ -14,7 +12,7 @@ export interface HeaderProps {
 }
 
 export const Header = ({ isMenuOpen, isHomePage, toggleMenu }: HeaderProps) => {
-  // SHOW POP UP STATE
+
   const [showPopUp, setShowPopUp] = useState(false)
 
   useEffect(() => {
@@ -46,7 +44,7 @@ export const Header = ({ isMenuOpen, isHomePage, toggleMenu }: HeaderProps) => {
 
       {/* SHOW POP UP */}
       {showPopUp && (
-        <div className="fixed top-0 left-0 flex h-screen w-screen items-center justify-center bg-[#0000004c]">
+        <div className="fixed top-0 left-0 flex h-screen w-screen items-center justify-center bg-[#00000080]">
           <NewsLetter {...props} />
         </div>
       )}

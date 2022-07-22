@@ -4,10 +4,9 @@ import { useState } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
 
 import { Wysiwyg } from "@components/shared/Wysiwyg"
+import DismissIcon from "@icons/DismissIcon"
 import { SendEmail } from "@icons/SendEmail"
 import { NewsletterFormValues } from "@models/forms"
-import CloseIcon from "@icons/CloseIcon"
-import DismissIcon from "@icons/DismissIcon"
 
 export const NewsLetter = (props: any) => {
   const { showPopUp, setShowPopUp } = props
@@ -91,7 +90,7 @@ export const NewsLetter = (props: any) => {
           <>
             <h3 className="app-h3 text-dark-blue">{title}</h3>
             <span className="mt-10 mb-8 inline-block">
-              <Wysiwyg className="prose-p:body-m prose" content={description} />
+              <Wysiwyg className="prose-p:body-m prose text-dark-blue" content={description} />
             </span>
 
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -105,7 +104,7 @@ export const NewsLetter = (props: any) => {
                   type="email"
                   required
                   disabled={isSubmitting}
-                  className="input-link-text w-full px-4 py-[17px] outline-none"
+                  className="text-black-500 first-letter:input-link-text w-full px-4 py-[17px] outline-none"
                   placeholder={emailPlaceholder}
                   {...register("email")}
                 />
@@ -129,8 +128,8 @@ export const NewsLetter = (props: any) => {
         )}
         {submitted && (
           <>
-            <h3 className="app-h3">{successTitle}</h3>
-            <p className="mt-10">{successSubMessage}</p>
+            <h3 className="app-h3 text-dark-blue">{successTitle}</h3>
+            <p className="mt-10 text-dark-blue">{successSubMessage}</p>
             <h3 className="app-h3 mt-10 text-[#69857D]">{successSubTitle}</h3>
             <span className="mt-10 mb-8 inline-block">
               <Wysiwyg

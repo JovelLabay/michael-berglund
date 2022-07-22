@@ -51,7 +51,7 @@ export const Footer = () => {
               {/* {association.title} */}
               {"linkedin".toUpperCase()}
             </span>
-            <div className=" footer-link-text mt-6 flex flex-col space-y-2">
+            <div className=" footer-link-text mt-[20px] flex flex-col space-y-2">
               {links &&
                 links.map(({ linkType, text, externalLink, internalLink }) =>
                   linkType === "internal" ? (
