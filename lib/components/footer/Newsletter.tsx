@@ -4,10 +4,18 @@ import { useState } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
 
 import { Wysiwyg } from "@components/shared/Wysiwyg"
+import DismissIcon from "@icons/DismissIcon"
 import { SendEmail } from "@icons/SendEmail"
 import { NewsletterFormValues } from "@models/forms"
 
-export const NewsLetter = () => {
+export const NewsLetter = (props: any) => {
+  const { showPopUp, setShowPopUp } = props
+
+  const closePopUp = () => {
+    setShowPopUp(false)
+    localStorage.setItem("newsLetterPopUp", "true")
+  }
+
   const [submitted, setSubmitted] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState(false)
@@ -19,8 +27,16 @@ export const NewsLetter = () => {
     },
   } = useGlobalContext()
 
-  const { title, description, emailPlaceholder, privacyPolicy, successTitle, successMessage } =
-    newsletter
+  const {
+    title,
+    description,
+    emailPlaceholder,
+    privacyPolicy,
+    successTitle,
+    successMessage,
+    successSubMessage,
+    successSubTitle,
+  } = newsletter
 
   const { register, handleSubmit, reset } = useForm<NewsletterFormValues>()
   const onSubmit: SubmitHandler<NewsletterFormValues> = async data => {
@@ -55,14 +71,26 @@ export const NewsLetter = () => {
   return (
     <section
       id="newsletterSection"
-      className="section-padding bg-light-beige pb-[120px] text-center"
+      className={
+        showPopUp
+          ? "bg-light-beige p-10 text-center"
+          : "section-padding bg-light-beige pb-[120px] text-center"
+      }
     >
+      {showPopUp && (
+        <div className="flex justify-end">
+          <button onClick={closePopUp}>
+            <DismissIcon />
+          </button>
+        </div>
+      )}
+
       <div className="mx-auto max-w-[650px] ">
         {!submitted && (
           <>
-            <h3 className="app-h3">{title}</h3>
+            <h3 className="app-h3 text-dark-blue">{title}</h3>
             <span className="mt-10 mb-8 inline-block">
-              <Wysiwyg className="prose-p:body-m prose" content={description} />
+              <Wysiwyg className="prose-p:body-m prose text-dark-blue" content={description} />
             </span>
 
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -76,7 +104,7 @@ export const NewsLetter = () => {
                   type="email"
                   required
                   disabled={isSubmitting}
-                  className="input-link-text w-full px-4 py-[17px] outline-none"
+                  className="text-black-500 first-letter:input-link-text w-full px-4 py-[17px] outline-none"
                   placeholder={emailPlaceholder}
                   {...register("email")}
                 />
@@ -100,11 +128,16 @@ export const NewsLetter = () => {
         )}
         {submitted && (
           <>
-            <h3 className="app-h3">{successTitle}</h3>
+            <h3 className="app-h3 text-dark-blue">{successTitle}</h3>
+            <p className="mt-10 text-dark-blue">{successSubMessage}</p>
+            <h3 className="app-h3 mt-10 text-[#69857D]">{successSubTitle}</h3>
             <span className="mt-10 mb-8 inline-block">
               <Wysiwyg
-                className="prose-p:body-m prose"
-                content={successMessage.replace("&lt;email&gt;", `<strong>${email}</strong>`)}
+                className="prose-p:body-m prose text-[#69857D]"
+                content={successMessage.replace(
+                  "&lt;email&gt;",
+                  `<strong classname="text-[#69857D] font-bold">${email}</strong>`
+                )}
               />
             </span>
           </>
