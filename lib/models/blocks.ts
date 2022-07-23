@@ -3,7 +3,6 @@ import { AnimatedPage, Courses, HeroType, IDropDown, Page } from "./common"
 export interface BaseBlock {
   name: BlockName
 }
-
 export interface HeroData extends BaseBlock {
   type: HeroType
   pages: AnimatedPage[] | null
@@ -29,6 +28,11 @@ export interface DescWithImageData extends BaseBlock {
   heading: string
   description: string
   imageId: number
+  dataList: {
+    dataKey: string,
+    title: string,
+    description: string
+  }[],
   backgroundColor: "white" | "beige"
 }
 
@@ -57,7 +61,10 @@ export interface ReviewSliderData extends BaseBlock {
     reviewCompany: string
   }[]
 }
-export interface RelatedArticleData extends PostData {}
+export interface RelatedArticleData extends PostData {
+  urlLabel: string
+  url: string
+}
 
 export interface PostData extends BaseBlock {
   title: string
@@ -152,6 +159,11 @@ export interface AssignmentsData extends BaseBlock {
     title: string
     description: string
   }[]
+}
+
+export interface AssignmentsDataPopUp {
+  title: string
+  description: string
 }
 
 export interface RegisterCvData extends BaseBlock {

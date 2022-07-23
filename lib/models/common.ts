@@ -27,7 +27,6 @@ export interface PageProps {
   pageData?: Page
   files?: FileMap
 }
-
 export interface GQLGlobalFields {
   generalSettings: ACFGeneralSettings
   acfGlobalFields: ACFGlobalFields
@@ -44,6 +43,7 @@ export interface ACFGlobalFields {
       menuLinks: {
         text: string
         pagelink: Page
+        description: string
       }[]
     }
     newsletter: {
@@ -53,6 +53,8 @@ export interface ACFGlobalFields {
       privacyPolicy: string
       successTitle: string
       successMessage: string
+      successSubTitle: string
+      successSubMessage: string
     }
     footer: {
       contactInfo: {
@@ -74,6 +76,10 @@ export interface ACFGlobalFields {
         }[]
       }
       copyRightLabel: string
+      footerBottomLinks: {
+        footerLinks: string
+        footerLinksName: string
+      }[]
     }
   }
 }

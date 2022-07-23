@@ -10,7 +10,14 @@ export const getServerSideProps: GetServerSideProps<PageProps> = () => getPagePr
 
 export default function Index({ globalFields, blocks, pageMap, postMap, images }: PageProps) {
   return (
-    <Layout {...globalFields} pageMap={pageMap} postMap={postMap} images={images} isHomePage>
+    <Layout
+      {...globalFields}
+      pageMap={pageMap}
+      postMap={postMap}
+      images={images}
+      isHomePage
+      blocks={blocks}
+    >
       {blocks ? blocks.map(block => <Block key={block.name} block={block} />) : null}
     </Layout>
   )
