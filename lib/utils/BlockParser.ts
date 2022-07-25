@@ -205,17 +205,16 @@ const parseStatsBlock = (data: any): StatsData => {
   }
 }
 
-
 const descWithImagePattern = /^lists_(\d+)_title$/
 const parseDescWithImageBlock = (data: any): DescWithImageData => {
   const indexes = Object.keys(data)
     .filter(key => descWithImagePattern.test(key))
     .map(key => key.match(descWithImagePattern)![1])
- 
-   const dataList = indexes.map(index => ({
+
+  const dataList = indexes.map(index => ({
     dataKey: data[`_lists_${index}_title`],
     title: data[`lists_${index}_title`],
-    description: data[`lists_${index}_description`]
+    description: data[`lists_${index}_description`],
   }))
   return {
     heading: data.heading,
@@ -226,37 +225,6 @@ const parseDescWithImageBlock = (data: any): DescWithImageData => {
     name: "acf/desc-image",
   }
 }
-
-
-// const parseDescWithImageBlock = (data: any): DescWithImageData => {
-//   let subHeading: any = []
-//   let subDescription: any = []
-
-//   console.log(data);
-
-//   // SUB HEADING
-//   Object.entries(data).filter(item => {
-//     if (item[0].startsWith("sub_heading_")) {
-//       subHeading.push(item[1])
-//     }
-//   })
-
-//   // SUB DESCRIPTION
-//   Object.entries(data).filter(item => {
-//     if (item[0].startsWith("sub_description_")) {
-//       subDescription.push(item[1])
-//     }
-//   })
-
-//   return {
-//     heading: data.heading,
-//     description: data.description,
-//     imageId: data.image,
-//     backgroundColor: data.background_color,
-//     subHeadings: subHeading,
-//     name: "acf/desc-image",
-//   }
-// }
 
 const parseRightLeftImageBlock = (data: any): RightLeftImageData => {
   return {
