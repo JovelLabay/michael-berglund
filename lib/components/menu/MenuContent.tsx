@@ -23,7 +23,7 @@ export const MenuContent = ({ blocks }: { blocks: BaseBlock[] }) => {
       animate={{ y: 0 }}
       exit={{ y: "-100vh" }}
       transition={{ ease: "easeInOut" }}
-      className="absolute top-0 z-50 flex h-full w-full items-center justify-between bg-dark-green px-12 text-white"
+      className="absolute top-0 z-50 flex h-full w-full items-center justify-between bg-dark-green px-[20px] text-white md:px-12"
     >
       <div className="app-h2 relative flex w-full flex-col space-y-3 md:space-y-10">
         {menuLinks &&

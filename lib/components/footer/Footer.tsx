@@ -103,6 +103,7 @@ export const Footer = () => {
                     key={index}
                     target="_blank"
                     rel="noreferrer"
+                    className="hover-text-white"
                   >
                     <p>{footerBottomLink.footerLinksName}</p>
                   </a>

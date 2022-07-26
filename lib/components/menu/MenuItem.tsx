@@ -23,7 +23,7 @@ export const MenuItem = ({ text, link, image, blocks, description }: MenuItemPro
   const [isShowImage, setIsShowImage] = useState(false)
 
   return (
-    <div className="mt-0 flex md:mt-16">
+    <div className="mt-[44px] flex md:mt-16">
       <div
         onMouseEnter={() => setIsShowImage(true)}
         onMouseLeave={() => setIsShowImage(false)}
@@ -31,10 +31,10 @@ export const MenuItem = ({ text, link, image, blocks, description }: MenuItemPro
       >
         <AppLink
           href={link}
-          className="transition-colors duration-500 ease-in-out hover:text-light-green"
+          className="text-[28px] transition-colors duration-500 ease-in-out hover:text-light-green md:text-[48px]"
         >
           {text}
-          <p className="mb-2 block font-gotham text-[14px] leading-6 text-light-green md:hidden">
+          <p className="mb-[22px] mt-2 block font-gotham text-[14px] leading-6 text-light-green md:hidden">
             {description}
           </p>
         </AppLink>

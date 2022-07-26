@@ -1,10 +1,17 @@
-import React, { useEffect, useState } from "react"
+import Image from "next/image"
+import React, { useEffect, useMemo, useState } from "react"
+import { SwiperSlide } from "swiper/react"
 
+import AssignmentBg from "@/public/bg/assignments.png"
+import { Wysiwyg } from "@components/shared/Wysiwyg"
+import { ProgressSwiper } from "@components/swiper"
 import { useResponsiveLG } from "@hooks/shared"
-import AssignmentCheck from "@icons/AssignmentCheck"
+import { CheckMark } from "@icons/CheckMark"
+import { AssignmentsData, AssignmentsDataPopUp } from "@models/blocks"
+import { ArrowDown } from "@icons/ArrowDown"
 import DismissIcon from "@icons/DismissIcon"
 import { PlusIcon } from "@icons/PlusIcon"
-import { AssignmentsData, AssignmentsDataPopUp } from "@models/blocks"
+import AssignmentCheck from "@icons/AssignmentCheck"
 
 export const Assignments = ({ title, assignments }: AssignmentsData) => {
   const responsiveLG = useResponsiveLG()
@@ -27,23 +34,25 @@ export const Assignments = ({ title, assignments }: AssignmentsData) => {
       <h3 className="app-h3 mb-10 lg:mb-[60px]">{title}</h3>
 
       {/* ASSIGNMENT CONTAINERS */}
-      <div className="mr-0 grid grid-cols-1 gap-7 md:mr-14 md:grid-cols-3">
+      <div className="mr-0 grid grid-cols-1 gap-7  md:mr-14 md:grid-cols-2 lg:grid-cols-3">
         {assignmentList.map((assignment, index) => {
           return (
             <div
               key={index}
-              className="flex h-40 flex-col items-center justify-between bg-light-beige p-7 md:items-start "
+              className="flex flex-col items-center justify-between bg-light-beige p-7 md:items-start "
             >
-              <AssignmentCheck />
-              <p className="font-lora text-[24px] font-medium text-dark-blue">{assignment.title}</p>
+              <AssignmentCheck className="mb-18" />
+              <p className="mb-[24px] mt-[18px] text-center font-lora text-[20px] font-medium text-dark-blue md:mt-[22px] md:text-[24px]">
+                {assignment.title}
+              </p>
               <button
-                className="flex flex-row items-center text-dark-green leading-[20px]"
+                className="flex flex-row items-center hover:font-bold"
                 onClick={() => {
                   setIsShow(true)
                   setModelContent(assignment)
                 }}
               >
-                Läs mer <PlusIcon className="ml-4 text-dark-green" />
+                Läs mer <PlusIcon className="ml-4" />
               </button>
             </div>
           )
@@ -53,22 +62,22 @@ export const Assignments = ({ title, assignments }: AssignmentsData) => {
       {/* BUTTON */}
 
       <button
-        className="mx-auto mt-10 flex flex-row items-center text-dark-green"
+        className="mx-auto mt-10 flex flex-row items-center hover:font-bold"
         onClick={() => {
           setLimiter(prev => prev + 3)
         }}
       >
-        { assignments.length != assignmentList.length && ( <> Läs mer <PlusIcon className="ml-4 text-dark-green" /> </>) }
+        Läs mer <PlusIcon className="ml-4" />
       </button>
 
       {/* SHOW EACH ASSIGNEMNT */}
       {isShow && (
-        <div className="fixed top-0 left-0 flex h-screen w-screen items-center justify-center bg-[#0000007f] z-10">
-          <div className="col-span-1 mx-5 flex h-[380px] w-[656px] flex-col items-center justify-center gap-10 bg-white md:mx-0">
+        <div className="fixed top-0 left-0 z-10 flex h-screen w-screen items-center justify-center bg-[#0000007f]">
+          <div className="col-span-1 mx-5 flex flex-col items-center justify-center gap-10 bg-white px-[24px] py-[24px] md:mx-0 md:h-[380px] md:w-[656px]">
             <AssignmentCheck />
-            <h3 className="app-h3 mx-2 text-dark-blue">{modelContent?.title}</h3>
-            <p className="mx-4 text-dark-blue md:mx-14">{modelContent?.description}</p>
-            <button onClick={() => setIsShow(false)} className="flex items-center text-dark-green">
+            <h3 className=" app-h3 mx-2 text-center text-dark-blue">{modelContent?.title}</h3>
+            <p className="mx-4 text-center text-dark-blue md:mx-14">{modelContent?.description}</p>
+            <button onClick={() => setIsShow(false)} className="flex items-center hover:font-bold">
               Stäng <DismissIcon className="ml-4" />
             </button>
           </div>
