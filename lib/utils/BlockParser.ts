@@ -1,11 +1,41 @@
 import {
-    AccordionListsData, AssignmentsData, BaseBlock, ContactData, ContactFeedListblock,
-    CourseCardsData, DataPointsData, DescWithImageData, HeroData, ImageGalleryData, InfoIconData,
-    isAccordionListBlock, isBigPageLinks, isContactData, isContactFeedBlock, isCourseCardData,
-    isDescWithImageData, isHeroData, isImageGalleryBlock, isInfoIconBlock, isLogowallData,
-    isRegisterCvData, isRelatedArticlesData, isRightLeftImageBlock, isStatsData, isTabsData,
-    LogowallData, PostData, PressFeedData, RegisterCvData, RelatedArticleData, ReviewSliderData,
-    RightLeftImageData, ShortDescData, StatsData, TableDescData, TabsData
+  AccordionListsData,
+  AssignmentsData,
+  BaseBlock,
+  ContactData,
+  ContactFeedListblock,
+  CourseCardsData,
+  DataPointsData,
+  DescWithImageData,
+  HeroData,
+  ImageGalleryData,
+  InfoIconData,
+  isAccordionListBlock,
+  isBigPageLinks,
+  isContactData,
+  isContactFeedBlock,
+  isCourseCardData,
+  isDescWithImageData,
+  isHeroData,
+  isImageGalleryBlock,
+  isInfoIconBlock,
+  isLogowallData,
+  isRegisterCvData,
+  isRelatedArticlesData,
+  isRightLeftImageBlock,
+  isStatsData,
+  isTabsData,
+  LogowallData,
+  PostData,
+  PressFeedData,
+  RegisterCvData,
+  RelatedArticleData,
+  ReviewSliderData,
+  RightLeftImageData,
+  ShortDescData,
+  StatsData,
+  TableDescData,
+  TabsData,
 } from "@models/blocks"
 import { IDropDown } from "@models/common"
 
@@ -205,18 +235,18 @@ const parseStatsBlock = (data: any): StatsData => {
   }
 }
 
-
 const descWithImagePattern = /^lists_(\d+)_title$/
 const parseDescWithImageBlock = (data: any): DescWithImageData => {
   const indexes = Object.keys(data)
     .filter(key => descWithImagePattern.test(key))
     .map(key => key.match(descWithImagePattern)![1])
- 
-   const dataList = indexes.map(index => ({
+
+  const dataList = indexes.map(index => ({
     dataKey: data[`_lists_${index}_title`],
     title: data[`lists_${index}_title`],
-    description: data[`lists_${index}_description`]
+    description: data[`lists_${index}_description`],
   }))
+
   return {
     heading: data.heading,
     description: data.description,
@@ -224,9 +254,9 @@ const parseDescWithImageBlock = (data: any): DescWithImageData => {
     backgroundColor: data.background_color,
     dataList,
     name: "acf/desc-image",
+    descriptionOnly: !!data.description_only,
   }
 }
-
 
 // const parseDescWithImageBlock = (data: any): DescWithImageData => {
 //   let subHeading: any = []

@@ -58,7 +58,7 @@ export const RelatedArticles = ({ title, postIds, urlLabel, url }: RelatedArticl
           className=" text flex flex-row items-center pr-0 md:pr-[48px]"
           target="_blank"
           rel="noopener noreferrer"
-          href={url}
+          href="/"
         >
           <span className="mr-2 font-gotham text-[16px] font-medium text-dark-green">
             {urlLabel}

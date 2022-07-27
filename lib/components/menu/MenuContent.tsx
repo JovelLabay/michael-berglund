@@ -6,6 +6,7 @@ import { MenuItem } from "./MenuItem"
 import { DescWithImageData } from "@models/blocks"
 import { DescWithImgBlock } from "@components/blocks"
 import { getPostLinkIds } from "@/lib/utils/BlockParser"
+import { Header } from "./Header"
 
 export const MenuContent = ({ blocks }: { blocks: BaseBlock[] }) => {
   const {

@@ -19,7 +19,7 @@ export const CourseCards = ({ title }: CourseCardsData) => {
         <hr className="bg-darker-beige" />
       </div>
       <h3 className="app-h3">{title}</h3>
-      <div className="mt-[60px] grid grid-cols-2 gap-8">
+      <div className="mt-[60px] grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3">
         {courses.map(
           ({
             id,

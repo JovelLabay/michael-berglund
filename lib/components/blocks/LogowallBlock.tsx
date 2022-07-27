@@ -26,7 +26,9 @@ export const LogowallBlock = ({ heading, border, gallery }: LogowallData) => {
         })}
       >
         <h3 className="app-h3 mb-10 px-5 text-center text-dark-blue lg:mb-[60px]">{heading}</h3>
-        <div className="mb-[65px] grid grid-cols-2 gap-[82.88px] md:grid-cols-4">{_logos}</div>
+        <div className="mb-[65px] grid grid-cols-2 gap-[50px] md:grid-cols-4 md:gap-[82px]">
+          {_logos}
+        </div>
       </div>
     </section>
   )
