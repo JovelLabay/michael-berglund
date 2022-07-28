@@ -46,7 +46,7 @@ export const Assignments = ({ title, assignments }: AssignmentsData) => {
                 {assignment.title}
               </p>
               <button
-                className="transition flex flex-row items-center  hover-text-green"
+                className="transition flex flex-row items-center text-dark-green hover-text-green"
                 onClick={() => {
                   setIsShow(true)
                   setModelContent(assignment)
@@ -62,7 +62,7 @@ export const Assignments = ({ title, assignments }: AssignmentsData) => {
       {/* BUTTON */}
 
       <button
-        className="mx-auto mt-10 flex flex-row items-center  hover-text-green"
+        className="mx-auto mt-10 flex flex-row items-center text-dark-green hover-text-green"
         onClick={() => {
           setLimiter(prev => prev + 3)
         }}
@@ -76,8 +76,8 @@ export const Assignments = ({ title, assignments }: AssignmentsData) => {
           <div className="col-span-1 mx-5 flex flex-col items-center justify-center gap-10 bg-white px-[24px] py-[24px] md:mx-0 md:h-[380px] md:w-[656px]">
             <AssignmentCheck />
             <h3 className=" app-h3 mx-2 text-center text-dark-blue">{modelContent?.title}</h3>
-            <p className="mx-4 text-center text-dark-blue md:mx-14">{modelContent?.description}</p>
-            <button onClick={() => setIsShow(false)} className="flex items-center hover-text-green">
+            <p className="mx-4 text-left md:text-center text-dark-blue md:mx-14">{modelContent?.description}</p>
+            <button onClick={() => setIsShow(false)} className="flex items-center text-dark-green hover-text-green">
               Stäng <DismissIcon className="ml-4" />
             </button>
           </div>
