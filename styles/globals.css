@@ -273,4 +273,8 @@
   .hover-text-white {
     @apply app-hover hover:text-medium-beige;
   }
+
+  .hover-text-green {
+    @apply app-hover hover:opacity-50;
+  }
 }
