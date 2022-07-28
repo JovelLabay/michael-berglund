@@ -3,8 +3,8 @@ import Image from "next/image"
 import { useState } from "react"
 
 import { AppLink } from "@components/shared/AppLink"
-import { WPMedia } from "@models/common"
 import { BaseBlock, BlockName } from "@models/blocks"
+import { WPMedia } from "@models/common"
 
 export interface BaseBlockMenu {
   name: BlockName
@@ -34,7 +34,7 @@ export const MenuItem = ({ text, link, image, blocks, description }: MenuItemPro
           className="text-[28px] transition-colors duration-500 ease-in-out hover:text-light-green md:text-[48px]"
         >
           {text}
-          <p className="mb-[22px] mt-2 block font-gotham text-[14px] leading-6 text-light-green md:hidden">
+          <p className="mb-[22px] mt-[2px] block font-gotham text-[14px] leading-6 text-light-green md:hidden">
             {description}
           </p>
         </AppLink>
