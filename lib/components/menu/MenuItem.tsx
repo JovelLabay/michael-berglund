@@ -15,11 +15,10 @@ export interface MenuItemProps {
   text: string
   link: string
   image: WPMedia
-  blocks: BaseBlockMenu[]
   description: string
 }
 
-export const MenuItem = ({ text, link, image, blocks, description }: MenuItemProps) => {
+export const MenuItem = ({ text, link, image, description }: MenuItemProps) => {
   const [isShowImage, setIsShowImage] = useState(false)
 
   return (

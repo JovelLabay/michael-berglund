@@ -1,14 +1,11 @@
 import { useGlobalContext } from "@context/global"
-import { BaseBlock, isDescWithImageData, isRelatedArticlesData } from "@models/blocks"
 import { motion } from "framer-motion"
 
-import { MenuItem } from "./MenuItem"
-import { DescWithImageData } from "@models/blocks"
-import { DescWithImgBlock } from "@components/blocks"
-import { getPostLinkIds } from "@/lib/utils/BlockParser"
-import { Header } from "./Header"
+import { BaseBlock } from "@models/blocks"
 
-export const MenuContent = ({ blocks }: { blocks: BaseBlock[] }) => {
+import { MenuItem } from "./MenuItem"
+
+export const MenuContent = () => {
   const {
     acf: {
       acfGlobal: {
@@ -34,7 +31,6 @@ export const MenuContent = ({ blocks }: { blocks: BaseBlock[] }) => {
               text={link.text}
               link={link.pagelink.uri}
               image={link.pagelink.featuredImage.node}
-              blocks={blocks}
               description={link.description}
             />
           ))}
