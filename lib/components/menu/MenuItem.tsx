@@ -31,7 +31,7 @@ export const MenuItem = ({ text, link, image, blocks, description }: MenuItemPro
       >
         <AppLink
           href={link}
-          className="text-[28px] transition-colors duration-500 ease-in-out hover:text-light-green md:text-[48px]"
+          className="text-[28px] transition-colors duration-500 ease-in-out hover:text-light-green md:text-[48px] leading-[32px]"
         >
           {text}
           <p className="mb-[22px] mt-[2px] block font-gotham text-[14px] leading-6 text-light-green md:hidden">
