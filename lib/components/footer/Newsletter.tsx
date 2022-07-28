@@ -130,10 +130,10 @@ export const NewsLetter = (props: any) => {
         {submitted &&
           (showPopUp ? (
             <>
-              <h3 className="app-h3 mt-10 text-[#69857D]">{successSubTitle}</h3>
+              <h3 className="text-[24px] font-normal mt-10 text-[#69857D]">{successSubTitle}</h3>
               <span className="mt-10 mb-8 inline-block">
                 <Wysiwyg
-                  className="prose-p:body-m prose text-[16px] font-medium text-dark-blue md:text-[18px]"
+                  className="prose-p:body-m prose text-[16px] font-medium text-dark-blue md:text-[18px] newsletter"
                   content={successMessage.replace(
                     "&lt;email&gt;",
                     `<strong classname="text-red-500 font-bold">${email}</strong>`
@@ -157,7 +157,7 @@ export const NewsLetter = (props: any) => {
               <h3 className="app-h3 mt-10 text-[#69857D]">{successSubTitle}</h3>
               <span className="mt-10 mb-8 inline-block">
                 <Wysiwyg
-                  className="prose-p:body-m prose text-[#69857D]"
+                  className="newsletter prose-p:body-m prose text-[#69857D]"
                   content={successMessage.replace(
                     "&lt;email&gt;",
                     `<strong classname="text-[#69857D] font-bold">${email}</strong>`
