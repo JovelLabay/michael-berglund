@@ -45,7 +45,7 @@ export const MenuItem = ({ text, link, image, blocks, description }: MenuItemPro
           { "opacity-100": isShowImage }
         )}
       >
-        <div className="relative mt-16 hidden aspect-[656/512] w-full md:block">
+        <div className="relative mt-16 hidden aspect-[656/512] w-full md:block pt-[60px]">
           <Image src={image.mediaItemUrl} alt={image.altText} objectFit="cover" layout="fill" />
         </div>
         <p className=" mt-6 hidden font-gotham text-[20px] leading-7 text-light-green md:block">
