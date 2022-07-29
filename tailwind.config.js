@@ -72,6 +72,9 @@ module.exports = {
         "register-pattern": "url('/bg/register-pattern.png')",
         "hero-pattern": "url('/bg/hero-pattern.png')",
       },
+      boxShadow: {
+        "shadow-cus": "0px 4px 25px rgba(0, 0, 0, 0.1)",
+      },
     },
   },
   plugins: [require("@tailwindcss/aspect-ratio"), require("@tailwindcss/typography")],
