@@ -110,7 +110,7 @@ export default function Layout({
         <div>{children}</div>
         <Footer />
         {menuShow && (
-          <div className="fixed top-0 right-0 z-50 h-auto w-full">
+          <div className="fixed top-0 right-0 z-30 h-auto w-full">
             <Header
               isHomePage={isHomePage}
               isMenuOpen={isMenuOpen}

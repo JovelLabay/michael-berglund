@@ -8,7 +8,7 @@ export const ShortDescBlock = ({ description, quote, backgroundColor }: ShortDes
     <>
       <section
         className={classNames(
-          "section-padding flex flex-col  bg-white pb-[60px] md:flex-row lg:pb-[120px]",
+          "section-padding flex flex-col  bg-light-beige pb-[60px] md:flex-row lg:pb-[120px]",
           { "bg-light-beige": backgroundColor === "beige" }
         )}
       >
@@ -19,11 +19,11 @@ export const ShortDescBlock = ({ description, quote, backgroundColor }: ShortDes
           <p className="quote-l max-w-[425px] text-dark-beige">{quote}</p>
         </div>
       </section>
-      {backgroundColor === "white" && (
+      {/* {backgroundColor === "white" && (
         <div className="h-[1px] w-full bg-white">
           <hr className="mx-auto w-[95%] bg-normal-beige" />
         </div>
-      )}
+      )} */}
     </>
   )
 }
