@@ -258,6 +258,7 @@ export const GET_MEDARBETARE_DATA_BY_ID = gql`
         phone
         linkedin
         bio
+        category
       }
     }
   }

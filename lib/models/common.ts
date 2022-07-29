@@ -166,6 +166,7 @@ export interface AcfMedarbetare {
   phone: string
   linkedin: string
   bio: string
+  category: string
 }
 
 export interface AnimatedPage {
