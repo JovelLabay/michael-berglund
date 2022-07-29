@@ -11,9 +11,10 @@ export interface SmallCardProps {
   body: ReactNode
   link?: string
   className?: string
+  isCourseFull: any
 }
 
-export const SmallCard = ({ head, body, link, className }: SmallCardProps) => {
+export const SmallCard = ({ head, body, link, className, isCourseFull }: SmallCardProps) => {
   const card = (
     <div className={classNames("item h-full", className)}>
       <div className="aspect-squar relative h-[156px] shrink-0">
@@ -25,7 +26,14 @@ export const SmallCard = ({ head, body, link, className }: SmallCardProps) => {
         />
         {head}
       </div>
-      <div className="flex w-full flex-col justify-center bg-light-beige p-8">{body}</div>
+      <div className="flex w-full flex-col justify-center bg-light-beige ">
+        <div className="mb-[32px] p-8">{body}</div>
+        {isCourseFull && (
+          <div className="pre-title absolute bottom-0 w-full bg-orange px-[25px] py-2 text-center font-[350] uppercase tracking-[0.15em] text-white">
+            Väntelista
+          </div>
+        )}
+      </div>
     </div>
   )
 
