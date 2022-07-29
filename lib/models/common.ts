@@ -158,6 +158,7 @@ export interface AcfCourse {
   duration: number
   durationUnit: string
   language: string
+  category: string
 }
 
 export interface AcfMedarbetare {
