@@ -25,16 +25,12 @@ export const CourseCards = ({ title }: CourseCardsData) => {
         {/* HEADER */}
         <div className="mb-[40px] flex flex-col items-start justify-between md:mb-[60px] md:flex-row md:items-center">
           <h3 className="app-h3 mb-[40px] text-dark-blue md:mb-0">{title}</h3>
-          <div className="flex flex-row">
+          <div className="flex flex-row gap-[40px]">
             {FILTERS.map((filter, index) => {
               return (
                 <button
                   key={index}
-                  className={
-                    currentFilter === filter
-                      ? "mr-[40px] text-dark-green"
-                      : "mr-[40px] text-light-green"
-                  }
+                  className={currentFilter === filter ? " text-dark-green" : " text-light-green"}
                   onClick={() => setCurrentFilter(filter)}
                 >
                   {filter}
