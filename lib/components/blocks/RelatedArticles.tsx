@@ -55,12 +55,14 @@ export const RelatedArticles = ({ title, postIds, urlLabel, url }: RelatedArticl
       <div className="app-h3 mb-10 flex flex-row justify-between lg:mb-[60px]">
         <h3>{title}</h3>
         <a
-          className=" text flex flex-row items-center pr-[48px] "
+          className=" text flex flex-row items-center pr-0 md:pr-[48px]"
           target="_blank"
           rel="noopener noreferrer"
-          href={url}
+          href="/"
         >
-          <span className="mr-2 font-gotham text-[16px] font-medium text-dark-green">{urlLabel}</span>
+          <span className="mr-2 font-gotham text-[16px] font-medium text-dark-green">
+            {urlLabel}
+          </span>
           <SwiperArrowRight className="w-5 text-[16px]" />
         </a>
       </div>

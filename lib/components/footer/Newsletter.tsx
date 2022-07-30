@@ -36,6 +36,7 @@ export const NewsLetter = (props: any) => {
     successMessage,
     successSubMessage,
     successSubTitle,
+    closeLabel,
   } = newsletter
 
   const { register, handleSubmit, reset } = useForm<NewsletterFormValues>()
@@ -73,12 +74,12 @@ export const NewsLetter = (props: any) => {
       id="newsletterSection"
       className={
         showPopUp
-          ? "bg-light-beige p-10 text-center"
-          : "section-padding bg-light-beige pb-[120px] text-center"
+          ? "relative m-[20px] bg-light-beige p-[25px] text-center md:m-0 md:p-[60px]"
+          : "relative section-padding bg-light-beige pb-[120px] text-center"
       }
     >
       {showPopUp && (
-        <div className="flex justify-end">
+        <div className="absolute top-[22.91px] right-[22.91px]">
           <button onClick={closePopUp}>
             <DismissIcon />
           </button>
@@ -104,7 +105,7 @@ export const NewsLetter = (props: any) => {
                   type="email"
                   required
                   disabled={isSubmitting}
-                  className="text-black-500 first-letter:input-link-text w-full px-4 py-[17px] outline-none"
+                  className="first-letter:input-link-text w-full px-4 py-[17px] text-dark-blue outline-none placeholder:font-normal"
                   placeholder={emailPlaceholder}
                   {...register("email")}
                 />
@@ -121,27 +122,50 @@ export const NewsLetter = (props: any) => {
               </div>
 
               <span className="link-s text-dark-beige">
-                <Wysiwyg className="privacy-policy" content={privacyPolicy} />
+                <Wysiwyg className="privacy-policy text-[14px]" content={privacyPolicy} />
               </span>
             </form>
           </>
         )}
-        {submitted && (
-          <>
-            <h3 className="app-h3 text-dark-blue">{successTitle}</h3>
-            <p className="mt-10 text-dark-blue">{successSubMessage}</p>
-            <h3 className="app-h3 mt-10 text-[#69857D]">{successSubTitle}</h3>
-            <span className="mt-10 mb-8 inline-block">
-              <Wysiwyg
-                className="prose-p:body-m prose text-[#69857D]"
-                content={successMessage.replace(
-                  "&lt;email&gt;",
-                  `<strong classname="text-[#69857D] font-bold">${email}</strong>`
-                )}
-              />
-            </span>
-          </>
-        )}
+        {submitted &&
+          (showPopUp ? (
+            <>
+              <h3 className="text-[24px] font-normal mt-10 text-[#69857D]">{successSubTitle}</h3>
+              <span className="mt-10 mb-8 inline-block">
+                <Wysiwyg
+                  className="prose-p:body-m prose text-[16px] font-medium text-dark-blue md:text-[18px] newsletter"
+                  content={successMessage.replace(
+                    "&lt;email&gt;",
+                    `<strong classname="text-red-500 font-bold">${email}</strong>`
+                  )}
+                />
+              </span>
+
+              <div className="flex justify-center">
+                <button
+                  onClick={closePopUp}
+                  className="flex items-center justify-center text-dark-green"
+                >
+                  {closeLabel} <DismissIcon className="ml-[11px]" />
+                </button>
+              </div>
+            </>
+          ) : (
+            <>
+              <h3 className="app-h3 text-dark-blue">{successTitle}</h3>
+              <p className="mt-10 text-dark-blue">{successSubMessage}</p>
+              <h3 className="app-h3 mt-10 text-[#69857D]">{successSubTitle}</h3>
+              <span className="mt-10 mb-8 inline-block">
+                <Wysiwyg
+                  className="newsletter prose-p:body-m prose text-[#69857D]"
+                  content={successMessage.replace(
+                    "&lt;email&gt;",
+                    `<strong classname="text-[#69857D] font-bold">${email}</strong>`
+                  )}
+                />
+              </span>
+            </>
+          ))}
       </div>
     </section>
   )

@@ -93,7 +93,7 @@ export const Footer = () => {
 
         {/* BOOTM */}
         <div>
-          <div className=" my-14 border-b-2 border-dark-beige" />
+          <div className=" my-14 border-b border-dark-beige" />
           <div className="flex flex-col justify-between md:flex-row">
             <div className="mb-10 flex w-48 flex-row justify-between sm:my-0">
               {footerBottomLinks.map((footerBottomLink, index) => {
@@ -103,6 +103,7 @@ export const Footer = () => {
                     key={index}
                     target="_blank"
                     rel="noreferrer"
+                    className="hover-text-white text-[14px] font-[325]"
                   >
                     <p>{footerBottomLink.footerLinksName}</p>
                   </a>

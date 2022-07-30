@@ -55,6 +55,7 @@ export interface ACFGlobalFields {
       successMessage: string
       successSubTitle: string
       successSubMessage: string
+      closeLabel: string
     }
     footer: {
       contactInfo: {

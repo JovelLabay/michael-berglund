@@ -30,9 +30,9 @@ export const RightLeftImageBlock = ({
 
       <div className="flex-1">
         <h3 className="app-h3 mb-10 font-normal">{heading}</h3>
-        <p className="body-m mb-8">{description}</p>
-        <div className="flex items-center space-x-2">
-          <AppLink href={link} className="link-m font-[350] text-dark-green">
+        <p className="body-m mb-8 font-[350]">{description}</p>
+        <div className="flex items-center space-x-2 hover-text-green">
+          <AppLink href={link} className="link-m font-[350] text-dark-green ">
             Läs mer
           </AppLink>
           <ArrowRight className="fill-dark-green" />

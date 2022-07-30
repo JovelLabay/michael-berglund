@@ -29,11 +29,12 @@ export interface DescWithImageData extends BaseBlock {
   description: string
   imageId: number
   dataList: {
-    dataKey: string,
-    title: string,
+    dataKey: string
+    title: string
     description: string
-  }[],
+  }[]
   backgroundColor: "white" | "beige"
+  descriptionOnly: boolean
 }
 
 export interface LogowallData extends BaseBlock {

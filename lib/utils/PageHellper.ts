@@ -1,13 +1,24 @@
 import {
-    GET_ALL_UNTAILORED_COURESES, GET_COURSE_DATA_BY_ID, GET_GLOBAL_FIELDS,
-    GET_MEDARBETARE_DATA_BY_ID, GET_PAGE_BLOCKS_BY_URI, GET_PAGE_DATA_BY_ID, GET_POST_DATA_BY_ID
+  GET_ALL_UNTAILORED_COURESES,
+  GET_COURSE_DATA_BY_ID,
+  GET_GLOBAL_FIELDS,
+  GET_MEDARBETARE_DATA_BY_ID,
+  GET_PAGE_BLOCKS_BY_URI,
+  GET_PAGE_DATA_BY_ID,
+  GET_POST_DATA_BY_ID,
 } from "@graphql/graphql-queries"
 import client from "@graphql/urql-client"
 import invariant from "tiny-invariant"
 
 import {
-    getCoursesLinkIds, getFileLinks, getImageIds, getMedarbetareLinkIds, getPageLinkIds,
-    getPostLinkIds, hasCourseCardBlock, parse
+  getCoursesLinkIds,
+  getFileLinks,
+  getImageIds,
+  getMedarbetareLinkIds,
+  getPageLinkIds,
+  getPostLinkIds,
+  hasCourseCardBlock,
+  parse,
 } from "@/lib/utils/BlockParser"
 import { getFiles } from "@/lib/utils/FileGetter"
 import { getImages } from "@/lib/utils/ImageGetter"

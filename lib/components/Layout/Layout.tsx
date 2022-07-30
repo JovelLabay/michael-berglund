@@ -7,7 +7,13 @@ import { ReactNode, useCallback, useEffect, useState } from "react"
 import { Footer } from "@components/footer"
 import { Header, MenuContent } from "@components/menu"
 import {
-    ACFGeneralSettings, ACFGlobalFields, FileMap, ImageMap, Page, PageMap, PostMap
+  ACFGeneralSettings,
+  ACFGlobalFields,
+  FileMap,
+  ImageMap,
+  Page,
+  PageMap,
+  PostMap,
 } from "@models/common"
 
 export interface LayoutProps {
@@ -34,6 +40,9 @@ export default function Layout({
   files,
 }: LayoutProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [menuShow, setMenuShow] = useState(true)
+  const [lastScrollY, setLastScrollY] = useState(0)
+
   const router = useRouter()
 
   const toggleMenu = useCallback(() => {
@@ -56,6 +65,28 @@ export default function Layout({
     }
   }, [router, isMenuOpen])
 
+  const controlNavbar = () => {
+    if (typeof window !== "undefined") {
+      if (window.scrollY > lastScrollY) {
+        setMenuShow(false)
+      } else {
+        setMenuShow(true)
+      }
+
+      setLastScrollY(window.scrollY)
+    }
+  }
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      window.addEventListener("scroll", controlNavbar)
+    }
+
+    return () => {
+      window.removeEventListener("scroll", controlNavbar)
+    }
+  }, [lastScrollY])
+
   return (
     <GlobalContext.Provider
       value={{
@@ -72,10 +103,19 @@ export default function Layout({
           "overflow-hidden": isMenuOpen,
         })}
       >
-        <Header isHomePage={isHomePage} isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
         <AnimatePresence>{isMenuOpen && <MenuContent />}</AnimatePresence>
         <div>{children}</div>
         <Footer />
+        {menuShow && (
+          <div className="fixed top-0 right-0 z-50 h-auto w-full">
+            <Header
+              isHomePage={isHomePage}
+              isMenuOpen={isMenuOpen}
+              toggleMenu={toggleMenu}
+              lastScrollY={lastScrollY}
+            />
+          </div>
+        )}
       </div>
     </GlobalContext.Provider>
   )

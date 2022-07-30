@@ -15,8 +15,8 @@ export interface SmallCardProps {
 
 export const SmallCard = ({ head, body, link, className }: SmallCardProps) => {
   const card = (
-    <div className={classNames("item flex h-full", className)}>
-      <div className="relative aspect-square w-[28.05%] shrink-0">
+    <div className={classNames("item h-full", className)}>
+      <div className="aspect-squar relative h-[156px] shrink-0">
         <Image
           src={cardHeadBg.src}
           alt="Completed Assignments BG"
