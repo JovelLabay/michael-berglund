@@ -7,7 +7,13 @@ import { ReactNode, useCallback, useEffect, useState } from "react"
 import { Footer } from "@components/footer"
 import { Header, MenuContent } from "@components/menu"
 import {
-    ACFGeneralSettings, ACFGlobalFields, FileMap, ImageMap, Page, PageMap, PostMap
+  ACFGeneralSettings,
+  ACFGlobalFields,
+  FileMap,
+  ImageMap,
+  Page,
+  PageMap,
+  PostMap,
 } from "@models/common"
 
 export interface LayoutProps {
@@ -97,7 +103,6 @@ export default function Layout({
           "overflow-hidden": isMenuOpen,
         })}
       >
-        <Header isHomePage={isHomePage} isMenuOpen={isMenuOpen} toggleMenu={toggleMenu}  lastScrollY={lastScrollY} />
         <AnimatePresence>{isMenuOpen && <MenuContent />}</AnimatePresence>
         <div>{children}</div>
         <Footer />
