@@ -24,7 +24,7 @@ export const Assignments = ({ title, assignments }: AssignmentsData) => {
 
   useEffect(() => {
     setAssignmentList(assignments.slice(0, limiter))
-  }, [limiter])
+  }, [assignments, limiter])
 
   return (
     <section className="section-padding relative bg-white pb-[120px] lg:pl-12 lg:pr-0">
@@ -73,7 +73,7 @@ export const Assignments = ({ title, assignments }: AssignmentsData) => {
       {/* SHOW EACH ASSIGNEMNT */}
       {isShow && (
         <div className="fixed top-0 left-0 z-10 flex h-screen w-screen items-center justify-center bg-[#0000007f]">
-          <div className="col-span-1 mx-5 flex flex-col items-center justify-center gap-10 bg-white px-[24px] py-[24px] md:mx-0 md:h-[380px] md:w-[656px]">
+          <div className="col-span-1 mx-5 flex flex-col items-center justify-center gap-10 bg-white p-6 md:mx-0 md:h-[380px] md:w-[656px]">
             <AssignmentCheck />
             <h3 className=" app-h3 mx-2 text-center text-dark-blue">{modelContent?.title}</h3>
             <p className="mx-4 text-center text-dark-blue md:mx-14">{modelContent?.description}</p>

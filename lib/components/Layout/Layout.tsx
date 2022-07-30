@@ -83,10 +83,10 @@ export default function Layout({
   useEffect(() => {
     if (typeof window !== "undefined") {
       window.addEventListener("scroll", controlNavbar)
+    }
 
-      return () => {
-        window.removeEventListener("scroll", controlNavbar)
-      }
+    return () => {
+      window.removeEventListener("scroll", controlNavbar)
     }
   }, [lastScrollY])
 
