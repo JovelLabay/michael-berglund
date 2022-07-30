@@ -7,8 +7,8 @@ import { LogowallData } from "@models/blocks"
 export const LogowallBlock = ({ heading, border, gallery }: LogowallData) => {
   const { images } = useGlobalContext()
 
-  const _logos = gallery.map(({ imageId }) => (
-    <div key={imageId} className="relative h-14 w-[140px] ">
+  const _logos = gallery.map(({ imageId }, index: any) => (
+    <div key={imageId + Math.random()} className="relative h-14 w-[140px] ">
       <Image
         src={images![imageId].src}
         alt={images![imageId].alt}

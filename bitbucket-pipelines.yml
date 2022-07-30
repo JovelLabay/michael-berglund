@@ -10,6 +10,15 @@ definitions:
     node: node_modules/
 
 pipelines:
+  default:
+    - step:
+        name: "Lint and Test build"
+        caches:
+          - node
+        script:
+          - npm install
+          - npm run lint
+          - npm run build
   branches:
     develop:
       - step:

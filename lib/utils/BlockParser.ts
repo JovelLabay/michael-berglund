@@ -1,41 +1,11 @@
 import {
-  AccordionListsData,
-  AssignmentsData,
-  BaseBlock,
-  ContactData,
-  ContactFeedListblock,
-  CourseCardsData,
-  DataPointsData,
-  DescWithImageData,
-  HeroData,
-  ImageGalleryData,
-  InfoIconData,
-  isAccordionListBlock,
-  isBigPageLinks,
-  isContactData,
-  isContactFeedBlock,
-  isCourseCardData,
-  isDescWithImageData,
-  isHeroData,
-  isImageGalleryBlock,
-  isInfoIconBlock,
-  isLogowallData,
-  isRegisterCvData,
-  isRelatedArticlesData,
-  isRightLeftImageBlock,
-  isStatsData,
-  isTabsData,
-  LogowallData,
-  PostData,
-  PressFeedData,
-  RegisterCvData,
-  RelatedArticleData,
-  ReviewSliderData,
-  RightLeftImageData,
-  ShortDescData,
-  StatsData,
-  TableDescData,
-  TabsData,
+    AccordionListsData, AssignmentsData, BaseBlock, ContactData, ContactFeedListblock,
+    CourseCardsData, DataPointsData, DescWithImageData, HeroData, ImageGalleryData, InfoIconData,
+    isAccordionListBlock, isBigPageLinks, isContactData, isContactFeedBlock, isCourseCardData,
+    isDescWithImageData, isHeroData, isImageGalleryBlock, isInfoIconBlock, isLogowallData,
+    isRegisterCvData, isRelatedArticlesData, isRightLeftImageBlock, isStatsData, isTabsData,
+    LogowallData, PostData, PressFeedData, RegisterCvData, RelatedArticleData, ReviewSliderData,
+    RightLeftImageData, ShortDescData, StatsData, TableDescData, TabsData
 } from "@models/blocks"
 import { IDropDown } from "@models/common"
 
@@ -242,7 +212,7 @@ const parseDescWithImageBlock = (data: any): DescWithImageData => {
     .map(key => key.match(descWithImagePattern)![1])
 
   const dataList = indexes.map(index => ({
-    dataKey: data[`_lists_${index}_title`],
+    dataKey: data[`_lists_${index}_title`] + Math.random(),
     title: data[`lists_${index}_title`],
     description: data[`lists_${index}_description`],
   }))
@@ -257,36 +227,6 @@ const parseDescWithImageBlock = (data: any): DescWithImageData => {
     descriptionOnly: !!data.description_only,
   }
 }
-
-// const parseDescWithImageBlock = (data: any): DescWithImageData => {
-//   let subHeading: any = []
-//   let subDescription: any = []
-
-//   console.log(data);
-
-//   // SUB HEADING
-//   Object.entries(data).filter(item => {
-//     if (item[0].startsWith("sub_heading_")) {
-//       subHeading.push(item[1])
-//     }
-//   })
-
-//   // SUB DESCRIPTION
-//   Object.entries(data).filter(item => {
-//     if (item[0].startsWith("sub_description_")) {
-//       subDescription.push(item[1])
-//     }
-//   })
-
-//   return {
-//     heading: data.heading,
-//     description: data.description,
-//     imageId: data.image,
-//     backgroundColor: data.background_color,
-//     subHeadings: subHeading,
-//     name: "acf/desc-image",
-//   }
-// }
 
 const parseRightLeftImageBlock = (data: any): RightLeftImageData => {
   return {
