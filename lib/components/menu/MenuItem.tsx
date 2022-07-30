@@ -3,8 +3,8 @@ import Image from "next/image"
 import { useState } from "react"
 
 import { AppLink } from "@components/shared/AppLink"
-import { WPMedia } from "@models/common"
 import { BaseBlock, BlockName } from "@models/blocks"
+import { WPMedia } from "@models/common"
 
 export interface BaseBlockMenu {
   name: BlockName
@@ -15,11 +15,10 @@ export interface MenuItemProps {
   text: string
   link: string
   image: WPMedia
-  blocks: BaseBlockMenu[]
   description: string
 }
 
-export const MenuItem = ({ text, link, image, blocks, description }: MenuItemProps) => {
+export const MenuItem = ({ text, link, image, description }: MenuItemProps) => {
   const [isShowImage, setIsShowImage] = useState(false)
 
   return (

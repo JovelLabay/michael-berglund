@@ -7,15 +7,8 @@ import { ReactNode, useCallback, useEffect, useState } from "react"
 import { Footer } from "@components/footer"
 import { Header, MenuContent } from "@components/menu"
 import {
-  ACFGeneralSettings,
-  ACFGlobalFields,
-  FileMap,
-  ImageMap,
-  Page,
-  PageMap,
-  PostMap,
+    ACFGeneralSettings, ACFGlobalFields, FileMap, ImageMap, Page, PageMap, PostMap
 } from "@models/common"
-import { BaseBlock } from "@models/blocks"
 
 export interface LayoutProps {
   children: ReactNode
@@ -27,7 +20,6 @@ export interface LayoutProps {
   images?: ImageMap
   isHomePage?: boolean
   files?: FileMap
-  blocks: BaseBlock[]
 }
 
 export default function Layout({
@@ -40,7 +32,6 @@ export default function Layout({
   images,
   isHomePage,
   files,
-  blocks,
 }: LayoutProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [menuShow, setMenuShow] = useState(true)
@@ -106,7 +97,8 @@ export default function Layout({
           "overflow-hidden": isMenuOpen,
         })}
       >
-        <AnimatePresence>{isMenuOpen && <MenuContent blocks={blocks} />}</AnimatePresence>
+        <Header isHomePage={isHomePage} isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
+        <AnimatePresence>{isMenuOpen && <MenuContent />}</AnimatePresence>
         <div>{children}</div>
         <Footer />
         {menuShow && (
