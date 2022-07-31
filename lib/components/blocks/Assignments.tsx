@@ -6,12 +6,12 @@ import AssignmentBg from "@/public/bg/assignments.png"
 import { Wysiwyg } from "@components/shared/Wysiwyg"
 import { ProgressSwiper } from "@components/swiper"
 import { useResponsiveLG } from "@hooks/shared"
-import { CheckMark } from "@icons/CheckMark"
-import { AssignmentsData, AssignmentsDataPopUp } from "@models/blocks"
 import { ArrowDown } from "@icons/ArrowDown"
+import AssignmentCheck from "@icons/AssignmentCheck"
+import { CheckMark } from "@icons/CheckMark"
 import DismissIcon from "@icons/DismissIcon"
 import { PlusIcon } from "@icons/PlusIcon"
-import AssignmentCheck from "@icons/AssignmentCheck"
+import { AssignmentsData, AssignmentsDataPopUp } from "@models/blocks"
 
 export const Assignments = ({ title, assignments }: AssignmentsData) => {
   const responsiveLG = useResponsiveLG()
@@ -24,7 +24,7 @@ export const Assignments = ({ title, assignments }: AssignmentsData) => {
 
   useEffect(() => {
     setAssignmentList(assignments.slice(0, limiter))
-  }, [limiter])
+  }, [assignments, limiter])
 
   return (
     <section className="section-padding relative bg-white pb-[120px] lg:pl-12 lg:pr-0">
@@ -46,7 +46,7 @@ export const Assignments = ({ title, assignments }: AssignmentsData) => {
                 {assignment.title}
               </p>
               <button
-                className="flex flex-row items-center hover:font-bold"
+                className="transition flex flex-row items-center text-dark-green hover-text-green"
                 onClick={() => {
                   setIsShow(true)
                   setModelContent(assignment)
@@ -62,7 +62,7 @@ export const Assignments = ({ title, assignments }: AssignmentsData) => {
       {/* BUTTON */}
 
       <button
-        className="mx-auto mt-10 flex flex-row items-center hover:font-bold"
+        className="mx-auto mt-10 flex flex-row items-center text-dark-green hover-text-green"
         onClick={() => {
           setLimiter(prev => prev + 3)
         }}
@@ -73,11 +73,11 @@ export const Assignments = ({ title, assignments }: AssignmentsData) => {
       {/* SHOW EACH ASSIGNEMNT */}
       {isShow && (
         <div className="fixed top-0 left-0 z-10 flex h-screen w-screen items-center justify-center bg-[#0000007f]">
-          <div className="col-span-1 mx-5 flex flex-col items-center justify-center gap-10 bg-white px-[24px] py-[24px] md:mx-0 md:h-[380px] md:w-[656px]">
+          <div className="col-span-1 mx-5 flex flex-col items-center justify-center gap-10 bg-white p-6 md:mx-0 md:h-[380px] md:w-[656px]">
             <AssignmentCheck />
             <h3 className=" app-h3 mx-2 text-center text-dark-blue">{modelContent?.title}</h3>
-            <p className="mx-4 text-center text-dark-blue md:mx-14">{modelContent?.description}</p>
-            <button onClick={() => setIsShow(false)} className="flex items-center hover:font-bold">
+            <p className="mx-4 text-left md:text-center text-dark-blue md:mx-14">{modelContent?.description}</p>
+            <button onClick={() => setIsShow(false)} className="flex items-center text-dark-green hover-text-green">
               Stäng <DismissIcon className="ml-4" />
             </button>
           </div>

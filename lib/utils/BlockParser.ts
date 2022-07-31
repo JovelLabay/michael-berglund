@@ -212,7 +212,7 @@ const parseDescWithImageBlock = (data: any): DescWithImageData => {
     .map(key => key.match(descWithImagePattern)![1])
 
   const dataList = indexes.map(index => ({
-    dataKey: data[`_lists_${index}_title`],
+    dataKey: data[`_lists_${index}_title`] + Math.random(),
     title: data[`lists_${index}_title`],
     description: data[`lists_${index}_description`],
   }))

@@ -74,12 +74,12 @@ export const NewsLetter = (props: any) => {
       id="newsletterSection"
       className={
         showPopUp
-          ? "m-[20px] bg-light-beige p-[25px] text-center md:m-0 md:p-[60px]"
-          : "section-padding bg-light-beige pb-[120px] text-center"
+          ? "relative m-[20px] bg-light-beige p-[25px] text-center md:m-0 md:p-[60px]"
+          : "relative section-padding bg-light-beige pb-[120px] text-center"
       }
     >
       {showPopUp && (
-        <div className="mb-[22.91px] mr-[-10px] mt-[-10px] flex justify-end">
+        <div className="absolute top-[22.91px] right-[22.91px]">
           <button onClick={closePopUp}>
             <DismissIcon />
           </button>
@@ -105,7 +105,7 @@ export const NewsLetter = (props: any) => {
                   type="email"
                   required
                   disabled={isSubmitting}
-                  className="first-letter:input-link-text w-full px-4 py-[17px] text-dark-blue outline-none"
+                  className="first-letter:input-link-text w-full px-4 py-[17px] text-dark-blue outline-none placeholder:font-normal"
                   placeholder={emailPlaceholder}
                   {...register("email")}
                 />
@@ -122,7 +122,7 @@ export const NewsLetter = (props: any) => {
               </div>
 
               <span className="link-s text-dark-beige">
-                <Wysiwyg className="privacy-policy" content={privacyPolicy} />
+                <Wysiwyg className="privacy-policy text-[14px]" content={privacyPolicy} />
               </span>
             </form>
           </>
@@ -130,10 +130,10 @@ export const NewsLetter = (props: any) => {
         {submitted &&
           (showPopUp ? (
             <>
-              <h3 className="app-h3 mt-10 text-[#69857D]">{successSubTitle}</h3>
+              <h3 className="text-[24px] font-normal mt-10 text-[#69857D]">{successSubTitle}</h3>
               <span className="mt-10 mb-8 inline-block">
                 <Wysiwyg
-                  className="prose-p:body-m prose text-[16px] font-medium text-dark-blue md:text-[18px]"
+                  className="prose-p:body-m prose text-[16px] font-medium text-dark-blue md:text-[18px] newsletter"
                   content={successMessage.replace(
                     "&lt;email&gt;",
                     `<strong classname="text-red-500 font-bold">${email}</strong>`
@@ -157,7 +157,7 @@ export const NewsLetter = (props: any) => {
               <h3 className="app-h3 mt-10 text-[#69857D]">{successSubTitle}</h3>
               <span className="mt-10 mb-8 inline-block">
                 <Wysiwyg
-                  className="prose-p:body-m prose text-[#69857D]"
+                  className="newsletter prose-p:body-m prose text-[#69857D]"
                   content={successMessage.replace(
                     "&lt;email&gt;",
                     `<strong classname="text-[#69857D] font-bold">${email}</strong>`

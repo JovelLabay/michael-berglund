@@ -119,6 +119,11 @@
     @apply prose-h4:app-h4 prose-ul:ul-marker prose-p:body-m prose-li:form-marker prose prose-h4:mt-5 prose-h4:mb-5 prose-h4:font-lora prose-h4:font-normal prose-h4:text-white prose-p:text-white prose-ul:mb-10 prose-ul:pl-0 prose-li:text-white;
   }
 
+  .wysiwyg.newsletter{
+    @apply prose-a:text-[#69857D];
+  }
+
+
   .ul-marker {
     list-style-position: inside;
   }
@@ -267,5 +272,9 @@
 
   .hover-text-white {
     @apply app-hover hover:text-medium-beige;
+  }
+
+  .hover-text-green {
+    @apply app-hover hover:opacity-50;
   }
 }

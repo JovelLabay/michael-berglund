@@ -74,10 +74,10 @@ export default function Layout({
   useEffect(() => {
     if (typeof window !== "undefined") {
       window.addEventListener("scroll", controlNavbar)
+    }
 
-      return () => {
-        window.removeEventListener("scroll", controlNavbar)
-      }
+    return () => {
+      window.removeEventListener("scroll", controlNavbar)
     }
   }, [lastScrollY])
 
@@ -97,7 +97,6 @@ export default function Layout({
           "overflow-hidden": isMenuOpen,
         })}
       >
-        <Header isHomePage={isHomePage} isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} lastScrollY={0} />
         <AnimatePresence>{isMenuOpen && <MenuContent />}</AnimatePresence>
         <div>{children}</div>
         <Footer />
