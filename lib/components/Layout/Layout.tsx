@@ -7,13 +7,7 @@ import { ReactNode, useCallback, useEffect, useState } from "react"
 import { Footer } from "@components/footer"
 import { Header, MenuContent } from "@components/menu"
 import {
-  ACFGeneralSettings,
-  ACFGlobalFields,
-  FileMap,
-  ImageMap,
-  Page,
-  PageMap,
-  PostMap,
+    ACFGeneralSettings, ACFGlobalFields, FileMap, ImageMap, Page, PageMap, PostMap
 } from "@models/common"
 
 export interface LayoutProps {

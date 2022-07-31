@@ -1,8 +1,6 @@
 import { useGlobalContext } from "@context/global"
 import { motion } from "framer-motion"
 
-import { BaseBlock } from "@models/blocks"
-
 import { MenuItem } from "./MenuItem"
 
 export const MenuContent = () => {

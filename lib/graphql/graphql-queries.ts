@@ -258,6 +258,7 @@ export const GET_MEDARBETARE_DATA_BY_ID = gql`
         phone
         linkedin
         bio
+        category
       }
     }
   }
@@ -284,6 +285,7 @@ export const GET_COURSE_DATA_BY_ID = gql`
         isCourseFull
         language
         startDate
+        category
       }
     }
   }
@@ -305,6 +307,7 @@ export const GET_ALL_UNTAILORED_COURESES = gql`
             isCourseFull
             duration
             durationUnit
+            category
           }
         }
       }

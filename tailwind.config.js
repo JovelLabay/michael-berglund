@@ -22,7 +22,7 @@ module.exports = {
       "link-m": ["16px", "18px"],
       "quote-l": ["24px", "32px"],
       "pre-title": ["14px", "16px"],
-      "form-label": ["12px", "14px"]
+      "form-label": ["12px", "14px"],
     },
     aspectRatio: {
       auto: "auto",
@@ -65,12 +65,18 @@ module.exports = {
         "dark-beige": "#A5A09E",
         "normal-beige": "#ECE5E2",
         "darker-beige": "#ECE5E2",
-        "dark-red" : "#CC4E5C"
+        "dark-red": "#CC4E5C",
       },
 
       backgroundImage: {
         "register-pattern": "url('/bg/register-pattern.png')",
         "hero-pattern": "url('/bg/hero-pattern.png')",
+      },
+      boxShadow: {
+        "shadow-cus": "0px 4px 25px rgba(0, 0, 0, 0.1)",
+      },
+      zIndex: {
+        60: "60",
       },
     },
   },

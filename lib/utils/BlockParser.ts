@@ -307,6 +307,7 @@ const parseContactFeedBlocks = (data: any): ContactFeedListblock => {
       }
     }
   })
+
   let medarbetareIds: any[] = []
   resultParse.forEach((dataRes, i) => {
     let indexes = dataRes.tempLists
@@ -322,11 +323,24 @@ const parseContactFeedBlocks = (data: any): ContactFeedListblock => {
   const contactListsBlockData = resultParse.map(value => {
     return { title: value.title, medarbetareIds: value.medarbetareIds }
   }) as any
+
+  const positionList = Object.keys(data)
+
+  const posititonListData = [] as any[]
+  positionList
+    .filter(key => {
+      return key.startsWith("position_list_")
+    })
+    .map(key => {
+      posititonListData.push(data[key])
+    })
+
   return {
     contactLists: contactListsBlockData,
     coverPhotoId: data["cover_photo"],
     medarbetareIds: medarbetareIds,
     name: "acf/contact-feed",
+    positionList: posititonListData,
   }
 }
 
@@ -380,7 +394,11 @@ const parseContactBlocks = (data: any): ContactData => {
     .map(key => key.match(contactItemPattern)![1])
     .map(index => data[`medarbetare_list_${index}_medarbetare`])
 
-  return { name: "acf/contact", title: data.title, medarbetareIds }
+  return {
+    name: "acf/contact",
+    title: data.title,
+    medarbetareIds,
+  }
 }
 
 const dataPointsPattern = /^data_points_(\d+)_data_number$/

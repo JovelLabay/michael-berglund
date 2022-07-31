@@ -16,11 +16,14 @@ export const BigPageLinks = ({ title, postIds }: PostData) => {
         const cardBody = (
           <div className="p-8">
             <h5 className="app-h4">{title}</h5>
-            <Wysiwyg content={excerpt} className="prose-p:body-m prose my-5" />
-            <div className="link-m flex items-center space-x-[10px] text-dark-green">
-              <span className="font-[350]">Read more</span>
-              <ArrowRight className="fill-dark-green" />
-            </div>
+            <Wysiwyg
+              content={excerpt}
+              className="prose-p:body-m prose my-5 h-[72px] overflow-hidden"
+            />
+
+            <button className="font-[16px] flex items-center text-dark-green hover:text-dark-blue">
+              Läs mer <ArrowRight className="ml-3 fill-dark-green" />
+            </button>
           </div>
         )
         return (
@@ -37,7 +40,7 @@ export const BigPageLinks = ({ title, postIds }: PostData) => {
   )
 
   return (
-    <section className="bg-white px-12 pt-[100px] pb-[120px]">
+    <section className="bg-white px-[20px] pt-[100px] pb-[61px] md:px-12 md:pb-[120px]">
       <h3 className="app-h3 mb-[60px]">{title}</h3>
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-8 ">{cards}</div>
     </section>

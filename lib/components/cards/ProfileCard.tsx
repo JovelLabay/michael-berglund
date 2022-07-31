@@ -7,6 +7,11 @@ import { Wysiwyg } from "@components/shared/Wysiwyg"
 import { FlipIcon } from "@icons/FlipIcon"
 import { LinkedinIcon } from "@icons/LinkedinIcon"
 import { WPMedia } from "@models/common"
+import { CloseIcon } from "@icons/CloseIcon"
+import DismissIcon from "@icons/DismissIcon"
+import Close from "@icons/Close"
+import { ClockIcon } from "@icons/ClockIcon"
+import { LinkedinBlueIcon } from "@icons/LinkedinBlueIcon"
 
 export interface ProfileItemProps {
   image: WPMedia
@@ -31,20 +36,13 @@ export const ProfileCard = ({
 }: ProfileItemProps) => {
   const [isActive, setIsActive] = useState(false)
   const handleClick = () => {
-    setIsActive(current => !current)
+    setIsActive(!isActive)
   }
 
   return (
-    <div className="relative min-h-[490px] md:min-h-[550px]">
-      <div className="profile-card absolute h-full w-full">
-        <div
-          className={classNames(
-            "content absolute h-full w-full transition-transform duration-1000 ease-in-out",
-            {
-              transform: isActive,
-            }
-          )}
-        >
+    <>
+      <div className="relative min-h-[490px] md:min-h-[550px]">
+        <div className="profile-card absolute h-full w-full">
           <div
             className={classNames(
               isActive ? "z-0" : "",
@@ -64,79 +62,77 @@ export const ProfileCard = ({
                   />
                 </div>
               )}
-              <div className="dark-blue flex flex-1 flex-col p-5 pt-6 lg:p-8">
-                <div className="flex-1">
-                  <h5 className="app-h4 ">{name}</h5>
-                  <span className="pre-title  block w-full  pt-[16px] font-[350] uppercase tracking-[0.15em]">
-                    {position}
-                  </span>
-
-                  <a href={`mailto:${email}`}>
-                    <span className="block  w-full break-all pt-[20px]">{email}</span>
-                  </a>
+              <div className="p-[20px] text-dark-blue md:p-[32px]">
+                <h5 className="mb-[16px] mt-[24px] font-lora text-[24px] md:mt-0">{name}</h5>
+                <p className="font-[14px] mb-[20px] font-[350]">{position}</p>
+                <a href={`mailto:${email}`} className="mb-[8px] font-[325]">
+                  <span className="">{email}</span>
+                </a>
+                <div className="mb-[24px] flex items-center">
                   <a href={`tel:${phone}`}>
-                    <span className="block w-full pt-1">{phone}</span>
+                    <span className="mr-2 block w-full pt-1 font-[325]">{phone}</span>
                   </a>
-                </div>
-
-                <span className="flex w-full justify-between pt-[22px]">
-                  <div
-                    className="link-m flex cursor-pointer items-center space-x-[10px] font-[350]"
-                    onClick={handleClick}
-                  >
-                    <span>Read Bio</span>
-                    <FlipIcon className="relative" />
-                  </div>
-
+                  {" · "}
                   {linkedin && (
-                    <AppLink href={linkedin}>
-                      <LinkedinIcon />
+                    <AppLink href={linkedin} className="ml-2">
+                      <LinkedinBlueIcon />
                     </AppLink>
                   )}
-                </span>
-              </div>
-            </div>
-          </div>
-          <div className="back absolute flex min-h-[490px] w-full flex-col bg-light-beige md:min-h-[550px]">
-            <div className="absolute top-0 z-0 h-full w-full bg-darker-beige"></div>
-            <div className="absolute flex h-full w-full translate-x-0.5 -translate-y-0.5 flex-col bg-light-beige transition ease-in-out hover:translate-x-1 hover:-translate-y-1">
-              <div className="relative h-16 shrink-0">
-                {/* TODO: Needs to be updated! */}
-                <div
-                  style={{ backgroundImage: `url(${coverPhoto.src})` }}
-                  className="absolute h-full w-full"
-                ></div>
-                <div className="absolute top-7 left-1/2 aspect-square w-[64px]  -translate-x-1/2 overflow-hidden  rounded-full border border-white">
-                  {image && (
-                    <Image
-                      src={image.mediaItemUrl}
-                      alt={image.altText}
-                      layout="fill"
-                      objectFit="cover"
-                    />
-                  )}
                 </div>
-              </div>
-              <h5 className="app-h4 mt-[52px] text-center">{name}</h5>
-              <span className="pre-title mt-4 block text-center font-[350] uppercase tracking-[0.15em]">
-                {position}
-              </span>
-              <Wysiwyg
-                content={bio}
-                className="prose-p:body-m prose flex-1 p-5 py-5 lg:px-[36px]"
-              />
-
-              <div
-                className="link-m flex cursor-pointer items-center space-x-[10px] p-5 pt-0 font-[350] lg:p-8"
-                onClick={handleClick}
-              >
-                <span>Contact Info</span>
-                <FlipIcon className="relative" />
+                <span className="flex w-full justify-between">
+                  <button className="flex items-center text-dark-green" onClick={handleClick}>
+                    Läs bio <DismissIcon className="ml-3" />
+                  </button>
+                </span>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+
+      {isActive && (
+        <div className="fixed top-0 left-0 z-60 flex h-screen w-screen items-center justify-center bg-[#00000080]">
+          <div className="mx-[20px] min-w-[335px] bg-light-beige md:mx-0  md:min-w-[656px]">
+            <div className="relative h-16 shrink-0">
+              <div
+                style={{ backgroundImage: `url(${coverPhoto.src})` }}
+                className="absolute flex h-[60px] w-full flex-col items-end justify-center md:h-[92px]"
+              >
+                <button className="mr-[22.9px] md:hidden" onClick={handleClick}>
+                  <Close />
+                </button>
+              </div>
+              <div className="absolute top-7 left-1/2 aspect-square w-[72px] -translate-x-1/2  overflow-hidden rounded-full  border border-white md:w-[120px]">
+                {image && (
+                  <Image
+                    src={image.mediaItemUrl}
+                    alt={image.altText}
+                    layout="fill"
+                    objectFit="cover"
+                  />
+                )}
+              </div>
+            </div>
+            <h5 className="app-h4 mt-[52px] text-center md:mt-[110px]">{name}</h5>
+            <span className="pre-title mt-4 block text-center font-[350] uppercase tracking-[0.15em]">
+              {position}
+            </span>
+            <Wysiwyg
+              content={bio}
+              className="prose-p:body-m prose flex-1 px-[20px] py-[24px] md:px-[60px] md:pb-[32px]"
+            />
+
+            <div className="mb-[24px] flex justify-center md:mb-[60px]">
+              <button
+                className="flex items-center text-dark-green hover:text-dark-blue"
+                onClick={handleClick}
+              >
+                Stäng <DismissIcon className="ml-3" />
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   )
 }
