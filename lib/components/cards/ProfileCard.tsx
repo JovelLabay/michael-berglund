@@ -92,7 +92,7 @@ export const ProfileCard = ({
 
       {isActive && (
         <div className="fixed top-0 left-0 z-60 flex h-screen w-screen items-center justify-center bg-[#00000080]">
-          <div className="mx-[20px] min-w-[335px] bg-light-beige md:mx-0  md:min-w-[656px]">
+          <div className="mx-[20px] max-h-[602px] min-w-[335px] overflow-auto bg-light-beige md:mx-0 md:max-h-[616px] md:min-w-[656px]">
             <div className="relative h-16 shrink-0">
               <div
                 style={{ backgroundImage: `url(${coverPhoto.src})` }}
