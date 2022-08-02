@@ -12,6 +12,7 @@ import DismissIcon from "@icons/DismissIcon"
 import Close from "@icons/Close"
 import { ClockIcon } from "@icons/ClockIcon"
 import { LinkedinBlueIcon } from "@icons/LinkedinBlueIcon"
+import { PlusIcon } from "@icons/PlusIcon"
 
 export interface ProfileItemProps {
   image: WPMedia
@@ -60,6 +61,11 @@ export const ProfileCard = ({
                     objectFit="cover"
                     objectPosition="center"
                   />
+                  <div className="absolute left-0 bottom-4 bg-dark-blue ">
+                    <p className="py-1 px-2 font-[350] uppercase tracking-wider text-white">
+                      Tjänstledig
+                    </p>
+                  </div>
                 </div>
               )}
               <div className="p-[20px] text-dark-blue md:p-[32px]">
@@ -74,14 +80,19 @@ export const ProfileCard = ({
                   </a>
                   {" · "}
                   {linkedin && (
-                    <AppLink href={linkedin} className="ml-2">
+                    <a
+                      className="ml-2 mt-[5px]"
+                      href={linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       <LinkedinBlueIcon />
-                    </AppLink>
+                    </a>
                   )}
                 </div>
                 <span className="flex w-full justify-between">
                   <button className="flex items-center text-dark-green" onClick={handleClick}>
-                    Läs bio <DismissIcon className="ml-3" />
+                    Läs bio <PlusIcon className="ml-3" />
                   </button>
                 </span>
               </div>
@@ -91,7 +102,10 @@ export const ProfileCard = ({
       </div>
 
       {isActive && (
-        <div className="fixed top-0 left-0 z-60 flex h-screen w-screen items-center justify-center bg-[#00000080]">
+        <div
+          className="fixed top-0 left-0 z-60 flex h-screen w-screen items-center justify-center bg-[#00000080]"
+          onClick={handleClick}
+        >
           <div className="mx-[20px] max-h-[602px] min-w-[335px] overflow-auto bg-light-beige md:mx-0 md:max-h-[616px] md:min-w-[656px]">
             <div className="relative h-16 shrink-0">
               <div

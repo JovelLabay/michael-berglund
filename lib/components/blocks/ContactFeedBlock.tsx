@@ -27,29 +27,35 @@ export const ContactFeedBlock = ({
                 <div className="items-center justify-between md:mb-[30px] md:flex">
                   <h3 className="app-h3 text-left ">{data.title}</h3>
 
-                  <div className="relative mt-[40px] md:my-0">
-                    <button
-                      className="flex items-center text-dark-green"
-                      onClick={() => setIsShow(!isShow)}
-                    >
-                      Visar: {filterPosition} <FilterIcon className="ml-[10px]" />
-                    </button>
+                  <div className="relative mt-[40px]  md:my-0 ">
+                    <div className="flex min-w-[250px] flex-row md:justify-end ">
+                      <button
+                        className="flex items-center text-dark-green"
+                        onClick={() => setIsShow(!isShow)}
+                      >
+                        Visar: {filterPosition} <FilterIcon className="ml-[10px]" />
+                      </button>
+                    </div>
 
                     {isShow && (
                       <div className="sh absolute top-[20px] left-0 z-50 mt-[16px] flex h-auto w-[231px] flex-col items-start justify-start rounded-[2px] bg-white shadow-shadow-cus">
                         <div className="p-[16px]">
                           {positionList.map((position, index) => {
                             return (
-                              <button
+                              <p
                                 key={index}
-                                className="my-[8px] text-dark-green hover:text-dark-blue"
+                                className={
+                                  filterPosition === position
+                                    ? "my-[8px] font-[400] text-light-green hover:cursor-pointer hover:text-dark-blue"
+                                    : "my-[8px] font-[400] text-dark-green hover:cursor-pointer hover:text-dark-blue"
+                                }
                                 onClick={() => {
                                   setFilterPosition(position)
                                   setIsShow(false)
                                 }}
                               >
                                 {position}
-                              </button>
+                              </p>
                             )
                           })}
                         </div>
@@ -67,6 +73,10 @@ export const ContactFeedBlock = ({
                           acfMedarbetare: { position, email, phone, linkedin, bio, category },
                           featuredImage: { node: image },
                         } = postMap![postId] as MedarbetarePost
+
+                        if (filterPosition === "Alla medarbetare") {
+                          return postId
+                        }
 
                         if (category.includes(filterPosition)) {
                           return postId
