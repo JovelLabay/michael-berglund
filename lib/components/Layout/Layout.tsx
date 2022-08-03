@@ -3,11 +3,18 @@ import classNames from "classnames"
 import { AnimatePresence } from "framer-motion"
 import { useRouter } from "next/router"
 import { ReactNode, useCallback, useEffect, useState } from "react"
+import { motion } from "framer-motion"
 
 import { Footer } from "@components/footer"
 import { Header, MenuContent } from "@components/menu"
 import {
-    ACFGeneralSettings, ACFGlobalFields, FileMap, ImageMap, Page, PageMap, PostMap
+  ACFGeneralSettings,
+  ACFGlobalFields,
+  FileMap,
+  ImageMap,
+  Page,
+  PageMap,
+  PostMap,
 } from "@models/common"
 
 export interface LayoutProps {
@@ -102,12 +109,20 @@ export default function Layout({
         <Footer />
         {menuShow && (
           <div className="fixed top-0 right-0 z-50 h-auto w-full">
-            <Header
-              isHomePage={isHomePage}
-              isMenuOpen={isMenuOpen}
-              toggleMenu={toggleMenu}
-              lastScrollY={lastScrollY}
-            />
+            <motion.div
+              key="menu"
+              initial={{ y: "-50vh" }}
+              animate={{ y: 0 }}
+              exit={{ y: "-50vh" }}
+              transition={{ ease: "easeInOut", duration: 0.5, velocity: 50 }}
+            >
+              <Header
+                isHomePage={isHomePage}
+                isMenuOpen={isMenuOpen}
+                toggleMenu={toggleMenu}
+                lastScrollY={lastScrollY}
+              />
+            </motion.div>
           </div>
         )}
       </div>
