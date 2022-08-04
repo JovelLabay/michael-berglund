@@ -70,22 +70,20 @@ export const PressFeedBlock = ({ title, pressList }: PressFeedData) => {
           {isShow && (
             <div className="absolute top-5 z-30 flex h-auto w-[180px] flex-col items-start rounded-sm bg-white p-4 shadow-shadow-cus">
               {FILTERS.map((filter, index) => (
-                <>
-                  <button
-                    key={index}
-                    className={
-                      filter.name === currentFilter.name
-                        ? "my-1 text-light-green hover:cursor-pointer hover:text-dark-blue"
-                        : "my-1 text-dark-green hover:cursor-pointer hover:text-dark-blue"
-                    }
-                    onClick={() => {
-                      setIsShow(!isShow)
-                      setCurrentFilter({ name: filter.name, equivalent: filter.equivalent })
-                    }}
-                  >
-                    {filter.name}
-                  </button>
-                </>
+                <button
+                  key={index}
+                  className={
+                    filter.name === currentFilter.name
+                      ? "my-1 text-light-green hover:cursor-pointer hover:text-dark-blue"
+                      : "my-1 text-dark-green hover:cursor-pointer hover:text-dark-blue"
+                  }
+                  onClick={() => {
+                    setIsShow(!isShow)
+                    setCurrentFilter({ name: filter.name, equivalent: filter.equivalent })
+                  }}
+                >
+                  {filter.name}
+                </button>
               ))}
             </div>
           )}
