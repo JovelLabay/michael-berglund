@@ -23,9 +23,9 @@ export const CourseCards = ({ title }: CourseCardsData) => {
 
       <div className="mx-5 md:mx-12">
         {/* HEADER */}
-        <div className="mb-[40px] flex flex-col items-start justify-between md:mb-[60px] md:flex-row md:items-center">
+        <div className="mb-[30px] flex flex-col items-start justify-between md:mb-[60px] md:flex-row md:items-center">
           <h3 className="app-h3 mb-[40px] text-dark-blue md:mb-0">{title}</h3>
-          <div className="flex flex-row gap-[40px]">
+          <div className="flex flex-row gap-[40px] font-[350]">
             {FILTERS.map((filter, index) => {
               return (
                 <button

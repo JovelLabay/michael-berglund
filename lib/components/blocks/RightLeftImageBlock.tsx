@@ -15,8 +15,6 @@ export const RightLeftImageBlock = ({
 }: RightLeftImageData) => {
   const { images } = useGlobalContext()
 
-  console.log(link)
-
   return (
     <section className="section-padding flex flex-col items-center justify-center bg-light-beige pb-[60px] lg:flex-row lg:pb-[120px]">
       <div className="aspect-w-16 aspect-h-11 relative mb-10 w-full lg:aspect-h-5 lg:mr-[90px] lg:mb-0 lg:flex-1">
@@ -29,13 +27,15 @@ export const RightLeftImageBlock = ({
       </div>
 
       <div className="flex-1">
-        <h3 className="app-h3 mb-10 font-normal">{heading}</h3>
-        <p className="body-m mb-8 font-[350]">{description}</p>
-        <div className="flex items-center space-x-2 hover-text-green">
-          <AppLink href={link} className="link-m font-[350] text-dark-green ">
-            Läs mer
-          </AppLink>
-          <ArrowRight className="fill-dark-green" />
+        <div className="max-w-prose">
+          <h3 className="app-h3 mb-10 font-normal">{heading}</h3>
+          <p className="body-m mb-8 font-[350]">{description}</p>
+          <div className="flex items-center space-x-2 hover-text-green">
+            <AppLink href={link} className="link-m font-normal text-dark-green ">
+              Läs mer
+            </AppLink>
+            <ArrowRight className="fill-dark-green" />
+          </div>
         </div>
       </div>
     </section>

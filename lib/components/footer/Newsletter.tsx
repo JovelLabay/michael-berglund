@@ -74,7 +74,7 @@ export const NewsLetter = (props: any) => {
       id="newsletterSection"
       className={
         showPopUp
-          ? "relative m-[20px] bg-light-beige p-[25px] text-center md:m-0 md:p-[60px]"
+          ? "relative m-5 bg-light-beige px-[25px] py-[60px] text-center md:m-0 md:p-[60px]"
           : "section-padding relative bg-light-beige pb-[120px] text-center"
       }
     >
@@ -105,7 +105,7 @@ export const NewsLetter = (props: any) => {
                   type="email"
                   required
                   disabled={isSubmitting}
-                  className="first-letter:input-link-text w-full px-4 py-[17px] text-dark-blue outline-none placeholder:font-[325]"
+                  className="first-letter:input-link-text w-full px-4 py-[17px] font-[350] text-dark-blue outline-none "
                   placeholder={emailPlaceholder}
                   {...register("email")}
                 />

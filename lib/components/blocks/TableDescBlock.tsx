@@ -113,7 +113,7 @@ export const TableDescSubDisplay = ({ description, services }: any) => {
   return (
     <div>
       <span>
-        <TableHeaderDisplay title={services} className="mb-[20px] text-dark-beige md:hidden" />
+        <TableHeaderDisplay title={services} className="mb-8 md:mb-[20px] text-dark-beige md:hidden" />
       </span>
       <Wysiwyg content={description} className="table" />
     </div>
