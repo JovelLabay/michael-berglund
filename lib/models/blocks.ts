@@ -65,6 +65,9 @@ export interface ReviewSliderData extends BaseBlock {
 export interface RelatedArticleData extends PostData {
   urlLabel: string
   url: string
+  newsOnly: boolean
+  newsDescription: string | null
+  newsFilter: string[]
 }
 
 export interface PostData extends BaseBlock {

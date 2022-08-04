@@ -334,6 +334,7 @@ export const GET_SINGLE_ARTICLE = gql`
         }
         linkTitle
         mediaFile
+        category
       }
       blocks {
         ...WPBlocks
