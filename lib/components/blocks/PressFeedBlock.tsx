@@ -6,6 +6,7 @@ import { ExternalUrlIcon } from "@icons/ExternalUrlIcon"
 import { NewsPaper } from "@icons/NewsPaper"
 import { PlusIcon } from "@icons/PlusIcon"
 import { PressData, PressFeedData } from "@models/blocks"
+import SortIcon from "@icons/SortIcon"
 
 export const PressFeedBlock = ({ title, pressList }: PressFeedData) => {
   const pageSize = 8
@@ -14,6 +15,14 @@ export const PressFeedBlock = ({ title, pressList }: PressFeedData) => {
   const [pressCardDisplay, setPressCardDisplay] = useState(
     splitPageLoadMore(pressList, pageSize, counter)
   )
+  const [isShow, setIsShow] = useState(false)
+  const [currentFilter, setCurrentFilter] = useState({
+    name: "Senaste",
+    equivalent: "<",
+  })
+  const handler = () => {
+    setIsShow(!isShow)
+  }
 
   const loadMoreHandler = () => {
     setCounter(prevCount => prevCount + 1)
@@ -23,8 +32,15 @@ export const PressFeedBlock = ({ title, pressList }: PressFeedData) => {
     ])
   }
 
-  const pressCardList = pressCardDisplay.map(
-    ({ title, details, url, titleId, urlLabel }: PressData) => {
+  const pressCardList = pressCardDisplay
+    .sort((a: any, b: any) => {
+      if (currentFilter.equivalent === "<") {
+        return a.datePublished < b.datePublished ? 1 : -1
+      } else {
+        return a.datePublished > b.datePublished ? 1 : -1
+      }
+    })
+    .map(({ title, details, url, titleId, urlLabel, datePublished }: PressData) => {
       const cardBody = (
         <div className="px-5 py-6 lg:p-8">
           <NewsPaper />
@@ -39,12 +55,44 @@ export const PressFeedBlock = ({ title, pressList }: PressFeedData) => {
         </div>
       )
       return <Card key={titleId} link={url} body={cardBody} />
-    }
-  )
+    })
+
+  const FILTERS = [
+    { name: "Senaste", equivalent: "<" },
+    { name: "Äldsta", equivalent: ">" },
+  ]
 
   return (
     <section className="section-padding bg-white">
-      <h3 className="app-h3 mb-[60px]">{title}</h3>
+      <div className="flex-row justify-between md:flex">
+        <h3 className="app-h3 mb-[60px]">{title}</h3>
+        <div className="relative mb-8 md:mb-0">
+          <button onClick={handler} className="flex flex-row items-center text-dark-green">
+            Sorterar efter: {currentFilter.name} <SortIcon className="ml-2" />
+          </button>
+
+          {isShow && (
+            <div className="absolute top-5 z-30 flex h-auto w-[200px] flex-col items-start rounded-sm bg-white p-4 shadow-shadow-cus">
+              {FILTERS.map((filter, index) => (
+                <button
+                  key={index}
+                  className={
+                    filter.name === currentFilter.name
+                      ? "my-1 text-light-green hover:cursor-pointer hover:text-dark-blue"
+                      : "my-1 text-dark-green hover:cursor-pointer hover:text-dark-blue"
+                  }
+                  onClick={() => {
+                    setIsShow(!isShow)
+                    setCurrentFilter({ name: filter.name, equivalent: filter.equivalent })
+                  }}
+                >
+                  {filter.name}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
       <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-8 lg:grid-cols-2">
         {pressCardList}
       </div>
