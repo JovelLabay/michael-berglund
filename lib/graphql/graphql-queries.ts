@@ -259,6 +259,11 @@ export const GET_MEDARBETARE_DATA_BY_ID = gql`
         linkedin
         bio
         category
+        profileLink {
+          target
+          title
+          url
+        }
       }
     }
   }
