@@ -15,7 +15,7 @@ export const AccordionItem = ({ accordionGroupDataList }: any) => {
 
   return (
     <div className="flex w-full flex-col justify-between bg-white ">
-      <div className="flex flex-1 flex-col  pb-[60px] lg:pb-[40px]">
+      <div className="flex flex-1 flex-col pb-8 md:pb-[60px] lg:pb-[40px]">
         {accordionGroupDataList.map((accordion: AccordionGroupData, index: any) => (
           <Disclosure key={accordion.tabTitle}>
             <>

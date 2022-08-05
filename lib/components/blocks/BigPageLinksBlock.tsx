@@ -21,7 +21,7 @@ export const BigPageLinks = ({ title, postIds }: PostData) => {
               className="prose-p:body-m prose my-5 h-[72px] overflow-hidden"
             />
 
-            <button className="font-[16px] flex items-center text-dark-green hover:text-dark-blue">
+            <button className="font-[16px] flex items-center text-dark-green hover:text-dark-blue font-normal">
               Läs mer <ArrowRight className="ml-3 fill-dark-green" />
             </button>
           </div>
