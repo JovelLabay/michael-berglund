@@ -108,7 +108,7 @@ export const RelatedArticles = ({
           <div className="grid grid-cols-1 gap-6 pr-0 sm:grid-cols-1 md:grid-cols-2 md:gap-7 md:pr-[48px] lg:grid-cols-3 lg:gap-8">
             {postIds
               .filter((postId, index) => {
-                if (index >= currentPage && index <= currentPage + 2) {
+                if (index >= currentPage && index <= currentPage + 8) {
                   return postId
                 }
               })
@@ -134,29 +134,27 @@ export const RelatedArticles = ({
               className={currentPage <= 0 ? "text-dark-green opacity-50" : "text-dark-green"}
               disabled={currentPage <= 0}
               onClick={() => {
-                setCurrentPage(currentPage - 3)
+                setCurrentPage(currentPage - 9)
               }}
             >
               <SwiperArrowLeft />
             </button>
             <div className="flex gap-[24px] md:gap-[32px]">
               {/* THIS IS PARTIAL SINCE I HAVE DIFFICULTY UPON ADDING EACH CATEGORY */}
-              {/* THIS IS PARTICAL FOR BY 3 */}
+              {/* THIS IS PARTICAL FOR BY 9 IN ACCORDANCE WITH THE FIGMA PROTOTYPE */}
               <button>0</button>
               <button>{currentPage === 0 ? "1" : currentPage}</button>
-              <button>0</button>
+              <button>{currentPage}</button>
               <button>...</button>
               <button>{postIds.length}</button>
             </div>
             <button
               className={
-                postIds.length === currentPage + 3
-                  ? "text-dark-green opacity-50"
-                  : "text-dark-green"
+                postIds.length <= currentPage + 9 ? "text-dark-green opacity-50" : "text-dark-green"
               }
-              disabled={postIds.length === currentPage + 3}
+              disabled={postIds.length <= currentPage + 9}
               onClick={() => {
-                setCurrentPage(currentPage + 3)
+                setCurrentPage(currentPage + 9)
               }}
             >
               <SwiperArrowRight />
