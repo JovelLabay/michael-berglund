@@ -1,46 +1,15 @@
 import {
-  AccordionListsData,
-  AssignmentsData,
-  BaseBlock,
-  ContactData,
-  ContactFeedListblock,
-  CourseCardsData,
-  DataPointsData,
-  DescWithImageData,
-  HeroData,
-  ImageGalleryData,
-  InfoIconData,
-  isAccordionListBlock,
-  isBigPageLinks,
-  isContactData,
-  isContactFeedBlock,
-  isCourseCardData,
-  isDescWithImageData,
-  isHeroData,
-  isImageGalleryBlock,
-  isInfoIconBlock,
-  isLogowallData,
-  isRegisterCvData,
-  isRelatedArticlesData,
-  isRightLeftImageBlock,
-  isStatsData,
-  isTabsData,
-  LogowallData,
-  PostData,
-  PressFeedData,
-  RegisterCvData,
-  RelatedArticleData,
-  ReviewSliderData,
-  RightLeftImageData,
-  ShortDescData,
-  StatsData,
-  TableDescData,
-  TabsData,
-  JobPositionData,
-  isJobPositionData,
-  JobPositionsData,
+    AccordionListsData, AssignmentsData, BaseBlock, ContactData, ContactFeedListblock,
+    CourseCardsData, DataPointsData, DescWithImageData, HeroData, ImageGalleryData, InfoIconData,
+    isAccordionListBlock, isBigPageLinks, isContactData, isContactFeedBlock, isCourseCardData,
+    isDescWithImageData, isHeroData, isImageGalleryBlock, isInfoIconBlock, isJobPositionData,
+    isLogowallData, isRegisterCvData, isRelatedArticlesData, isRightLeftImageBlock, isStatsData,
+    isTabsData, JobPositionData, JobPositionsData, LogowallData, PostData, PressFeedData,
+    RegisterCvData, RelatedArticleData, ReviewSliderData, RightLeftImageData, ShortDescData,
+    StatsData, TableDescData, TabsData
 } from "@models/blocks"
 import { IDropDown } from "@models/common"
+
 import { getJobPositions } from "./PageHellper"
 
 type Blocks = { attributesJSON: string }[]
@@ -464,6 +433,7 @@ const parsePressFeedblock = (data: any): PressFeedData => {
     url: data[`press_list_${index}_url`],
     titleId: data[`_press_list_${index}_title`] + Math.random(),
     urlLabel: data[`press_list_${index}_url_label`],
+    datePublished: data[`press_list_${index}_date`],
   }))
 
   return { title: data["title"], pressList, name: "acf/press-feed" }
