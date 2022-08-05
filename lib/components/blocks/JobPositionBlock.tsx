@@ -14,11 +14,11 @@ export function JobPositionBlock({
   jobAvailability,
 }: JobPositionData) {
   return (
-    <div className="bg-white px-[20px] pt-[60px] md:px-12 md:pt-[100px]">
+    <div className="bg-white px-5 pt-[60px] md:px-12 md:pt-[100px]">
       <p className="pb-[40px] font-lora text-[36px] font-[400] text-dark-blue md:pb-[60px]">
         {header}
       </p>
-      <div className="grid grid-cols-1 gap-[24px] md:grid-cols-2 md:gap-[32px] ">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8 ">
         {jobs.filter(job => {
           return job.afcJobPositions.jobCategory === jobAvailability
         }).length === 0 ? (
@@ -27,14 +27,12 @@ export function JobPositionBlock({
           jobs.map(job => {
             return (
               <CardLink
-                key={job.afcJobPositions.jobLink.url}
-                link="Sdfsdf"
+                key={job.id}
+                link={job.afcJobPositions.jobLink.url}
                 card={
                   <div className="flex flex-col bg-light-beige p-5 md:p-8">
                     <BagIcon />
-                    <h1 className="mt-5 font-lora text-app-h4 font-[400] text-dark-blue">
-                      {job.afcJobPositions.jobTitle}
-                    </h1>
+                    <h1 className="app-h4 mt-5 text-dark-blue">{job.afcJobPositions.jobTitle}</h1>
                     <p className="font-[16px] my-5 font-[325]">
                       {job.afcJobPositions.jobDescrption}
                     </p>
