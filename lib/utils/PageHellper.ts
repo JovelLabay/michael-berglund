@@ -1,4 +1,5 @@
 import {
+  GET_ALL_JOB_POSITIONS,
   GET_ALL_UNTAILORED_COURESES,
   GET_COURSE_DATA_BY_ID,
   GET_GLOBAL_FIELDS,
@@ -22,8 +23,8 @@ import {
 } from "@/lib/utils/BlockParser"
 import { getFiles } from "@/lib/utils/FileGetter"
 import { getImages } from "@/lib/utils/ImageGetter"
-import { BaseBlock } from "@models/blocks"
-import { Courses, PageMap, PostMap } from "@models/common"
+import { BaseBlock, JobPositionData, JobPositionsData } from "@models/blocks"
+import { Courses, JobPosition, PageMap, PostMap } from "@models/common"
 
 export const getPageProps = async (uri = "/") => {
   const [{ data: globalFields }, { data: pageBlocks }] = await Promise.all([
@@ -128,4 +129,15 @@ export const getUpcomingCourses = async () => {
       (a, b) =>
         new Date(a.acfCourse.startDate).getTime() - new Date(b.acfCourse.startDate).getTime()
     )
+}
+
+export const getJobPositions = async () => {
+  let positions: any = []
+
+  const data = await client.query(GET_ALL_JOB_POSITIONS).toPromise()
+  data.data.jobPositions.edges.forEach((job: JobPosition) => {
+    positions.push(job.node)
+  })
+
+  return positions
 }
