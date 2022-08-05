@@ -1,5 +1,3 @@
-import { getJobPositions } from "@/lib/utils/PageHellper"
-import { Card } from "@components/cards"
 import { CardLink } from "@components/cards/CardLink"
 import { ArrowRight } from "@icons/ArrowRight"
 import BagIcon from "@icons/BagIcon"
