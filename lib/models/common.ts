@@ -197,3 +197,19 @@ export interface SingleArticlePost {
     }[]
   }
 }
+
+export interface JobPosition {
+  node: {
+    id: string
+    afcJobPositions: {
+      jobDescription: string
+      jobTitle: string
+      jobLink: {
+        target: string
+        title: string
+        url: string
+      }
+      jobCategory: string
+    }
+  }
+}

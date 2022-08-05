@@ -1,13 +1,47 @@
 import {
-    AccordionListsData, AssignmentsData, BaseBlock, ContactData, ContactFeedListblock,
-    CourseCardsData, DataPointsData, DescWithImageData, HeroData, ImageGalleryData, InfoIconData,
-    isAccordionListBlock, isBigPageLinks, isContactData, isContactFeedBlock, isCourseCardData,
-    isDescWithImageData, isHeroData, isImageGalleryBlock, isInfoIconBlock, isLogowallData,
-    isRegisterCvData, isRelatedArticlesData, isRightLeftImageBlock, isStatsData, isTabsData,
-    LogowallData, PostData, PressFeedData, RegisterCvData, RelatedArticleData, ReviewSliderData,
-    RightLeftImageData, ShortDescData, StatsData, TableDescData, TabsData
+  AccordionListsData,
+  AssignmentsData,
+  BaseBlock,
+  ContactData,
+  ContactFeedListblock,
+  CourseCardsData,
+  DataPointsData,
+  DescWithImageData,
+  HeroData,
+  ImageGalleryData,
+  InfoIconData,
+  isAccordionListBlock,
+  isBigPageLinks,
+  isContactData,
+  isContactFeedBlock,
+  isCourseCardData,
+  isDescWithImageData,
+  isHeroData,
+  isImageGalleryBlock,
+  isInfoIconBlock,
+  isLogowallData,
+  isRegisterCvData,
+  isRelatedArticlesData,
+  isRightLeftImageBlock,
+  isStatsData,
+  isTabsData,
+  LogowallData,
+  PostData,
+  PressFeedData,
+  RegisterCvData,
+  RelatedArticleData,
+  ReviewSliderData,
+  RightLeftImageData,
+  ShortDescData,
+  StatsData,
+  TableDescData,
+  TabsData,
+  JobPositionData,
+  isJobPositionData,
+  JobPositionsData,
 } from "@models/blocks"
 import { IDropDown } from "@models/common"
+import { getJobPositions } from "./PageHellper"
 
 type Blocks = { attributesJSON: string }[]
 
@@ -62,6 +96,8 @@ export const parse = (rawBlocks: Blocks): { blocks: BaseBlock[] } => {
         return parseImageGalleryBlock(data)
       case "acf/right-left-image":
         return parseRightLeftImageBlock(data)
+      case "acf/job-listing":
+        return parseJobPositionBlock(data)
       default:
         throw new Error(`Unknown block type: ${name}`)
     }
@@ -566,6 +602,27 @@ const parseRegisterCVBlock = (data: any): RegisterCvData => {
     downloadFile: linkFile,
     professionalInfo: { infoDropdown },
     name: "acf/register-cv",
+  }
+}
+
+const parseJobPositionBlock = (data: any): JobPositionData => {
+  // THIS IS PARTIAL BECUASE I COULD NOT FIGURE THE IDS
+  const lala: JobPositionsData[] = []
+  getJobPositions()
+    .then(res => {
+      res.forEach((element: JobPositionsData) => {
+        lala.push(element)
+      })
+    })
+    .catch(err => console.log(err))
+
+  return {
+    header: data.header,
+    jobMessage: data.job_message,
+    jobs: lala,
+    JobLinkTitle: data.job_link_title,
+    jobAvailability: data.job_availability,
+    name: "acf/job-listing",
   }
 }
 

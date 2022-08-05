@@ -21,6 +21,7 @@ import {
   isStatsData,
   isTableDesc,
   isTabsData,
+  isJobPositionData,
 } from "@models/blocks"
 
 import { DescWithImgBlock } from "./"
@@ -44,6 +45,7 @@ import { ShortDescBlock } from "./ShortDescBlock"
 import { StatsBlock } from "./StatsBlock"
 import { TableDescBlock } from "./TableDescBlock"
 import { TabsBlock } from "./TabsBlock"
+import { JobPositionBlock } from "./JobPositionBlock"
 
 export const Block = ({ block }: { block: BaseBlock }) => {
   if (isHeroData(block)) return <Hero {...block} />
@@ -67,6 +69,7 @@ export const Block = ({ block }: { block: BaseBlock }) => {
   if (isPressFeedBlock(block)) return <PressFeedBlock {...block} />
   if (isImageGalleryBlock(block)) return <ImageGalleryBlock {...block} />
   if (isRightLeftImageBlock(block)) return <RightLeftImageBlock {...block} />
+  if (isJobPositionData(block)) return <JobPositionBlock {...block} />
 
   return null
 }
