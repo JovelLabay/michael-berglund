@@ -6,6 +6,7 @@ import { ExternalUrlIcon } from "@icons/ExternalUrlIcon"
 import { NewsPaper } from "@icons/NewsPaper"
 import { PlusIcon } from "@icons/PlusIcon"
 import { PressData, PressFeedData } from "@models/blocks"
+import SortIcon from "@icons/SortIcon"
 
 export const PressFeedBlock = ({ title, pressList }: PressFeedData) => {
   const pageSize = 8
@@ -17,7 +18,7 @@ export const PressFeedBlock = ({ title, pressList }: PressFeedData) => {
   const [isShow, setIsShow] = useState(false)
   const [currentFilter, setCurrentFilter] = useState({
     name: "Senaste",
-    equivalent: "Google",
+    equivalent: "<",
   })
   const handler = () => {
     setIsShow(!isShow)
@@ -32,13 +33,14 @@ export const PressFeedBlock = ({ title, pressList }: PressFeedData) => {
   }
 
   const pressCardList = pressCardDisplay
-    .filter(({ title, details, url, titleId, urlLabel }: PressData) => {
-      if (urlLabel === currentFilter.equivalent) {
-        return { title, details, url, titleId, urlLabel }
+    .sort((a: any, b: any) => {
+      if (currentFilter.equivalent === "<") {
+        return a.datePublished < b.datePublished ? 1 : -1
+      } else {
+        return a.datePublished > b.datePublished ? 1 : -1
       }
-      return null
     })
-    .map(({ title, details, url, titleId, urlLabel }: PressData) => {
+    .map(({ title, details, url, titleId, urlLabel, datePublished }: PressData) => {
       const cardBody = (
         <div className="px-5 py-6 lg:p-8">
           <NewsPaper />
@@ -56,8 +58,8 @@ export const PressFeedBlock = ({ title, pressList }: PressFeedData) => {
     })
 
   const FILTERS = [
-    { name: "Senaste", equivalent: "Google" },
-    { name: "Äldsta", equivalent: "Go to article" },
+    { name: "Senaste", equivalent: "<" },
+    { name: "Äldsta", equivalent: ">" },
   ]
 
   return (
@@ -65,10 +67,12 @@ export const PressFeedBlock = ({ title, pressList }: PressFeedData) => {
       <div className="flex-row justify-between md:flex">
         <h3 className="app-h3 mb-[60px]">{title}</h3>
         <div className="relative mb-8 md:mb-0">
-          <button onClick={handler}>Sorterar efter: {currentFilter.name}</button>
+          <button onClick={handler} className="flex flex-row items-center text-dark-green">
+            Sorterar efter: {currentFilter.name} <SortIcon className="ml-2" />
+          </button>
 
           {isShow && (
-            <div className="absolute top-5 z-30 flex h-auto w-[180px] flex-col items-start rounded-sm bg-white p-4 shadow-shadow-cus">
+            <div className="absolute top-5 z-30 flex h-auto w-[200px] flex-col items-start rounded-sm bg-white p-4 shadow-shadow-cus">
               {FILTERS.map((filter, index) => (
                 <button
                   key={index}

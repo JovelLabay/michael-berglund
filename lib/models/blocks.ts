@@ -112,6 +112,7 @@ export interface PressData {
   details: string
   url: string
   urlLabel: string
+  datePublished: string
 }
 
 export interface AccordionListsData extends BaseBlock {
