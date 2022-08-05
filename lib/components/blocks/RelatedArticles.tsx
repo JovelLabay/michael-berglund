@@ -6,7 +6,6 @@ import { Card } from "@components/cards"
 import { Wysiwyg } from "@components/shared/Wysiwyg"
 import { ProgressSwiper } from "@components/swiper"
 import { useResponsiveMD } from "@hooks/shared"
-import { ArrowRight } from "@icons/ArrowRight"
 import { SwiperArrowRight } from "@icons/SwiperArrowRight"
 import { RelatedArticleData } from "@models/blocks"
 import { Post } from "@models/common"
@@ -29,7 +28,7 @@ export const RelatedArticles = ({
   const totalPages = Math.ceil(postIds.length / Math.floor(slidesPerView))
 
   const [currentFilter, setCurrentFilter] = useState("Alla")
-  const [currentPage, setCurrentPage] = useState(1)
+  const [currentPage, setCurrentPage] = useState(0)
 
   const slides = useMemo(
     () =>
@@ -85,11 +84,11 @@ export const RelatedArticles = ({
         </>
       ) : (
         <>
-          <div className="mb-[40px] items-center justify-between md:mb-[60px] md:flex">
-            <p className="w-auto text-[16px] font-[325] text-dark-blue md:w-[656px] md:text-[20px] md:font-[400]">
+          <div className="mb-[40px] items-center justify-between md:mb-[60px] xl:flex">
+            <p className=" w-auto font-[325] text-dark-blue md:w-[656px] md:text-[20px] md:font-[400]">
               {newsDescription}
             </p>
-            <div className="my-10 flex flex-row items-center gap-[40px] overflow-auto pr-0 md:my-0 md:pr-[48px]">
+            <div className="my-10 flex flex-row items-center gap-[40px] overflow-auto pr-0 md:pr-[48px] xl:my-0">
               {newsFilter.map((filter, index) => {
                 return (
                   <button
@@ -107,46 +106,57 @@ export const RelatedArticles = ({
             </div>
           </div>
           <div className="grid grid-cols-1 gap-6 pr-0 sm:grid-cols-1 md:grid-cols-2 md:gap-7 md:pr-[48px] lg:grid-cols-3 lg:gap-8">
-            {postIds.map((postId, index) => {
-              const { id, featuredImage, title, excerpt, uri } = postMap![postId] as Post
+            {postIds
+              .filter((postId, index) => {
+                if (index >= currentPage && index <= currentPage + 2) {
+                  return postId
+                }
+              })
+              .map((postId, index) => {
+                const { id, featuredImage, title, excerpt, uri } = postMap![postId] as Post
 
-              return (
-                <div key={index}>
-                  <CardNews
-                    id={id}
-                    featuredImage={featuredImage}
-                    title={title}
-                    excerpt={excerpt}
-                    uri={uri}
-                  />
-                </div>
-              )
-            })}
+                return (
+                  <div key={index}>
+                    <CardNews
+                      id={id}
+                      featuredImage={featuredImage}
+                      title={title}
+                      excerpt={excerpt}
+                      uri={uri}
+                    />
+                  </div>
+                )
+              })}
           </div>
           {/* THIS SECTION IS UNFINISHED */}
           <div className="mt-[40px] flex flex-row justify-between md:mt-[50px] md:pr-[48px]">
             <button
-              className={currentPage <= 1 ? "text-dark-green opacity-50" : "text-dark-green"}
-              disabled={currentPage <= 1}
+              className={currentPage <= 0 ? "text-dark-green opacity-50" : "text-dark-green"}
+              disabled={currentPage <= 0}
               onClick={() => {
-                setCurrentPage(currentPage - 1)
+                setCurrentPage(currentPage - 3)
               }}
             >
               <SwiperArrowLeft />
             </button>
             <div className="flex gap-[24px] md:gap-[32px]">
-              <button
-                className={currentPage <= 1 ? "text-dark-green opacity-50" : "text-dark-green"}
-              >
-                {currentPage}
-              </button>
-              <button>{currentPage + 1}</button>
+              {/* THIS IS PARTIAL SINCE I HAVE DIFFICULTY UPON ADDING EACH CATEGORY */}
+              {/* THIS IS PARTICAL FOR BY 3 */}
+              <button>0</button>
+              <button>{currentPage === 0 ? "1" : currentPage}</button>
+              <button>0</button>
               <button>...</button>
-              <button>9</button>
+              <button>{postIds.length}</button>
             </div>
             <button
+              className={
+                postIds.length === currentPage + 3
+                  ? "text-dark-green opacity-50"
+                  : "text-dark-green"
+              }
+              disabled={postIds.length === currentPage + 3}
               onClick={() => {
-                setCurrentPage(currentPage + 1)
+                setCurrentPage(currentPage + 3)
               }}
             >
               <SwiperArrowRight />
