@@ -115,6 +115,7 @@ export interface PressData {
   details: string
   url: string
   urlLabel: string
+  datePublished: string
 }
 
 export interface AccordionListsData extends BaseBlock {
@@ -199,6 +200,28 @@ export interface RightLeftImageData extends BaseBlock {
   position: "left" | "right"
 }
 
+export interface JobPositionsData {
+  id: string
+  afcJobPositions: {
+    jobDescrption: string
+    jobTitle: string
+    jobLink: {
+      target: string
+      title: string
+      url: string
+    }
+    jobCategory: string
+  }
+}
+
+export interface JobPositionData extends BaseBlock {
+  header: string
+  jobMessage: string
+  jobs: JobPositionsData[]
+  JobLinkTitle: string
+  jobAvailability: string
+}
+
 export type BlockName =
   | "acf/hero"
   | "acf/stats"
@@ -221,6 +244,7 @@ export type BlockName =
   | "acf/press-feed"
   | "acf/image-gallery"
   | "acf/right-left-image"
+  | "acf/job-listing"
 
 /** Type-narrowing functions */
 export function isHeroData(object: any): object is HeroData {
@@ -305,4 +329,8 @@ export function isImageGalleryBlock(object: any): object is ImageGalleryData {
 
 export function isRightLeftImageBlock(object: any): object is RightLeftImageData {
   return object && typeof object.name === "string" && object.name === "acf/right-left-image"
+}
+
+export function isJobPositionData(object: any): object is JobPositionData {
+  return object && typeof object.name === "string" && object.name === "acf/job-listing"
 }

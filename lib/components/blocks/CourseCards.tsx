@@ -42,7 +42,7 @@ export const CourseCards = ({ title }: CourseCardsData) => {
         </div>
 
         {/* BODY */}
-        <div className="  grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
           {courses
             .filter(
               ({
@@ -103,7 +103,7 @@ export const CourseCards = ({ title }: CourseCardsData) => {
                   <div>
                     <span className="app-h4">{title}</span>
                     <p className="mb-[20px] mt-[16px] font-gotham text-[14px] font-[350] tracking-wider text-dark-beige">
-                      {category ? `${category.toLocaleUpperCase()}` : "."}
+                      {category ? `${category.toLocaleUpperCase()}` : null}
                     </p>
                     <Wysiwyg content={excerpt} className="prose-p:body-m prose my-5 font-[350]" />
                     <div className="body-m flex items-center space-x-[22px]">

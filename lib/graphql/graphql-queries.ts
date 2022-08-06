@@ -166,6 +166,9 @@ export const WP_BLOCKS = gql`
     ... on AcfRightLeftImageBlock {
       attributesJSON
     }
+    ... on AcfJobListingBlock {
+      attributesJSON
+    }
   }
 `
 
@@ -338,6 +341,28 @@ export const GET_SINGLE_ARTICLE = gql`
       }
       blocks {
         ...WPBlocks
+      }
+    }
+  }
+`
+
+export const GET_ALL_JOB_POSITIONS = gql`
+  query GetJobPositions {
+    jobPositions {
+      edges {
+        node {
+          id
+          afcJobPositions {
+            jobDescrption
+            jobTitle
+            jobLink {
+              target
+              title
+              url
+            }
+            jobCategory
+          }
+        }
       }
     }
   }
