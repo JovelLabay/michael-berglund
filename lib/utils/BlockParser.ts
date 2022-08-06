@@ -402,15 +402,29 @@ const parseReviewSilderBlock = (data: any): ReviewSliderData => {
 }
 
 const relatedArticlePattern = /^articles_(\d+)_article$/
+const newsFilterPattern = "news_filter_"
 
 const parseRelatedArticles = (data: any): RelatedArticleData => {
-  const { title, url_label, url } = data
+  const { title, url_label, url, news_only, news_description } = data
 
   const postIds = Object.keys(data)
     .filter(key => relatedArticlePattern.test(key))
     .map(key => data[key])
 
-  return { title, postIds, urlLabel: url_label, url, name: "acf/related-articles" }
+  const news = Object.keys(data)
+    .filter(key => key.startsWith(newsFilterPattern))
+    .map(key => data[key])
+
+  return {
+    title,
+    postIds,
+    urlLabel: url_label,
+    url,
+    name: "acf/related-articles",
+    newsOnly: !!news_only,
+    newsDescription: news_description === undefined ? null : news_description,
+    newsFilter: news,
+  }
 }
 
 const parseShortDescblock = (data: any): ShortDescData => {
