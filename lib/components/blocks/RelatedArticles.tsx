@@ -142,9 +142,9 @@ export const RelatedArticles = ({
             <div className="flex gap-[24px] md:gap-[32px]">
               {/* THIS IS PARTIAL SINCE I HAVE DIFFICULTY UPON ADDING EACH CATEGORY */}
               {/* THIS IS PARTICAL FOR BY 9 IN ACCORDANCE WITH THE FIGMA PROTOTYPE */}
-              <button>0</button>
+              <button>{currentPage === 0 ? "0" : currentPage - 9}</button>
               <button>{currentPage === 0 ? "1" : currentPage}</button>
-              <button>{currentPage}</button>
+              <button>{currentPage + 9}</button>
               <button>...</button>
               <button>{postIds.length}</button>
             </div>
