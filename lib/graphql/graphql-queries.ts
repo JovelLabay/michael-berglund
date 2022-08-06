@@ -366,3 +366,29 @@ export const GET_ALL_JOB_POSITIONS = gql`
     }
   }
 `
+
+export const GET_ALL_COURSES = gql`
+  query GetSingleTailoredCourse {
+    courses {
+      edges {
+        node {
+          courseId
+          databaseId
+          id
+          title
+          uri
+          excerpt
+          acfCourse {
+            category
+            duration
+            durationUnit
+            fieldGroupName
+            isCourseFull
+            language
+            startDate
+          }
+        }
+      }
+    }
+  }
+`

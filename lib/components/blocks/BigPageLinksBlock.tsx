@@ -21,7 +21,7 @@ export const BigPageLinks = ({ title, postIds }: PostData) => {
               className="prose-p:body-m prose my-5 h-[72px] overflow-hidden"
             />
 
-            <button className="font-[16px] flex items-center text-dark-green hover:text-dark-blue font-normal">
+            <button className="font-[16px] flex items-center font-normal text-dark-green hover:text-dark-blue">
               Läs mer <ArrowRight className="ml-3 fill-dark-green" />
             </button>
           </div>
@@ -31,7 +31,7 @@ export const BigPageLinks = ({ title, postIds }: PostData) => {
             key={id}
             image={featuredImage.node}
             body={cardBody}
-            link={`/post${uri}`}
+            link={`/courses/${id}`}
             className="h-full grid-rows-1"
           />
         )

@@ -213,3 +213,15 @@ export interface JobPosition {
     }
   }
 }
+
+export interface Course {
+  node: {
+    courseId: number
+    databaseId: number
+    id: string
+    title: string
+    uri: string
+    excerpt: string
+    acfCourse: AcfCourse
+  }
+}
