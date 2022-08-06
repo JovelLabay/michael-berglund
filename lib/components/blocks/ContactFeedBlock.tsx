@@ -26,7 +26,6 @@ export const ContactFeedBlock = ({
               <div className="mx-auto ">
                 <div className="items-center justify-between md:mb-[30px] md:flex">
                   <h3 className="app-h3 text-left ">{data.title}</h3>
-
                   <div className="relative mt-[40px]  md:my-0 ">
                     <div className="flex min-w-[250px] flex-row md:justify-end ">
                       <button
@@ -87,7 +86,7 @@ export const ContactFeedBlock = ({
                         const {
                           id,
                           title,
-                          acfMedarbetare: { position, email, phone, linkedin, bio },
+                          acfMedarbetare: { position, email, phone, linkedin, bio, profileLink },
                           featuredImage: { node: image },
                         } = postMap![lala] as MedarbetarePost
 
@@ -102,6 +101,7 @@ export const ContactFeedBlock = ({
                             linkedin={linkedin}
                             bio={bio}
                             coverPhoto={coverPhoto}
+                            profileLink={profileLink}
                           />
                         )
                       })}
