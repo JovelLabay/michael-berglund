@@ -74,6 +74,7 @@ module.exports = {
       },
       boxShadow: {
         "shadow-cus": "0px 4px 25px rgba(0, 0, 0, 0.1)",
+        "shadow-cus-2": "-2px 2px 0px #ECE5E2",
       },
       zIndex: {
         60: "60",

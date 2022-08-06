@@ -26,8 +26,8 @@ export const SmallCard = ({ head, body, link, className, isCourseFull }: SmallCa
         />
         {head}
       </div>
-      <div className="flex w-full flex-col justify-center bg-light-beige ">
-        <div className="mb-[32px] p-8">{body}</div>
+      <div className="flex w-full flex-col justify-center">
+        <div className="mb-[32px] p-5 lg:p-5 xl:p-8">{body}</div>
         {isCourseFull && (
           <div className="pre-title absolute bottom-0 w-full bg-orange px-[25px] py-2 text-center font-[350] uppercase tracking-[0.15em] text-white">
             Väntelista

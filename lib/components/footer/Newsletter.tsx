@@ -74,8 +74,8 @@ export const NewsLetter = (props: any) => {
       id="newsletterSection"
       className={
         showPopUp
-          ? "relative m-[20px] bg-light-beige p-[25px] text-center md:m-0 md:p-[60px]"
-          : "relative section-padding bg-light-beige pb-[120px] text-center"
+          ? "relative m-5 bg-light-beige px-[25px] py-[60px] text-center md:m-0 md:p-[60px]"
+          : "section-padding relative bg-light-beige pb-[120px] text-center"
       }
     >
       {showPopUp && (
@@ -105,7 +105,7 @@ export const NewsLetter = (props: any) => {
                   type="email"
                   required
                   disabled={isSubmitting}
-                  className="first-letter:input-link-text w-full px-4 py-[17px] text-dark-blue outline-none placeholder:font-normal"
+                  className="first-letter:input-link-text w-full px-4 py-[17px] font-[350] text-dark-blue outline-none "
                   placeholder={emailPlaceholder}
                   {...register("email")}
                 />
@@ -130,10 +130,10 @@ export const NewsLetter = (props: any) => {
         {submitted &&
           (showPopUp ? (
             <>
-              <h3 className="text-[24px] font-normal mt-10 text-[#69857D]">{successSubTitle}</h3>
+              <h3 className="mt-10 text-[24px] font-normal text-[#69857D]">{successSubTitle}</h3>
               <span className="mt-10 mb-8 inline-block">
                 <Wysiwyg
-                  className="prose-p:body-m prose text-[16px] font-medium text-dark-blue md:text-[18px] newsletter"
+                  className="prose-p:body-m newsletter prose text-[16px] font-medium text-dark-blue md:text-[18px]"
                   content={successMessage.replace(
                     "&lt;email&gt;",
                     `<strong classname="text-red-500 font-bold">${email}</strong>`
