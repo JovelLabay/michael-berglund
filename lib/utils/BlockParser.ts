@@ -8,7 +8,7 @@ import {
     RegisterCvData, RelatedArticleData, ReviewSliderData, RightLeftImageData, ShortDescData,
     StatsData, TableDescData, TabsData
 } from "@models/blocks"
-import { IDropDown } from "@models/common"
+import { IDropDown, MultiValueDropDown } from "@models/common"
 
 import { getJobPositions } from "./PageHellper"
 
@@ -550,16 +550,20 @@ const parseRegisterCVBlock = (data: any): RegisterCvData => {
   const dropDownLength = data.professional_info_info_dropdown
 
   let infoDropdown: IDropDown[] = []
-
   for (let i = 0; i < dropDownLength; i++) {
-    let values = []
+    let values = [];
+    let multiValueDropDown: MultiValueDropDown[] = [];
     let title = data[`professional_info_info_dropdown_${i}_title`]
     let fieldName = toCamelCase(title)
 
     for (let j = 0; j < data[`professional_info_info_dropdown_${i}_values`]; j++) {
       values.push(data[`professional_info_info_dropdown_${i}_values_${j}_value`])
+      multiValueDropDown.push({
+        label: data[`professional_info_info_dropdown_${i}_values_${j}_value`],
+        value: data[`professional_info_info_dropdown_${i}_values_${j}_category_id`]
+      })
     }
-    infoDropdown.push({ title, fieldName, values })
+    infoDropdown.push({ title, fieldName, values , multiValueDropDown })
   }
 
   const linkTitle = data.download_link_title ? data.download_link_title : null

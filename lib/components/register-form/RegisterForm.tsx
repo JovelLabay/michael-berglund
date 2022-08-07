@@ -3,6 +3,7 @@ import classNames from "classnames"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { z } from "zod"
 
+import { FormURLParse, makeid } from "@/lib/utils/http-invenias"
 import { ArrowRight } from "@icons/ArrowRight"
 import { WarningIcon } from "@icons/WarningIcon"
 import { IDropDown } from "@models/common"
@@ -60,16 +61,23 @@ export const RegisterForm = ({
   const onSubmit: SubmitHandler<z.output<typeof schema>> = async data => {
     console.log(data)
 
-    const formData = new FormData()
+    const formData = new FormData();
+    const object: any = {};
     Object.entries(data).forEach(([key, value]) => {
-      formData.append(key, value)
-    })
-
+      if(key == 'cvFile') {
+        const [ file ] = value;
+        const newName = 'Mberglundnpe - ' + makeid(5) + ' - ' + file.name;
+        formData.append('form', file, newName);
+      } else {
+        object[key] = value;
+      }
+    });
+    const params = FormURLParse(object);
     try {
-      const response = await fetch("/api/register-cv", {
+      const response = await fetch(`/api/register-cv?${params}`, {
         method: "POST",
         cache: "no-cache",
-        headers: { "Content-type": "multipart/form-data" },
+        headers: { "Content-Type": "multipart/form-data" },
         body: formData,
       })
 

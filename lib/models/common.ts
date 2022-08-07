@@ -16,8 +16,13 @@ export interface IDropDown {
   title: string
   fieldName: string
   values: string[]
+  multiValueDropDown?: MultiValueDropDown[] 
 }
 
+export interface MultiValueDropDown {
+  label: any
+  value: any
+}
 export interface PageProps {
   globalFields: GQLGlobalFields
   blocks: BaseBlock[]

@@ -86,10 +86,10 @@ export const ProfInfoFields = ({
                   leaveTo="opacity-0"
                 >
                   <Listbox.Options className="absolute top-12 z-30 w-full overflow-auto rounded-sm bg-white px-4 pb-5 shadow-lg">
-                    {option.values.map(value => (
+                    {option.multiValueDropDown?.map(obj => (
                       <Listbox.Option
-                        key={value}
-                        value={value}
+                        key={obj.value}
+                        value={obj.value}
                         className=" mb-4 cursor-pointer last-of-type:mb-0"
                       >
                         {({ selected, active }) => (
@@ -98,7 +98,7 @@ export const ProfInfoFields = ({
                               active || selected ? "text-dark-beige" : "text-dark-blue"
                             } link-m font-[325]`}
                           >
-                            {value}
+                            {obj.label} 
                           </span>
                         )}
                       </Listbox.Option>
