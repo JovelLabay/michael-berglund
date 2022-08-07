@@ -3,18 +3,12 @@ import classNames from "classnames"
 import { AnimatePresence } from "framer-motion"
 import { useRouter } from "next/router"
 import { ReactNode, useCallback, useEffect, useState } from "react"
-import { motion } from "framer-motion"
 
 import { Footer } from "@components/footer"
+import { NewsLetter } from "@components/footer/Newsletter"
 import { Header, MenuContent } from "@components/menu"
 import {
-  ACFGeneralSettings,
-  ACFGlobalFields,
-  FileMap,
-  ImageMap,
-  Page,
-  PageMap,
-  PostMap,
+    ACFGeneralSettings, ACFGlobalFields, FileMap, ImageMap, Page, PageMap, PostMap
 } from "@models/common"
 
 export interface LayoutProps {
@@ -41,9 +35,6 @@ export default function Layout({
   files,
 }: LayoutProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [menuShow, setMenuShow] = useState(true)
-  const [lastScrollY, setLastScrollY] = useState(0)
-
   const router = useRouter()
 
   const toggleMenu = useCallback(() => {
@@ -66,27 +57,16 @@ export default function Layout({
     }
   }, [router, isMenuOpen])
 
-  const controlNavbar = () => {
-    if (typeof window !== "undefined") {
-      if (window.scrollY > lastScrollY) {
-        setMenuShow(false)
-      } else {
-        setMenuShow(true)
-      }
-
-      setLastScrollY(window.scrollY)
-    }
-  }
+  const [showPopUp, setShowPopUp] = useState(false)
+  const props = { showPopUp, setShowPopUp }
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      window.addEventListener("scroll", controlNavbar)
+    if (localStorage.getItem("newsLetterPopUp") === null) {
+      setTimeout(() => {
+        setShowPopUp(true)
+      }, 1000)
     }
-
-    return () => {
-      window.removeEventListener("scroll", controlNavbar)
-    }
-  }, [lastScrollY])
+  }, [])
 
   return (
     <GlobalContext.Provider
@@ -101,28 +81,17 @@ export default function Layout({
     >
       <div
         className={classNames("relative h-screen w-screen bg-dark-blue", {
-          "overflow-hidden": isMenuOpen,
+          "overflow-hidden": isMenuOpen || showPopUp,
         })}
       >
+        <Header isHomePage={isHomePage} isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
         <AnimatePresence>{isMenuOpen && <MenuContent />}</AnimatePresence>
         <div>{children}</div>
         <Footer />
-        {menuShow && (
-          <div className="fixed top-0 right-0 z-50 h-auto w-full">
-            <motion.div
-              key="menu"
-              initial={{ y: "-50vh" }}
-              animate={{ y: 0 }}
-              exit={{ y: "-50vh" }}
-              transition={{ ease: "easeInOut", duration: 0.5, velocity: 50 }}
-            >
-              <Header
-                isHomePage={isHomePage}
-                isMenuOpen={isMenuOpen}
-                toggleMenu={toggleMenu}
-                lastScrollY={lastScrollY}
-              />
-            </motion.div>
+        {/* SHOW POP UP */}
+        {showPopUp && (
+          <div className="fixed top-0 left-0 z-[100] flex h-screen w-screen items-center justify-center overflow-hidden bg-[#00000080]">
+            <NewsLetter {...props} />
           </div>
         )}
       </div>

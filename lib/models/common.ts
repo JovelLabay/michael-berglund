@@ -173,6 +173,11 @@ export interface AcfMedarbetare {
   linkedin: string
   bio: string
   category: string
+  profileLink: {
+    target: string
+    title: string
+    url: string
+  }
 }
 
 export interface AnimatedPage {
