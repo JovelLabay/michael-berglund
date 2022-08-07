@@ -1,6 +1,7 @@
 import classNames from "classnames"
 import { AnimatePresence, motion } from "framer-motion"
 import Image from "next/image"
+import { useState } from "react"
 
 import { AppLink } from "@components/shared/AppLink"
 import { ArrowRight } from "@icons/ArrowRight"
@@ -10,6 +11,7 @@ import { Page } from "@models/common"
 import { HeroItemProgressBar } from "./HeroItemProgressBar"
 
 export interface HeroItemProps {
+  index: number
   isActive: boolean
   mainTitle: string
   preTitle: string
@@ -18,7 +20,9 @@ export interface HeroItemProps {
   pageData: Page
   colorOverlay: string
   className?: string
+  cancelAnimation: boolean
   timeoutCallback: () => void
+  clickHandler: (index: number) => void
 }
 
 export interface expandImageDimension {
@@ -27,6 +31,7 @@ export interface expandImageDimension {
 }
 
 export function HeroItem({
+  index,
   isActive,
   mainTitle,
   preTitle,
@@ -35,8 +40,11 @@ export function HeroItem({
   pageData,
   colorOverlay,
   className,
+  cancelAnimation,
   timeoutCallback,
+  clickHandler,
 }: HeroItemProps) {
+  const [isHovered, setHovered] = useState(false)
   let heroHeight = isActive ? expandDimension.height - 100 : 0
   const image = pageData.featuredImage.node
   const pageLink = pageData.uri
@@ -48,7 +56,10 @@ export function HeroItem({
       animate={{ height: "auto", opacity: 1 }}
       exit={{ opacity: 0.5 }}
       transition={{ duration: 0.75, easings: "linear" }}
-      className={classNames("relative", className)}
+      className={classNames("relative", className, { "cursor-pointer": !isActive })}
+      onClick={() => {
+        if (!isActive) clickHandler(index)
+      }}
     >
       {/* Base */}
       <motion.div animate={{ height: heroHeight }} transition={{ duration: 0.85 }}></motion.div>
@@ -98,7 +109,7 @@ export function HeroItem({
                 animate={{ marginLeft: isActive ? 20 : -20 }}
                 transition={{ duration: 1, delay: 0.15 }}
                 className="pre-title uppercase tracking-[0.15em] text-white"
-          >
+              >
                 {preTitle}
               </motion.h2>
             </div>
@@ -113,6 +124,12 @@ export function HeroItem({
           "section-padding absolute bottom-0 z-30 flex  w-full justify-between py-4 font-[350] lg:py-10",
           { "pb-10": isActive }
         )}
+        onMouseEnter={() => {
+          if (!isActive) setHovered(true)
+        }}
+        onMouseLeave={() => {
+          if (isHovered) setHovered(false)
+        }}
       >
         <div
           className={classNames("flex items-center", {
@@ -120,12 +137,15 @@ export function HeroItem({
           })}
         >
           {/* {isActive && <LogoDots />} */}
-          <motion.div animate={{ opacity: isActive ? 1 : 0 }} transition={{ duration: 1.5 }}>
+          <motion.div
+            animate={{ opacity: isActive || isHovered ? 1 : 0 }}
+            transition={{ duration: isHovered ? 0.5 : 1.5 }}
+          >
             <LogoDots />
           </motion.div>
           <motion.h2
-            animate={{ marginLeft: isActive ? 20 : -20 }}
-            transition={{ duration: 1 }}
+            animate={{ marginLeft: isActive || isHovered ? 20 : -20 }}
+            transition={{ duration: isHovered ? 0.5 : 1 }}
             className="pre-title uppercase tracking-[0.15em] text-white"
           >
             {preTitle}
@@ -148,7 +168,11 @@ export function HeroItem({
         )}
       </div>
       {isActive && (
-        <HeroItemProgressBar timeoutCallback={timeoutCallback} className="absolute bottom-0 z-30" />
+        <HeroItemProgressBar
+          timeoutCallback={timeoutCallback}
+          clearTimer={cancelAnimation}
+          className="absolute bottom-0 z-30"
+        />
       )}
     </motion.div>
   )
