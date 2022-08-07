@@ -9,6 +9,7 @@ import { expandImageDimension, HeroItem } from "./HeroItem"
 
 export const AnimatedHero = ({ pages }: HeroData) => {
   const { pageMap } = useGlobalContext()
+  const [cancelAnimation, setCancelAnimation] = useState(false)
   const [heroItems, setHeroItems] = useState<AnimatedPage[]>(pages!)
   const heroContainer = useRef<HTMLDivElement>(null!)
 
@@ -18,12 +19,18 @@ export const AnimatedHero = ({ pages }: HeroData) => {
   })
 
   const animationHandler = useCallback(() => {
-    const tempHeroList = [...heroItems]
-    const firstElem = tempHeroList.shift()
-
-    firstElem!.id += Math.random()
-    setHeroItems([...tempHeroList, firstElem!])
+    setHeroItems(shiftHeroItems(heroItems))
   }, [heroItems])
+
+  const clickHandler = useCallback(
+    (index: number) => {
+      const tempHeroList = [...heroItems]
+      setCancelAnimation(true)
+
+      setHeroItems(shiftHeroItems(heroItems, index))
+    },
+    [heroItems]
+  )
 
   useEffect(() => {
     const handleResize = () => {
@@ -51,11 +58,12 @@ export const AnimatedHero = ({ pages }: HeroData) => {
       {imageDimenstions.height > 0 && (
         <AnimatePresence initial={false}>
           {heroItems &&
-            heroItems.map(({ id, pageId, preTitle, mainTitle, linkText, colorOverlay }) => {
+            heroItems.map(({ id, pageId, preTitle, mainTitle, linkText, colorOverlay }, index) => {
               const pageData = pageMap![pageId]
 
               return (
                 <HeroItem
+                  index={index}
                   key={id}
                   pageData={pageData}
                   isActive={preTitle === heroItems[0].preTitle}
@@ -64,7 +72,9 @@ export const AnimatedHero = ({ pages }: HeroData) => {
                   linkText={linkText}
                   colorOverlay={colorOverlay}
                   expandDimension={imageDimenstions}
+                  cancelAnimation={cancelAnimation}
                   timeoutCallback={animationHandler}
+                  clickHandler={clickHandler}
                 />
               )
             })}
@@ -72,4 +82,18 @@ export const AnimatedHero = ({ pages }: HeroData) => {
       )}
     </section>
   )
+}
+
+function shiftHeroItems(heroItems: AnimatedPage[], count: number = 1) {
+  let shiftedHeroItems: AnimatedPage[] = [...heroItems]
+
+  for (let i = 0; i < count; i++) {
+    const firstElem = shiftedHeroItems.shift()
+
+    firstElem!.id += Math.random()
+
+    shiftedHeroItems = [...shiftedHeroItems, firstElem!]
+  }
+
+  return shiftedHeroItems
 }
