@@ -1,23 +1,17 @@
 import React from "react"
-import { GetServerSideProps } from "next"
 
-import client from "@graphql/urql-client"
-import { GET_ALL_COURSES } from "@graphql/graphql-queries"
 import { Course } from "@models/common"
-import { ArrowDown } from "@icons/ArrowDown"
 import ChevronRightIcon from "@icons/ChevronRightIcon"
-import Link from "next/link"
 import { AppLink } from "@components/shared/AppLink"
-import { Contact } from "@components/blocks"
-import { NewsLetter } from "@components/footer/Newsletter"
 import { Wysiwyg } from "@components/shared/Wysiwyg"
 import CourseDetailedCard from "@components/cards/CourseDetailedCard"
 
 export default function Courses({ course }: { course: Course[] }) {
   return (
     <div className="min-h-screen bg-white">
-      <div className="grid grid-cols-1 pt-36 lg:grid-cols-3">
-        {course.map((AngCourse, index) => {
+      <div className="h-[88px] bg-dark-green" />
+      <div className="grid grid-cols-1 pt-8 md:pt-14 lg:grid-cols-3">
+        {course?.map((AngCourse, index) => {
           return (
             <>
               <div key={index} className="px-[20px] md:col-span-2 md:pl-12 xl:mr-60">
@@ -57,6 +51,20 @@ export default function Courses({ course }: { course: Course[] }) {
                     <li>id faucibus Nunc avenenatis montes Ac</li>
                     <li>odio nec Pellentesque potenti lacus nibh ante</li>
                   </ul>
+                  <p className="pre-title my-5 font-lora leading-6 md:my-10">
+                    Dolor volutpat, diam magna accumsan vulputate feugiat. Orci non sapien, sed
+                    pulvinar. Tortor laoreet sit ut lacus ut netus magna porttitor. Vivamus netus
+                    nunc, id amet viverra. Sit sed orci diam dui scelerisque elit massa. Faucibus id
+                    dolor tristique amet, in suspendisse. Sed semper urna nascetur quam odio. Tempor
+                    purus nisi, morbi in est convallis. Curabitur in in nunc senectus quam velit
+                    ultrices interdum rhoncus. Eget adipiscing natoque quis auctor sit at feugiat
+                    habitant. Tortor in quis massa massa rhoncus, quis consequat blandit in. Id
+                    cursus consequat, pellentesque ipsum auctor. Nibh quam nisl natoque tortor.
+                    Sollicitudin venenatis quis pharetra, lacus. Ipsum turpis ornare et justo, eget
+                    nisi, nunc. Iaculis aliquet nulla ante potenti rhoncus sagittis sit eget
+                    elementum. Erat nisi orci sed posuere lectus sem erat. Convallis ornare
+                    elementum massa amet.
+                  </p>
                 </div>
               </div>
 
@@ -67,28 +75,6 @@ export default function Courses({ course }: { course: Course[] }) {
           )
         })}
       </div>
-
-      {/* ==== */}
     </div>
   )
-}
-
-export const getServerSideProps: GetServerSideProps = async context => {
-  const lala = context.query.id
-
-  const course: Course[] = []
-
-  const data = await client.query(GET_ALL_COURSES).toPromise()
-
-  const dodo = data.data.courses.edges.filter((element: Course) => {
-    return element.node.id === lala
-  })
-
-  course.push(dodo)
-
-  return {
-    props: {
-      course: course[0],
-    },
-  }
 }

@@ -31,7 +31,7 @@ export const BigPageLinks = ({ title, postIds }: PostData) => {
             key={id}
             image={featuredImage.node}
             body={cardBody}
-            link={`/courses/${id}`}
+            link={"/articles" + uri}
             className="h-full grid-rows-1"
           />
         )

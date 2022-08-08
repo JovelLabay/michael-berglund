@@ -1,4 +1,4 @@
-import { GET_GLOBAL_FIELDS, GET_SINGLE_ARTICLE } from "@graphql/graphql-queries"
+import { GET_ALL_COURSES, GET_GLOBAL_FIELDS, GET_SINGLE_ARTICLE } from "@graphql/graphql-queries"
 import client from "@graphql/urql-client"
 import { GetServerSideProps } from "next"
 import Image from "next/image"
@@ -9,12 +9,16 @@ import { getImageIds, getPageLinkIds, parse } from "@/lib/utils/BlockParser"
 import { getImages } from "@/lib/utils/ImageGetter"
 import { getPosts } from "@/lib/utils/PageHellper"
 import { ArticleShareLinks } from "@components/article-share-links"
-import { Block } from "@components/blocks"
+import { Block, Contact, ReviewSlider } from "@components/blocks"
 import Layout from "@components/Layout/Layout"
 import { Wysiwyg } from "@components/shared/Wysiwyg"
 import { PlayIcon } from "@icons/PlayIcon"
 import { BaseBlock } from "@models/blocks"
-import { GQLGlobalFields, ImageMap, PostMap, SingleArticlePost } from "@models/common"
+import { Course, GQLGlobalFields, ImageMap, PostMap, SingleArticlePost } from "@models/common"
+import { useEffect, useState } from "react"
+import Courses from "@components/blocks/Courses"
+import { ContactFeedBlock } from "@components/blocks/ContactFeedBlock"
+import { NewsLetter } from "@components/footer/Newsletter"
 
 export const getServerSideProps: GetServerSideProps = async context => {
   invariant(context.params)
@@ -38,8 +42,23 @@ export const getServerSideProps: GetServerSideProps = async context => {
 
   const [images, postMap] = await Promise.all([getImages(imageIds), getPosts(blocks)])
 
+  // COURSES
+  const lala = context.query.uri
+  const uniqueUri = `/course/${lala?.at(1)}/`
+  const course: Course[] = []
+
+  const data = await client.query(GET_ALL_COURSES).toPromise()
+
+  const dodo = data.data.courses.edges.filter((element: Course) => {
+    return element.node.uri === uniqueUri
+  })
+
+  course.push(dodo)
+
+  const oneCourse = course[0]
+
   return {
-    props: { globalFields, articleData, blocks, pageData, images, postMap },
+    props: { globalFields, articleData, blocks, pageData, images, postMap, oneCourse },
   }
 }
 
@@ -50,6 +69,7 @@ interface SingleArticleProps {
   pageData: any
   images: ImageMap
   postMap: PostMap
+  oneCourse: Course[]
 }
 
 export default function SingleArticle({
@@ -59,6 +79,7 @@ export default function SingleArticle({
   pageData,
   images,
   postMap,
+  oneCourse,
 }: SingleArticleProps) {
   const { title, date, content, featuredImage } = articleData.post
   const { linkTitle, mediaFile, coverImage } = articleData.post.acfPostSingleArticle
@@ -70,6 +91,23 @@ export default function SingleArticle({
     month: "short",
     day: "numeric",
   })
+
+  // COURSE ONLY
+  const [isCourse, setIsCourse] = useState(false)
+
+  useEffect(() => {
+    if (window.location.pathname.includes("course")) {
+      setIsCourse(true)
+    }
+  }, [])
+
+  if (isCourse) {
+    return (
+      <Layout {...globalFields} pageData={pageData} images={images} postMap={postMap}>
+        <Courses course={oneCourse} />
+      </Layout>
+    )
+  }
 
   return (
     <Layout {...globalFields} pageData={pageData} images={images} postMap={postMap}>

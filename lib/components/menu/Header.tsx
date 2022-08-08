@@ -15,12 +15,17 @@ export interface HeaderProps {
 
 export const Header = ({ isMenuOpen, isHomePage, toggleMenu, lastScrollY }: HeaderProps) => {
   const [showPopUp, setShowPopUp] = useState(false)
+  const [isCourse, setIsCourse] = useState(false)
 
   useEffect(() => {
     if (localStorage.getItem("newsLetterPopUp") === null) {
       setTimeout(() => {
         setShowPopUp(true)
       }, 1000)
+    }
+
+    if (window.location.pathname.includes("course")) {
+      setIsCourse(true)
     }
   }, [])
 
@@ -31,7 +36,7 @@ export const Header = ({ isMenuOpen, isHomePage, toggleMenu, lastScrollY }: Head
       className={
         lastScrollY >= 200
           ? "section-padding absolute top-0 z-[100] flex w-full items-center justify-between bg-dark-green py-4 text-white lg:py-6"
-          : "section-padding absolute top-0 z-[100] flex w-full items-center justify-between  py-4 text-white lg:py-6"
+          : "section-padding absolute top-0 z-[100] flex w-full items-center justify-between py-4 text-white lg:py-6"
       }
     >
       <Hamburger toggled={isMenuOpen} toggle={toggleMenu} />
