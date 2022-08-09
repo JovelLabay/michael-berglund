@@ -159,6 +159,7 @@ export interface AcfCourse {
   durationUnit: string
   language: string
   category: string
+  inveniasProgrammeId: string | null
 }
 
 export interface AcfMedarbetare {
@@ -223,5 +224,6 @@ export interface Course {
     uri: string
     excerpt: string
     acfCourse: AcfCourse
+    content: string
   }
 }

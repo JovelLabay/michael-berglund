@@ -81,6 +81,7 @@ export interface ShortDescData extends BaseBlock {
 export interface ContactData extends BaseBlock {
   title: string
   medarbetareIds: number[]
+  description: string[]
 }
 
 export interface DataPointsData extends BaseBlock {

@@ -1,12 +1,44 @@
 import {
-    AccordionListsData, AssignmentsData, BaseBlock, ContactData, ContactFeedListblock,
-    CourseCardsData, DataPointsData, DescWithImageData, HeroData, ImageGalleryData, InfoIconData,
-    isAccordionListBlock, isBigPageLinks, isContactData, isContactFeedBlock, isCourseCardData,
-    isDescWithImageData, isHeroData, isImageGalleryBlock, isInfoIconBlock, isJobPositionData,
-    isLogowallData, isRegisterCvData, isRelatedArticlesData, isRightLeftImageBlock, isStatsData,
-    isTabsData, JobPositionData, JobPositionsData, LogowallData, PostData, PressFeedData,
-    RegisterCvData, RelatedArticleData, ReviewSliderData, RightLeftImageData, ShortDescData,
-    StatsData, TableDescData, TabsData
+  AccordionListsData,
+  AssignmentsData,
+  BaseBlock,
+  ContactData,
+  ContactFeedListblock,
+  CourseCardsData,
+  DataPointsData,
+  DescWithImageData,
+  HeroData,
+  ImageGalleryData,
+  InfoIconData,
+  isAccordionListBlock,
+  isBigPageLinks,
+  isContactData,
+  isContactFeedBlock,
+  isCourseCardData,
+  isDescWithImageData,
+  isHeroData,
+  isImageGalleryBlock,
+  isInfoIconBlock,
+  isJobPositionData,
+  isLogowallData,
+  isRegisterCvData,
+  isRelatedArticlesData,
+  isRightLeftImageBlock,
+  isStatsData,
+  isTabsData,
+  JobPositionData,
+  JobPositionsData,
+  LogowallData,
+  PostData,
+  PressFeedData,
+  RegisterCvData,
+  RelatedArticleData,
+  ReviewSliderData,
+  RightLeftImageData,
+  ShortDescData,
+  StatsData,
+  TableDescData,
+  TabsData,
 } from "@models/blocks"
 import { IDropDown } from "@models/common"
 
@@ -399,10 +431,15 @@ const parseContactBlocks = (data: any): ContactData => {
     .map(key => key.match(contactItemPattern)![1])
     .map(index => data[`medarbetare_list_${index}_medarbetare`])
 
+  const contactListDescription = Object.keys(data)
+    .filter(key => key.startsWith(`medarbetare_list_`) && key.endsWith(`_description`))
+    .map(key => data[key])
+
   return {
     name: "acf/contact",
     title: data.title,
     medarbetareIds,
+    description: contactListDescription,
   }
 }
 

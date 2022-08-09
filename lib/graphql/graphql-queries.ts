@@ -386,7 +386,9 @@ export const GET_ALL_COURSES = gql`
             isCourseFull
             language
             startDate
+            inveniasProgrammeId
           }
+          content
         }
       }
     }

@@ -60,7 +60,7 @@ export default function CourseDetailedCard({ AngCourse }: { AngCourse: Course })
         </div>
       </div>
       <div className="hidden flex-col items-center bg-dark-green py-5 px-8 md:items-start lg:flex">
-        <Link href={`/course/${AngCourse.node.id}`}>
+        <Link href={`/courseRegistration/${AngCourse.node.id}`}>
           <button className="text flex flex-row items-center text-white">
             Anmäl dig till kursen
             <CardRightIcon className="ml-3" />
@@ -68,7 +68,7 @@ export default function CourseDetailedCard({ AngCourse }: { AngCourse: Course })
         </Link>
       </div>
       <div className="fixed bottom-0 z-10 flex w-screen justify-center bg-dark-green py-5 lg:hidden">
-        <Link href={`/courses/${AngCourse.node.id}`}>
+        <Link href={`/courseRegistration/${AngCourse.node.id}`}>
           <button className="text flex flex-row items-center text-white">
             Anmäl dig till kursen
             <CardRightIcon className="ml-3" />
