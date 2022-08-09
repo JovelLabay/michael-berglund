@@ -16,7 +16,8 @@ export interface IDropDown {
   title: string
   fieldName: string
   values: string[]
-  multiValueDropDown?: MultiValueDropDown[] 
+  multiValueDropDown?: MultiValueDropDown[]
+  customFieldName?: string
 }
 
 export interface MultiValueDropDown {

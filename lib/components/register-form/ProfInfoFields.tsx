@@ -1,7 +1,7 @@
 import { Listbox, Transition } from "@headlessui/react"
 import classNames from "classnames"
 import Link from "next/link"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { UseFormRegister, UseFormRegisterReturn, UseFormSetValue } from "react-hook-form"
 
 import { AddFileIcon } from "@icons/AddFileIcon"
@@ -29,11 +29,17 @@ export const ProfInfoFields = ({
   pageLocation,
 }: ProfInfoFieldsProps) => {
   const [hasConfirmedNewsletter, setHasConfirmedNewsletter] = useState(true)
-
+  const [selectedOption, setSelectedOptions] = useState([])
   const handleConfirmNewsletter = () => setHasConfirmedNewsletter(!hasConfirmedNewsletter)
 
-  const onChangeHandler = (dropdown: IDropDown, value: string): any => {
-    setValue(dropdown.fieldName, value)
+  const onChangeHandler = (dropdown: IDropDown, value: any): any => {
+    setSelectedOptions(data => data.concat(value))
+    setValue(
+      "arrayOptions",
+      selectedOption.filter((value, index, array) => {
+        return array.indexOf(value) === index
+      })
+    )
   }
 
   const gdprLabel = (
@@ -64,7 +70,7 @@ export const ProfInfoFields = ({
       <div className="mb-4 flex flex-col">
         {infoDropdown.map(option => (
           <Listbox
-            value={watch(option.fieldName)}
+            value={watch("arrayOptions")}
             onChange={value => onChangeHandler(option, value)}
             key={option.title}
           >
@@ -98,7 +104,7 @@ export const ProfInfoFields = ({
                               active || selected ? "text-dark-beige" : "text-dark-blue"
                             } link-m font-[325]`}
                           >
-                            {obj.label} 
+                            {obj.label}
                           </span>
                         )}
                       </Listbox.Option>

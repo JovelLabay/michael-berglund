@@ -13,6 +13,7 @@ export const RegisterCVBlock = ({
   downloadFile,
   downloadLinkTitle,
   professionalInfo,
+  type
 }: RegisterCvData) => {
   const { files } = useGlobalContext()
   const [activeStep, setActiveStep] = useState(1)
@@ -65,6 +66,7 @@ export const RegisterCVBlock = ({
 
         {activeStep !== 3 && (
           <RegisterForm
+            type={type}
             infoDropdown={infoDropdown}
             activeStep={activeStep}
             nextStep={handleNextStep}

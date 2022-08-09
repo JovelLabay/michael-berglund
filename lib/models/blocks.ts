@@ -176,6 +176,7 @@ export interface RegisterCvData extends BaseBlock {
   description: string
   downloadLinkTitle?: string
   downloadFile?: number
+  type?: string
   professionalInfo: {
     infoDropdown: IDropDown[]
   }

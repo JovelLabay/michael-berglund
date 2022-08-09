@@ -5,8 +5,15 @@ export interface People {
     HomeAddress: HomeAddress,
     EmailAddresses: EmailAddress[],
     PhoneNumbers: PhoneNumber[],
-    CustomFreeTextFields: CustomFreeTextField[]
-
+    CustomFreeTextFields?: CustomFreeTextField[]
+    Websites: Website[]
+    IsClient?: boolean,
+    IsPartner?: boolean,  
+    IsCandidate?: boolean,
+    IsSupplier?: boolean,
+    IsPermanentCandidate?: boolean,
+    IsInterimCandidate?: boolean,
+    IsNonExecCandidate?: boolean,
 }
 
 export interface NameComponents {
@@ -59,4 +66,15 @@ export interface CustomFreeTextField {
     FieldName: 'linkedin' | 'privacy' | 'newsletter' | any
     DisplayTitle:'Linkedin' | 'Accept Privacy' | 'Allow Newsletter' | any 
     ItemValue: any
+}
+
+
+export interface  Website 
+{
+    IsCustomWebsite: false | boolean,
+    Icon: string,
+    IsVisibleAsDefault: true,
+    FieldName: 'LinkedIn' | any,
+    DisplayTitle: 'LinkedIn' | any,
+    ItemValue: string
 }

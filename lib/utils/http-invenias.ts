@@ -120,12 +120,10 @@ const httpInvenias  = {
 
     uploadDocument: async ( peopleId: any, file: any, isCSV: boolean,  auth_token: any) => {
         const url = `people/${peopleId}/${isCSV ? 'addcvresume': 'document'}`;
-
         return fetch(`${API_URL}/${URL_API}/${url}`, {
             method: 'POST',
             credentials: 'same-origin',
             headers: {
-                'Content-Type': 'multipart/form-data',
                ...authHeaders(auth_token),
             },
             body: file
@@ -134,7 +132,7 @@ const httpInvenias  = {
 
     findDocumentId: async ( peopleId: any, documentName: any,  auth_token: any ) => {
         const url = `people/${peopleId}/documents/list`;
-        const filter: any = {
+        const filter: any = JSON.stringify({
             "Filter": [
                 "AttachmentName",
                 "in",
@@ -142,7 +140,7 @@ const httpInvenias  = {
                     documentName
                 ]
             ]
-        };
+        });
         return fetch(`${API_URL}/${URL_API}/${url}`, {
             method: 'POST',
             credentials: 'same-origin',
@@ -155,15 +153,14 @@ const httpInvenias  = {
     },
 
     defultCSVDocument: async ( peopleId: any, documentId: any, auth_token: any) => {
-        const url = `people/${peopleId}/documents/${documentId}`;
+        const url = `people/${peopleId}/documents/${documentId}/defaultCv`;
         return fetch(`${API_URL}/${URL_API}/${url}`, {
             method: 'POST',
-            credentials: 'same-origin',
             headers: {
-                'Content-Type': 'multipart/form-data',
+                'Content-Type':'application/x-www-form-urlencoded',
                ...authHeaders(auth_token),
             }
-        }).then((r: any) => { return r.json() } );
+        });
 
     },
 

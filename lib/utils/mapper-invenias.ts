@@ -1,9 +1,53 @@
 import {
-    CustomFreeTextField, EmailAddress, HomeAddress, NameComponents, People, PhoneNumber
+    CustomFreeTextField, EmailAddress, HomeAddress, NameComponents, People, PhoneNumber, Website
 } from "@models/inveniasModel"
+
+const jobPosition = (data: any) => {
+  let result: any = {}
+  switch (data) {
+    case "executive":
+      result = {
+        IsClient: true,
+        IsPartner: false,
+        IsCandidate: true,
+        IsSupplier: false,
+        IsPermanentCandidate: true,
+        IsInterimCandidate: false,
+        IsNonExecCandidate: false,
+      }
+      break
+    case "interim":
+      result = {
+        IsClient: true,
+        IsPartner: false,
+        IsCandidate: true,
+        IsSupplier: false,
+        IsPermanentCandidate: false,
+        IsInterimCandidate: true,
+        IsNonExecCandidate: false,
+      }
+      break
+    case "internal":
+      result = {
+        IsClient: false,
+        IsPartner: false,
+        IsCandidate: true,
+        IsSupplier: false,
+        IsPermanentCandidate: false,
+        IsInterimCandidate: false,
+        IsNonExecCandidate: false,
+      }
+      break
+    default: result = {};
+      break
+  }
+  return result;
+}
 
 const mapperInvenias = {
   dataPeopleMapper: (data: any) => {
+
+    const jobPositions = jobPosition(data.type);
 
     const nameComponent: NameComponents = {
       FullName: data.firstName + " " + data.lastName,
@@ -59,23 +103,26 @@ const mapperInvenias = {
         ItemValue: data.phone,
       },
     ]
-    const CustomFreeTextFields: CustomFreeTextField[] = [
+    const websites: Website[] = [
       {
-        FieldName: "linkedin",
-        DisplayTitle: "Linkedin",
+        IsCustomWebsite: false,
+        Icon: "",
+        IsVisibleAsDefault: true,
+        FieldName: "LinkedIn",
+        DisplayTitle: "LinkedIn",
         ItemValue: data.linkedIn,
       },
     ]
-
     const people: People = {
       NameComponents: nameComponent,
       HomeAddress: homeAddress,
       EmailAddresses: emailAddress,
       PhoneNumbers: phoneNumbers,
-      CustomFreeTextFields: CustomFreeTextFields,
+      Websites: websites,
+      ...jobPositions,
     }
     return people
-  }
+  },
 }
 
-export default mapperInvenias;
+export default mapperInvenias
