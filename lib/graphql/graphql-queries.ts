@@ -387,6 +387,10 @@ export const GET_ALL_COURSES = gql`
             language
             startDate
             inveniasProgrammeId
+            dates {
+              enddate
+              startdate
+            }
           }
           content
         }

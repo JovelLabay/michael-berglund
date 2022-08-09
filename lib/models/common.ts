@@ -160,6 +160,10 @@ export interface AcfCourse {
   language: string
   category: string
   inveniasProgrammeId: string | null
+  dates: {
+    enddate: Date
+    startdate: Date
+  }[]
 }
 
 export interface AcfMedarbetare {

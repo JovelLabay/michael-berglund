@@ -14,7 +14,7 @@ export default function CourseDetailedCard({ AngCourse }: { AngCourse: Course })
   return (
     <div className="bg-light-beige md:sticky md:top-0 lg:mr-12">
       <div className="px-5 pt-10 md:px-8 md:pt-8">
-        <h1 className="app-h4 mb-8">{AngCourse.node.acfCourse.category}</h1>
+        <h1 className="app-h4 mb-8">{AngCourse.node.title}</h1>
         <div>
           <p className="text-[14px]  font-[350] tracking-wider">{"Längd".toLocaleUpperCase()}</p>
           <p className="text-[16px]">{AngCourse.node.acfCourse.duration} dagar</p>
@@ -43,14 +43,15 @@ export default function CourseDetailedCard({ AngCourse }: { AngCourse: Course })
           <p className="text-[14px] font-[350] tracking-wider">
             {"Kommande kurstillfällen".toLocaleUpperCase()}
           </p>
-          <p className=" text-[16px] hover:cursor-pointer" onClick={handler}>
-            <p>11 okt 2022 – 13 okt 2022</p>
-            <p>30 nov 2022 – 2 dec 2022</p>
+          <p className=" text-[16px] hover:cursor-pointer">
+            {AngCourse.node.acfCourse.dates.map((dateMe, index) => {
+              return (
+                <div key={index}>
+                  <p>{`${dateMe.startdate.toString()} - ${dateMe.enddate.toString()}`}</p>
+                </div>
+              )
+            })}
           </p>
-
-          {isOpen && (
-            <div className="absolute top-20 z-10 h-32 w-52 rounded bg-white shadow-shadow-cus"></div>
-          )}
         </div>
         <div className="mt-5 mb-8">
           <p className="text-[14px] font-[350] tracking-wider">
