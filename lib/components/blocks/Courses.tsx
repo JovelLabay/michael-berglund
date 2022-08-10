@@ -16,22 +16,28 @@ export default function Courses({ course }: { course: Course[] }) {
             <>
               <div key={index} className="px-[20px] md:col-span-2 md:pl-12 xl:mr-60">
                 {/* BREADCRUMBS */}
-                <div className="flex flex-row items-center ">
+                <div className="flex flex-col lg:flex-row lg:items-center ">
                   <AppLink
                     href="/board-value"
-                    className="text-[14px] font-[350] tracking-wider text-dark-green hover:text-dark-blue"
+                    className="flex items-center text-[14px] font-[350] tracking-wider text-dark-green hover:text-dark-blue lg:text-[16px]"
                   >
                     {"Board Value".toLocaleUpperCase()}
+                    <ChevronRightIcon className="mx-3" />
                   </AppLink>
 
-                  <ChevronRightIcon className="mx-3" />
-                  <p className="text-[14px] font-[350] tracking-wider text-light-green">
-                    {"Kursnamn".toLocaleUpperCase()}
+                  <p className="text-[14px] font-[350] tracking-wider text-light-green lg:text-[16px]">
+                    {AngCourse.node.title.toLocaleUpperCase()}
                   </p>
                 </div>
                 <div className="mt-8 mb-[60px] md:mb-[120px] md:mt-[60px]">
-                  <h1 className="md:app-h2 app-h3"> {"Kursnamn"}</h1>
-                  <Wysiwyg className="mt-8 md:mt-14" content={AngCourse.node.excerpt} />
+                  <h1 className="font-lora text-[28px] font-[400] lg:text-[48px]">
+                    {" "}
+                    {AngCourse.node.title}
+                  </h1>
+                  <Wysiwyg
+                    className="mt-8 text-[16px] font-[400] lg:mt-14 lg:text-[16px] lg:font-[325]"
+                    content={AngCourse.node.excerpt}
+                  />
                   <Wysiwyg
                     className="pre-title my-5 font-lora leading-6 md:my-10"
                     content={AngCourse.node.content}

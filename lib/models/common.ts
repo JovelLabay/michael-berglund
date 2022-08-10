@@ -164,6 +164,10 @@ export interface AcfCourse {
     enddate: Date
     startdate: Date
   }[]
+  place: string
+  delegates: {
+    delegate: number
+  }[]
 }
 
 export interface AcfMedarbetare {

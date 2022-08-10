@@ -19,17 +19,17 @@ export default function CourseDetailedCard({ AngCourse }: { AngCourse: Course })
           <p className="text-[14px]  font-[350] tracking-wider">{"Längd".toLocaleUpperCase()}</p>
           <p className="text-[16px]">{AngCourse.node.acfCourse.duration} dagar</p>
         </div>
-        <div className="my-5">
+        <div className="my-6">
           <p className="text-[14px] font-[350] tracking-wider">{"Plats".toLocaleUpperCase()}</p>
-          <p className="text-[16px]">Strandvägen 5B, Stockholm</p>
+          <p className="text-[16px]">{AngCourse.node.acfCourse.place}</p>
         </div>
         <div>
           <p className="text-[14px] font-[350] tracking-wider">{"Språk".toLocaleUpperCase()}</p>
           <p className="text-[16px]">{AngCourse.node.acfCourse.language}</p>
         </div>
-        <div className="my-5">
+        <div className="my-6">
           <p className="text-[14px] font-[350] tracking-wider">{"Deltagare".toLocaleUpperCase()}</p>
-          <p className="text-[16px]"> Max. {AngCourse.node.acfCourse.durationUnit} personer</p>
+          <p className="text-[16px]"> Max. {AngCourse.node.acfCourse.delegates.length} personer</p>
         </div>
         <div>
           <p className="text-[14px] font-[350] tracking-wider">
@@ -39,11 +39,11 @@ export default function CourseDetailedCard({ AngCourse }: { AngCourse: Course })
             67 500 kr ex moms. I priset ingår kursmaterial, lunch och middagar.
           </p>
         </div>
-        <div className="relative mt-5 mb-8 select-none">
+        <div className="relative mt-6 mb-8 select-none">
           <p className="text-[14px] font-[350] tracking-wider">
             {"Kommande kurstillfällen".toLocaleUpperCase()}
           </p>
-          <p className=" text-[16px] hover:cursor-pointer">
+          <p className=" text-[16px]">
             {AngCourse.node.acfCourse.dates.map((dateMe, index) => {
               return (
                 <div key={index}>
@@ -53,7 +53,7 @@ export default function CourseDetailedCard({ AngCourse }: { AngCourse: Course })
             })}
           </p>
         </div>
-        <div className="mt-5 mb-8">
+        <div className="mt-6 pb-[60px] lg:pb-8">
           <p className="text-[14px] font-[350] tracking-wider">
             Några frågor?
             <button className="ml-1 text-dark-green">Kontakta oss</button>

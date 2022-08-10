@@ -391,6 +391,10 @@ export const GET_ALL_COURSES = gql`
               enddate
               startdate
             }
+            place
+            delegates {
+              deletegate
+            }
           }
           content
         }
