@@ -39,7 +39,7 @@ export default function Courses({ course }: { course: Course[] }) {
                     content={AngCourse.node.excerpt}
                   />
                   <Wysiwyg
-                    className="pre-title my-5 font-lora leading-6 md:my-10"
+                    className="pre-title course-content my-5 font-lora leading-6 md:my-10"
                     content={AngCourse.node.content}
                   />
                 </div>
