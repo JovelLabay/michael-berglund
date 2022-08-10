@@ -59,7 +59,6 @@ export const RegisterForm = ({
   console.log(errors)
   // TODO: Connect to external api.
   const onSubmit: SubmitHandler<z.output<typeof schema>> = async data => {
-    console.log(data)
     const formData = new FormData()
     formData.append("file", data["cvFile"][0])
     formData.append("type", type)
@@ -81,7 +80,6 @@ export const RegisterForm = ({
         throw new Error(response.statusText)
       }
     } catch (err) {
-      console.error(err)
     }
   }
 
