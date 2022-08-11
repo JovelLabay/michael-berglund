@@ -56,8 +56,6 @@ export const RegisterForm = ({
     setValue,
     formState: { errors },
   } = useForm<z.output<typeof schema>>({ mode: "onBlur", resolver: zodResolver(schema) })
-  console.log(errors)
-  // TODO: Connect to external api.
   const onSubmit: SubmitHandler<z.output<typeof schema>> = async data => {
     const formData = new FormData()
     formData.append("file", data["cvFile"][0])
@@ -80,6 +78,7 @@ export const RegisterForm = ({
         throw new Error(response.statusText)
       }
     } catch (err) {
+      console.error(err)
     }
   }
 

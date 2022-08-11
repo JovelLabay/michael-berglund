@@ -512,8 +512,6 @@ const parseAccordionListsBlock = (data: any): AccordionListsData => {
 
 const tableDescPattern = /^table_(\d+)_services$/
 const parseTableDescBlock = (data: any): TableDescData => {
-  console.log(data)
-
   const indexes = Object.keys(data)
     .filter(key => tableDescPattern.test(key))
     .map(key => key.match(tableDescPattern)![1])
@@ -564,19 +562,19 @@ const parseRegisterCVBlock = (data: any): RegisterCvData => {
   const dropDownLength = data.professional_info_info_dropdown
   let infoDropdown: IDropDown[] = []
   for (let i = 0; i < dropDownLength; i++) {
-    let values = [];
-    let multiValueDropDown: MultiValueDropDown[] = [];
+    let values = []
+    let multiValueDropDown: MultiValueDropDown[] = []
     let title = data[`professional_info_info_dropdown_${i}_title`]
     let fieldName = toCamelCase(title)
-    let customFieldName = 'custom_field_' + toCamelCase(title);
+    let customFieldName = "custom_field_" + toCamelCase(title)
     for (let j = 0; j < data[`professional_info_info_dropdown_${i}_values`]; j++) {
       values.push(data[`professional_info_info_dropdown_${i}_values_${j}_value`])
       multiValueDropDown.push({
         label: data[`professional_info_info_dropdown_${i}_values_${j}_value`],
-        value: data[`professional_info_info_dropdown_${i}_values_${j}_category_id`]
+        value: data[`professional_info_info_dropdown_${i}_values_${j}_category_id`],
       })
     }
-    infoDropdown.push({ title, fieldName, values , multiValueDropDown, customFieldName })
+    infoDropdown.push({ title, fieldName, values, multiValueDropDown, customFieldName })
   }
 
   const linkTitle = data.download_link_title ? data.download_link_title : null
