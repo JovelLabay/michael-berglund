@@ -5,9 +5,14 @@ import { usePageVisibility } from "react-page-visibility"
 export interface HeroItemProgressBarProps {
   timeoutCallback: () => void
   className?: string
+  clearTimer?: boolean
 }
 
-export const HeroItemProgressBar = ({ timeoutCallback, className }: HeroItemProgressBarProps) => {
+export const HeroItemProgressBar = ({
+  timeoutCallback,
+  className,
+  clearTimer,
+}: HeroItemProgressBarProps) => {
   const timeout = 5000
   const isVisible = usePageVisibility()
 
@@ -16,14 +21,20 @@ export const HeroItemProgressBar = ({ timeoutCallback, className }: HeroItemProg
   const [isAnimate, setIsAnimate] = useState(false)
   const hasAnimated = useRef(false)
 
+  const timerRef = useRef<NodeJS.Timeout>(null!)
+
+  useEffect(() => {
+    if (clearTimer) clearTimeout(timerRef.current)
+  }, [clearTimer])
+
   useEffect(() => {
     setPercentage(100)
-    const timer = setTimeout(() => {
+    timerRef.current = setTimeout(() => {
       setIsAnimate(true)
     }, timeout)
 
     return () => {
-      clearTimeout(timer)
+      clearTimeout(timerRef.current)
     }
   }, [])
 

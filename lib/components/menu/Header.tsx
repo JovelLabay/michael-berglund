@@ -1,43 +1,54 @@
+import classNames from "classnames"
 import { Squeeze as Hamburger } from "hamburger-react"
-import { useContext, useEffect, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 
-import { NewsLetter } from "@components/footer/Newsletter"
 import { AppLink } from "@components/shared/AppLink"
 import { MainLogo } from "@logos/MainLogo"
-import classNames from "classnames"
 
 export interface HeaderProps {
   isMenuOpen: boolean
   isHomePage?: boolean
   toggleMenu: () => void
-  lastScrollY: number
 }
 
-export const Header = ({ isMenuOpen, isHomePage, toggleMenu, lastScrollY }: HeaderProps) => {
-  const [showPopUp, setShowPopUp] = useState(false)
-  const [isCourse, setIsCourse] = useState(false)
+export const Header = ({ isMenuOpen, isHomePage, toggleMenu }: HeaderProps) => {
+  const [addBg, setAddBg] = useState(false)
+  const [hidden, setHidden] = useState(false)
+  const scrollPosition = useRef(0)
+  const headerRef = useRef<HTMLElement>(null)
 
-  useEffect(() => {
-    if (localStorage.getItem("newsLetterPopUp") === null) {
-      setTimeout(() => {
-        setShowPopUp(true)
-      }, 1000)
+  // window scroll handler
+  const scrollHandler = useCallback(() => {
+    const { top } = document.body.getBoundingClientRect()
+
+    // hide navbar
+    if (top < 0 && top < scrollPosition.current) {
+      setHidden(true)
+
+      // show navbar
+    } else if (top === 0 || top > scrollPosition.current) {
+      setAddBg(top < 0)
+      setHidden(false)
     }
 
-    if (window.location.pathname.includes("course")) {
-      setIsCourse(true)
-    }
+    // update scroll offset
+    scrollPosition.current = top
   }, [])
 
-  const props = { showPopUp, setShowPopUp }
+  // react to user scroll events
+  useEffect(() => {
+    window.addEventListener("scroll", scrollHandler)
+    return () => window.removeEventListener("scroll", scrollHandler)
+  }, [scrollHandler])
 
   return (
-    <div
-      className={
-        lastScrollY >= 200
-          ? "section-padding absolute top-0 z-[100] flex w-full items-center justify-between bg-dark-green py-4 text-white lg:py-6"
-          : "section-padding absolute top-0 z-[100] flex w-full items-center justify-between py-4 text-white lg:py-6"
-      }
+    <header
+      ref={headerRef}
+      className={classNames(
+        "section-padding fixed z-[100] flex w-screen items-center justify-between py-4 text-white transition-all duration-500 lg:py-6",
+        { "bg-dark-green": addBg }
+      )}
+      style={{ top: hidden ? `-${headerRef.current?.clientHeight}px` : 0 }}
     >
       <Hamburger toggled={isMenuOpen} toggle={toggleMenu} />
       {isMenuOpen && isHomePage && (
@@ -53,13 +64,6 @@ export const Header = ({ isMenuOpen, isHomePage, toggleMenu, lastScrollY }: Head
       <AppLink href="/contact-us" className="link-m hover-text-white font-normal">
         Contact
       </AppLink>
-
-      {/* SHOW POP UP */}
-      {showPopUp && (
-        <div className="fixed top-0 left-0 flex h-screen w-screen items-center justify-center bg-[#00000080]">
-          <NewsLetter {...props} />
-        </div>
-      )}
-    </div>
+    </header>
   )
 }

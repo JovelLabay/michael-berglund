@@ -262,6 +262,11 @@ export const GET_MEDARBETARE_DATA_BY_ID = gql`
         linkedin
         bio
         category
+        profileLink {
+          target
+          title
+          url
+        }
       }
     }
   }
@@ -337,6 +342,7 @@ export const GET_SINGLE_ARTICLE = gql`
         }
         linkTitle
         mediaFile
+        category
       }
       blocks {
         ...WPBlocks

@@ -23,6 +23,11 @@ export interface ProfileItemProps {
   linkedin: string
   bio: string
   coverPhoto?: any
+  profileLink: {
+    target: string
+    title: string
+    url: string
+  }
 }
 
 export const ProfileCard = ({
@@ -34,6 +39,7 @@ export const ProfileCard = ({
   bio,
   coverPhoto,
   linkedin,
+  profileLink,
 }: ProfileItemProps) => {
   const [isActive, setIsActive] = useState(false)
   const handleClick = () => {
@@ -61,10 +67,12 @@ export const ProfileCard = ({
                     objectFit="cover"
                     objectPosition="center"
                   />
-                  <div className="absolute left-0 bottom-4 bg-dark-blue ">
-                    <p className="py-1 px-2 font-[350] uppercase tracking-wider text-white">
-                      Tjänstledig
-                    </p>
+                  <div className="absolute left-0 bottom-4 bg-dark-blue">
+                    <a target="_blank" rel="noopener noreferrer" href={profileLink.url}>
+                      <p className="py-1 px-2 font-[350] uppercase tracking-wider text-white">
+                        Tjänstledig
+                      </p>
+                    </a>
                   </div>
                 </div>
               )}
@@ -78,15 +86,15 @@ export const ProfileCard = ({
                   <a href={`tel:${phone}`}>
                     <span className="mr-2 block w-full pt-1 font-[325]">{phone}</span>
                   </a>
-                  {" · "}
+
                   {linkedin && (
                     <a
-                      className="ml-2 mt-[5px]"
+                      className="ml-2 mt-[5px] flex flex-row items-center"
                       href={linkedin}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      <LinkedinBlueIcon />
+                      {" · "} <LinkedinBlueIcon className="ml-3" />
                     </a>
                   )}
                 </div>
