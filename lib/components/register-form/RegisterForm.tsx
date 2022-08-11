@@ -1,8 +1,9 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import classNames from "classnames"
 import { SubmitHandler, useForm } from "react-hook-form"
-import { z } from "zod"
+import { any, z } from "zod"
 
+import { FormURLParse, makeid } from "@/lib/utils/http-invenias"
 import { ArrowRight } from "@icons/ArrowRight"
 import { WarningIcon } from "@icons/WarningIcon"
 import { IDropDown } from "@models/common"
@@ -21,17 +22,16 @@ const schema = z.object({
   newsletter: z.boolean(),
   privacyPolicy: z.literal(true),
   linkedIn: z.string().optional(),
-  angeRoll: z.string().optional(),
-  storlekPåLedarskap: z.string().optional(),
-  internationellErfarenhet: z.string().optional(),
   budgetResponsibility: z.string().optional(),
   language: z.string().optional(),
   compensation: z.string().optional(),
   industry: z.string().optional(),
   availability: z.string().optional(),
+  arrayOptions: z.string().array().optional(),
 })
 
 interface RegisterFormProps {
+  type: any
   infoDropdown: IDropDown[]
   activeStep: number
   nextStep: () => void
@@ -40,6 +40,7 @@ interface RegisterFormProps {
 }
 
 export const RegisterForm = ({
+  type,
   infoDropdown,
   activeStep,
   nextStep,
@@ -55,24 +56,21 @@ export const RegisterForm = ({
     setValue,
     formState: { errors },
   } = useForm<z.output<typeof schema>>({ mode: "onBlur", resolver: zodResolver(schema) })
-
-  // TODO: Connect to external api.
   const onSubmit: SubmitHandler<z.output<typeof schema>> = async data => {
-    console.log(data)
-
     const formData = new FormData()
+    formData.append("file", data["cvFile"][0])
+    formData.append("type", type)
     Object.entries(data).forEach(([key, value]) => {
-      formData.append(key, value)
+      if (key != "cvFile") {
+        formData.append(key, value)
+      }
     })
 
     try {
-      const response = await fetch("/api/register-cv", {
+      const response = await fetch(`/api/register-cv`, {
         method: "POST",
-        cache: "no-cache",
-        headers: { "Content-type": "multipart/form-data" },
         body: formData,
       })
-
       if (response.ok) {
         reset()
         nextStep()

@@ -1,45 +1,14 @@
 import {
-  AccordionListsData,
-  AssignmentsData,
-  BaseBlock,
-  ContactData,
-  ContactFeedListblock,
-  CourseCardsData,
-  DataPointsData,
-  DescWithImageData,
-  HeroData,
-  ImageGalleryData,
-  InfoIconData,
-  isAccordionListBlock,
-  isBigPageLinks,
-  isContactData,
-  isContactFeedBlock,
-  isCourseCardData,
-  isDescWithImageData,
-  isHeroData,
-  isImageGalleryBlock,
-  isInfoIconBlock,
-  isLogowallData,
-  isRegisterCvData,
-  isRelatedArticlesData,
-  isRightLeftImageBlock,
-  isStatsData,
-  isTabsData,
-  JobPositionData,
-  JobPositionsData,
-  LogowallData,
-  PostData,
-  PressFeedData,
-  RegisterCvData,
-  RelatedArticleData,
-  ReviewSliderData,
-  RightLeftImageData,
-  ShortDescData,
-  StatsData,
-  TableDescData,
-  TabsData,
+    AccordionListsData, AssignmentsData, BaseBlock, ContactData, ContactFeedListblock,
+    CourseCardsData, DataPointsData, DescWithImageData, HeroData, ImageGalleryData, InfoIconData,
+    isAccordionListBlock, isBigPageLinks, isContactData, isContactFeedBlock, isCourseCardData,
+    isDescWithImageData, isHeroData, isImageGalleryBlock, isInfoIconBlock, isLogowallData,
+    isRegisterCvData, isRelatedArticlesData, isRightLeftImageBlock, isStatsData, isTabsData,
+    JobPositionData, JobPositionsData, LogowallData, PostData, PressFeedData, RegisterCvData,
+    RelatedArticleData, ReviewSliderData, RightLeftImageData, ShortDescData, StatsData,
+    TableDescData, TabsData
 } from "@models/blocks"
-import { IDropDown } from "@models/common"
+import { IDropDown, MultiValueDropDown } from "@models/common"
 
 import { getJobPositions } from "./PageHellper"
 
@@ -543,8 +512,6 @@ const parseAccordionListsBlock = (data: any): AccordionListsData => {
 
 const tableDescPattern = /^table_(\d+)_services$/
 const parseTableDescBlock = (data: any): TableDescData => {
-  console.log(data)
-
   const indexes = Object.keys(data)
     .filter(key => tableDescPattern.test(key))
     .map(key => key.match(tableDescPattern)![1])
@@ -593,18 +560,21 @@ const toCamelCase = (text: string): string => {
 
 const parseRegisterCVBlock = (data: any): RegisterCvData => {
   const dropDownLength = data.professional_info_info_dropdown
-
   let infoDropdown: IDropDown[] = []
-
   for (let i = 0; i < dropDownLength; i++) {
     let values = []
+    let multiValueDropDown: MultiValueDropDown[] = []
     let title = data[`professional_info_info_dropdown_${i}_title`]
     let fieldName = toCamelCase(title)
-
+    let customFieldName = "custom_field_" + toCamelCase(title)
     for (let j = 0; j < data[`professional_info_info_dropdown_${i}_values`]; j++) {
       values.push(data[`professional_info_info_dropdown_${i}_values_${j}_value`])
+      multiValueDropDown.push({
+        label: data[`professional_info_info_dropdown_${i}_values_${j}_value`],
+        value: data[`professional_info_info_dropdown_${i}_values_${j}_category_id`],
+      })
     }
-    infoDropdown.push({ title, fieldName, values })
+    infoDropdown.push({ title, fieldName, values, multiValueDropDown, customFieldName })
   }
 
   const linkTitle = data.download_link_title ? data.download_link_title : null
@@ -613,6 +583,7 @@ const parseRegisterCVBlock = (data: any): RegisterCvData => {
   return {
     heading: data.heading,
     description: data.description,
+    type: data.type,
     downloadLinkTitle: linkTitle,
     downloadFile: linkFile,
     professionalInfo: { infoDropdown },
