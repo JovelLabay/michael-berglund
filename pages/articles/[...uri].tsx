@@ -97,23 +97,25 @@ export default function SingleArticle({
           </div>
           {responsiveLG && (
             <div className="w-1/2">
-              <div className="aspect-w-16 aspect-h-9 relative h-[300px] w-full">
-                <Image
-                  src={coverImage.mediaItemUrl}
-                  alt={coverImage.altText}
-                  layout="fill"
-                  objectFit="cover"
-                />
-              </div>
-              <div className="flex w-full items-center bg-dark-green">
-                <a
-                  href={mediaFile}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center py-5 px-8 text-link-m text-white"
-                >
-                  {linkTitle} <PlayIcon className="ml-[10px]" />
-                </a>
+              <div className="sticky top-[100px]">
+                <div className="aspect-w-16 aspect-h-9 relative h-[300px] w-full">
+                  <Image
+                    src={coverImage.mediaItemUrl}
+                    alt={coverImage.altText}
+                    layout="fill"
+                    objectFit="cover"
+                  />
+                </div>
+                <div className="flex w-full items-center bg-dark-green">
+                  <a
+                    href={mediaFile}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center py-5 px-8 text-link-m text-white"
+                  >
+                    {linkTitle} <PlayIcon className="ml-[10px]" />
+                  </a>
+                </div>
               </div>
             </div>
           )}
