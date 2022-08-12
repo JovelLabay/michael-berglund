@@ -17,8 +17,6 @@ export const getServerSideProps: GetServerSideProps = async context => {
 
   const pageUri = Array.isArray(uri) ? uri.join("/") : uri
 
-  //   console.log({ pageUri })
-
   const [{ data: globalFields }, { data: jobData }] = await Promise.all([
     client.query<GQLGlobalFields>(GET_GLOBAL_FIELDS).toPromise(),
     client.query<SingleJob>(GET_SINGLE_JOB, { id: pageUri }).toPromise(),
@@ -42,7 +40,7 @@ interface SingleJobProps {
 const SingleJob = ({ globalFields, blocks }: SingleJobProps) => {
   return (
     <Layout {...globalFields}>
-      <div className="h-[88px]"></div>
+      <div className="h-[96px] bg-dark-green"></div>
       {blocks ? blocks.map(block => <Block key={block.name} block={block} />) : null}
     </Layout>
   )
