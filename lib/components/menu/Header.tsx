@@ -24,9 +24,9 @@ export const Header = ({ isMenuOpen, isHomePage, toggleMenu }: HeaderProps) => {
     // hide navbar
     if (top < 0 && top < scrollPosition.current) {
       setHidden(true)
-    }
-    // show navbar
-    else if (top === 0 || top > scrollPosition.current) {
+
+      // show navbar
+    } else if (top === 0 || top > scrollPosition.current) {
       setAddBg(top < 0)
       setHidden(false)
     }

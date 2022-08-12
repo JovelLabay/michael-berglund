@@ -30,7 +30,7 @@ export const MenuItem = ({ text, link, image, description }: MenuItemProps) => {
       >
         <AppLink
           href={link}
-          className="text-[28px] transition-colors duration-500 ease-in-out hover:text-light-green md:text-[48px] leading-[32px]"
+          className="text-[28px] leading-[32px] transition-colors duration-500 ease-in-out hover:text-light-green md:text-[48px]"
         >
           {text}
           <p className="mb-[22px] mt-[2px] block font-gotham text-[14px] leading-6 text-light-green md:hidden">
@@ -44,7 +44,7 @@ export const MenuItem = ({ text, link, image, description }: MenuItemProps) => {
           { "opacity-100": isShowImage }
         )}
       >
-        <div className="relative mt-16 hidden aspect-[656/512] w-full md:block pt-[60px]">
+        <div className="relative mt-16 hidden aspect-[656/512] w-full pt-[60px] md:block">
           <Image src={image.mediaItemUrl} alt={image.altText} objectFit="cover" layout="fill" />
         </div>
         <p className=" mt-6 hidden font-gotham text-[20px] leading-7 text-light-green md:block">
