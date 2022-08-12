@@ -282,3 +282,10 @@
     @apply app-hover hover:opacity-50;
   }
 }
+
+.course-content>h2{
+	@apply font-[400]
+}
+.course-content>ul{
+	@apply font-gotham
+}

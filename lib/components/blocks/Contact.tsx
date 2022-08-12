@@ -5,7 +5,7 @@ import { ContactItem } from "@components/contact-item"
 import { ContactData } from "@models/blocks"
 import { MedarbetarePost } from "@models/common"
 
-export const Contact = ({ title, medarbetareIds }: ContactData) => {
+export const Contact = ({ title, medarbetareIds, description }: ContactData) => {
   const { postMap } = useGlobalContext()
 
   return (
@@ -13,7 +13,7 @@ export const Contact = ({ title, medarbetareIds }: ContactData) => {
       <h3 className="app-h3 text-center lg:text-left">{title}</h3>
       <div className="mt-10 grid grid-cols-1 gap-y-8 gap-x-10 lg:mt-[60px] lg:grid-cols-2 lg:gap-y-12">
         {medarbetareIds &&
-          medarbetareIds.map(postId => {
+          medarbetareIds.map((postId, index) => {
             const {
               id,
               title,
@@ -29,6 +29,8 @@ export const Contact = ({ title, medarbetareIds }: ContactData) => {
                 position={position}
                 email={email}
                 phone={phone}
+                index={index}
+                description={description}
               />
             )
           })}

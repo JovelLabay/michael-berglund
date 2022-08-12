@@ -165,6 +165,15 @@ export interface AcfCourse {
   durationUnit: string
   language: string
   category: string
+  inveniasProgrammeId: string | null
+  dates: {
+    enddate: Date
+    startdate: Date
+  }[]
+  place: string
+  delegates: {
+    delegate: number
+  }[]
 }
 
 export interface AcfMedarbetare {
@@ -231,5 +240,18 @@ export interface SingleJob {
     blocks: {
       attributesJSON: string
     }[]
+  }
+}
+
+export interface Course {
+  node: {
+    courseId: number
+    databaseId: number
+    id: string
+    title: string
+    uri: string
+    excerpt: string
+    acfCourse: AcfCourse
+    content: string
   }
 }

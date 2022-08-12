@@ -384,3 +384,39 @@ export const GET_SINGLE_JOB = gql`
     }
   }
 `
+
+export const GET_ALL_COURSES = gql`
+  query GetSingleTailoredCourse {
+    courses {
+      edges {
+        node {
+          courseId
+          databaseId
+          id
+          title
+          uri
+          excerpt
+          acfCourse {
+            category
+            duration
+            durationUnit
+            fieldGroupName
+            isCourseFull
+            language
+            startDate
+            inveniasProgrammeId
+            dates {
+              enddate
+              startdate
+            }
+            place
+            delegates {
+              deletegate
+            }
+          }
+          content
+        }
+      }
+    }
+  }
+`
