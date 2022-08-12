@@ -367,7 +367,19 @@ export const GET_ALL_JOB_POSITIONS = gql`
             }
             jobCategory
           }
+          uri
         }
+      }
+    }
+  }
+`
+
+export const GET_SINGLE_JOB = gql`
+  ${WP_BLOCKS}
+  query GetSingleJob($id: ID!) {
+    jobPosition(id: $id, idType: SLUG) {
+      blocks {
+        ...WPBlocks
       }
     }
   }

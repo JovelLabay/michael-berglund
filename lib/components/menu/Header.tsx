@@ -1,5 +1,6 @@
 import classNames from "classnames"
 import { Squeeze as Hamburger } from "hamburger-react"
+import { useRouter } from "next/router"
 import { useCallback, useEffect, useRef, useState } from "react"
 
 import { AppLink } from "@components/shared/AppLink"
@@ -16,6 +17,9 @@ export const Header = ({ isMenuOpen, isHomePage, toggleMenu }: HeaderProps) => {
   const [hidden, setHidden] = useState(false)
   const scrollPosition = useRef(0)
   const headerRef = useRef<HTMLElement>(null)
+
+  const router = useRouter()
+  const pageLocation = router.asPath.slice(0, 5)
 
   // window scroll handler
   const scrollHandler = useCallback(() => {
@@ -46,7 +50,8 @@ export const Header = ({ isMenuOpen, isHomePage, toggleMenu }: HeaderProps) => {
       ref={headerRef}
       className={classNames(
         "section-padding fixed z-[100] flex w-screen items-center justify-between py-4 text-white transition-all duration-500 lg:py-6",
-        { "bg-dark-green": addBg }
+        { "bg-dark-green": pageLocation !== "/jobs" && addBg },
+        { "bg-white text-dark-green": pageLocation === "/jobs" }
       )}
       style={{ top: hidden ? `-${headerRef.current?.clientHeight}px` : 0 }}
     >
@@ -58,7 +63,10 @@ export const Header = ({ isMenuOpen, isHomePage, toggleMenu }: HeaderProps) => {
       )}
       {(!isMenuOpen || !isHomePage) && (
         <AppLink href="/">
-          <MainLogo className="w-[78px] md:w-auto" />
+          <MainLogo
+            className="w-[78px] md:w-auto"
+            fill={pageLocation === "/jobs" ? "#3E5C58" : "white"}
+          />
         </AppLink>
       )}
       <AppLink href="/contact-us" className="link-m hover-text-white font-normal">

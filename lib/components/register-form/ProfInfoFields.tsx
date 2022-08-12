@@ -13,6 +13,7 @@ import { UploadCV } from "./UploadCV"
 
 interface ProfInfoFieldsProps {
   infoDropdown: IDropDown[]
+  showCoverLetter: "0" | "1"
   register: any
   watch: any
   setValue: any
@@ -22,6 +23,7 @@ interface ProfInfoFieldsProps {
 
 export const ProfInfoFields = ({
   infoDropdown,
+  showCoverLetter,
   register,
   watch,
   setValue,
@@ -120,13 +122,11 @@ export const ProfInfoFields = ({
       {/* Add cv & letter*/}
       <div className="mb-10 flex flex-col">
         <h4 className="pre-title mb-4 uppercase text-light-green">
-          {pageLocation === "/interim-management"
-            ? "Ladda upp CV & Personligt brev"
-            : "Ladda upp ditt CV"}
+          {showCoverLetter === "1" ? "Ladda upp CV & Personligt brev" : "Ladda upp ditt CV"}
         </h4>
         <UploadCV forId="cv" formRegister={register("cvFile")} classname="mb-5" />
 
-        {pageLocation === "/interim-management" && (
+        {showCoverLetter === "1" && (
           <UploadCV forId="letter" formRegister={register("coverLetter")} />
         )}
       </div>

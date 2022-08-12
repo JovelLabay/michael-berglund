@@ -1,8 +1,9 @@
+import React from "react"
+
 import { CardLink } from "@components/cards/CardLink"
 import { ArrowRight } from "@icons/ArrowRight"
 import BagIcon from "@icons/BagIcon"
 import { JobPositionData } from "@models/blocks"
-import React from "react"
 
 export function JobPositionBlock({
   header,
@@ -11,6 +12,10 @@ export function JobPositionBlock({
   JobLinkTitle,
   jobAvailability,
 }: JobPositionData) {
+  const removePrefix = (uri: String) => {
+    return uri.replace(/^(\/job-position)/, "")
+  }
+
   return (
     <div className="bg-white px-5 pt-[60px] md:px-12 md:pt-[100px]">
       <p className="pb-[40px] font-lora text-[36px] font-[400] text-dark-blue md:pb-[60px]">
@@ -26,7 +31,7 @@ export function JobPositionBlock({
             return (
               <CardLink
                 key={job.id}
-                link={job.afcJobPositions.jobLink.url}
+                link={`/jobs${removePrefix(job.uri)}`}
                 card={
                   <div className="flex flex-col bg-light-beige p-5 md:p-8">
                     <BagIcon />
@@ -34,12 +39,11 @@ export function JobPositionBlock({
                     <p className="font-[16px] my-5 font-[325]">
                       {job.afcJobPositions.jobDescrption}
                     </p>
-                    <a href={job.afcJobPositions.jobLink.url}>
-                      <button className="flex flex-row items-center text-dark-green hover:text-dark-blue">
-                        {JobLinkTitle}
-                        <ArrowRight className="ml-3 fill-dark-green" />
-                      </button>
-                    </a>
+
+                    <div className="flex flex-row items-center text-dark-green hover:text-dark-blue">
+                      <span className="font-[350]">{JobLinkTitle}</span>
+                      <ArrowRight className="ml-3 fill-dark-green" />
+                    </div>
                   </div>
                 }
               />
