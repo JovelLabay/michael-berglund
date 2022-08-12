@@ -222,5 +222,14 @@ export interface JobPosition {
       }
       jobCategory: string
     }
+    uri: string
+  }
+}
+
+export interface SingleJob {
+  jobPosition: {
+    blocks: {
+      attributesJSON: string
+    }[]
   }
 }

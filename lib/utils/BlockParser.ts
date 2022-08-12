@@ -586,7 +586,7 @@ const parseRegisterCVBlock = (data: any): RegisterCvData => {
     type: data.type,
     downloadLinkTitle: linkTitle,
     downloadFile: linkFile,
-    professionalInfo: { infoDropdown },
+    professionalInfo: { coverLetter: data.professional_info_cover_letter, infoDropdown },
     name: "acf/register-cv",
   }
 }

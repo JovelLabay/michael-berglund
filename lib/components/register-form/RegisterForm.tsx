@@ -33,6 +33,7 @@ const schema = z.object({
 interface RegisterFormProps {
   type: any
   infoDropdown: IDropDown[]
+  hasCoverLetter: "0" | "1"
   activeStep: number
   nextStep: () => void
   prevStep: () => void
@@ -42,6 +43,7 @@ interface RegisterFormProps {
 export const RegisterForm = ({
   type,
   infoDropdown,
+  hasCoverLetter,
   activeStep,
   nextStep,
   prevStep,
@@ -135,6 +137,7 @@ export const RegisterForm = ({
       {activeStep === 2 && (
         <ProfInfoFields
           infoDropdown={infoDropdown}
+          showCoverLetter={hasCoverLetter}
           register={register}
           pageLocation={pageUrl}
           watch={watch}

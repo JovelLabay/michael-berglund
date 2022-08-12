@@ -13,7 +13,7 @@ export const RegisterCVBlock = ({
   downloadFile,
   downloadLinkTitle,
   professionalInfo,
-  type
+  type,
 }: RegisterCvData) => {
   const { files } = useGlobalContext()
   const [activeStep, setActiveStep] = useState(1)
@@ -27,7 +27,7 @@ export const RegisterCVBlock = ({
     setActiveStep(prev => prev - 1)
   }, [])
 
-  const { infoDropdown } = professionalInfo
+  const { infoDropdown, coverLetter } = professionalInfo
 
   const pageLocation = router.asPath
 
@@ -68,6 +68,7 @@ export const RegisterCVBlock = ({
           <RegisterForm
             type={type}
             infoDropdown={infoDropdown}
+            hasCoverLetter={coverLetter}
             activeStep={activeStep}
             nextStep={handleNextStep}
             prevStep={handlePrevStep}

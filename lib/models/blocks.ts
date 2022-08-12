@@ -178,6 +178,7 @@ export interface RegisterCvData extends BaseBlock {
   downloadFile?: number
   type?: string
   professionalInfo: {
+    coverLetter: "0" | "1"
     infoDropdown: IDropDown[]
   }
 }
@@ -213,6 +214,7 @@ export interface JobPositionsData {
     }
     jobCategory: string
   }
+  uri: string
 }
 
 export interface JobPositionData extends BaseBlock {
