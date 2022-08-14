@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 
 import { Wysiwyg } from "@components/shared/Wysiwyg"
 import { DescWithImageData } from "@models/blocks"
+import classNames from "classnames"
 
 export const DescWithImgBlock = ({
   heading,
@@ -16,10 +17,16 @@ export const DescWithImgBlock = ({
 
   return (
     <div className="bg-white">
-      <section className=" flex w-full flex-col items-center justify-between bg-white py-0 md:py-20 lg:h-auto lg:flex-row">
+      <section
+        // className="flex w-full flex-col items-center justify-between bg-white py-0 lg:h-auto lg:flex-row"
+        className={classNames(
+          "flex w-full flex-col items-center justify-between bg-white py-0 lg:h-auto lg:flex-row",
+          { "md:py-20": !descriptionOnly }
+        )}
+      >
         <div className="mb-[60px] w-full pt-[60px] pl-5 pr-5 md:mb-[120px] lg:mb-5 lg:w-1/2 lg:pt-5 lg:pl-12 lg:pr-[100px] xl:pr-[147px]">
           <h3 className="app-h3 mb-8 text-dark-blue lg:mb-[60px]">{heading}</h3>
-          {descriptionOnly && <Wysiwyg content={description} />}
+          {descriptionOnly && <Wysiwyg content={description} className="description-header" />}
           {dataList.map(data => {
             return (
               <span key={data.dataKey}>
@@ -33,13 +40,13 @@ export const DescWithImgBlock = ({
             )
           })}
         </div>
-          <div className="relative mb-[60px] aspect-square w-[90%] md:mb-0 md:mr-12 md:w-1/2">
-            <Image
-              src={images![imageId].src}
-              alt={images![imageId].alt}
-              layout="fill"
-              objectFit="cover"
-            />
+        <div className="relative mb-[60px] aspect-square w-[90%] md:mb-0 md:mr-12 md:w-1/2">
+          <Image
+            src={images![imageId].src}
+            alt={images![imageId].alt}
+            layout="fill"
+            objectFit="cover"
+          />
         </div>
       </section>
       <div className="mx-5  border-b border-normal-beige" />

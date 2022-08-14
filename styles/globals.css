@@ -289,3 +289,7 @@
 .course-content>ul{
 	@apply font-gotham
 }
+
+.description-header > h4 {
+	@apply text-dark-blue;
+}

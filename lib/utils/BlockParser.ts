@@ -260,7 +260,7 @@ const parseDescWithImageBlock = (data: any): DescWithImageData => {
     backgroundColor: data.background_color,
     dataList,
     name: "acf/desc-image",
-    descriptionOnly: !!data.description_only,
+    descriptionOnly: data.description_only === "1" ? true : false,
   }
 }
 
