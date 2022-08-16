@@ -18,7 +18,6 @@ export const DescWithImgBlock = ({
   return (
     <div className="bg-white">
       <section
-        // className="flex w-full flex-col items-center justify-between bg-white py-0 lg:h-auto lg:flex-row"
         className={classNames(
           "flex w-full flex-col items-center justify-between bg-white py-0 lg:h-auto lg:flex-row",
           { "md:py-20": !descriptionOnly }
@@ -49,7 +48,7 @@ export const DescWithImgBlock = ({
           />
         </div>
       </section>
-      <div className="mx-5  border-b border-normal-beige" />
+      {!descriptionOnly && <div className="mx-5 border-b border-normal-beige md:mx-12" />}
     </div>
   )
 }
